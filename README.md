@@ -1,3 +1,108 @@
+# BegiBrainTool: An Innovative Toolbox for Visual Assessment in Neurodegenerative Diseases
+
+📌 Early detection of Alzheimer’s and Parkinson’s could start with vision.
+
+## 🧠 What is BegiBrainTool?
+
+BegiBrainTool is an innovative battery of visual tests designed to assess spatial and dynamic vision processing, as well as autonomous visual responses in patients with neurodegenerative diseases. Its goal is to provide a standardized and adaptable tool for both research and clinical practice, facilitating early detection and monitoring of conditions such as Alzheimer’s and Parkinson’s.
+
+### 🎯 Key Features:
+✔ **Modular and customizable**  
+✔ **Implemented in PsychoPy**  
+✔ **Compatible with eye-tracking and biometric sensors**  
+✔ **Designed for clinical evaluation and research**  
+
+> 🏥 *A solution for a growing need in neurology: vision assessment as an early biomarker for neurodegenerative diseases.*
+
+---
+
+## 🔬 How does it work?
+
+BegiBrainTool consists of three interactive modules, each designed to assess different aspects of visual perception:
+
+### 👁 1. Spatial Vision Module
+
+🟢 Evaluates basic and semantic visual processing through stimuli that vary in:  
+✅ **Spatial frequency**  
+✅ **Contrast and brightness**  
+✅ **Color perception**  
+
+🎥 *(GIF example: contrast and color perception test)*
+
+### 🎯 2. Dynamic Vision and Eye-Tracking Module
+
+🟢 Analyzes visual attention and tracking ability through moving stimuli tasks, including:  
+✅ **Visual search**  
+✅ **Background noise tasks**  
+✅ **Flicker Fusion Threshold tests**  
+✅ **Eye-tracking integration for precise measurement of visual behavior**  
+
+🎥 *(GIF example: tracking test with a noise-camouflaged target)*
+
+### 💓 3. Autonomous Response Module
+
+🟢 Measures unconscious reactions to basic and emotional visual stimuli (e.g., fear-related images) through:  
+✅ **Pupillary response analysis**  
+✅ **Heart rate variability (HRV)**  
+✅ **Galvanic skin response (GSR)**  
+
+🎥 *(GIF example: pupillary response test to emotional stimuli)*
+
+---
+
+## 🚀 Why BegiBrainTool?
+
+📢 **A growing problem:** The aging population in Spain has led to an increase in neurodegenerative diseases. Neurologists need fast, non-invasive, and personalized tools to tackle this challenge.  
+
+🔍 **A gap in clinical neuroscience:** Currently, there is no comprehensive toolbox that evaluates vision in relation to early detection of Alzheimer’s and Parkinson’s.  
+
+🖥 **A modular and open-source solution:** BegiBrainTool is a flexible platform, tailored for both clinical and research applications, integrating cutting-edge technology for visual assessment and computational neuroscience.  
+
+---
+
+## 📊 Project Status
+
+🔬 BegiBrainTool is under active development. We are currently working on validating the toolbox components and establishing solid data collection protocols.
+
+### 🛠 Next Steps:
+✅ **Optimization of modules and integration with databases.**  
+✅ **Clinical validation with patients of different neurodegenerative profiles.**  
+✅ **Release as an open-source tool for the scientific community.**  
+
+📢 **You can contribute!** If you are a researcher, clinician, or developer, join our community and help us improve BegiBrainTool.  
+
+---
+
+## 📥 Download and Installation
+
+> 🔹 **Requirements:** PsychoPy 2024+, Python 3.8+  
+🔹 **Compatible devices:** GazePoint GP3 HD eye-tracking system and compatible biometric sensors.  
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/user/BegiBrainTool.git
+cd BegiBrainTool
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3️⃣ Run the toolbox
+
+```bash
+python begibraintool_main.py
+```
+
+---
+
+## 📩 Contact and Contributions
+
+unai.sainz.bc@gmail.com
+
 # BegiBrainTool: Un toolbox innovador para la evaluación visual en enfermedades neurodegenerativas
 
 📌 La detección temprana del Alzheimer y Parkinson podría empezar por la vista.
