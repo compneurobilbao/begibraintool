@@ -20,6 +20,9 @@ BegiBrainTool is an innovative battery of visual tests designed to assess spatia
 
 BegiBrainTool consists of three interactive modules, each designed to assess different aspects of visual perception:
 
+![Modules diagram](https://drive.google.com/uc?export=view&id=1VCpIMSZqYYqGqmp2fy_Fq6NnNz6HDQoV)
+
+
 ### 👁 1. Spatial Vision Module
 
 🟢 Evaluates basic and semantic visual processing through stimuli that vary in:  
@@ -27,7 +30,7 @@ BegiBrainTool consists of three interactive modules, each designed to assess dif
 ✅ **Contrast and brightness**  
 ✅ **Color perception**  
 
-🎥 *(GIF example: contrast and color perception test)*
+<!--- 🎥 *(GIF example: contrast and color perception test)* -->
 
 ### 🎯 2. Dynamic Vision and Eye-Tracking Module
 
@@ -37,7 +40,7 @@ BegiBrainTool consists of three interactive modules, each designed to assess dif
 ✅ **Flicker Fusion Threshold tests**  
 ✅ **Eye-tracking integration for precise measurement of visual behavior**  
 
-🎥 *(GIF example: tracking test with a noise-camouflaged target)*
+<!---🎥 *(GIF example: tracking test with a noise-camouflaged target)* -->
 
 ### 💓 3. Autonomous Response Module
 
@@ -46,7 +49,7 @@ BegiBrainTool consists of three interactive modules, each designed to assess dif
 ✅ **Heart rate variability (HRV)**  
 ✅ **Galvanic skin response (GSR)**  
 
-🎥 *(GIF example: pupillary response test to emotional stimuli)*
+<!---🎥 *(GIF example: pupillary response test to emotional stimuli)* -->
 
 ---
 
@@ -97,12 +100,12 @@ pip install -r requirements.txt
 python begibraintool_main.py
 ```
 
----
-
 ## 📩 Contact and Contributions
 
 unai.sainz.bc@gmail.com
 
+
+<!---
 # BegiBrainTool: Un toolbox innovador para la evaluación visual en enfermedades neurodegenerativas
 
 📌 La detección temprana del Alzheimer y Parkinson podría empezar por la vista.
@@ -207,3 +210,4 @@ python begibraintool_main.py
 ## 📩 Contacto y contribuciones
 
 unai.sainz.bc@gmail.com
+-->
