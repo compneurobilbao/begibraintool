@@ -40,6 +40,9 @@ BegiBrainTool consists of three interactive modules, each designed to assess dif
 ✅ **Flicker Fusion Threshold tests**  
 ✅ **Eye-tracking integration for precise measurement of visual behavior**  
 
+🎥 [Ver video](https://drive.google.com/file/d/135xDY6b7f480qEJCvrBDCASXKUBnwraL/view)
+
+
 <!---🎥 *(GIF example: tracking test with a noise-camouflaged target)* -->
 
 ### 💓 3. Autonomous Response Module
