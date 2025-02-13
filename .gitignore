@@ -1,12 +1,17 @@
 # Archivos generados por PsychoPy que usualmente no se quieren en el repositorio
 *.log
-#*.xlsx
+*.xlsx
+*.csv
+*.json
 lastRun.py
 userPrefs.cfg
 appData.cfg
 
 # Directorio de datos (puede contener datos de participantes u otra información sensible)
 data/
+gazepoint_data/
+images/
+semantic_stims/
 
 # Archivos y directorios comunes de Python que generalmente se excluyen
 __pycache__/
