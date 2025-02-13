@@ -1,0 +1,27 @@
+# Archivos generados por PsychoPy que usualmente no se quieren en el repositorio
+*.log
+#*.xlsx
+lastRun.py
+userPrefs.cfg
+appData.cfg
+
+# Directorio de datos (puede contener datos de participantes u otra información sensible)
+data/
+
+# Archivos y directorios comunes de Python que generalmente se excluyen
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de ambiente virtual
+venv/
+.env
+
+# Archivos de sistema operativo
+Thumbs.db  # Para Windows
+
+# Directorios y archivos de desarrollo de IDE comunes
+.vscode/
+.idea/
+*.swp
+*.swo
