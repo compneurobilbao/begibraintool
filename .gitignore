@@ -1,8 +1,8 @@
 # Archivos generados por PsychoPy que usualmente no se quieren en el repositorio
 *.log
-*.xlsx
-*.csv
-*.json
+#*.xlsx
+#*.csv
+#*.json
 lastRun.py
 userPrefs.cfg
 appData.cfg
