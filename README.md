@@ -7,12 +7,34 @@
 BegiBrainTool is an innovative battery of visual tests designed to assess spatial and dynamic vision processing, as well as autonomous visual responses in patients with neurodegenerative diseases. Its goal is to provide a standardized and adaptable tool for both research and clinical practice, facilitating early detection and monitoring of conditions such as Alzheimer’s and Parkinson’s.
 
 ### 🎯 Key Features:
-✔ **Modular and customizable**  
-✔ **Implemented in PsychoPy**  
-✔ **Compatible with eye-tracking and biometric sensors**  
-✔ **Designed for clinical evaluation and research**  
+✔ **Modular and customizable test battery**  
+✔ **PsychoPy-based, open-source platform**  
+✔ **Compatible with eye-tracking and biometric sensors (e.g., GazePoint GP3 HD)**  
+✔ **Designed for both research and clinical use**  
+✔ **JSON/XLSX parameter configuration**  
+- **Automated preprocessing & feature extraction pipelines (in development)**  
 
 > 🏥 *A solution for a growing need in neurology: vision assessment as an early biomarker for neurodegenerative diseases.*
+
+---
+
+## 🧰 System Architecture
+
+**Hardware setup tested in lab conditions:**
+
+- 🖥️ Control computer with PsychoPy  
+- 👁️ Eye-tracker (GazePoint GP3 HD)  
+- 💓 Biometric sensors (PPG, GSR)  
+- 🎮 Response pad  
+- 🧠 Head-mounted display (optional)  
+- 🔄 Centralized data acquisition  
+
+**Software overview:**
+
+- User-friendly GUI for clinicians and researchers  
+- Synchronized acquisition of gaze, pupil, HRV, GSR, and RT  
+- Modular execution: run only the tests you need  
+- Optimized for scalability and multicenter/longitudinal studies  
 
 ---
 
@@ -30,7 +52,6 @@ BegiBrainTool consists of three interactive modules, each designed to assess dif
 ✅ **Contrast and brightness**  
 ✅ **Color perception**  
 
-<!--- 🎥 *(GIF example: contrast and color perception test)* -->
 
 ### 🎯 2. Dynamic Vision and Eye-Tracking Module
 
@@ -40,10 +61,7 @@ BegiBrainTool consists of three interactive modules, each designed to assess dif
 ✅ **Flicker Fusion Threshold tests**  
 ✅ **Eye-tracking integration for precise measurement of visual behavior**  
 
-🎥 [Ver video](https://drive.google.com/file/d/135xDY6b7f480qEJCvrBDCASXKUBnwraL/view)
-
-
-<!---🎥 *(GIF example: tracking test with a noise-camouflaged target)* -->
+🎥 [Example Video](https://drive.google.com/file/d/135xDY6b7f480qEJCvrBDCASXKUBnwraL/view)
 
 ### 💓 3. Autonomous Response Module
 
@@ -51,8 +69,6 @@ BegiBrainTool consists of three interactive modules, each designed to assess dif
 ✅ **Pupillary response analysis**  
 ✅ **Heart rate variability (HRV)**  
 ✅ **Galvanic skin response (GSR)**  
-
-<!---🎥 *(GIF example: pupillary response test to emotional stimuli)* -->
 
 ---
 
