@@ -99,7 +99,7 @@ Each visual parameter (spatial frequency, contrast, saturation) is first calibra
 ## 📥 Download and Installation
 
 > 🔹 **Requirements:** PsychoPy 2024+, Python 3.8+  
-🔹 **Compatible devices:** GazePoint GP3 HD eye-tracking system and compatible biometric sensors.  
+🔹 **Compatible devices:** GazePoint GP3 HD eye-tracking system and compatible biometric sensors. Other eye-trackers may be used.  
 
 ### 1️⃣ Clone the repository
 
@@ -110,9 +110,18 @@ cd BegiBrainTool
 
 ### 2️⃣ Install dependencies
 
+
 ```bash
-pip install -r requirements.txt
+C:\Program Files\PsychoPy> python.exe -m pip install requirements.txt
 ```
+
+OR:
+
+Open PsychoPy's PIP terminal: Tools --> 'Plugion/Packages manager' --> 'Packages' --> 'Open PIP terminal':
+```bash
+pip install requirements.txt
+```
+If PsychoPy crashes when trying to open the Package manager make sure to run PsychoPy with admin rigths.
 
 ### 3️⃣ Run the toolbox
 
