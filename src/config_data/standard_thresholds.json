@@ -1,6 +1,6 @@
 {
     "spatial_frequency_threshold": 50,
-    "contrast_threshold": 0.1,
+    "contrast_threshold": 0.01,
     "color_threshold": {
         "green": 35.0,
         "red": 10.0

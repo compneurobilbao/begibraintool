@@ -121,7 +121,8 @@ Open PsychoPy's PIP terminal: Tools --> 'Plugion/Packages manager' --> 'Packages
 ```bash
 pip install requirements.txt
 ```
-If PsychoPy crashes when trying to open the Package manager make sure to run PsychoPy with admin rigths.
+This terminal may crash during installation. Please, be patient.
+If PsychoPy crashes while trying to open the Package manager make sure to run PsychoPy with admin rigths.
 
 ### 3️⃣ Run the toolbox
 
