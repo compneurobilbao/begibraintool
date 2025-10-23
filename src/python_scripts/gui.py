@@ -10,10 +10,11 @@ El código debe ser en ingles (nombres de variables)
 
 
 import tkinter as tk
-from tkinter import ttk, filedialog, messagebox
+from tkinter import ttk, filedialog, messagebox, colorchooser
 from PIL import Image, ImageTk, ImageSequence
 import json
 from python_scripts import gui_config_manager
+import matplotlib.colors as mcolors
 
 ##############################################################
 ##############################################################
@@ -59,6 +60,12 @@ GIF_CACHE = {}  # Cache por ruta
 def scaled_font(base_size, weight="normal", family="Arial"):
         return (family, int(base_size * FONT_SCALE), weight)
 
+def _normalize_color(color_str):
+    try:
+        return mcolors.to_hex(color_str)
+    except ValueError:
+        return "#000000"
+    
 class TopBanner:
     """
     Banner con 3 zonas:
@@ -504,7 +511,7 @@ class ModuleSelectionPanel:
         )
         self.title_label.pack(fill="x")
 
-        # === NUEVO: Checkbox de selección global ===
+        # Checkbox de selección global ===
         self.select_all_var = tk.BooleanVar(value=self._all_tests_selected())
         select_all_cb = ttk.Checkbutton(
             self.parent,
@@ -618,10 +625,51 @@ class ModuleSelectionPanel:
         top.geometry("720x560")
         top.grab_set()
 
-        style = ttk.Style()
-        style.configure("Custom.TNotebook.Tab", font=scaled_font(TEXT_SIZE))
+        # style = ttk.Style()
+        # style.configure("Custom.TNotebook.Tab", font=scaled_font(TEXT_SIZE))
 
-        notebook = ttk.Notebook(top, style="Custom.TNotebook")
+        style = ttk.Style()
+        # style.theme_use("clam")
+
+        unique_style = "AdvancedWindow.TNotebook"
+        unique_tab_style = f"{unique_style}.Tab"
+
+        # 🔹 Heredamos el layout del notebook base
+        style.layout(unique_style, style.layout("TNotebook"))
+        style.layout(unique_tab_style, style.layout("TNotebook.Tab"))
+
+        # Estilo base del notebook
+        style.configure(
+            unique_style,
+            background="#f5f5f5",
+            borderwidth=0,
+            padding=[6, 6]
+        )
+
+        # Estilo de las pestañas
+        style.configure(
+            unique_tab_style,
+            font=scaled_font(TEXT_SIZE - 2, "bold"),
+            padding=[10, 5],
+            background="#e6e6e6",
+            foreground="#5E5E5E",
+            borderwidth=0
+        ) 
+
+        style.map(
+            unique_tab_style,
+            background=[ # not working
+                ("selected", "#751010"),
+                ("active", "#f0f0f0")
+            ],
+            foreground=[
+                ("selected", BASE_COLOR),
+                ("active", "#686868")
+            ]
+        )
+
+
+        notebook = ttk.Notebook(top, style=unique_style)
         notebook.pack(fill="both", expand=True, padx=10, pady=10)
 
         # === Pestaña de configuración general del módulo ===
@@ -639,14 +687,6 @@ class ModuleSelectionPanel:
         for test_key, test_data in self.module_data.get("tests", {}).items():
             if "config" in test_data:
                 frame = self._build_config_frame(notebook, test_data["config"], is_grouped=False)
-                test_name = test_data.get("name", {}).get(lang, test_key)
-                notebook.add(frame, text=test_name)
-
-
-        # === Pestañas por test con configuración ===
-        for test_key, test_data in self.module_data.get("tests", {}).items():
-            if "config" in test_data:
-                frame = self._build_config_frame(notebook, test_data["config"])
                 test_name = test_data.get("name", {}).get(lang, test_key)
                 notebook.add(frame, text=test_name)
 
@@ -677,6 +717,22 @@ class ModuleSelectionPanel:
         else:
             # Diccionario plano
             self._fill_fields(frame, config_dict)
+        
+        # ======== SAVE BUTTON ========
+        btn_texts = {
+            "es": "Guardar y cerrar",
+            "en": "Save and Close",
+            "eu": "Gorde eta itxi"
+        }
+        idioma = self.get_lang()
+        btn_text = btn_texts.get(idioma, "Save and Close")
+
+        def save_and_close():
+            parent.winfo_toplevel().destroy()  # cierra la ventana superior
+
+        btn = ttk.Button(frame, text=btn_text, command=save_and_close)
+        btn.pack(side="right", padx=10, pady=10)
+
 
         return frame
 
@@ -713,6 +769,42 @@ class ModuleSelectionPanel:
                 combo.pack(side="left")
                 combo.bind("<<ComboboxSelected>>", lambda e, v=var, i=item: i.update({"value": v.get()}))
                 self.create_tooltip(combo, tooltip)
+
+            elif ftype == "color":
+                var = tk.StringVar(value=value or "#000000")
+
+                color_frame = tk.Frame(container, bg="#f7f7f7")
+                color_frame.pack(side="left")
+
+                # Preview del color
+                preview = tk.Canvas(color_frame, width=22, height=22, bg=var.get(), highlightthickness=1, highlightbackground="#aaa")
+                preview.pack(side="left", padx=(0, 5))
+
+                # Entry para mostrar código de color
+                color_code = tk.Entry(color_frame, textvariable=var, width=8, justify="center", state="readonly", readonlybackground="#f0f0f0")
+                color_code.pack(side="left", padx=(0, 5))
+
+                # Traducciones del texto del botón
+                btn_texts = {
+                    "es": "Seleccionar",
+                    "en": "Select",
+                    "eu": "Hautatu"
+                }
+
+                btn_text = btn_texts.get(self.get_lang(), "Select")
+
+                # Botón para abrir color picker
+                def pick_color(v=var, p=preview, i=item):
+                    selected = colorchooser.askcolor(color=v.get(), title=btn_text)
+                    if selected[1]:
+                        v.set(selected[1])
+                        i["value"] = selected[1]
+                        p.config(bg=selected[1])
+
+                btn = ttk.Button(color_frame, text=btn_text, command=pick_color, width=10)
+                btn.pack(side="left")
+
+                self.create_tooltip(btn, tooltip)
 
             elif ftype == list and isinstance(value, list) and len(value) == 2:
                 var1 = tk.StringVar(value=str(value[0]))
@@ -885,6 +977,31 @@ class AdvancedOptionsPanel:
             self.create_tooltip(cb, self._tooltip(cfg))
             self.vars[key] = var
             self._update_value(key, var.get())
+        
+        # ======== COLOR PICKER =========
+        elif field_type == "color":
+            var = tk.StringVar(value=current_value)
+
+            # Contenedor para color + botón
+            color_frame = tk.Frame(block, bg=self.BG)
+            color_frame.pack(side="left", padx=5)
+
+            # Preview del color
+            preview = tk.Canvas(color_frame, width=22, height=22, bg=current_value, highlightthickness=1, highlightbackground="#aaa")
+            preview.pack(side="left", padx=(0, 5))
+
+            # Botón para abrir el color picker
+            color_btn = ttk.Button(
+                color_frame,
+                text="Seleccionar",
+                command=lambda k=key, v=var, p=preview: self._pick_color(k, v, p),
+                width=10
+            )
+            color_btn.pack(side="left")
+
+            self.create_tooltip(color_btn, self._tooltip(cfg))
+            self.vars[key] = var
+            self._update_value(key, var.get())
 
         # ======== COMBOBOX (str with options) =========
         elif field_type == str and opts:
@@ -919,6 +1036,18 @@ class AdvancedOptionsPanel:
             self.create_tooltip(entry, self._tooltip(cfg))
             self.vars[key] = var
             self._update_value(key, var.get())
+
+    def _pick_color(self, key, var, preview_widget):
+        """Abre el selector de color y actualiza el valor del campo."""
+        initial_color = var.get() or "#000000"
+        color = colorchooser.askcolor(initialcolor=initial_color, title="Selecciona un color")
+
+        if color[1] is not None:
+            hex_color = color[1]
+            var.set(hex_color)
+            self._update_value(key, hex_color)
+            preview_widget.config(bg=hex_color)
+
 
     def _update_value(self, key, value):
         if key in self.config:

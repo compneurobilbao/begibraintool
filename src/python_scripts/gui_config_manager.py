@@ -546,8 +546,7 @@ modules = {
                     "eye_tracking_resting_state_background_color": {
                         "value": "black",
                         "default": "black",
-                        "type": str,
-                        "options": ["black", "white", "gray"],
+                        "type": 'color',
                         "variable_display_name": {
                             "es": "Color de fondo",
                             "en": "Background color",
@@ -779,8 +778,7 @@ modules = {
                     "dot_color": {
                         "value": "white",
                         "default": "white",
-                        "type": str,
-                        "options": ["white", "red", "green", "blue"],
+                        "type": "color",
                         "variable_display_name": {
                             "es": "Color del punto principal",
                             "en": "Main dot color",
@@ -795,8 +793,7 @@ modules = {
                     "dot_border_color": {
                         "value": "red",
                         "default": "red",
-                        "type": str,
-                        "options": ["red", "white", "gray", "black"],
+                        "type": "color",
                         "variable_display_name": {
                             "es": "Color del borde del punto",
                             "en": "Dot border color",
@@ -811,8 +808,7 @@ modules = {
                     "noise_dots_color": {
                         "value": "white",
                         "default": "white",
-                        "type": str,
-                        "options": ["white", "gray", "black"],
+                        "type": "color",
                         "variable_display_name": {
                             "es": "Color de los puntos de ruido",
                             "en": "Noise dots color",
@@ -842,8 +838,7 @@ modules = {
                     "background_color": {
                         "value": "white",
                         "default": "white",
-                        "type": str,
-                        "options": ["black", "white", "gray"],
+                        "type": "color",
                         "variable_display_name": {
                             "es": "Color de fondo",
                             "en": "Background color",
@@ -917,6 +912,84 @@ modules = {
                             "es": "Tiempo de espera entre la presentación de imágenes (segundos)",
                             "en": "Waiting time between image presentations (seconds)",
                             "eu": "Irudiak erakustearen arteko itxaron denbora (segundotan)"
+                        }
+                    }
+                }
+
+            },
+            "test_6": {
+                "name": {
+                    "es": "Búsqueda visual dinámica(eye-tracking)",
+                    "en": "Dynamic visual search (eye-tracking)",
+                    "eu": "Bilaketa bisuala dinamikoa (eye-tracking)"
+                },
+                "selected": False,
+                "enabled": True,
+                "estimated_time": 5,
+                "tooltip": {
+                    "es": "Búsqueda visual con los discos rotando sobre sí mismos. Hay que encontrar el disco que rota en sentido contrario.",
+                    "en": "Dynamic visual search with discs rotating on themselves. You have to find the disc that rotates in the opposite direction.",
+                    "eu": "Bilaketa bisuala dinamikoa diskoak euren buruen inguruan biratzen. Aurkitu behar duzu norabide kontrakoan biratzen den diskoa."
+                },
+                "config": {
+                    "visual_search_image_time": {
+                        "value": 5.5,
+                        "default": 5.5,
+                        "type": float,
+                        "variable_display_name": {
+                            "es": "Duración de cada intento",
+                            "en": "Trial duration",
+                            "eu": "Iraupena"
+                        },
+                        "tooltip": {
+                            "es": "Tiempo que los discos permanecen en pantalla (segundos)",
+                            "en": "Time the visual search discs remain on screen (seconds)",
+                            "eu": "Bilaketa bisualaren diskoak pantailan dagoen denbora (segundotan)"
+                        }
+                    },
+                    "visual_search_wait_time": {
+                        "value": 1.0,
+                        "default": 1.0,
+                        "type": float,
+                        "variable_display_name": {
+                            "es": "Tiempo de espera entre imágenes",
+                            "en": "Wait time between images",
+                            "eu": "Irudien arteko itxaron denbora"
+                        },
+                        "tooltip": {
+                            "es": "Tiempo de espera entre la presentación de imágenes (segundos)",
+                            "en": "Waiting time between image presentations (seconds)",
+                            "eu": "Irudiak erakustearen arteko itxaron denbora (segundotan)"
+                        }
+                    },
+                    "visual_search_rotation_speed": {
+                        "value": 90,
+                        "default": 90,
+                        "type": int,
+                        "variable_display_name": {
+                            "es": "Velocidad de rotación (grados/segundos)",
+                            "en": "Rotation speed (degrees/second)",
+                            "eu": "Biraketa abiadura (gradu/segundo)"
+                        },
+                        "tooltip": {
+                            "es": "Velocidad de rotación de los discos (grados por segundo)",
+                            "en": "Rotation speed of the discs (degrees per second)",
+                            "eu": "Diskoen biraketa abiadura (gradu segunduko)"
+                        }
+                    },
+                    "visual_search_matrix_size": {
+                        "value": [3, 3],
+                        "default": [3, 3],
+                        "type": list,
+                        "variable_display_name": {
+                            "es": "Tamaño de la matriz (filas, columnas)",
+                            "en": "Matrix size (rows, columns)",
+                            "eu": "Matrizearen tamaina (ilara, zutabe)"
+                        },
+                        "tooltip": {
+                            "es": "Tamaño de la matriz de discos (número de filas y columnas)",
+                            "en": "Matrix size (number of rows and columns)",
+                            "eu": "Matrizearen tamaina (ilara eta zutabe kopurua)"
                         }
                     }
                 }
