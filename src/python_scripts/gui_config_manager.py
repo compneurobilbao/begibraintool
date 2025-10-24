@@ -37,22 +37,22 @@ general_config = {
             "eu": "Esperimentuen zailtasuna"
         }
     },
-    "modules": {
-        "value": None,
-        "default": "run all modules",
-        "type": "radio_button",
-        "options": ["run all modules", "select modules"],
-        "variable_display_name": {
-            "es": "Módulos",
-            "en": "Modules",
-            "eu": "Moduluak"
-        },
-        "tooltip": {
-            "es": "",
-            "en": "",
-            "eu": ""
-        }
-    },
+    # "modules": {
+    #     "value": None,
+    #     "default": "run all modules",
+    #     "type": "radio_button",
+    #     "options": ["run all modules", "select modules"],
+    #     "variable_display_name": {
+    #         "es": "Módulos",
+    #         "en": "Modules",
+    #         "eu": "Moduluak"
+    #     },
+    #     "tooltip": {
+    #         "es": "",
+    #         "en": "",
+    #         "eu": ""
+    #     }
+    # },
  
 }
 
