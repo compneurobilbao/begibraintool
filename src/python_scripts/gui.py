@@ -718,21 +718,74 @@ class ModuleSelectionPanel:
             # Diccionario plano
             self._fill_fields(frame, config_dict)
         
-        # ======== SAVE BUTTON ========
-        btn_texts = {
+        # ======== ACTION BUTTONS (Save + Reset) ========
+        btn_texts_save = {
             "es": "Guardar y cerrar",
             "en": "Save and Close",
             "eu": "Gorde eta itxi"
         }
+        btn_texts_reset = {
+            "es": "Restablecer valores por defecto",
+            "en": "Reset to default values",
+            "eu": "Balio lehenetsiak berrezarri"
+        }
+
         idioma = self.get_lang()
-        btn_text = btn_texts.get(idioma, "Save and Close")
+        btn_save_text = btn_texts_save.get(idioma, "Save and Close")
+        btn_reset_text = btn_texts_reset.get(idioma, "Reset to default values")
 
         def save_and_close():
             parent.winfo_toplevel().destroy()  # cierra la ventana superior
 
-        btn = ttk.Button(frame, text=btn_text, command=save_and_close)
-        btn.pack(side="right", padx=10, pady=10)
+        def reset_to_defaults():
+            """
+            Restablece todos los valores del diccionario a su valor 'default'
+            y actualiza los widgets correspondientes.
+            """
+            def recursive_reset(config):
+                for key, item in config.items():
+                    if isinstance(item, dict) and "value" in item:
+                        default_val = item.get("default")
+                        item["value"] = default_val
+                    elif isinstance(item, dict):
+                        recursive_reset(item)
 
+            recursive_reset(config_dict)
+            # Recrear los widgets de configuración desde cero
+            for child in frame.winfo_children():
+                child.destroy()
+            # reconstruir la parte visible
+            if is_grouped:
+                for group_key, group_fields in config_dict.items():
+                    group_label = {
+                        "grating": {"es": "Estímulo Gabor", "en": "Gabor stimulus", "eu": "Gabor estimulu"},
+                        "noise": {"es": "Ruido visual", "en": "Visual noise", "eu": "Zarata bisuala"},
+                        "experiment_params": {"es": "Parámetros del experimento", "en": "Experiment parameters", "eu": "Esperimentuaren parametroak"},
+                        "staircase_test": {"es": "Test de umbral", "en": "Threshold test", "eu": "Atalase proba"},
+                    }.get(group_key, {})
+                    title = group_label.get(self.get_lang(), group_key.capitalize())
+                    section = tk.LabelFrame(
+                        frame, text=title,
+                        font=scaled_font(TEXT_SIZE, "bold"),
+                        background="#f7f7f7", bd=1, relief="groove", labelanchor="n"
+                    )
+                    section.pack(fill="x", padx=10, pady=6)
+                    self._fill_fields(section, group_fields)
+            else:
+                self._fill_fields(frame, config_dict)
+
+            # volver a poner los botones
+            btn_frame = tk.Frame(frame, bg="#f7f7f7")
+            btn_frame.pack(fill="x", pady=(10, 10))
+            ttk.Button(btn_frame, text=btn_reset_text, command=reset_to_defaults).pack(side="left", padx=(10, 5))
+            ttk.Button(btn_frame, text=btn_save_text, command=save_and_close).pack(side="right", padx=(5, 10))
+
+        # Frame para agrupar botones
+        btn_frame = tk.Frame(frame, bg="#f7f7f7")
+        btn_frame.pack(fill="x", pady=(10, 10))
+
+        ttk.Button(btn_frame, text=btn_reset_text, command=reset_to_defaults).pack(side="left", padx=(10, 5))
+        ttk.Button(btn_frame, text=btn_save_text, command=save_and_close).pack(side="right", padx=(5, 10))
 
         return frame
 
