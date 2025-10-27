@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on octubre 24, 2025, at 12:36
+    on octubre 27, 2025, at 15:09
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -4250,7 +4250,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # set up handler to look after randomisation of conditions etc
     tutorial_button_panel = data.TrialHandler2(
         name='tutorial_button_panel',
-        nReps=advanced_config["tutorial"]["value"], 
+        nReps=general_config["start_tutorial"]["value"], 
         method='sequential', 
         extraInfo=expInfo, 
         originPath=-1, 
@@ -4863,7 +4863,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             tutorial_button_panel.status = STARTED
         thisExp.nextEntry()
         
-    # completed advanced_config["tutorial"]["value"] repeats of 'tutorial_button_panel'
+    # completed general_config["start_tutorial"]["value"] repeats of 'tutorial_button_panel'
     tutorial_button_panel.status = FINISHED
     
     if thisSession is not None:
@@ -5408,7 +5408,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # set up handler to look after randomisation of conditions etc
             tutorial_sf = data.TrialHandler2(
                 name='tutorial_sf',
-                nReps=advanced_config["tutorial"]["value"], 
+                nReps=general_config["test_tutorial"]["value"], 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
@@ -6319,7 +6319,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tutorial_sf.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed advanced_config["tutorial"]["value"] repeats of 'tutorial_sf'
+            # completed general_config["test_tutorial"]["value"] repeats of 'tutorial_sf'
             tutorial_sf.status = FINISHED
             
             if thisSession is not None:

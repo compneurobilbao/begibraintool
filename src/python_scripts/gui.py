@@ -13,7 +13,8 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, colorchooser
 from PIL import Image, ImageTk, ImageSequence
 import json
-from python_scripts import gui_config_manager
+# from python_scripts 
+import gui_config_manager
 import matplotlib.colors as mcolors
 
 ##############################################################
@@ -216,7 +217,7 @@ class GeneralConfigPanel:
         Updates the estimated time label using external compute_estimated_time().
         """
         try:
-            #from python_scripts.gui_config_manager import modules  # o ajústalo según tu estructura real
+            
             total = self.compute_estimated_time(gui_config_manager.modules)
             self.time_label.config(text=f"⏱️ {total} min")
         except Exception as e:
@@ -1236,7 +1237,7 @@ class ModuleAdvancedWindow:
 class BegibraintoolGUI:
     def __init__(self):
 
-        from python_scripts import gui_config_manager
+        #from python_scripts import gui_config_manager
         self.gui_config_manager = gui_config_manager
         self.general_config = gui_config_manager.general_config
         self.advanced_config = gui_config_manager.advanced_config
@@ -1285,6 +1286,7 @@ class BegibraintoolGUI:
         #         )
         
         self._build_layout(win_w, win_h)
+
     
     def _on_run_clicked(self, config_values):
             self.root.quit()
@@ -1655,8 +1657,8 @@ class BegibraintoolGUI:
 ############################################################################################################################################################
 ##____________MAIN WINDOW____________####____________MAIN WINDOW____________####____________MAIN WINDOW____________####____________MAIN WINDOW____________##
 ############################################################################################################################################################
-# gui = BegibraintoolGUI()
-# general_config, advanced_config, modules = gui.run()
-# print("General config:", general_config)
-# print("Advanced config:", advanced_config)
-# print("Modules:", modules)
+gui = BegibraintoolGUI()
+general_config, advanced_config, modules = gui.run()
+print("General config:", general_config)
+print("Advanced config:", advanced_config)
+print("Modules:", modules)

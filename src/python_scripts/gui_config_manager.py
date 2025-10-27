@@ -37,6 +37,36 @@ general_config = {
             "eu": "Esperimentuen zailtasuna"
         }
     },
+    "start_tutorial": {
+        "value": None,
+        "default": True,
+        "type": bool,
+        "variable_display_name": {
+            "es": "Tutorial general",
+            "en": "General use tutorial",
+            "eu": "Tutorial orokorra"
+        },
+        "tooltip": {
+            "es": "Tutorial del experimento genérico. Enseña a usar la botonera y a navegar por la interfaz al principio del experimento.",
+            "en": "General experiment tutorial. Teaches how to use the buttons and navigate the interface at the beginning of the experiment.",
+            "eu": "Esperimentu orokorreko tutoriala. Nola erabili botoiak eta nola nabigatu interfazea erakusten du esperimentua hasi aurretik."
+        }
+    },
+    "test_tutorial": {
+        "value": None,
+        "default": True,
+        "type": bool,
+        "variable_display_name": {
+            "es": "Tutorial específico",
+            "en": "Specific tutorial",
+            "eu": "Tutorial zehatza"
+        },
+        "tooltip": {
+            "es": "Tutorial de los experimentos específicos (únicamente para los que tengan tutorial disponible).",
+            "en": "Specific experiment tutorial (only for those with available tutorial).",
+            "eu": "Esperimentu zehatzaren tutoriala (eskuragarri dagoen tutoriala dutenentzat bakarrik)."
+        }
+    },
     # "modules": {
     #     "value": None,
     #     "default": "run all modules",
@@ -153,31 +183,31 @@ advanced_config = {
             "eu": "Protokoloa gogoratu"
         }
     },
-    "tutorial": {
-        "value": False,
-        "default": False,
-        "type": bool,
-        "options": [True, False],
-        "tooltip": {
-            "es": "Mostrar tutorial inicial",
-            "en": "Show initial tutorial",
-            "eu": "Erakutsi hasierako tutoriala"
-        },
-        "variable_display_name": {
-            "es": "Tutorial inicial",
-            "en": "Initial tutorial",
-            "eu": "Hasierako tutoriala"
-        }
-    },
+    # "tutorial": {
+    #     "value": False,
+    #     "default": False,
+    #     "type": bool,
+    #     "options": [True, False],
+    #     "tooltip": {
+    #         "es": "Mostrar tutorial inicial",
+    #         "en": "Show initial tutorial",
+    #         "eu": "Erakutsi hasierako tutoriala"
+    #     },
+    #     "variable_display_name": {
+    #         "es": "Tutorial inicial",
+    #         "en": "Initial tutorial",
+    #         "eu": "Hasierako tutoriala"
+    #     }
+    # },
     "screen_width_cm": {
         "value": None,
         "default": 50.0,
         "type": float,
         "options": None,
         "tooltip": {
-            "es": "Anchura de la pantalla en cm",
-            "en": "Screen width in cm",
-            "eu": "Pantailaren zabalera cm-tan"
+            "es": "Anchura util de la pantalla en cm - se debe medir la anchura de la imgen durante las pruebas de sf",
+            "en": "Screen width in cm - should measure the width of the image during sf tests",
+            "eu": "Pantailaren zabalera cm-tan - sf probetan irudiaren zabalera neurtu behar da"
         },
         "variable_display_name": {
             "es": "Ancho pantalla (cm)",
@@ -682,7 +712,7 @@ modules = {
                     "en": "Smooth pursuit (eye-tracking)",
                     "eu": "Jarraipen leuna (eye-tracking)"
                 },
-                "gif_source":"C:\\Users\\akoun\\Desktop\\Biocruces\\begibraintool\\src\\images\\gui_images\\smooth_pursuit_example.gif",
+                "gif_source":"C:\\Users\\akoun\\Desktop\\Biocruces\\begibraintool\\src\\images\\gui_images\\module_1_example_2_compressed.gif",
                 "config": {
                     "dot_size": {
                         "value": 0.01,
