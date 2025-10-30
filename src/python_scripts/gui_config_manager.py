@@ -559,8 +559,8 @@ modules = {
                 },
                 "config": {
                     "eye_tracking_resting_state_time": {
-                        "value": 60,
-                        "default": 60,
+                        "value": 30,
+                        "default": 30,
                         "type": int,
                         "variable_display_name": {
                             "es": "Duración del estado en reposo",
