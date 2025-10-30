@@ -1657,8 +1657,8 @@ class BegibraintoolGUI:
 ############################################################################################################################################################
 ##____________MAIN WINDOW____________####____________MAIN WINDOW____________####____________MAIN WINDOW____________####____________MAIN WINDOW____________##
 ############################################################################################################################################################
-gui = BegibraintoolGUI()
-general_config, advanced_config, modules = gui.run()
-print("General config:", general_config)
-print("Advanced config:", advanced_config)
-print("Modules:", modules)
+# gui = BegibraintoolGUI()
+# general_config, advanced_config, modules = gui.run()
+# print("General config:", general_config)
+# print("Advanced config:", advanced_config)
+# print("Modules:", modules)
