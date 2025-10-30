@@ -621,81 +621,7 @@ modules = {
                     "eu": "Mugimendu sakadiko eta antisakadikoak (eye-tracking)"
                 },
                 "config": {
-                    "dot_size": {
-                        "value": 0.01,
-                        "default": 0.01,
-                        "type": float,
-                        "variable_display_name": {
-                            "es": "Tamaño del punto",
-                            "en": "Dot size",
-                            "eu": "Puntuaren tamaina"
-                        },
-                        "tooltip": {
-                            "es": "Tamaño del punto objetivo en la tarea de movimiento",
-                            "en": "Target dot size in motion task",
-                            "eu": "Mugimendu ariketako puntuaren tamaina"
-                        }
-                    },
-                    "noise_dots_no": {
-                        "value": 700,
-                        "default": 700,
-                        "type": int,
-                        "variable_display_name": {
-                            "es": "Número de puntos de ruido",
-                            "en": "Noise dot count",
-                            "eu": "Zarata puntu kopurua"
-                        },
-                        "tooltip": {
-                            "es": "Número total de puntos de ruido en pantalla",
-                            "en": "Total number of noise dots on screen",
-                            "eu": "Pantailako zarata puntu kopurua"
-                        }
-                    },
-                    "dot_speed": {
-                        "value": 0.003,
-                        "default": 0.003,
-                        "type": float,
-                        "variable_display_name": {
-                            "es": "Velocidad del punto",
-                            "en": "Dot speed",
-                            "eu": "Puntuaren abiadura"
-                        },
-                        "tooltip": {
-                            "es": "Velocidad del punto principal",
-                            "en": "Speed of the target dot",
-                            "eu": "Helburuko puntuaren abiadura"
-                        }
-                    },
-                    "noise_dots_lifetime": {
-                        "value": 200,
-                        "default": 200,
-                        "type": int,
-                        "variable_display_name": {
-                            "es": "Vida de los puntos de ruido",
-                            "en": "Noise dots lifetime",
-                            "eu": "Zarata puntuen iraupena"
-                        },
-                        "tooltip": {
-                            "es": "Número de fotogramas que vive un punto de ruido",
-                            "en": "Number of frames each noise dot lasts",
-                            "eu": "Zarata puntu bakoitzaren iraupena frame-tan"
-                        }
-                    },
-                    "field_size": {
-                        "value": [1.4, 0.9],
-                        "default": [1.4, 0.9],
-                        "type": list,
-                        "variable_display_name": {
-                            "es": "Tamaño del campo visual",
-                            "en": "Field size",
-                            "eu": "Eremu ikusgaiaren tamaina"
-                        },
-                        "tooltip": {
-                            "es": "Tamaño del área en que se mueven los puntos",
-                            "en": "Size of the area where dots move",
-                            "eu": "Puntuak mugitzen diren eremuaren tamaina"
-                        }
-                    }
+                    
                 }
             },
             "test_4": {
@@ -1020,6 +946,21 @@ modules = {
                             "es": "Tamaño de la matriz de discos (número de filas y columnas)",
                             "en": "Matrix size (number of rows and columns)",
                             "eu": "Matrizearen tamaina (ilara eta zutabe kopurua)"
+                        }
+                    },
+                    "disks_in_phase": {
+                        "value": True,
+                        "default": True,
+                        "type": bool,
+                        "variable_display_name": {
+                            "es": "Discos en fase",
+                            "en": "Disks in phase",
+                            "eu": "Diskoak fasean"
+                        },
+                        "tooltip": {
+                            "es": "Marcar la celda para que los discos giren todos en la misma fase. Lo contrario es que giren en fases aleatorias.",
+                            "en": "Mark the cell for all disks to rotate in the same phase. The opposite is for them to rotate in random phases.",
+                            "eu": "Markatu zelula disko guztiak fase berean biratzeko. Aurkakoa da fase aleatorioetan biratzea."
                         }
                     }
                 }
