@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on octubre 30, 2025, at 13:44
+    on noviembre 02, 2025, at 18:23
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -525,6 +525,8 @@ def normalizar_rgb(rgb):
 # === CONFIGURACIÓN ESTÁTICA ===
 import random
 from psychopy import visual
+import numpy as np
+import matplotlib.pyplot as plt
 
 dvs_cfg = modules["module_2"]["tests"]["test_6"]["config"]
 MAX_TIME = dvs_cfg["visual_search_image_time"]["value"]
@@ -571,6 +573,54 @@ def create_grid_positions(rows, cols, bounds, disk_size):
     y_positions = np.linspace(y_min + disk_size[1], y_max - disk_size[1], rows)
     positions = [(x, y) for y in reversed(y_positions) for x in x_positions]
     return positions
+
+def generate_ring_with_gap_png(
+    gap_angle=0,
+    inner_radius=0.6,
+    outer_radius=1.0,
+    gap_size=40,
+    resolution=200,
+    filename="disk.png"
+):
+    """
+    Generate a centered ring with a transparent gap and save it as a PNG.
+
+    :param gap_angle: Central angle (in degrees) where the gap will appear.
+    :param inner_radius: Inner radius of the ring.
+    :param outer_radius: Outer radius of the ring.
+    :param gap_size: Angular size of the transparent gap (in degrees).
+    :param resolution: Image resolution in pixels (square image).
+    :param filename: Output PNG filename.
+    """
+    # Create a grid of normalized coordinates
+    y, x = np.ogrid[-1:1:complex(resolution), -1:1:complex(resolution)]
+    r = np.sqrt(x**2 + y**2)
+    ang = np.degrees(np.arctan2(y, x)) % 360
+
+    # Ring mask
+    ring_mask = (r >= inner_radius) & (r <= outer_radius)
+
+    # Calculate angular limits of the gap
+    gap_start = (gap_angle - gap_size / 2) % 360
+    gap_end = (gap_angle + gap_size / 2) % 360
+
+    # Handle wrap-around at 0°
+    if gap_start < gap_end:
+        gap_mask = (ang >= gap_start) & (ang <= gap_end)
+    else:
+        gap_mask = (ang >= gap_start) | (ang <= gap_end)
+
+    # Combine: ring minus gap
+    final_mask = ring_mask & ~gap_mask
+
+    # Create an RGBA image (transparent by default)
+    img = np.zeros((resolution, resolution, 4), dtype=np.float32)
+    img[..., 0:3] = 0  # black color
+    img[..., 3] = final_mask.astype(float)  # alpha channel (1 = opaque ring)
+
+    # Save as PNG with transparency
+    plt.imsave(filename, img)
+    print(f"Ring with transparent gap saved as {filename}")
 
 # --- Setup global variables (available in all functions) ---
 # create a device manager to handle hardware (keyboards, mice, mirophones, speakers, etc.)
@@ -4014,6 +4064,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # --- Initialize components for Routine "DYNAMIC_VISUAL_SEARCH" ---
     # Run 'Begin Experiment' code from code_4
     frame_rate = win.getActualFrameRate()
+    
+    # ==== CREATE IMAGE IF MISSING ====
+    if not os.path.exists(DISK_IMAGE):
+        print(f"Image not found: {DISK_IMAGE}. Generating it now...")
+        generate_ring_with_gap_png(
+            gap_angle=90,
+            inner_radius=0.6,
+            outer_radius=1.0,
+            gap_size=40,
+            filename=DISK_IMAGE
+        )
     key_resp_3 = keyboard.Keyboard(deviceName='key_resp_3')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -7475,7 +7536,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             from tkinter import messagebox
             
             # Variables estaticas
-            contrast_starting_value = 0.25#0.05
+            contrast_starting_value = 0.15#0.05
             contrast_step_size = 0.02
             
             # Inicializacion de variables que posteriormente cambian
