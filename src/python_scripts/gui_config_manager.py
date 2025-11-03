@@ -274,8 +274,8 @@ modules = {
                 },
                 "config": {
                     "n_reversals_to_average": {
-                        "value": 5,
-                        "default": 5,
+                        "value": 4,
+                        "default": 4,
                         "type": int,
                         "variable_display_name": {
                             "es": "Reversiones para promediar",
@@ -284,8 +284,8 @@ modules = {
                         },
                     },
                     "stop_reversals": {
-                        "value": 6,
-                        "default": 6,
+                        "value": 5,
+                        "default": 5,
                         "type": int,
                         "variable_display_name": {
                             "es": "Reversiones para detener",

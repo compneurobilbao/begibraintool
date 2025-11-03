@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on noviembre 02, 2025, at 18:23
+    on noviembre 03, 2025, at 12:07
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -12380,7 +12380,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('CSV_protocol_config_files/module_1_test_4_SEMANTIC_SF.csv'), 
+                trialList=data.importConditions(
+                'CSV_protocol_config_files/module_1_test_4_SEMANTIC_SF.csv', 
+                selection='1:27'
+            )
+            , 
                 seed=None, 
             )
             thisExp.addLoop(trials_bl_4)  # add the loop to the experiment
