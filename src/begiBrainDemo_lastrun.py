@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on noviembre 03, 2025, at 12:07
+    on diciembre 09, 2025, at 12:01
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -652,7 +652,7 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 # work out from system args whether we are running in pilot mode
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
-_fullScr = True
+_fullScr = False
 _winSize = [1920, 1080]
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
@@ -784,9 +784,6 @@ def setupWindow(expInfo=None, win=None):
     psychopy.visual.Window
         Window in which to run this experiment.
     """
-    if PILOTING:
-        logging.debug('Fullscreen settings ignored as running in pilot mode.')
-    
     if win is None:
         # if not given a window to setup, make one
         win = visual.Window(
@@ -1955,7 +1952,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         depth=-1.0)
     stim = visual.GratingStim(
         win=win, name='stim',
-        tex='sqr', mask=grating_mask, anchor='center',
+        tex='sin', mask=grating_mask, anchor='center',
         ori=0.0, pos=[0,0], draggable=False, size=1.0, sf=1.0, phase=0.5,
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
@@ -6842,6 +6839,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             last_direction = "down"
                     else: 
                         sf = sf - step
+                        if sf<=0: 
+                            sf = 2
                         correct_responses = 0
                         if last_direction == "down":
                             reversals += 1
@@ -6900,7 +6899,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 #############____________LOGS_________###################
                 #########################################################
                 if advanced_config["logs"]["value"]:
-                    logs_12.text = f"Step Size = {step}"
+                    logs_12.text = f"Step Size = {step}; SF value = {sf}"
                 else:
                     logs_12.setAutoDraw(False)
                     
@@ -12382,7 +12381,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 originPath=-1, 
                 trialList=data.importConditions(
                 'CSV_protocol_config_files/module_1_test_4_SEMANTIC_SF.csv', 
-                selection='1:27'
+                selection='50:104'
             )
             , 
                 seed=None, 
@@ -12433,11 +12432,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 path_semantic_category = ""
                 
                 if tipo == 'magno':
-                    path_img_type = 'bandpass_0_4_cpd/'
+                    path_img_type = 'bandpass_0_3_cpd/'
                 elif tipo == 'neutro':
-                    path_img_type = 'bandpass_4_10_cpd/'
+                    path_img_type = 'bandpass_3_6_cpd/'
                 elif tipo == 'parvo':
-                    path_img_type = 'bandpass_10_18_cpd/'
+                    path_img_type = 'bandpass_6_30_cpd/'
                 else:
                     print("ERROR: Unrecognized category")
                     
@@ -13375,7 +13374,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('CSV_protocol_config_files/module_1_test_5_SEMANTIC_CS.csv'), 
+                trialList=data.importConditions(
+                'CSV_protocol_config_files/module_1_test_5_SEMANTIC_CS.csv', 
+                selection='50:104'
+            )
+            , 
                 seed=None, 
             )
             thisExp.addLoop(trials_bl_5)  # add the loop to the experiment
@@ -14359,7 +14362,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('CSV_protocol_config_files/module_1_test_6_SEMANTIC_COLOR.csv'), 
+                trialList=data.importConditions(
+                'CSV_protocol_config_files/module_1_test_6_SEMANTIC_COLOR.csv', 
+                selection='50:104'
+            )
+            , 
                 seed=None, 
             )
             thisExp.addLoop(trials_bl_6)  # add the loop to the experiment
@@ -24356,6 +24363,7 @@ def quit(thisExp, win=None, thisSession=None):
 # if running this experiment as a script...
 if __name__ == '__main__':
     # call all functions in order
+    expInfo = showExpInfoDlg(expInfo=expInfo)
     thisExp = setupData(expInfo=expInfo)
     logFile = setupLogging(filename=thisExp.dataFileName)
     win = setupWindow(expInfo=expInfo)

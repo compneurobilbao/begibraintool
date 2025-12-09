@@ -266,7 +266,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 3,
                 "tooltip": {
                     "es": "Estimación del umbral inicial",
                     "en": "Initial threshold estimation",
@@ -323,7 +323,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 2,
                 "tooltip": {
                     "es": "Medición de frecuencia espacial",
                     "en": "Spatial frequency measurement",
@@ -338,7 +338,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 2,
                 "tooltip": {
                     "es": "Evaluación de visión cromática",
                     "en": "Color vision evaluation",
@@ -353,7 +353,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 2,
                 "tooltip": {
                     "es": "Evaluación de sensibilidad al contraste",
                     "en": "Contrast sensitivity evaluation",
@@ -368,7 +368,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 3,
                 "tooltip": {
                     "es": "Evaluación semántica de la frecuencia espacial",
                     "en": "Semantic spatial frequency evaluation",
@@ -383,7 +383,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 3,
                 "tooltip": {
                     "es": "Evaluación semántica de la sensibilidad al contraste",
                     "en": "Semantic contrast sensitivity evaluation",
@@ -398,7 +398,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 3,
                 "tooltip": {
                     "es": "Evaluación semántica de la visión cromática",
                     "en": "Semantic color vision evaluation",
@@ -551,7 +551,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 1,
                 "tooltip": {
                     "es": "Estabilidad de la fijación",
                     "en": "Fixation stability",
@@ -599,7 +599,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 2,
                 "tooltip": {
                     "es": "Umbral de fusión de parpadeo",
                     "en": "Flicker fusion threshold",
@@ -614,7 +614,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 3,
                 "tooltip": {
                     "es": "Movimientos sacádicos y antisacádicos (eye-tracking)",
                     "en": "Saccadic & antisaccadic movements (eye-tracking)",
@@ -632,7 +632,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 1.5,
                 "tooltip": {
                     "es": "Seguimiento suave (eye-tracking)",
                     "en": "Smooth pursuit (eye-tracking)",
@@ -833,7 +833,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 1,
                 "tooltip": {
                     "es": "Búsqueda visual (eye-tracking)",
                     "en": "Visual search (eye-tracking)",
@@ -881,7 +881,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 1,
                 "tooltip": {
                     "es": "Búsqueda visual con los discos rotando sobre sí mismos. Hay que encontrar el disco que rota en sentido contrario.",
                     "en": "Dynamic visual search with discs rotating on themselves. You have to find the disc that rotates in the opposite direction.",
@@ -984,7 +984,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 20,
                 "tooltip": {
                     "es": "Estímulos elementales a campo completo",
                     "en": "Elementary full-field stimuli",
@@ -999,7 +999,7 @@ modules = {
                 },
                 "selected": False,
                 "enabled": True,
-                "estimated_time": 5,
+                "estimated_time": 4,
                 "tooltip": {
                     "es": "Estímulos semánticos (emocionales y de miedo)",
                     "en": "Semantic (fearful & affective) stimuli",
