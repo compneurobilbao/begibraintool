@@ -4195,9 +4195,9 @@
         <Param val="def calcular_relacion_aspecto(ruta_archivo):&amp;#10;    &quot;&quot;&quot;&amp;#10;    Calcula la relación de aspecto de una imagen a partir de su anchura y altura.&amp;#10;    &amp;#10;    :param ruta_archivo: Ruta completa de la imagen (str).&amp;#10;    :return: Relación de aspecto (float).&amp;#10;    &quot;&quot;&quot;&amp;#10;    try:&amp;#10;        with Image.open(ruta_archivo) as img:&amp;#10;            anchura, altura = img.size&amp;#10;            return anchura / altura&amp;#10;    except Exception as e:&amp;#10;        raise ValueError(f&quot;Error al abrir la imagen: {e}&quot;)" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="var _pj;&amp;#10;function _pj_snippets(container) {&amp;#10;    function in_es6(left, right) {&amp;#10;        if (((right instanceof Array) || ((typeof right) === &quot;string&quot;))) {&amp;#10;            return (right.indexOf(left) &gt; (- 1));&amp;#10;        } else {&amp;#10;            if (((right instanceof Map) || (right instanceof Set) || (right instanceof WeakMap) || (right instanceof WeakSet))) {&amp;#10;                return right.has(left);&amp;#10;            } else {&amp;#10;                return (left in right);&amp;#10;            }&amp;#10;        }&amp;#10;    }&amp;#10;    container[&quot;in_es6&quot;] = in_es6;&amp;#10;    return container;&amp;#10;}&amp;#10;_pj = {};&amp;#10;_pj_snippets(_pj);&amp;#10;psychoJS.window.color = &quot;grey&quot;;&amp;#10;instruction_no = 0;&amp;#10;messages_instructions = [title];&amp;#10;for (var i, _pj_c = 0, _pj_a = util.range(1, 6), _pj_b = _pj_a.length; (_pj_c &lt; _pj_b); _pj_c += 1) {&amp;#10;    i = _pj_a[_pj_c];&amp;#10;    var_name = `instruction_${i}`;&amp;#10;    if (_pj.in_es6(var_name, globals())) {&amp;#10;        instruction = globals()[var_name];&amp;#10;        if (instruction) {&amp;#10;            messages_instructions.push(instruction);&amp;#10;        }&amp;#10;    }&amp;#10;}&amp;#10;console.log(`Lista de instrucciones cargada: ${messages_instructions}`);&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="win.color = &quot;grey&quot;&amp;#10;instructions_img_path = None&amp;#10;relacion_aspecto = 1&amp;#10;&amp;#10;button_original_color = [-1.0000, 0.0039, -1.0000]  &amp;#10;button_pressed_color = [-1.0000, -0.2157, -1.0000]  &amp;#10;&amp;#10;instruction_no = 0&amp;#10;messages_instructions = []&amp;#10;for i in range(1, 6):&amp;#10;    var_name = f&quot;instruction_{i}&quot;&amp;#10;    if var_name in globals():&amp;#10;        instruction = globals()[var_name]&amp;#10;        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla&amp;#10;            messages_instructions.append(instruction)&amp;#10;print(f'Lista de instrucciones cargada: {messages_instructions}')&amp;#10;&amp;#10;images_instructions = []&amp;#10;for i in range(1, 6):&amp;#10;    var_name = f&quot;img_instruction_{i}&quot;&amp;#10;    if var_name in globals():&amp;#10;        instruction_img = globals()[var_name]&amp;#10;        if instruction_img:&amp;#10;            images_instructions.append(instruction_img)&amp;#10;        else:&amp;#10;            images_instructions.append(None)&amp;#10;    else:&amp;#10;        images_instructions.append(None)&amp;#10;&amp;#10;print(f'Lista de imágenes cargada: {images_instructions}')&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="win.color = &quot;grey&quot;&amp;#10;instructions_img_path = None&amp;#10;relacion_aspecto = 1&amp;#10;&amp;#10;button_original_color = [-1.0000, 0.0039, -1.0000]  &amp;#10;button_pressed_color = [-1.0000, -0.2157, -1.0000]  &amp;#10;trial = thisExp.getCurrentTrial()&amp;#10;&amp;#10;instruction_no = 0&amp;#10;messages_instructions = []&amp;#10;#for i in range(1, 6):&amp;#10;#    var_name = f&quot;instruction_{i}&quot;&amp;#10;#    if var_name in globals():&amp;#10;#        instruction = globals()[var_name]&amp;#10;#        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla&amp;#10;#            messages_instructions.append(instruction)&amp;#10;print(f'Lista de instrucciones cargada: {messages_instructions}')&amp;#10;&amp;#10;images_instructions = []&amp;#10;for i in range(1, 6):&amp;#10;    # TEXTOS&amp;#10;    txt = trial.get(f&quot;instruction_{i}&quot;, None)&amp;#10;    if txt:  &amp;#10;        messages_instructions.append(txt)&amp;#10;&amp;#10;    # IMÁGENES&amp;#10;    img = trial.get(f&quot;img_instruction_{i}&quot;, None)&amp;#10;    if img:&amp;#10;        images_instructions.append(img)&amp;#10;    else:&amp;#10;        images_instructions.append(None)&amp;#10;&amp;#10;print(f'Lista de imágenes cargada: {images_instructions}')&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="text_instructions_2.text = messages_instructions[instruction_no]&amp;#10;text_instructions_title.text = title&amp;#10;&amp;#10;###################################################&amp;#10;####_____________IMAGE/VIDEO___________________####&amp;#10;###################################################&amp;#10;if images_instructions[instruction_no] is not None:&amp;#10;    file_path = path_from_src + images_instructions[instruction_no]&amp;#10;    instructions_img_path = file_path&amp;#10;    relacion_aspecto = calcular_relacion_aspecto(file_path)&amp;#10;    instructions_image.size = (relacion_aspecto*0.4,0.4)&amp;#10;    &amp;#10;else:&amp;#10;    instructions_img_path = None&amp;#10;&amp;#10;###################################################&amp;#10;####_______________BUTTONS_____________________####&amp;#10;###################################################&amp;#10;&amp;#10;if instruction_no == (len(messages_instructions) - 1):&amp;#10;    button_next_instruction_2.opacity = 0&amp;#10;    #button_next_instruction.status = PAUSED&amp;#10;else:&amp;#10;    button_next_instruction_2.opacity = 1.0&amp;#10;    #button_next_instruction.status = STARTED&amp;#10;&amp;#10;if instruction_no == 0:&amp;#10;    button_previous_instruction_2.opacity = 0&amp;#10;    #button_previous_instruction.status = PAUSED&amp;#10;else:&amp;#10;    button_previous_instruction_2.opacity = 1.0&amp;#10;    #button_previous_instruction.status = STARTED&amp;#10;&amp;#10;###################################################&amp;#10;####________________EVENTS_____________________####&amp;#10;###################################################&amp;#10;&amp;#10;keys = event.getKeys()  # Cada llamada al buffer lo vacía&amp;#10;&amp;#10;if 'right' in keys:&amp;#10;    if instruction_no &lt; len(messages_instructions)-1:&amp;#10;        instruction_no+=1&amp;#10;        button_next_instruction_2.fillColor = button_pressed_color&amp;#10;        win.flip()&amp;#10;        time.sleep(0.15)&amp;#10;        button_next_instruction_2.fillColor = button_original_color&amp;#10;        win.flip()&amp;#10;elif 'left' in keys:&amp;#10;    if 0 &lt; instruction_no:&amp;#10;        instruction_no-=1&amp;#10;        button_previous_instruction_2.fillColor = button_pressed_color&amp;#10;        win.flip()&amp;#10;        time.sleep(0.15)&amp;#10;        button_previous_instruction_2.fillColor = button_original_color&amp;#10;        win.flip()&amp;#10;" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="text_instructions_2.text = messages_instructions[instruction_no]&amp;#10;text_instructions_title.text = title&amp;#10;&amp;#10;###################################################&amp;#10;####_____________IMAGE/VIDEO___________________####&amp;#10;###################################################&amp;#10;if images_instructions[instruction_no] is not None:&amp;#10;    file_path = path_from_src + images_instructions[instruction_no]&amp;#10;    instructions_img_path = file_path&amp;#10;    relacion_aspecto = calcular_relacion_aspecto(file_path)&amp;#10;    instructions_image.size = (relacion_aspecto*0.4,0.4)&amp;#10;    &amp;#10;else:&amp;#10;    instructions_img_path = None&amp;#10;    instructions_image.image = None&amp;#10;&amp;#10;###################################################&amp;#10;####_______________BUTTONS_____________________####&amp;#10;###################################################&amp;#10;&amp;#10;if instruction_no == (len(messages_instructions) - 1):&amp;#10;    button_next_instruction_2.opacity = 0&amp;#10;    #button_next_instruction.status = PAUSED&amp;#10;else:&amp;#10;    button_next_instruction_2.opacity = 1.0&amp;#10;    #button_next_instruction.status = STARTED&amp;#10;&amp;#10;if instruction_no == 0:&amp;#10;    button_previous_instruction_2.opacity = 0&amp;#10;    #button_previous_instruction.status = PAUSED&amp;#10;else:&amp;#10;    button_previous_instruction_2.opacity = 1.0&amp;#10;    #button_previous_instruction.status = STARTED&amp;#10;&amp;#10;###################################################&amp;#10;####________________EVENTS_____________________####&amp;#10;###################################################&amp;#10;&amp;#10;keys = event.getKeys()  # Cada llamada al buffer lo vacía&amp;#10;&amp;#10;if 'right' in keys:&amp;#10;    if instruction_no &lt; len(messages_instructions)-1:&amp;#10;        instruction_no+=1&amp;#10;        button_next_instruction_2.fillColor = button_pressed_color&amp;#10;        win.flip()&amp;#10;        time.sleep(0.15)&amp;#10;        button_next_instruction_2.fillColor = button_original_color&amp;#10;        win.flip()&amp;#10;elif 'left' in keys:&amp;#10;    if 0 &lt; instruction_no:&amp;#10;        instruction_no-=1&amp;#10;        button_previous_instruction_2.fillColor = button_pressed_color&amp;#10;        win.flip()&amp;#10;        time.sleep(0.15)&amp;#10;        button_previous_instruction_2.fillColor = button_original_color&amp;#10;        win.flip()&amp;#10;" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="var _pj;&amp;#10;function _pj_snippets(container) {&amp;#10;    function in_es6(left, right) {&amp;#10;        if (((right instanceof Array) || ((typeof right) === &quot;string&quot;))) {&amp;#10;            return (right.indexOf(left) &gt; (- 1));&amp;#10;        } else {&amp;#10;            if (((right instanceof Map) || (right instanceof Set) || (right instanceof WeakMap) || (right instanceof WeakSet))) {&amp;#10;                return right.has(left);&amp;#10;            } else {&amp;#10;                return (left in right);&amp;#10;            }&amp;#10;        }&amp;#10;    }&amp;#10;    container[&quot;in_es6&quot;] = in_es6;&amp;#10;    return container;&amp;#10;}&amp;#10;_pj = {};&amp;#10;_pj_snippets(_pj);&amp;#10;text_instructions_2.text = messages_instructions[instruction_no];&amp;#10;if ((instruction_no === (messages_instructions.length - 1))) {&amp;#10;    button_next_instruction_2.opacity = 0;&amp;#10;} else {&amp;#10;    button_next_instruction_2.opacity = 1.0;&amp;#10;}&amp;#10;if ((instruction_no === 0)) {&amp;#10;    button_previous_instruction_2.opacity = 0;&amp;#10;} else {&amp;#10;    button_previous_instruction_2.opacity = 1.0;&amp;#10;}&amp;#10;keys = psychoJS.eventManager.getKeys();&amp;#10;if (_pj.in_es6(&quot;right&quot;, keys)) {&amp;#10;    if ((instruction_no &lt; (messages_instructions.length - 1))) {&amp;#10;        instruction_no += 1;&amp;#10;    }&amp;#10;} else {&amp;#10;    if (_pj.in_es6(&quot;left&quot;, keys)) {&amp;#10;        if ((0 &lt; instruction_no)) {&amp;#10;            instruction_no -= 1;&amp;#10;        }&amp;#10;    }&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
@@ -6671,6 +6671,347 @@
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
     </Routine>
+    <Routine name="TUTORIAL_SEMANTIC_SF_COLOR_CS">
+      <RoutineSettingsComponent name="TUTORIAL_SEMANTIC_SF_COLOR_CS" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="TUTORIAL_SEMANTIC_SF_COLOR_CS" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <KeyboardComponent name="key_resp_33" plugin="None">
+        <Param val="'space', 'right', 'left'" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="" valType="str" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="key_resp_33" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <PolygonComponent name="logs_background_15" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="True" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="white" valType="color" updates="constant" name="fillColor"/>
+        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
+        <Param val="white" valType="color" updates="constant" name="lineColor"/>
+        <Param val="1" valType="num" updates="constant" name="lineWidth"/>
+        <Param val="4" valType="int" updates="constant" name="nVertices"/>
+        <Param val="logs_background_15" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0.75, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="rectangle" valType="str" updates="None" name="shape"/>
+        <Param val="(0.5, 1)" valType="list" updates="constant" name="size"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="list" updates="constant" name="vertices"/>
+      </PolygonComponent>
+      <CodeComponent name="code_31" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="logs_parametros_trial_8.alignText = &quot;left&quot;;&amp;#10;logs_parametros_trial_8.anchorHoriz = &quot;left&quot;;&amp;#10;first_frame = true;&amp;#10;flag_skip_all = false;&amp;#10;flag_answer_registered = false;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="logs_parametros_trial_8.alignText='left'&amp;#10;logs_parametros_trial_8.anchorHoriz='left'&amp;#10;&amp;#10;path_prefix = r&quot;.\instructions\tutorial_semantic_sf_color_contrast\tutorial_trials_imgs/&quot;&amp;#10;&amp;#10;# TODO:&amp;#10;# if 'marvo' r&quot;./images/autogenerated_datasets/module_1_images/high¿?&quot;&amp;#10;# if 'neutro' r&quot;./images/autogenerated_datasets/module_1_images/medium&quot;&amp;#10;# if 'parvo' r&quot;./images/autogenerated_datasets/module_1_images/low&quot;&amp;#10;&amp;#10;path_img_type = &quot;&quot;&amp;#10;path_semantic_category = &quot;&quot;&amp;#10;&amp;#10;if tipo == 'sf_magno':&amp;#10;    path_img_type = 'bandpass_0_3_cpd/'&amp;#10;elif tipo == 'sf_neutro':&amp;#10;    path_img_type = 'bandpass_3_6_cpd/'&amp;#10;elif tipo == 'sf_parvo':&amp;#10;    path_img_type = 'bandpass_6_30_cpd/'&amp;#10;elif tipo == 'color':&amp;#10;    path_img_type = 'colored_silhouette/'&amp;#10;else:&amp;#10;    print(&quot;ERROR: Unrecognized category&quot;)&amp;#10;    &amp;#10;if respuesta == 'vivo':&amp;#10;    path_semantic_category = 'animals/'&amp;#10;elif respuesta == 'inerte':&amp;#10;    path_semantic_category = 'objects/'&amp;#10;&amp;#10;sf_semantic_stim_path = path_prefix + path_semantic_category + path_img_type + tutorial_filename&amp;#10;&amp;#10;event.clearEvents()&amp;#10;&amp;#10;first_frame             = True&amp;#10;flag_skip_all           = False&amp;#10;flag_answer_registered  = False&amp;#10;success                 = -1&amp;#10;undecided               = False" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="if advanced_config[&quot;logs&quot;][&quot;value&quot;]:&amp;#10;    logs_parametros_trial_11.setText(&amp;#10;        f&quot;TUTORIAL estímulos semánticos\n&quot;&amp;#10;        f&quot;Intento: {intento}\n&quot;&amp;#10;        f&quot;Tipo: {tipo}\n&quot;&amp;#10;        #f&quot;Ancho pantalla cm: {screen_width_cm}\n&quot;       #= float(modules[&quot;module_1&quot;][&quot;tests&quot;][&quot;test_4&quot;][&quot;config&quot;][&quot;screen_width_cm&quot;])&amp;#10;        #f&quot;Distancia sujeto-pantalla cm: {distance_to_screen_cm}\n&quot; #    = float(modules[&quot;module_1&quot;][&quot;tests&quot;][&quot;test_4&quot;][&quot;config&quot;][&quot;distance_to_screen_cm&quot;])&amp;#10;        #f&quot;Resolución pantalla dpi: {screen_resolution_dpi}\n&quot; #    = float(modules[&quot;module_1&quot;][&quot;tests&quot;][&quot;test_4&quot;][&quot;config&quot;][&quot;screen_resolution_dpi&quot;])&amp;#10;    )&amp;#10;&amp;#10;####################################################&amp;#10;##############____EVENTS &amp; STATES____###############&amp;#10;####################################################&amp;#10;&amp;#10;flag_skip_all           = False&amp;#10;flag_answer_registered  = False&amp;#10;undecided               = False&amp;#10;success                 = -1&amp;#10;&amp;#10;keys = event.getKeys()&amp;#10;if 'space' in keys:&amp;#10;    flag_skip_all = True&amp;#10;    &amp;#10;elif 'right' in keys and respuesta == 'vivo': # Acierto:&amp;#10;    flag_answer_registered  = True&amp;#10;    success                 = True&amp;#10;elif 'left' in keys and respuesta == 'inerte': # Acierto:&amp;#10;    flag_answer_registered  = True&amp;#10;    success                 = True&amp;#10;elif 'right' in keys or 'left' in keys: # Respuesta incorrecta&amp;#10;    flag_answer_registered  = True&amp;#10;    success                 = False&amp;#10;elif 'down' in keys: # NS/NC&amp;#10;    flag_answer_registered  = True&amp;#10;    success                 = False&amp;#10;    undecided               = True&amp;#10;&amp;#10;####################################################&amp;#10;###############____TIME &amp; NOISE____#################&amp;#10;####################################################&amp;#10;&amp;#10;if first_frame: # Ejecucion unica&amp;#10;    dots_white_13.setAutoDraw(False)&amp;#10;    dots_black_13.setAutoDraw(False)&amp;#10;    first_time = False&amp;#10;&amp;#10;if (t&gt;stim_time+2) or flag_answer_registered: # time exceeded OR answer registered&amp;#10;    show_feedback(feedback_txt_9, success)&amp;#10;    semantic_stim_4.setAutoDraw(False)&amp;#10;    show_noise(dots_white_13, dots_black_13, response_time, 0, feedback_txt_9) #only one call&amp;#10;    continueRoutine = False&amp;#10;    &amp;#10;if flag_skip_all:&amp;#10;    semantic_tutorial_loop.finished = True" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="var _pj;&amp;#10;function _pj_snippets(container) {&amp;#10;    function in_es6(left, right) {&amp;#10;        if (((right instanceof Array) || ((typeof right) === &quot;string&quot;))) {&amp;#10;            return (right.indexOf(left) &gt; (- 1));&amp;#10;        } else {&amp;#10;            if (((right instanceof Map) || (right instanceof Set) || (right instanceof WeakMap) || (right instanceof WeakSet))) {&amp;#10;                return right.has(left);&amp;#10;            } else {&amp;#10;                return (left in right);&amp;#10;            }&amp;#10;        }&amp;#10;    }&amp;#10;    container[&quot;in_es6&quot;] = in_es6;&amp;#10;    return container;&amp;#10;}&amp;#10;_pj = {};&amp;#10;_pj_snippets(_pj);&amp;#10;logs_parametros_trial_8.setText(`Prueba 5 - Estímulos semánticos&amp;#10;Intento: ${intento}&amp;#10;Excentricidad: ${excentricidad}º&amp;#10;Tamaño Estímulo: ${util.pad(Number.parseFloat(tamanyo).toFixed(2), 1)}&amp;#10;Tipo: ${tipo}`&amp;#10;);&amp;#10;flag_skip_all = false;&amp;#10;flag_answer_registered = false;&amp;#10;keys = psychoJS.eventManager.getKeys();&amp;#10;if (_pj.in_es6(&quot;space&quot;, keys)) {&amp;#10;    flag_skip_all = true;&amp;#10;} else {&amp;#10;    if (_pj.in_es6(&quot;right&quot;, keys)) {&amp;#10;        flag_answer_registered = true;&amp;#10;    } else {&amp;#10;        if (_pj.in_es6(&quot;left&quot;, keys)) {&amp;#10;            flag_answer_registered = true;&amp;#10;        } else {&amp;#10;            if (_pj.in_es6(&quot;down&quot;, keys)) {&amp;#10;                flag_answer_registered = true;&amp;#10;            }&amp;#10;        }&amp;#10;    }&amp;#10;}&amp;#10;if (first_frame) {&amp;#10;    dots_white_9.setAutoDraw(false);&amp;#10;    dots_black_9.setAutoDraw(false);&amp;#10;    first_time = false;&amp;#10;}&amp;#10;if (((t &gt; stim_time) || flag_answer_registered)) {&amp;#10;    stim.setAutoDraw(false);&amp;#10;    show_noise(dots_white_9, dots_black_9, response_time);&amp;#10;    continueRoutine = false;&amp;#10;}&amp;#10;if (flag_skip_all) {&amp;#10;    trials_bl_5.finished = true;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="code_31" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+      <TextComponent name="logs_parametros_trial_11" plugin="None">
+        <Param val="-1.0000, -1.0000, -1.0000" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.025" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="logs_parametros_trial_11" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0.5, 0.4)" valType="list" updates="constant" name="pos"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="" valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <PolygonComponent name="right_arrow_4" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="white" valType="color" updates="constant" name="fillColor"/>
+        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
+        <Param val="white" valType="color" updates="constant" name="lineColor"/>
+        <Param val="1" valType="num" updates="constant" name="lineWidth"/>
+        <Param val="4" valType="int" updates="constant" name="nVertices"/>
+        <Param val="right_arrow_4" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="90" valType="num" updates="constant" name="ori"/>
+        <Param val="(0.65, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="arrow" valType="str" updates="None" name="shape"/>
+        <Param val="(0.3, 0.2)" valType="list" updates="constant" name="size"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="list" updates="constant" name="vertices"/>
+      </PolygonComponent>
+      <PolygonComponent name="left_arrow_4" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="white" valType="color" updates="constant" name="fillColor"/>
+        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
+        <Param val="white" valType="color" updates="constant" name="lineColor"/>
+        <Param val="1" valType="num" updates="constant" name="lineWidth"/>
+        <Param val="4" valType="int" updates="constant" name="nVertices"/>
+        <Param val="left_arrow_4" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="-90" valType="num" updates="constant" name="ori"/>
+        <Param val="(-0.65, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="arrow" valType="str" updates="None" name="shape"/>
+        <Param val="(0.3, 0.2)" valType="list" updates="constant" name="size"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="list" updates="constant" name="vertices"/>
+      </PolygonComponent>
+      <TextComponent name="right_arrow_text_4" plugin="None">
+        <Param val="-1.0000, -1.0000, -1.0000" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.03" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="right_arrow_text_4" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0.65, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Ser vivo" valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <TextComponent name="left_arrow_text_4" plugin="None">
+        <Param val="-1.0000, -1.0000, -1.0000" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.03" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="left_arrow_text_4" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(-0.65, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Inerte" valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <ImageComponent name="semantic_stim_4" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="$[1,1,1]" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
+        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
+        <Param val="$sf_semantic_stim_path" valType="file" updates="set every repeat" name="image"/>
+        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
+        <Param val="" valType="str" updates="constant" name="mask"/>
+        <Param val="semantic_stim_4" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0.0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="tamanyo" valType="list" updates="set every repeat" name="size"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="128" valType="num" updates="constant" name="texture resolution"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+      </ImageComponent>
+      <DotsComponent name="dots_white_13" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="1.0" valType="num" updates="constant" name="coherence"/>
+        <Param val="1.0000, 1.0000, 1.0000" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="0.0" valType="num" updates="constant" name="dir"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="3" valType="num" updates="None" name="dotLife"/>
+        <Param val="2" valType="num" updates="constant" name="dotSize"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="(0.0, 0.0)" valType="list" updates="constant" name="fieldPos"/>
+        <Param val="square" valType="str" updates="constant" name="fieldShape"/>
+        <Param val="[1.75,1]" valType="num" updates="constant" name="fieldSize"/>
+        <Param val="noise_dots" valType="int" updates="constant" name="nDots"/>
+        <Param val="dots_white_13" valType="code" updates="None" name="name"/>
+        <Param val="direction" valType="str" updates="None" name="noiseDots"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="repeat" valType="str" updates="None" name="refreshDots"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="same" valType="str" updates="None" name="signalDots"/>
+        <Param val="0.1" valType="num" updates="constant" name="speed"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+      </DotsComponent>
+      <DotsComponent name="dots_black_13" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="1.0" valType="num" updates="constant" name="coherence"/>
+        <Param val="-1.0000, -1.0000, -1.0000" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="0.0" valType="num" updates="constant" name="dir"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="3" valType="num" updates="None" name="dotLife"/>
+        <Param val="2" valType="num" updates="constant" name="dotSize"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="(0.0, 0.0)" valType="list" updates="constant" name="fieldPos"/>
+        <Param val="square" valType="str" updates="constant" name="fieldShape"/>
+        <Param val="[1.75,1]" valType="num" updates="constant" name="fieldSize"/>
+        <Param val="noise_dots" valType="int" updates="constant" name="nDots"/>
+        <Param val="dots_black_13" valType="code" updates="None" name="name"/>
+        <Param val="direction" valType="str" updates="None" name="noiseDots"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="repeat" valType="str" updates="None" name="refreshDots"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="same" valType="str" updates="None" name="signalDots"/>
+        <Param val="0.1" valType="num" updates="constant" name="speed"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+      </DotsComponent>
+      <TextComponent name="feedback_txt_9" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.085" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="feedback_txt_9" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="" valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+    </Routine>
   </Routines>
   <Flow>
     <Routine name="calibration_routine"/>
@@ -6920,6 +7261,44 @@
     <Routine name="BL_2_COLOR"/>
     <LoopTerminator name="trials_bl_2"/>
     <LoopTerminator name="MODULE_1_TEST_2"/>
+    <LoopInitiator loopType="TrialHandler" name="tutorial_semantic_sf_color_contrast">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="[{'title': 'TUTORIAL BOTONERA', 'instruction_1': 'I AM WORKING', 'instruction_2': 'I AM WORKING', 'instruction_3': 'I AM WORKING', 'instruction_4': None, 'instruction_5': None, 'path_from_src': 'instructions\\tutorial_semantic_sf_color_contrast\\', 'img_instruction_1': '1.png', 'img_instruction_2': '2.png', 'img_instruction_3': '3.png', 'img_instruction_4': None, 'img_instruction_5': None}]" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="nReps" updates="None" val="bool(general_config[&quot;test_tutorial&quot;][&quot;value&quot;] &amp; (modules[&quot;module_1&quot;][&quot;tests&quot;][&quot;test_4&quot;][&quot;selected&quot;] + modules[&quot;module_1&quot;][&quot;tests&quot;][&quot;test_5&quot;][&quot;selected&quot;]) + modules[&quot;module_1&quot;][&quot;tests&quot;][&quot;test_6&quot;][&quot;selected&quot;])" valType="num"/>
+      <Param name="name" updates="None" val="tutorial_semantic_sf_color_contrast" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <LoopInitiator loopType="TrialHandler" name="tutorial_semantic_sf_color_contrast_instructions">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="[{'title': 'TUTORIAL ESTÍMULOS SEMÁNTICOS', 'instruction_1': 'A partir de ahora en lugar de ver un parche vas a ver imágenes que pueden ser animales u objetos inertes.', 'instruction_2': 'Estas imágenes están modificadas para hacerlo un poco más dificil. Aquí tienes un ejemplo de como vas a poder ver una misma imagen.', 'instruction_3': 'Pulsa el botón derecho si lo que ves es un ser vivo.', 'instruction_4': 'Pulsa el botón izquierdo si lo que ves es un objeto inerte.', 'instruction_5': 'Vamos con una prueba para comprobar que lo has entendido.', 'path_from_src': 'instructions\\tutorial_semantic_sf_color_contrast\\', 'img_instruction_1': None, 'img_instruction_2': 'objects_example.png', 'img_instruction_3': '1.png', 'img_instruction_4': '2.png', 'img_instruction_5': None}]" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="instructions/tutorial_semantic_sf_color_contrast/tutorial_semantic_sf_color_contrast.xlsx" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="nReps" updates="None" val="1" valType="num"/>
+      <Param name="name" updates="None" val="tutorial_semantic_sf_color_contrast_instructions" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <Routine name="INSTRUCTIONS"/>
+    <LoopTerminator name="tutorial_semantic_sf_color_contrast_instructions"/>
+    <LoopInitiator loopType="TrialHandler" name="semantic_tutorial_loop">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="[OrderedDict([('intento', 'TUTORIAL_1'), ('tutorial_filename', 'chick.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_magno'), ('excentricidad', np.int64(0)), ('respuesta', 'vivo'), ('tamanyo', np.int64(1)), ('color_h', np.int64(50)), ('color_s', np.int64(5)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_2'), ('tutorial_filename', 'eagle.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'color'), ('excentricidad', np.int64(0)), ('respuesta', 'vivo'), ('tamanyo', np.int64(1)), ('color_h', np.int64(60)), ('color_s', np.int64(10)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_3'), ('tutorial_filename', 'lion.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_parvo'), ('excentricidad', np.int64(0)), ('respuesta', 'vivo'), ('tamanyo', np.int64(1)), ('color_h', np.int64(70)), ('color_s', np.int64(10)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_4'), ('tutorial_filename', 'monkey.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'color'), ('excentricidad', np.int64(0)), ('respuesta', 'vivo'), ('tamanyo', np.int64(1)), ('color_h', np.int64(80)), ('color_s', np.int64(5)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_5'), ('tutorial_filename', 'panda.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_parvo'), ('excentricidad', np.int64(0)), ('respuesta', 'vivo'), ('tamanyo', np.int64(1)), ('color_h', np.int64(90)), ('color_s', np.int64(15)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_6'), ('tutorial_filename', 'tiger.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_neutro'), ('excentricidad', np.int64(0)), ('respuesta', 'vivo'), ('tamanyo', np.int64(1)), ('color_h', np.int64(100)), ('color_s', np.int64(15)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_7'), ('tutorial_filename', 'camera.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_parvo'), ('excentricidad', np.int64(0)), ('respuesta', 'inerte'), ('tamanyo', np.int64(1)), ('color_h', np.int64(0)), ('color_s', np.int64(5)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_8'), ('tutorial_filename', 'chair.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'color'), ('excentricidad', np.int64(0)), ('respuesta', 'inerte'), ('tamanyo', np.int64(1)), ('color_h', np.int64(10)), ('color_s', np.int64(10)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_9'), ('tutorial_filename', 'notebook.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_magno'), ('excentricidad', np.int64(0)), ('respuesta', 'inerte'), ('tamanyo', np.int64(1)), ('color_h', np.int64(20)), ('color_s', np.int64(10)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_10'), ('tutorial_filename', 'pc.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_magno'), ('excentricidad', np.int64(0)), ('respuesta', 'inerte'), ('tamanyo', np.int64(1)), ('color_h', np.int64(30)), ('color_s', np.int64(5)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_11'), ('tutorial_filename', 'plane.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'sf_parvo'), ('excentricidad', np.int64(0)), ('respuesta', 'inerte'), ('tamanyo', np.int64(1)), ('color_h', np.int64(40)), ('color_s', np.int64(15)), ('color_v', np.int64(100)), ('color_name', None)]), OrderedDict([('intento', 'TUTORIAL_12'), ('tutorial_filename', 'umbrella.jpg'), ('posicion_angular', np.int64(0)), ('tipo', 'color'), ('excentricidad', np.int64(0)), ('respuesta', 'inerte'), ('tamanyo', np.int64(1)), ('color_h', np.int64(50)), ('color_s', np.int64(15)), ('color_v', np.int64(100)), ('color_name', None)])]" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="instructions/tutorial_semantic_sf_color_contrast/tutorial_sequence.csv" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="nReps" updates="None" val="1" valType="num"/>
+      <Param name="name" updates="None" val="semantic_tutorial_loop" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <Routine name="TUTORIAL_SEMANTIC_SF_COLOR_CS"/>
+    <LoopTerminator name="semantic_tutorial_loop"/>
+    <LoopTerminator name="tutorial_semantic_sf_color_contrast"/>
     <LoopInitiator loopType="TrialHandler" name="MODULE_1_TEST_4">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="None" valType="str"/>
@@ -6933,7 +7312,7 @@
     </LoopInitiator>
     <LoopInitiator loopType="TrialHandler" name="BL4_instructions">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="[{'title': 'BLOQUE 5: ESTÍMULOS SEMÁNTICOS - FRECUENCIA ESPACIAL', 'instruction_1': '…', 'instruction_2': '…', 'instruction_3': None, 'instruction_4': None, 'instruction_5': None}]" valType="str"/>
+      <Param name="conditions" updates="None" val="[{'title': 'BLOQUE 4: ESTÍMULOS SEMÁNTICOS - FRECUENCIA ESPACIAL', 'instruction_1': 'A continuación vas a ver una série de imágenes. Para cada imagen que se muestre debes responder si se trata de un ser vivo o un objeto inerte.', 'instruction_2': 'Las imágenes no se van a ver al completo, hemos modificado unos parámetros para hacerlo un poco más dificil.', 'instruction_3': 'Pulsa el botón central para empezar la prueba.', 'instruction_4': None, 'instruction_5': None}]" valType="str"/>
       <Param name="conditionsFile" updates="None" val="instructions/BL4_instructions.xlsx" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
       <Param name="isTrials" updates="None" val="True" valType="bool"/>

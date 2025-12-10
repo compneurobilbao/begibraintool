@@ -1,0 +1,13 @@
+intento;tutorial_filename;posicion_angular;tipo;excentricidad;respuesta;tamanyo;color_h;color_s;color_v;color_name
+TUTORIAL_1;chick.jpg;0;sf_magno;0;vivo;1;50;5;100;
+TUTORIAL_2;eagle.jpg;0;color;0;vivo;1;60;10;100;
+TUTORIAL_3;lion.jpg;0;sf_parvo;0;vivo;1;70;10;100;
+TUTORIAL_4;monkey.jpg;0;color;0;vivo;1;80;5;100;
+TUTORIAL_5;panda.jpg;0;sf_parvo;0;vivo;1;90;15;100;
+TUTORIAL_6;tiger.jpg;0;sf_neutro;0;vivo;1;100;15;100;
+TUTORIAL_7;camera.jpg;0;sf_parvo;0;inerte;1;0;5;100;
+TUTORIAL_8;chair.jpg;0;color;0;inerte;1;10;10;100;
+TUTORIAL_9;notebook.jpg;0;sf_magno;0;inerte;1;20;10;100;
+TUTORIAL_10;pc.jpg;0;sf_magno;0;inerte;1;30;5;100;
+TUTORIAL_11;plane.jpg;0;sf_parvo;0;inerte;1;40;15;100;
+TUTORIAL_12;umbrella.jpg;0;color;0;inerte;1;50;15;100;

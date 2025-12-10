@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on diciembre 09, 2025, at 12:01
+    on diciembre 10, 2025, at 13:26
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -924,6 +924,12 @@ def setupDevices(expInfo, thisExp, win):
         key_resp_10 = deviceManager.addDevice(
             deviceClass='keyboard',
             deviceName='key_resp_10',
+        )
+    if deviceManager.getDevice('key_resp_33') is None:
+        # initialise key_resp_33
+        key_resp_33 = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='key_resp_33',
         )
     if deviceManager.getDevice('key_resp_13') is None:
         # initialise key_resp_13
@@ -2309,6 +2315,172 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     stim_y = 0
     
     foveal_region_pos = [0,0]
+    
+    # --- Initialize components for Routine "INSTRUCTIONS" ---
+    logo_begibraintool = visual.ImageStim(
+        win=win,
+        name='logo_begibraintool', 
+        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=0.0)
+    logo_bio_2 = visual.ImageStim(
+        win=win,
+        name='logo_bio_2', 
+        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
+        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-1.0)
+    logo_compneurolab_2 = visual.ImageStim(
+        win=win,
+        name='logo_compneurolab_2', 
+        image='images/compneuro_horizontal.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-2.0)
+    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-3.0);
+    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
+        text=None,
+        font='Arial',
+        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-4.0);
+    # Run 'Begin Experiment' code from code_9
+    def calcular_relacion_aspecto(ruta_archivo):
+        """
+        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
+        
+        :param ruta_archivo: Ruta completa de la imagen (str).
+        :return: Relación de aspecto (float).
+        """
+        try:
+            with Image.open(ruta_archivo) as img:
+                anchura, altura = img.size
+                return anchura / altura
+        except Exception as e:
+            raise ValueError(f"Error al abrir la imagen: {e}")
+    instructions_image = visual.ImageStim(
+        win=win,
+        name='instructions_image', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-6.0)
+    button_next_instruction_2 = visual.ButtonStim(win, 
+        text='Siguiente -->', font='Arvo',
+        pos=(0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor='white', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_next_instruction_2',
+        depth=-7
+    )
+    button_next_instruction_2.buttonClock = core.Clock()
+    button_previous_instruction_2 = visual.ButtonStim(win, 
+        text='<--Anterior', font='Arvo',
+        pos=(-0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_previous_instruction_2',
+        depth=-8
+    )
+    button_previous_instruction_2.buttonClock = core.Clock()
+    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
+    
+    # --- Initialize components for Routine "TUTORIAL_SEMANTIC_SF_COLOR_CS" ---
+    key_resp_33 = keyboard.Keyboard(deviceName='key_resp_33')
+    logs_parametros_trial_11 = visual.TextStim(win=win, name='logs_parametros_trial_11',
+        text=None,
+        font='Open Sans',
+        pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-2.0);
+    right_arrow_4 = visual.ShapeStim(
+        win=win, name='right_arrow_4', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-3.0, interpolate=True)
+    left_arrow_4 = visual.ShapeStim(
+        win=win, name='left_arrow_4', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-4.0, interpolate=True)
+    right_arrow_text_4 = visual.TextStim(win=win, name='right_arrow_text_4',
+        text='Ser vivo',
+        font='Open Sans',
+        pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-5.0);
+    left_arrow_text_4 = visual.TextStim(win=win, name='left_arrow_text_4',
+        text='Inerte',
+        font='Open Sans',
+        pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-6.0);
+    semantic_stim_4 = visual.ImageStim(
+        win=win,
+        name='semantic_stim_4', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.0, 0), draggable=False, size=1.0,
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-7.0)
+    dots_white_13 = visual.DotStim(
+        win=win, name='dots_white_13',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
+        depth=-8.0)
+    dots_black_13 = visual.DotStim(
+        win=win, name='dots_black_13',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
+        depth=-9.0)
+    feedback_txt_9 = visual.TextStim(win=win, name='feedback_txt_9',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-10.0);
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -4672,26 +4844,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             
             button_original_color = [-1.0000, 0.0039, -1.0000]  
             button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+            trial = thisExp.getCurrentTrial()
             
             instruction_no = 0
             messages_instructions = []
-            for i in range(1, 6):
-                var_name = f"instruction_{i}"
-                if var_name in globals():
-                    instruction = globals()[var_name]
-                    if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                        messages_instructions.append(instruction)
+            #for i in range(1, 6):
+            #    var_name = f"instruction_{i}"
+            #    if var_name in globals():
+            #        instruction = globals()[var_name]
+            #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+            #            messages_instructions.append(instruction)
             print(f'Lista de instrucciones cargada: {messages_instructions}')
             
             images_instructions = []
             for i in range(1, 6):
-                var_name = f"img_instruction_{i}"
-                if var_name in globals():
-                    instruction_img = globals()[var_name]
-                    if instruction_img:
-                        images_instructions.append(instruction_img)
-                    else:
-                        images_instructions.append(None)
+                # TEXTOS
+                txt = trial.get(f"instruction_{i}", None)
+                if txt:  
+                    messages_instructions.append(txt)
+            
+                # IMÁGENES
+                img = trial.get(f"img_instruction_{i}", None)
+                if img:
+                    images_instructions.append(img)
                 else:
                     images_instructions.append(None)
             
@@ -4848,6 +5023,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                 else:
                     instructions_img_path = None
+                    instructions_image.image = None
                 
                 ###################################################
                 ####_______________BUTTONS_____________________####
@@ -5326,26 +5502,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -5502,6 +5681,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -6212,26 +6392,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     button_original_color = [-1.0000, 0.0039, -1.0000]  
                     button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                    trial = thisExp.getCurrentTrial()
                     
                     instruction_no = 0
                     messages_instructions = []
-                    for i in range(1, 6):
-                        var_name = f"instruction_{i}"
-                        if var_name in globals():
-                            instruction = globals()[var_name]
-                            if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                                messages_instructions.append(instruction)
+                    #for i in range(1, 6):
+                    #    var_name = f"instruction_{i}"
+                    #    if var_name in globals():
+                    #        instruction = globals()[var_name]
+                    #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                    #            messages_instructions.append(instruction)
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     
                     images_instructions = []
                     for i in range(1, 6):
-                        var_name = f"img_instruction_{i}"
-                        if var_name in globals():
-                            instruction_img = globals()[var_name]
-                            if instruction_img:
-                                images_instructions.append(instruction_img)
-                            else:
-                                images_instructions.append(None)
+                        # TEXTOS
+                        txt = trial.get(f"instruction_{i}", None)
+                        if txt:  
+                            messages_instructions.append(txt)
+                    
+                        # IMÁGENES
+                        img = trial.get(f"img_instruction_{i}", None)
+                        if img:
+                            images_instructions.append(img)
                         else:
                             images_instructions.append(None)
                     
@@ -6388,6 +6571,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                         else:
                             instructions_img_path = None
+                            instructions_image.image = None
                         
                         ###################################################
                         ####_______________BUTTONS_____________________####
@@ -7086,26 +7270,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -7262,6 +7449,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -7940,26 +8128,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -8116,6 +8307,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -9094,26 +9286,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -9270,6 +9465,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -10053,26 +10249,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -10229,6 +10428,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -10983,26 +11183,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -11159,6 +11362,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -11855,6 +12059,1017 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             dataOut=['n','all_mean','all_std', 'all_raw'])
         
         # set up handler to look after randomisation of conditions etc
+        tutorial_semantic_sf_color_contrast = data.TrialHandler2(
+            name='tutorial_semantic_sf_color_contrast',
+            nReps=bool(general_config["test_tutorial"]["value"] & (modules["module_1"]["tests"]["test_4"]["selected"] + modules["module_1"]["tests"]["test_5"]["selected"]) + modules["module_1"]["tests"]["test_6"]["selected"]), 
+            method='random', 
+            extraInfo=expInfo, 
+            originPath=-1, 
+            trialList=[None], 
+            seed=None, 
+        )
+        thisExp.addLoop(tutorial_semantic_sf_color_contrast)  # add the loop to the experiment
+        thisTutorial_semantic_sf_color_contrast = tutorial_semantic_sf_color_contrast.trialList[0]  # so we can initialise stimuli with some values
+        # abbreviate parameter names if possible (e.g. rgb = thisTutorial_semantic_sf_color_contrast.rgb)
+        if thisTutorial_semantic_sf_color_contrast != None:
+            for paramName in thisTutorial_semantic_sf_color_contrast:
+                globals()[paramName] = thisTutorial_semantic_sf_color_contrast[paramName]
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        
+        for thisTutorial_semantic_sf_color_contrast in tutorial_semantic_sf_color_contrast:
+            tutorial_semantic_sf_color_contrast.status = STARTED
+            if hasattr(thisTutorial_semantic_sf_color_contrast, 'status'):
+                thisTutorial_semantic_sf_color_contrast.status = STARTED
+            currentLoop = tutorial_semantic_sf_color_contrast
+            thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # abbreviate parameter names if possible (e.g. rgb = thisTutorial_semantic_sf_color_contrast.rgb)
+            if thisTutorial_semantic_sf_color_contrast != None:
+                for paramName in thisTutorial_semantic_sf_color_contrast:
+                    globals()[paramName] = thisTutorial_semantic_sf_color_contrast[paramName]
+            
+            # set up handler to look after randomisation of conditions etc
+            tutorial_semantic_sf_color_contrast_instructions = data.TrialHandler2(
+                name='tutorial_semantic_sf_color_contrast_instructions',
+                nReps=1.0, 
+                method='random', 
+                extraInfo=expInfo, 
+                originPath=-1, 
+                trialList=data.importConditions('instructions/tutorial_semantic_sf_color_contrast/tutorial_semantic_sf_color_contrast.xlsx'), 
+                seed=None, 
+            )
+            thisExp.addLoop(tutorial_semantic_sf_color_contrast_instructions)  # add the loop to the experiment
+            thisTutorial_semantic_sf_color_contrast_instruction = tutorial_semantic_sf_color_contrast_instructions.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisTutorial_semantic_sf_color_contrast_instruction.rgb)
+            if thisTutorial_semantic_sf_color_contrast_instruction != None:
+                for paramName in thisTutorial_semantic_sf_color_contrast_instruction:
+                    globals()[paramName] = thisTutorial_semantic_sf_color_contrast_instruction[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            
+            for thisTutorial_semantic_sf_color_contrast_instruction in tutorial_semantic_sf_color_contrast_instructions:
+                tutorial_semantic_sf_color_contrast_instructions.status = STARTED
+                if hasattr(thisTutorial_semantic_sf_color_contrast_instruction, 'status'):
+                    thisTutorial_semantic_sf_color_contrast_instruction.status = STARTED
+                currentLoop = tutorial_semantic_sf_color_contrast_instructions
+                thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
+                # abbreviate parameter names if possible (e.g. rgb = thisTutorial_semantic_sf_color_contrast_instruction.rgb)
+                if thisTutorial_semantic_sf_color_contrast_instruction != None:
+                    for paramName in thisTutorial_semantic_sf_color_contrast_instruction:
+                        globals()[paramName] = thisTutorial_semantic_sf_color_contrast_instruction[paramName]
+                
+                # --- Prepare to start Routine "INSTRUCTIONS" ---
+                # create an object to store info about Routine INSTRUCTIONS
+                INSTRUCTIONS = data.Routine(
+                    name='INSTRUCTIONS',
+                    components=[logo_begibraintool, logo_bio_2, logo_compneurolab_2, text_instructions_2, text_instructions_title, instructions_image, button_next_instruction_2, button_previous_instruction_2, key_resp_skip_instructions_2],
+                )
+                INSTRUCTIONS.status = NOT_STARTED
+                continueRoutine = True
+                # update component parameters for each repeat
+                # Run 'Begin Routine' code from code_9
+                win.color = "grey"
+                instructions_img_path = None
+                relacion_aspecto = 1
+                
+                button_original_color = [-1.0000, 0.0039, -1.0000]  
+                button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
+                
+                instruction_no = 0
+                messages_instructions = []
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
+                
+                images_instructions = []
+                for i in range(1, 6):
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
+                    else:
+                        images_instructions.append(None)
+                
+                print(f'Lista de imágenes cargada: {images_instructions}')
+                
+                instructions_image.setSize((relacion_aspecto,1))
+                button_next_instruction_2.setFillColor(button_original_color)
+                # reset button_next_instruction_2 to account for continued clicks & clear times on/off
+                button_next_instruction_2.reset()
+                # reset button_previous_instruction_2 to account for continued clicks & clear times on/off
+                button_previous_instruction_2.reset()
+                # create starting attributes for key_resp_skip_instructions_2
+                key_resp_skip_instructions_2.keys = []
+                key_resp_skip_instructions_2.rt = []
+                _key_resp_skip_instructions_2_allKeys = []
+                # store start times for INSTRUCTIONS
+                INSTRUCTIONS.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+                INSTRUCTIONS.tStart = globalClock.getTime(format='float')
+                INSTRUCTIONS.status = STARTED
+                thisExp.addData('INSTRUCTIONS.started', INSTRUCTIONS.tStart)
+                INSTRUCTIONS.maxDuration = None
+                # keep track of which components have finished
+                INSTRUCTIONSComponents = INSTRUCTIONS.components
+                for thisComponent in INSTRUCTIONS.components:
+                    thisComponent.tStart = None
+                    thisComponent.tStop = None
+                    thisComponent.tStartRefresh = None
+                    thisComponent.tStopRefresh = None
+                    if hasattr(thisComponent, 'status'):
+                        thisComponent.status = NOT_STARTED
+                # reset timers
+                t = 0
+                _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+                frameN = -1
+                
+                # --- Run Routine "INSTRUCTIONS" ---
+                INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
+                while continueRoutine:
+                    # if trial has changed, end Routine now
+                    if hasattr(thisTutorial_semantic_sf_color_contrast_instruction, 'status') and thisTutorial_semantic_sf_color_contrast_instruction.status == STOPPING:
+                        continueRoutine = False
+                    # get current time
+                    t = routineTimer.getTime()
+                    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                    # update/draw components on each frame
+                    
+                    # *logo_begibraintool* updates
+                    
+                    # if logo_begibraintool is starting this frame...
+                    if logo_begibraintool.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logo_begibraintool.frameNStart = frameN  # exact frame index
+                        logo_begibraintool.tStart = t  # local t and not account for scr refresh
+                        logo_begibraintool.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logo_begibraintool, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'logo_begibraintool.started')
+                        # update status
+                        logo_begibraintool.status = STARTED
+                        logo_begibraintool.setAutoDraw(True)
+                    
+                    # if logo_begibraintool is active this frame...
+                    if logo_begibraintool.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *logo_bio_2* updates
+                    
+                    # if logo_bio_2 is starting this frame...
+                    if logo_bio_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logo_bio_2.frameNStart = frameN  # exact frame index
+                        logo_bio_2.tStart = t  # local t and not account for scr refresh
+                        logo_bio_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logo_bio_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        logo_bio_2.status = STARTED
+                        logo_bio_2.setAutoDraw(True)
+                    
+                    # if logo_bio_2 is active this frame...
+                    if logo_bio_2.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *logo_compneurolab_2* updates
+                    
+                    # if logo_compneurolab_2 is starting this frame...
+                    if logo_compneurolab_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logo_compneurolab_2.frameNStart = frameN  # exact frame index
+                        logo_compneurolab_2.tStart = t  # local t and not account for scr refresh
+                        logo_compneurolab_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logo_compneurolab_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        logo_compneurolab_2.status = STARTED
+                        logo_compneurolab_2.setAutoDraw(True)
+                    
+                    # if logo_compneurolab_2 is active this frame...
+                    if logo_compneurolab_2.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *text_instructions_2* updates
+                    
+                    # if text_instructions_2 is starting this frame...
+                    if text_instructions_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        text_instructions_2.frameNStart = frameN  # exact frame index
+                        text_instructions_2.tStart = t  # local t and not account for scr refresh
+                        text_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(text_instructions_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        text_instructions_2.status = STARTED
+                        text_instructions_2.setAutoDraw(True)
+                    
+                    # if text_instructions_2 is active this frame...
+                    if text_instructions_2.status == STARTED:
+                        # update params
+                        text_instructions_2.setText('', log=False)
+                    
+                    # *text_instructions_title* updates
+                    
+                    # if text_instructions_title is starting this frame...
+                    if text_instructions_title.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        text_instructions_title.frameNStart = frameN  # exact frame index
+                        text_instructions_title.tStart = t  # local t and not account for scr refresh
+                        text_instructions_title.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(text_instructions_title, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'text_instructions_title.started')
+                        # update status
+                        text_instructions_title.status = STARTED
+                        text_instructions_title.setAutoDraw(True)
+                    
+                    # if text_instructions_title is active this frame...
+                    if text_instructions_title.status == STARTED:
+                        # update params
+                        pass
+                    # Run 'Each Frame' code from code_9
+                    text_instructions_2.text = messages_instructions[instruction_no]
+                    text_instructions_title.text = title
+                    
+                    ###################################################
+                    ####_____________IMAGE/VIDEO___________________####
+                    ###################################################
+                    if images_instructions[instruction_no] is not None:
+                        file_path = path_from_src + images_instructions[instruction_no]
+                        instructions_img_path = file_path
+                        relacion_aspecto = calcular_relacion_aspecto(file_path)
+                        instructions_image.size = (relacion_aspecto*0.4,0.4)
+                        
+                    else:
+                        instructions_img_path = None
+                        instructions_image.image = None
+                    
+                    ###################################################
+                    ####_______________BUTTONS_____________________####
+                    ###################################################
+                    
+                    if instruction_no == (len(messages_instructions) - 1):
+                        button_next_instruction_2.opacity = 0
+                        #button_next_instruction.status = PAUSED
+                    else:
+                        button_next_instruction_2.opacity = 1.0
+                        #button_next_instruction.status = STARTED
+                    
+                    if instruction_no == 0:
+                        button_previous_instruction_2.opacity = 0
+                        #button_previous_instruction.status = PAUSED
+                    else:
+                        button_previous_instruction_2.opacity = 1.0
+                        #button_previous_instruction.status = STARTED
+                    
+                    ###################################################
+                    ####________________EVENTS_____________________####
+                    ###################################################
+                    
+                    keys = event.getKeys()  # Cada llamada al buffer lo vacía
+                    
+                    if 'right' in keys:
+                        if instruction_no < len(messages_instructions)-1:
+                            instruction_no+=1
+                            button_next_instruction_2.fillColor = button_pressed_color
+                            win.flip()
+                            time.sleep(0.15)
+                            button_next_instruction_2.fillColor = button_original_color
+                            win.flip()
+                    elif 'left' in keys:
+                        if 0 < instruction_no:
+                            instruction_no-=1
+                            button_previous_instruction_2.fillColor = button_pressed_color
+                            win.flip()
+                            time.sleep(0.15)
+                            button_previous_instruction_2.fillColor = button_original_color
+                            win.flip()
+                    
+                    
+                    # *instructions_image* updates
+                    
+                    # if instructions_image is starting this frame...
+                    if instructions_image.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        instructions_image.frameNStart = frameN  # exact frame index
+                        instructions_image.tStart = t  # local t and not account for scr refresh
+                        instructions_image.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(instructions_image, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        instructions_image.status = STARTED
+                        instructions_image.setAutoDraw(True)
+                    
+                    # if instructions_image is active this frame...
+                    if instructions_image.status == STARTED:
+                        # update params
+                        instructions_image.setImage(instructions_img_path, log=False)
+                    # *button_next_instruction_2* updates
+                    
+                    # if button_next_instruction_2 is starting this frame...
+                    if button_next_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                        # keep track of start time/frame for later
+                        button_next_instruction_2.frameNStart = frameN  # exact frame index
+                        button_next_instruction_2.tStart = t  # local t and not account for scr refresh
+                        button_next_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(button_next_instruction_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        button_next_instruction_2.status = STARTED
+                        win.callOnFlip(button_next_instruction_2.buttonClock.reset)
+                        button_next_instruction_2.setAutoDraw(True)
+                    
+                    # if button_next_instruction_2 is active this frame...
+                    if button_next_instruction_2.status == STARTED:
+                        # update params
+                        pass
+                        # check whether button_next_instruction_2 has been pressed
+                        if button_next_instruction_2.isClicked:
+                            if not button_next_instruction_2.wasClicked:
+                                # if this is a new click, store time of first click and clicked until
+                                button_next_instruction_2.timesOn.append(button_next_instruction_2.buttonClock.getTime())
+                                button_next_instruction_2.timesOff.append(button_next_instruction_2.buttonClock.getTime())
+                            elif len(button_next_instruction_2.timesOff):
+                                # if click is continuing from last frame, update time of clicked until
+                                button_next_instruction_2.timesOff[-1] = button_next_instruction_2.buttonClock.getTime()
+                            if not button_next_instruction_2.wasClicked:
+                                # run callback code when button_next_instruction_2 is clicked
+                                if instruction_no < len(messages_instructions)-1:
+                                    instruction_no+=1
+                                    button_next_instruction_2.fillColor = button_pressed_color
+                                    win.flip()
+                                    time.sleep(0.15)
+                                    button_next_instruction_2.fillColor = button_original_color
+                                    win.flip()
+                    # take note of whether button_next_instruction_2 was clicked, so that next frame we know if clicks are new
+                    button_next_instruction_2.wasClicked = button_next_instruction_2.isClicked and button_next_instruction_2.status == STARTED
+                    # *button_previous_instruction_2* updates
+                    
+                    # if button_previous_instruction_2 is starting this frame...
+                    if button_previous_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                        # keep track of start time/frame for later
+                        button_previous_instruction_2.frameNStart = frameN  # exact frame index
+                        button_previous_instruction_2.tStart = t  # local t and not account for scr refresh
+                        button_previous_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(button_previous_instruction_2, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'button_previous_instruction_2.started')
+                        # update status
+                        button_previous_instruction_2.status = STARTED
+                        win.callOnFlip(button_previous_instruction_2.buttonClock.reset)
+                        button_previous_instruction_2.setAutoDraw(True)
+                    
+                    # if button_previous_instruction_2 is active this frame...
+                    if button_previous_instruction_2.status == STARTED:
+                        # update params
+                        pass
+                        # check whether button_previous_instruction_2 has been pressed
+                        if button_previous_instruction_2.isClicked:
+                            if not button_previous_instruction_2.wasClicked:
+                                # if this is a new click, store time of first click and clicked until
+                                button_previous_instruction_2.timesOn.append(button_previous_instruction_2.buttonClock.getTime())
+                                button_previous_instruction_2.timesOff.append(button_previous_instruction_2.buttonClock.getTime())
+                            elif len(button_previous_instruction_2.timesOff):
+                                # if click is continuing from last frame, update time of clicked until
+                                button_previous_instruction_2.timesOff[-1] = button_previous_instruction_2.buttonClock.getTime()
+                            if not button_previous_instruction_2.wasClicked:
+                                # run callback code when button_previous_instruction_2 is clicked
+                                if 0 < instruction_no:
+                                    instruction_no-=1
+                                    button_previous_instruction_2.fillColor = button_pressed_color
+                                    win.flip()
+                                    time.sleep(0.15)
+                                    button_previous_instruction_2.fillColor = button_original_color
+                                    win.flip()
+                    # take note of whether button_previous_instruction_2 was clicked, so that next frame we know if clicks are new
+                    button_previous_instruction_2.wasClicked = button_previous_instruction_2.isClicked and button_previous_instruction_2.status == STARTED
+                    
+                    # *key_resp_skip_instructions_2* updates
+                    waitOnFlip = False
+                    
+                    # if key_resp_skip_instructions_2 is starting this frame...
+                    if key_resp_skip_instructions_2.status == NOT_STARTED and tThisFlip >= 0.35-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_skip_instructions_2.frameNStart = frameN  # exact frame index
+                        key_resp_skip_instructions_2.tStart = t  # local t and not account for scr refresh
+                        key_resp_skip_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_skip_instructions_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        key_resp_skip_instructions_2.status = STARTED
+                        # keyboard checking is just starting
+                        waitOnFlip = True
+                        win.callOnFlip(key_resp_skip_instructions_2.clock.reset)  # t=0 on next screen flip
+                        win.callOnFlip(key_resp_skip_instructions_2.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                    if key_resp_skip_instructions_2.status == STARTED and not waitOnFlip:
+                        theseKeys = key_resp_skip_instructions_2.getKeys(keyList=['space','a','b'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_skip_instructions_2_allKeys.extend(theseKeys)
+                        if len(_key_resp_skip_instructions_2_allKeys):
+                            key_resp_skip_instructions_2.keys = _key_resp_skip_instructions_2_allKeys[-1].name  # just the last key pressed
+                            key_resp_skip_instructions_2.rt = _key_resp_skip_instructions_2_allKeys[-1].rt
+                            key_resp_skip_instructions_2.duration = _key_resp_skip_instructions_2_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
+                    
+                    # check for quit (typically the Esc key)
+                    if defaultKeyboard.getKeys(keyList=["escape"]):
+                        thisExp.status = FINISHED
+                    if thisExp.status == FINISHED or endExpNow:
+                        endExperiment(thisExp, win=win)
+                        return
+                    # pause experiment here if requested
+                    if thisExp.status == PAUSED:
+                        pauseExperiment(
+                            thisExp=thisExp, 
+                            win=win, 
+                            timers=[routineTimer, globalClock], 
+                            currentRoutine=INSTRUCTIONS,
+                        )
+                        # skip the frame we paused on
+                        continue
+                    
+                    # check if all components have finished
+                    if not continueRoutine:  # a component has requested a forced-end of Routine
+                        INSTRUCTIONS.forceEnded = routineForceEnded = True
+                        break
+                    continueRoutine = False  # will revert to True if at least one component still running
+                    for thisComponent in INSTRUCTIONS.components:
+                        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                            continueRoutine = True
+                            break  # at least one component has not yet finished
+                    
+                    # refresh the screen
+                    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                        win.flip()
+                
+                # --- Ending Routine "INSTRUCTIONS" ---
+                for thisComponent in INSTRUCTIONS.components:
+                    if hasattr(thisComponent, "setAutoDraw"):
+                        thisComponent.setAutoDraw(False)
+                # store stop times for INSTRUCTIONS
+                INSTRUCTIONS.tStop = globalClock.getTime(format='float')
+                INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
+                thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                if button_next_instruction_2.numClicks:
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                else:
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOn', "")
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOff', "")
+                tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                if button_previous_instruction_2.numClicks:
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                else:
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOn', "")
+                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOff', "")
+                # check responses
+                if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
+                    key_resp_skip_instructions_2.keys = None
+                tutorial_semantic_sf_color_contrast_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                if key_resp_skip_instructions_2.keys != None:  # we had a response
+                    tutorial_semantic_sf_color_contrast_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    tutorial_semantic_sf_color_contrast_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
+                routineTimer.reset()
+                # mark thisTutorial_semantic_sf_color_contrast_instruction as finished
+                if hasattr(thisTutorial_semantic_sf_color_contrast_instruction, 'status'):
+                    thisTutorial_semantic_sf_color_contrast_instruction.status = FINISHED
+                # if awaiting a pause, pause now
+                if tutorial_semantic_sf_color_contrast_instructions.status == PAUSED:
+                    thisExp.status = PAUSED
+                    pauseExperiment(
+                        thisExp=thisExp, 
+                        win=win, 
+                        timers=[globalClock], 
+                    )
+                    # once done pausing, restore running status
+                    tutorial_semantic_sf_color_contrast_instructions.status = STARTED
+                thisExp.nextEntry()
+                
+            # completed 1.0 repeats of 'tutorial_semantic_sf_color_contrast_instructions'
+            tutorial_semantic_sf_color_contrast_instructions.status = FINISHED
+            
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if tutorial_semantic_sf_color_contrast_instructions.trialList in ([], [None], None):
+                params = []
+            else:
+                params = tutorial_semantic_sf_color_contrast_instructions.trialList[0].keys()
+            # save data for this loop
+            tutorial_semantic_sf_color_contrast_instructions.saveAsExcel(filename + '.xlsx', sheetName='tutorial_semantic_sf_color_contrast_instructions',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
+            
+            # set up handler to look after randomisation of conditions etc
+            semantic_tutorial_loop = data.TrialHandler2(
+                name='semantic_tutorial_loop',
+                nReps=1.0, 
+                method='random', 
+                extraInfo=expInfo, 
+                originPath=-1, 
+                trialList=data.importConditions('instructions/tutorial_semantic_sf_color_contrast/tutorial_sequence.csv'), 
+                seed=None, 
+            )
+            thisExp.addLoop(semantic_tutorial_loop)  # add the loop to the experiment
+            thisSemantic_tutorial_loop = semantic_tutorial_loop.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisSemantic_tutorial_loop.rgb)
+            if thisSemantic_tutorial_loop != None:
+                for paramName in thisSemantic_tutorial_loop:
+                    globals()[paramName] = thisSemantic_tutorial_loop[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            
+            for thisSemantic_tutorial_loop in semantic_tutorial_loop:
+                semantic_tutorial_loop.status = STARTED
+                if hasattr(thisSemantic_tutorial_loop, 'status'):
+                    thisSemantic_tutorial_loop.status = STARTED
+                currentLoop = semantic_tutorial_loop
+                thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
+                # abbreviate parameter names if possible (e.g. rgb = thisSemantic_tutorial_loop.rgb)
+                if thisSemantic_tutorial_loop != None:
+                    for paramName in thisSemantic_tutorial_loop:
+                        globals()[paramName] = thisSemantic_tutorial_loop[paramName]
+                
+                # --- Prepare to start Routine "TUTORIAL_SEMANTIC_SF_COLOR_CS" ---
+                # create an object to store info about Routine TUTORIAL_SEMANTIC_SF_COLOR_CS
+                TUTORIAL_SEMANTIC_SF_COLOR_CS = data.Routine(
+                    name='TUTORIAL_SEMANTIC_SF_COLOR_CS',
+                    components=[key_resp_33, logs_parametros_trial_11, right_arrow_4, left_arrow_4, right_arrow_text_4, left_arrow_text_4, semantic_stim_4, dots_white_13, dots_black_13, feedback_txt_9],
+                )
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.status = NOT_STARTED
+                continueRoutine = True
+                # update component parameters for each repeat
+                # create starting attributes for key_resp_33
+                key_resp_33.keys = []
+                key_resp_33.rt = []
+                _key_resp_33_allKeys = []
+                # Run 'Begin Routine' code from code_31
+                logs_parametros_trial_8.alignText='left'
+                logs_parametros_trial_8.anchorHoriz='left'
+                
+                path_prefix = r".\instructions\tutorial_semantic_sf_color_contrast\tutorial_trials_imgs/"
+                
+                # TODO:
+                # if 'marvo' r"./images/autogenerated_datasets/module_1_images/high¿?"
+                # if 'neutro' r"./images/autogenerated_datasets/module_1_images/medium"
+                # if 'parvo' r"./images/autogenerated_datasets/module_1_images/low"
+                
+                path_img_type = ""
+                path_semantic_category = ""
+                
+                if tipo == 'sf_magno':
+                    path_img_type = 'bandpass_0_3_cpd/'
+                elif tipo == 'sf_neutro':
+                    path_img_type = 'bandpass_3_6_cpd/'
+                elif tipo == 'sf_parvo':
+                    path_img_type = 'bandpass_6_30_cpd/'
+                elif tipo == 'color':
+                    path_img_type = 'colored_silhouette/'
+                else:
+                    print("ERROR: Unrecognized category")
+                    
+                if respuesta == 'vivo':
+                    path_semantic_category = 'animals/'
+                elif respuesta == 'inerte':
+                    path_semantic_category = 'objects/'
+                
+                sf_semantic_stim_path = path_prefix + path_semantic_category + path_img_type + tutorial_filename
+                
+                event.clearEvents()
+                
+                first_frame             = True
+                flag_skip_all           = False
+                flag_answer_registered  = False
+                success                 = -1
+                undecided               = False
+                semantic_stim_4.setSize(tamanyo)
+                semantic_stim_4.setImage(sf_semantic_stim_path)
+                dots_white_13.refreshDots()
+                dots_black_13.refreshDots()
+                # store start times for TUTORIAL_SEMANTIC_SF_COLOR_CS
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.tStart = globalClock.getTime(format='float')
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.status = STARTED
+                thisExp.addData('TUTORIAL_SEMANTIC_SF_COLOR_CS.started', TUTORIAL_SEMANTIC_SF_COLOR_CS.tStart)
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.maxDuration = None
+                # keep track of which components have finished
+                TUTORIAL_SEMANTIC_SF_COLOR_CSComponents = TUTORIAL_SEMANTIC_SF_COLOR_CS.components
+                for thisComponent in TUTORIAL_SEMANTIC_SF_COLOR_CS.components:
+                    thisComponent.tStart = None
+                    thisComponent.tStop = None
+                    thisComponent.tStartRefresh = None
+                    thisComponent.tStopRefresh = None
+                    if hasattr(thisComponent, 'status'):
+                        thisComponent.status = NOT_STARTED
+                # reset timers
+                t = 0
+                _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+                frameN = -1
+                
+                # --- Run Routine "TUTORIAL_SEMANTIC_SF_COLOR_CS" ---
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.forceEnded = routineForceEnded = not continueRoutine
+                while continueRoutine:
+                    # if trial has changed, end Routine now
+                    if hasattr(thisSemantic_tutorial_loop, 'status') and thisSemantic_tutorial_loop.status == STOPPING:
+                        continueRoutine = False
+                    # get current time
+                    t = routineTimer.getTime()
+                    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                    # update/draw components on each frame
+                    
+                    # *key_resp_33* updates
+                    waitOnFlip = False
+                    
+                    # if key_resp_33 is starting this frame...
+                    if key_resp_33.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_33.frameNStart = frameN  # exact frame index
+                        key_resp_33.tStart = t  # local t and not account for scr refresh
+                        key_resp_33.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_33, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'key_resp_33.started')
+                        # update status
+                        key_resp_33.status = STARTED
+                        # keyboard checking is just starting
+                        waitOnFlip = True
+                        win.callOnFlip(key_resp_33.clock.reset)  # t=0 on next screen flip
+                        win.callOnFlip(key_resp_33.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                    if key_resp_33.status == STARTED and not waitOnFlip:
+                        theseKeys = key_resp_33.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_33_allKeys.extend(theseKeys)
+                        if len(_key_resp_33_allKeys):
+                            key_resp_33.keys = _key_resp_33_allKeys[-1].name  # just the last key pressed
+                            key_resp_33.rt = _key_resp_33_allKeys[-1].rt
+                            key_resp_33.duration = _key_resp_33_allKeys[-1].duration
+                    # Run 'Each Frame' code from code_31
+                    if advanced_config["logs"]["value"]:
+                        logs_parametros_trial_11.setText(
+                            f"TUTORIAL estímulos semánticos\n"
+                            f"Intento: {intento}\n"
+                            f"Tipo: {tipo}\n"
+                            #f"Ancho pantalla cm: {screen_width_cm}\n"       #= float(modules["module_1"]["tests"]["test_4"]["config"]["screen_width_cm"])
+                            #f"Distancia sujeto-pantalla cm: {distance_to_screen_cm}\n" #    = float(modules["module_1"]["tests"]["test_4"]["config"]["distance_to_screen_cm"])
+                            #f"Resolución pantalla dpi: {screen_resolution_dpi}\n" #    = float(modules["module_1"]["tests"]["test_4"]["config"]["screen_resolution_dpi"])
+                        )
+                    
+                    ####################################################
+                    ##############____EVENTS & STATES____###############
+                    ####################################################
+                    
+                    flag_skip_all           = False
+                    flag_answer_registered  = False
+                    undecided               = False
+                    success                 = -1
+                    
+                    keys = event.getKeys()
+                    if 'space' in keys:
+                        flag_skip_all = True
+                        
+                    elif 'right' in keys and respuesta == 'vivo': # Acierto:
+                        flag_answer_registered  = True
+                        success                 = True
+                    elif 'left' in keys and respuesta == 'inerte': # Acierto:
+                        flag_answer_registered  = True
+                        success                 = True
+                    elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
+                        flag_answer_registered  = True
+                        success                 = False
+                    elif 'down' in keys: # NS/NC
+                        flag_answer_registered  = True
+                        success                 = False
+                        undecided               = True
+                    
+                    ####################################################
+                    ###############____TIME & NOISE____#################
+                    ####################################################
+                    
+                    if first_frame: # Ejecucion unica
+                        dots_white_13.setAutoDraw(False)
+                        dots_black_13.setAutoDraw(False)
+                        first_time = False
+                    
+                    if (t>stim_time) or flag_answer_registered: # time exceeded OR answer registered
+                        show_feedback(feedback_txt_9, success)
+                        semantic_stim_4.setAutoDraw(False)
+                        show_noise(dots_white_13, dots_black_13, response_time, 0, feedback_txt_9) #only one call
+                        continueRoutine = False
+                        
+                    if flag_skip_all:
+                        semantic_tutorial_loop.finished = True
+                    
+                    # *logs_parametros_trial_11* updates
+                    
+                    # if logs_parametros_trial_11 is starting this frame...
+                    if logs_parametros_trial_11.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logs_parametros_trial_11.frameNStart = frameN  # exact frame index
+                        logs_parametros_trial_11.tStart = t  # local t and not account for scr refresh
+                        logs_parametros_trial_11.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logs_parametros_trial_11, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        logs_parametros_trial_11.status = STARTED
+                        logs_parametros_trial_11.setAutoDraw(True)
+                    
+                    # if logs_parametros_trial_11 is active this frame...
+                    if logs_parametros_trial_11.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *right_arrow_4* updates
+                    
+                    # if right_arrow_4 is starting this frame...
+                    if right_arrow_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        right_arrow_4.frameNStart = frameN  # exact frame index
+                        right_arrow_4.tStart = t  # local t and not account for scr refresh
+                        right_arrow_4.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(right_arrow_4, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'right_arrow_4.started')
+                        # update status
+                        right_arrow_4.status = STARTED
+                        right_arrow_4.setAutoDraw(True)
+                    
+                    # if right_arrow_4 is active this frame...
+                    if right_arrow_4.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *left_arrow_4* updates
+                    
+                    # if left_arrow_4 is starting this frame...
+                    if left_arrow_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        left_arrow_4.frameNStart = frameN  # exact frame index
+                        left_arrow_4.tStart = t  # local t and not account for scr refresh
+                        left_arrow_4.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(left_arrow_4, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'left_arrow_4.started')
+                        # update status
+                        left_arrow_4.status = STARTED
+                        left_arrow_4.setAutoDraw(True)
+                    
+                    # if left_arrow_4 is active this frame...
+                    if left_arrow_4.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *right_arrow_text_4* updates
+                    
+                    # if right_arrow_text_4 is starting this frame...
+                    if right_arrow_text_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        right_arrow_text_4.frameNStart = frameN  # exact frame index
+                        right_arrow_text_4.tStart = t  # local t and not account for scr refresh
+                        right_arrow_text_4.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(right_arrow_text_4, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'right_arrow_text_4.started')
+                        # update status
+                        right_arrow_text_4.status = STARTED
+                        right_arrow_text_4.setAutoDraw(True)
+                    
+                    # if right_arrow_text_4 is active this frame...
+                    if right_arrow_text_4.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *left_arrow_text_4* updates
+                    
+                    # if left_arrow_text_4 is starting this frame...
+                    if left_arrow_text_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        left_arrow_text_4.frameNStart = frameN  # exact frame index
+                        left_arrow_text_4.tStart = t  # local t and not account for scr refresh
+                        left_arrow_text_4.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(left_arrow_text_4, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'left_arrow_text_4.started')
+                        # update status
+                        left_arrow_text_4.status = STARTED
+                        left_arrow_text_4.setAutoDraw(True)
+                    
+                    # if left_arrow_text_4 is active this frame...
+                    if left_arrow_text_4.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *semantic_stim_4* updates
+                    
+                    # if semantic_stim_4 is starting this frame...
+                    if semantic_stim_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        semantic_stim_4.frameNStart = frameN  # exact frame index
+                        semantic_stim_4.tStart = t  # local t and not account for scr refresh
+                        semantic_stim_4.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(semantic_stim_4, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'semantic_stim_4.started')
+                        # update status
+                        semantic_stim_4.status = STARTED
+                        semantic_stim_4.setAutoDraw(True)
+                    
+                    # if semantic_stim_4 is active this frame...
+                    if semantic_stim_4.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *dots_white_13* updates
+                    
+                    # if dots_white_13 is starting this frame...
+                    if dots_white_13.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        dots_white_13.frameNStart = frameN  # exact frame index
+                        dots_white_13.tStart = t  # local t and not account for scr refresh
+                        dots_white_13.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(dots_white_13, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'dots_white_13.started')
+                        # update status
+                        dots_white_13.status = STARTED
+                        dots_white_13.setAutoDraw(True)
+                    
+                    # if dots_white_13 is active this frame...
+                    if dots_white_13.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *dots_black_13* updates
+                    
+                    # if dots_black_13 is starting this frame...
+                    if dots_black_13.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        dots_black_13.frameNStart = frameN  # exact frame index
+                        dots_black_13.tStart = t  # local t and not account for scr refresh
+                        dots_black_13.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(dots_black_13, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        dots_black_13.status = STARTED
+                        dots_black_13.setAutoDraw(True)
+                    
+                    # if dots_black_13 is active this frame...
+                    if dots_black_13.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *feedback_txt_9* updates
+                    
+                    # if feedback_txt_9 is starting this frame...
+                    if feedback_txt_9.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        feedback_txt_9.frameNStart = frameN  # exact frame index
+                        feedback_txt_9.tStart = t  # local t and not account for scr refresh
+                        feedback_txt_9.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(feedback_txt_9, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'feedback_txt_9.started')
+                        # update status
+                        feedback_txt_9.status = STARTED
+                        feedback_txt_9.setAutoDraw(True)
+                    
+                    # if feedback_txt_9 is active this frame...
+                    if feedback_txt_9.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # check for quit (typically the Esc key)
+                    if defaultKeyboard.getKeys(keyList=["escape"]):
+                        thisExp.status = FINISHED
+                    if thisExp.status == FINISHED or endExpNow:
+                        endExperiment(thisExp, win=win)
+                        return
+                    # pause experiment here if requested
+                    if thisExp.status == PAUSED:
+                        pauseExperiment(
+                            thisExp=thisExp, 
+                            win=win, 
+                            timers=[routineTimer, globalClock], 
+                            currentRoutine=TUTORIAL_SEMANTIC_SF_COLOR_CS,
+                        )
+                        # skip the frame we paused on
+                        continue
+                    
+                    # check if all components have finished
+                    if not continueRoutine:  # a component has requested a forced-end of Routine
+                        TUTORIAL_SEMANTIC_SF_COLOR_CS.forceEnded = routineForceEnded = True
+                        break
+                    continueRoutine = False  # will revert to True if at least one component still running
+                    for thisComponent in TUTORIAL_SEMANTIC_SF_COLOR_CS.components:
+                        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                            continueRoutine = True
+                            break  # at least one component has not yet finished
+                    
+                    # refresh the screen
+                    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                        win.flip()
+                
+                # --- Ending Routine "TUTORIAL_SEMANTIC_SF_COLOR_CS" ---
+                for thisComponent in TUTORIAL_SEMANTIC_SF_COLOR_CS.components:
+                    if hasattr(thisComponent, "setAutoDraw"):
+                        thisComponent.setAutoDraw(False)
+                # store stop times for TUTORIAL_SEMANTIC_SF_COLOR_CS
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.tStop = globalClock.getTime(format='float')
+                TUTORIAL_SEMANTIC_SF_COLOR_CS.tStopRefresh = tThisFlipGlobal
+                thisExp.addData('TUTORIAL_SEMANTIC_SF_COLOR_CS.stopped', TUTORIAL_SEMANTIC_SF_COLOR_CS.tStop)
+                # check responses
+                if key_resp_33.keys in ['', [], None]:  # No response was made
+                    key_resp_33.keys = None
+                semantic_tutorial_loop.addData('key_resp_33.keys',key_resp_33.keys)
+                if key_resp_33.keys != None:  # we had a response
+                    semantic_tutorial_loop.addData('key_resp_33.rt', key_resp_33.rt)
+                    semantic_tutorial_loop.addData('key_resp_33.duration', key_resp_33.duration)
+                # the Routine "TUTORIAL_SEMANTIC_SF_COLOR_CS" was not non-slip safe, so reset the non-slip timer
+                routineTimer.reset()
+                # mark thisSemantic_tutorial_loop as finished
+                if hasattr(thisSemantic_tutorial_loop, 'status'):
+                    thisSemantic_tutorial_loop.status = FINISHED
+                # if awaiting a pause, pause now
+                if semantic_tutorial_loop.status == PAUSED:
+                    thisExp.status = PAUSED
+                    pauseExperiment(
+                        thisExp=thisExp, 
+                        win=win, 
+                        timers=[globalClock], 
+                    )
+                    # once done pausing, restore running status
+                    semantic_tutorial_loop.status = STARTED
+                thisExp.nextEntry()
+                
+            # completed 1.0 repeats of 'semantic_tutorial_loop'
+            semantic_tutorial_loop.status = FINISHED
+            
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if semantic_tutorial_loop.trialList in ([], [None], None):
+                params = []
+            else:
+                params = semantic_tutorial_loop.trialList[0].keys()
+            # save data for this loop
+            semantic_tutorial_loop.saveAsExcel(filename + '.xlsx', sheetName='semantic_tutorial_loop',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
+            # mark thisTutorial_semantic_sf_color_contrast as finished
+            if hasattr(thisTutorial_semantic_sf_color_contrast, 'status'):
+                thisTutorial_semantic_sf_color_contrast.status = FINISHED
+            # if awaiting a pause, pause now
+            if tutorial_semantic_sf_color_contrast.status == PAUSED:
+                thisExp.status = PAUSED
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[globalClock], 
+                )
+                # once done pausing, restore running status
+                tutorial_semantic_sf_color_contrast.status = STARTED
+            thisExp.nextEntry()
+            
+        # completed bool(general_config["test_tutorial"]["value"] & (modules["module_1"]["tests"]["test_4"]["selected"] + modules["module_1"]["tests"]["test_5"]["selected"]) + modules["module_1"]["tests"]["test_6"]["selected"]) repeats of 'tutorial_semantic_sf_color_contrast'
+        tutorial_semantic_sf_color_contrast.status = FINISHED
+        
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        # get names of stimulus parameters
+        if tutorial_semantic_sf_color_contrast.trialList in ([], [None], None):
+            params = []
+        else:
+            params = tutorial_semantic_sf_color_contrast.trialList[0].keys()
+        # save data for this loop
+        tutorial_semantic_sf_color_contrast.saveAsExcel(filename + '.xlsx', sheetName='tutorial_semantic_sf_color_contrast',
+            stimOut=params,
+            dataOut=['n','all_mean','all_std', 'all_raw'])
+        
+        # set up handler to look after randomisation of conditions etc
         MODULE_1_TEST_4 = data.TrialHandler2(
             name='MODULE_1_TEST_4',
             nReps=modules["module_1"]["tests"]["test_4"]["selected"], 
@@ -11938,26 +13153,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -12114,6 +13332,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -12933,26 +14152,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -13109,6 +14331,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -13921,26 +15144,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -14097,6 +15323,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -14965,26 +16192,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -15141,6 +16371,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -15589,26 +16820,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -15765,6 +16999,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -16304,26 +17539,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -16480,6 +17718,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -17245,26 +18484,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -17421,6 +18663,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -18032,26 +19275,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -18208,6 +19454,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -18833,26 +20080,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -19009,6 +20259,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -19692,26 +20943,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -19868,6 +21122,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -20477,26 +21732,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -20653,6 +21911,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -21345,26 +22604,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -21521,6 +22783,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -22166,26 +23429,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -22342,6 +23608,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -23064,26 +24331,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 button_original_color = [-1.0000, 0.0039, -1.0000]  
                 button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
                 
                 instruction_no = 0
                 messages_instructions = []
-                for i in range(1, 6):
-                    var_name = f"instruction_{i}"
-                    if var_name in globals():
-                        instruction = globals()[var_name]
-                        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                            messages_instructions.append(instruction)
+                #for i in range(1, 6):
+                #    var_name = f"instruction_{i}"
+                #    if var_name in globals():
+                #        instruction = globals()[var_name]
+                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+                #            messages_instructions.append(instruction)
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 
                 images_instructions = []
                 for i in range(1, 6):
-                    var_name = f"img_instruction_{i}"
-                    if var_name in globals():
-                        instruction_img = globals()[var_name]
-                        if instruction_img:
-                            images_instructions.append(instruction_img)
-                        else:
-                            images_instructions.append(None)
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
                     else:
                         images_instructions.append(None)
                 
@@ -23240,6 +24510,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     else:
                         instructions_img_path = None
+                        instructions_image.image = None
                     
                     ###################################################
                     ####_______________BUTTONS_____________________####
@@ -23853,26 +25124,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         
         button_original_color = [-1.0000, 0.0039, -1.0000]  
         button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+        trial = thisExp.getCurrentTrial()
         
         instruction_no = 0
         messages_instructions = []
-        for i in range(1, 6):
-            var_name = f"instruction_{i}"
-            if var_name in globals():
-                instruction = globals()[var_name]
-                if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                    messages_instructions.append(instruction)
+        #for i in range(1, 6):
+        #    var_name = f"instruction_{i}"
+        #    if var_name in globals():
+        #        instruction = globals()[var_name]
+        #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
+        #            messages_instructions.append(instruction)
         print(f'Lista de instrucciones cargada: {messages_instructions}')
         
         images_instructions = []
         for i in range(1, 6):
-            var_name = f"img_instruction_{i}"
-            if var_name in globals():
-                instruction_img = globals()[var_name]
-                if instruction_img:
-                    images_instructions.append(instruction_img)
-                else:
-                    images_instructions.append(None)
+            # TEXTOS
+            txt = trial.get(f"instruction_{i}", None)
+            if txt:  
+                messages_instructions.append(txt)
+        
+            # IMÁGENES
+            img = trial.get(f"img_instruction_{i}", None)
+            if img:
+                images_instructions.append(img)
             else:
                 images_instructions.append(None)
         
@@ -24029,6 +25303,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
             else:
                 instructions_img_path = None
+                instructions_image.image = None
             
             ###################################################
             ####_______________BUTTONS_____________________####
