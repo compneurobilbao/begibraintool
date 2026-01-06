@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on diciembre 10, 2025, at 13:26
+    on enero 05, 2026, at 18:41
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -458,7 +458,7 @@ def generate_gabor_patch(frequency, size):
     x = r * np.cos(t)
     y = r * np.sin(t)
     
-    amp = np.where(np.cos(2 * np.pi * (x * frequency)) >= 0, 1, 0)
+    amp = 0.5 * (1 + np.cos(2 * np.pi * (dx * frequency)))
     
     if grating_mask == 'circle':
         f = np.where(r <= size // 2, 1, 0)
@@ -2104,7 +2104,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
-    # --- Initialize components for Routine "BL_3_CONTRAST" ---
+    # --- Initialize components for Routine "BL_2_CONTRAST" ---
     dots_black_7 = visual.DotStim(
         win=win, name='dots_black_7',
         nDots=noise_dots, dotSize=2.0,
@@ -2123,7 +2123,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         depth=-1.0)
     stim_5 = visual.GratingStim(
         win=win, name='stim_5',
-        tex='sqr', mask=grating_mask, anchor='center',
+        tex='sin', mask=grating_mask, anchor='center',
         ori=0.0, pos=[0,0], draggable=False, size=1.0, sf=1.0, phase=0.5,
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
@@ -2262,7 +2262,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
-    # --- Initialize components for Routine "BL_2_COLOR" ---
+    # --- Initialize components for Routine "BL_3_COLOR" ---
     dots_black_6 = visual.DotStim(
         win=win, name='dots_black_6',
         nDots=noise_dots, dotSize=2.0,
@@ -4801,7 +4801,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             method='sequential', 
             extraInfo=expInfo, 
             originPath=-1, 
-            trialList=data.importConditions('instructions/tutorial_button_panel/tutorial_button_panel.xlsx'), 
+            trialList=data.importConditions('instructions/tutorial_button_panel/[ES]tutorial_button_panel.xlsx'), 
             seed=None, 
         )
         thisExp.addLoop(button_panel_instructions)  # add the loop to the experiment
@@ -4848,16 +4848,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             
             instruction_no = 0
             messages_instructions = []
-            #for i in range(1, 6):
-            #    var_name = f"instruction_{i}"
-            #    if var_name in globals():
-            #        instruction = globals()[var_name]
-            #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-            #            messages_instructions.append(instruction)
-            print(f'Lista de instrucciones cargada: {messages_instructions}')
-            
             images_instructions = []
-            for i in range(1, 6):
+            
+            for i in range(1, 7):
                 # TEXTOS
                 txt = trial.get(f"instruction_{i}", None)
                 if txt:  
@@ -4869,7 +4862,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     images_instructions.append(img)
                 else:
                     images_instructions.append(None)
-            
+                    
+            print(f'Lista de instrucciones cargada: {messages_instructions}')
             print(f'Lista de imágenes cargada: {images_instructions}')
             
             instructions_image.setSize((relacion_aspecto,1))
@@ -5465,7 +5459,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/spatial_vision_spatial_frequency_staircase/spatial_frequency_staircase_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/spatial_frequency_staircase/[ES]spatial_frequency_staircase_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(spatial_freq_instructions)  # add the loop to the experiment
@@ -5506,16 +5500,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -5527,7 +5514,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -6349,7 +6337,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     method='sequential', 
                     extraInfo=expInfo, 
                     originPath=-1, 
-                    trialList=data.importConditions('instructions/spatial_vision_spatial_frequency_staircase/spatial_frequency_staircase_instructions_2.xlsx'), 
+                    trialList=data.importConditions('instructions/module_1/spatial_frequency_staircase/[ES]spatial_frequency_staircase_instructions_2.xlsx'), 
                     seed=None, 
                 )
                 thisExp.addLoop(spatial_freq_instructions_2)  # add the loop to the experiment
@@ -6396,16 +6384,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     instruction_no = 0
                     messages_instructions = []
-                    #for i in range(1, 6):
-                    #    var_name = f"instruction_{i}"
-                    #    if var_name in globals():
-                    #        instruction = globals()[var_name]
-                    #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                    #            messages_instructions.append(instruction)
-                    print(f'Lista de instrucciones cargada: {messages_instructions}')
-                    
                     images_instructions = []
-                    for i in range(1, 6):
+                    
+                    for i in range(1, 7):
                         # TEXTOS
                         txt = trial.get(f"instruction_{i}", None)
                         if txt:  
@@ -6417,7 +6398,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             images_instructions.append(img)
                         else:
                             images_instructions.append(None)
-                    
+                            
+                    print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
                     
                     instructions_image.setSize((relacion_aspecto,1))
@@ -7227,7 +7209,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/contrast_staircase_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/[ES]contrast_staircase_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(contrast_instructions)  # add the loop to the experiment
@@ -7274,16 +7256,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -7295,7 +7270,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -8085,7 +8061,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/color_staircase_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/[ES]color_staircase_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(color_instructions)  # add the loop to the experiment
@@ -8132,16 +8108,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -8153,7 +8122,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -9243,7 +9213,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/BL1_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/[ES]BL1_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(BL1_instructions)  # add the loop to the experiment
@@ -9290,16 +9260,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -9311,7 +9274,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -10178,938 +10142,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             dataOut=['n','all_mean','all_std', 'all_raw'])
         
         # set up handler to look after randomisation of conditions etc
-        MODULE_1_TEST_3_ = data.TrialHandler2(
-            name='MODULE_1_TEST_3_',
-            nReps=modules["module_1"]["tests"]["test_3"]["selected"], 
-            method='random', 
-            extraInfo=expInfo, 
-            originPath=-1, 
-            trialList=[None], 
-            seed=None, 
-        )
-        thisExp.addLoop(MODULE_1_TEST_3_)  # add the loop to the experiment
-        thisMODULE_1_TEST_3_ = MODULE_1_TEST_3_.trialList[0]  # so we can initialise stimuli with some values
-        # abbreviate parameter names if possible (e.g. rgb = thisMODULE_1_TEST_3_.rgb)
-        if thisMODULE_1_TEST_3_ != None:
-            for paramName in thisMODULE_1_TEST_3_:
-                globals()[paramName] = thisMODULE_1_TEST_3_[paramName]
-        
-        for thisMODULE_1_TEST_3_ in MODULE_1_TEST_3_:
-            MODULE_1_TEST_3_.status = STARTED
-            if hasattr(thisMODULE_1_TEST_3_, 'status'):
-                thisMODULE_1_TEST_3_.status = STARTED
-            currentLoop = MODULE_1_TEST_3_
-            thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-            # abbreviate parameter names if possible (e.g. rgb = thisMODULE_1_TEST_3_.rgb)
-            if thisMODULE_1_TEST_3_ != None:
-                for paramName in thisMODULE_1_TEST_3_:
-                    globals()[paramName] = thisMODULE_1_TEST_3_[paramName]
-            
-            # set up handler to look after randomisation of conditions etc
-            BL3_instructions = data.TrialHandler2(
-                name='BL3_instructions',
-                nReps=1.0, 
-                method='sequential', 
-                extraInfo=expInfo, 
-                originPath=-1, 
-                trialList=data.importConditions('instructions/BL3_instructions.xlsx'), 
-                seed=None, 
-            )
-            thisExp.addLoop(BL3_instructions)  # add the loop to the experiment
-            thisBL3_instruction = BL3_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisBL3_instruction.rgb)
-            if thisBL3_instruction != None:
-                for paramName in thisBL3_instruction:
-                    globals()[paramName] = thisBL3_instruction[paramName]
-            
-            for thisBL3_instruction in BL3_instructions:
-                BL3_instructions.status = STARTED
-                if hasattr(thisBL3_instruction, 'status'):
-                    thisBL3_instruction.status = STARTED
-                currentLoop = BL3_instructions
-                thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisBL3_instruction.rgb)
-                if thisBL3_instruction != None:
-                    for paramName in thisBL3_instruction:
-                        globals()[paramName] = thisBL3_instruction[paramName]
-                
-                # --- Prepare to start Routine "INSTRUCTIONS" ---
-                # create an object to store info about Routine INSTRUCTIONS
-                INSTRUCTIONS = data.Routine(
-                    name='INSTRUCTIONS',
-                    components=[logo_begibraintool, logo_bio_2, logo_compneurolab_2, text_instructions_2, text_instructions_title, instructions_image, button_next_instruction_2, button_previous_instruction_2, key_resp_skip_instructions_2],
-                )
-                INSTRUCTIONS.status = NOT_STARTED
-                continueRoutine = True
-                # update component parameters for each repeat
-                # Run 'Begin Routine' code from code_9
-                win.color = "grey"
-                instructions_img_path = None
-                relacion_aspecto = 1
-                
-                button_original_color = [-1.0000, 0.0039, -1.0000]  
-                button_pressed_color = [-1.0000, -0.2157, -1.0000]  
-                trial = thisExp.getCurrentTrial()
-                
-                instruction_no = 0
-                messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
-                images_instructions = []
-                for i in range(1, 6):
-                    # TEXTOS
-                    txt = trial.get(f"instruction_{i}", None)
-                    if txt:  
-                        messages_instructions.append(txt)
-                
-                    # IMÁGENES
-                    img = trial.get(f"img_instruction_{i}", None)
-                    if img:
-                        images_instructions.append(img)
-                    else:
-                        images_instructions.append(None)
-                
-                print(f'Lista de imágenes cargada: {images_instructions}')
-                
-                instructions_image.setSize((relacion_aspecto,1))
-                button_next_instruction_2.setFillColor(button_original_color)
-                # reset button_next_instruction_2 to account for continued clicks & clear times on/off
-                button_next_instruction_2.reset()
-                # reset button_previous_instruction_2 to account for continued clicks & clear times on/off
-                button_previous_instruction_2.reset()
-                # create starting attributes for key_resp_skip_instructions_2
-                key_resp_skip_instructions_2.keys = []
-                key_resp_skip_instructions_2.rt = []
-                _key_resp_skip_instructions_2_allKeys = []
-                # store start times for INSTRUCTIONS
-                INSTRUCTIONS.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-                INSTRUCTIONS.tStart = globalClock.getTime(format='float')
-                INSTRUCTIONS.status = STARTED
-                thisExp.addData('INSTRUCTIONS.started', INSTRUCTIONS.tStart)
-                INSTRUCTIONS.maxDuration = None
-                # keep track of which components have finished
-                INSTRUCTIONSComponents = INSTRUCTIONS.components
-                for thisComponent in INSTRUCTIONS.components:
-                    thisComponent.tStart = None
-                    thisComponent.tStop = None
-                    thisComponent.tStartRefresh = None
-                    thisComponent.tStopRefresh = None
-                    if hasattr(thisComponent, 'status'):
-                        thisComponent.status = NOT_STARTED
-                # reset timers
-                t = 0
-                _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-                frameN = -1
-                
-                # --- Run Routine "INSTRUCTIONS" ---
-                INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
-                while continueRoutine:
-                    # if trial has changed, end Routine now
-                    if hasattr(thisBL3_instruction, 'status') and thisBL3_instruction.status == STOPPING:
-                        continueRoutine = False
-                    # get current time
-                    t = routineTimer.getTime()
-                    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-                    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-                    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-                    # update/draw components on each frame
-                    
-                    # *logo_begibraintool* updates
-                    
-                    # if logo_begibraintool is starting this frame...
-                    if logo_begibraintool.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        logo_begibraintool.frameNStart = frameN  # exact frame index
-                        logo_begibraintool.tStart = t  # local t and not account for scr refresh
-                        logo_begibraintool.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(logo_begibraintool, 'tStartRefresh')  # time at next scr refresh
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'logo_begibraintool.started')
-                        # update status
-                        logo_begibraintool.status = STARTED
-                        logo_begibraintool.setAutoDraw(True)
-                    
-                    # if logo_begibraintool is active this frame...
-                    if logo_begibraintool.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # *logo_bio_2* updates
-                    
-                    # if logo_bio_2 is starting this frame...
-                    if logo_bio_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        logo_bio_2.frameNStart = frameN  # exact frame index
-                        logo_bio_2.tStart = t  # local t and not account for scr refresh
-                        logo_bio_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(logo_bio_2, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        logo_bio_2.status = STARTED
-                        logo_bio_2.setAutoDraw(True)
-                    
-                    # if logo_bio_2 is active this frame...
-                    if logo_bio_2.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # *logo_compneurolab_2* updates
-                    
-                    # if logo_compneurolab_2 is starting this frame...
-                    if logo_compneurolab_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        logo_compneurolab_2.frameNStart = frameN  # exact frame index
-                        logo_compneurolab_2.tStart = t  # local t and not account for scr refresh
-                        logo_compneurolab_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(logo_compneurolab_2, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        logo_compneurolab_2.status = STARTED
-                        logo_compneurolab_2.setAutoDraw(True)
-                    
-                    # if logo_compneurolab_2 is active this frame...
-                    if logo_compneurolab_2.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # *text_instructions_2* updates
-                    
-                    # if text_instructions_2 is starting this frame...
-                    if text_instructions_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        text_instructions_2.frameNStart = frameN  # exact frame index
-                        text_instructions_2.tStart = t  # local t and not account for scr refresh
-                        text_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(text_instructions_2, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        text_instructions_2.status = STARTED
-                        text_instructions_2.setAutoDraw(True)
-                    
-                    # if text_instructions_2 is active this frame...
-                    if text_instructions_2.status == STARTED:
-                        # update params
-                        text_instructions_2.setText('', log=False)
-                    
-                    # *text_instructions_title* updates
-                    
-                    # if text_instructions_title is starting this frame...
-                    if text_instructions_title.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        text_instructions_title.frameNStart = frameN  # exact frame index
-                        text_instructions_title.tStart = t  # local t and not account for scr refresh
-                        text_instructions_title.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(text_instructions_title, 'tStartRefresh')  # time at next scr refresh
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'text_instructions_title.started')
-                        # update status
-                        text_instructions_title.status = STARTED
-                        text_instructions_title.setAutoDraw(True)
-                    
-                    # if text_instructions_title is active this frame...
-                    if text_instructions_title.status == STARTED:
-                        # update params
-                        pass
-                    # Run 'Each Frame' code from code_9
-                    text_instructions_2.text = messages_instructions[instruction_no]
-                    text_instructions_title.text = title
-                    
-                    ###################################################
-                    ####_____________IMAGE/VIDEO___________________####
-                    ###################################################
-                    if images_instructions[instruction_no] is not None:
-                        file_path = path_from_src + images_instructions[instruction_no]
-                        instructions_img_path = file_path
-                        relacion_aspecto = calcular_relacion_aspecto(file_path)
-                        instructions_image.size = (relacion_aspecto*0.4,0.4)
-                        
-                    else:
-                        instructions_img_path = None
-                        instructions_image.image = None
-                    
-                    ###################################################
-                    ####_______________BUTTONS_____________________####
-                    ###################################################
-                    
-                    if instruction_no == (len(messages_instructions) - 1):
-                        button_next_instruction_2.opacity = 0
-                        #button_next_instruction.status = PAUSED
-                    else:
-                        button_next_instruction_2.opacity = 1.0
-                        #button_next_instruction.status = STARTED
-                    
-                    if instruction_no == 0:
-                        button_previous_instruction_2.opacity = 0
-                        #button_previous_instruction.status = PAUSED
-                    else:
-                        button_previous_instruction_2.opacity = 1.0
-                        #button_previous_instruction.status = STARTED
-                    
-                    ###################################################
-                    ####________________EVENTS_____________________####
-                    ###################################################
-                    
-                    keys = event.getKeys()  # Cada llamada al buffer lo vacía
-                    
-                    if 'right' in keys:
-                        if instruction_no < len(messages_instructions)-1:
-                            instruction_no+=1
-                            button_next_instruction_2.fillColor = button_pressed_color
-                            win.flip()
-                            time.sleep(0.15)
-                            button_next_instruction_2.fillColor = button_original_color
-                            win.flip()
-                    elif 'left' in keys:
-                        if 0 < instruction_no:
-                            instruction_no-=1
-                            button_previous_instruction_2.fillColor = button_pressed_color
-                            win.flip()
-                            time.sleep(0.15)
-                            button_previous_instruction_2.fillColor = button_original_color
-                            win.flip()
-                    
-                    
-                    # *instructions_image* updates
-                    
-                    # if instructions_image is starting this frame...
-                    if instructions_image.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        instructions_image.frameNStart = frameN  # exact frame index
-                        instructions_image.tStart = t  # local t and not account for scr refresh
-                        instructions_image.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(instructions_image, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        instructions_image.status = STARTED
-                        instructions_image.setAutoDraw(True)
-                    
-                    # if instructions_image is active this frame...
-                    if instructions_image.status == STARTED:
-                        # update params
-                        instructions_image.setImage(instructions_img_path, log=False)
-                    # *button_next_instruction_2* updates
-                    
-                    # if button_next_instruction_2 is starting this frame...
-                    if button_next_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
-                        # keep track of start time/frame for later
-                        button_next_instruction_2.frameNStart = frameN  # exact frame index
-                        button_next_instruction_2.tStart = t  # local t and not account for scr refresh
-                        button_next_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(button_next_instruction_2, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        button_next_instruction_2.status = STARTED
-                        win.callOnFlip(button_next_instruction_2.buttonClock.reset)
-                        button_next_instruction_2.setAutoDraw(True)
-                    
-                    # if button_next_instruction_2 is active this frame...
-                    if button_next_instruction_2.status == STARTED:
-                        # update params
-                        pass
-                        # check whether button_next_instruction_2 has been pressed
-                        if button_next_instruction_2.isClicked:
-                            if not button_next_instruction_2.wasClicked:
-                                # if this is a new click, store time of first click and clicked until
-                                button_next_instruction_2.timesOn.append(button_next_instruction_2.buttonClock.getTime())
-                                button_next_instruction_2.timesOff.append(button_next_instruction_2.buttonClock.getTime())
-                            elif len(button_next_instruction_2.timesOff):
-                                # if click is continuing from last frame, update time of clicked until
-                                button_next_instruction_2.timesOff[-1] = button_next_instruction_2.buttonClock.getTime()
-                            if not button_next_instruction_2.wasClicked:
-                                # run callback code when button_next_instruction_2 is clicked
-                                if instruction_no < len(messages_instructions)-1:
-                                    instruction_no+=1
-                                    button_next_instruction_2.fillColor = button_pressed_color
-                                    win.flip()
-                                    time.sleep(0.15)
-                                    button_next_instruction_2.fillColor = button_original_color
-                                    win.flip()
-                    # take note of whether button_next_instruction_2 was clicked, so that next frame we know if clicks are new
-                    button_next_instruction_2.wasClicked = button_next_instruction_2.isClicked and button_next_instruction_2.status == STARTED
-                    # *button_previous_instruction_2* updates
-                    
-                    # if button_previous_instruction_2 is starting this frame...
-                    if button_previous_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
-                        # keep track of start time/frame for later
-                        button_previous_instruction_2.frameNStart = frameN  # exact frame index
-                        button_previous_instruction_2.tStart = t  # local t and not account for scr refresh
-                        button_previous_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(button_previous_instruction_2, 'tStartRefresh')  # time at next scr refresh
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'button_previous_instruction_2.started')
-                        # update status
-                        button_previous_instruction_2.status = STARTED
-                        win.callOnFlip(button_previous_instruction_2.buttonClock.reset)
-                        button_previous_instruction_2.setAutoDraw(True)
-                    
-                    # if button_previous_instruction_2 is active this frame...
-                    if button_previous_instruction_2.status == STARTED:
-                        # update params
-                        pass
-                        # check whether button_previous_instruction_2 has been pressed
-                        if button_previous_instruction_2.isClicked:
-                            if not button_previous_instruction_2.wasClicked:
-                                # if this is a new click, store time of first click and clicked until
-                                button_previous_instruction_2.timesOn.append(button_previous_instruction_2.buttonClock.getTime())
-                                button_previous_instruction_2.timesOff.append(button_previous_instruction_2.buttonClock.getTime())
-                            elif len(button_previous_instruction_2.timesOff):
-                                # if click is continuing from last frame, update time of clicked until
-                                button_previous_instruction_2.timesOff[-1] = button_previous_instruction_2.buttonClock.getTime()
-                            if not button_previous_instruction_2.wasClicked:
-                                # run callback code when button_previous_instruction_2 is clicked
-                                if 0 < instruction_no:
-                                    instruction_no-=1
-                                    button_previous_instruction_2.fillColor = button_pressed_color
-                                    win.flip()
-                                    time.sleep(0.15)
-                                    button_previous_instruction_2.fillColor = button_original_color
-                                    win.flip()
-                    # take note of whether button_previous_instruction_2 was clicked, so that next frame we know if clicks are new
-                    button_previous_instruction_2.wasClicked = button_previous_instruction_2.isClicked and button_previous_instruction_2.status == STARTED
-                    
-                    # *key_resp_skip_instructions_2* updates
-                    waitOnFlip = False
-                    
-                    # if key_resp_skip_instructions_2 is starting this frame...
-                    if key_resp_skip_instructions_2.status == NOT_STARTED and tThisFlip >= 0.35-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp_skip_instructions_2.frameNStart = frameN  # exact frame index
-                        key_resp_skip_instructions_2.tStart = t  # local t and not account for scr refresh
-                        key_resp_skip_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp_skip_instructions_2, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp_skip_instructions_2.status = STARTED
-                        # keyboard checking is just starting
-                        waitOnFlip = True
-                        win.callOnFlip(key_resp_skip_instructions_2.clock.reset)  # t=0 on next screen flip
-                        win.callOnFlip(key_resp_skip_instructions_2.clearEvents, eventType='keyboard')  # clear events on next screen flip
-                    if key_resp_skip_instructions_2.status == STARTED and not waitOnFlip:
-                        theseKeys = key_resp_skip_instructions_2.getKeys(keyList=['space','a','b'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_skip_instructions_2_allKeys.extend(theseKeys)
-                        if len(_key_resp_skip_instructions_2_allKeys):
-                            key_resp_skip_instructions_2.keys = _key_resp_skip_instructions_2_allKeys[-1].name  # just the last key pressed
-                            key_resp_skip_instructions_2.rt = _key_resp_skip_instructions_2_allKeys[-1].rt
-                            key_resp_skip_instructions_2.duration = _key_resp_skip_instructions_2_allKeys[-1].duration
-                            # a response ends the routine
-                            continueRoutine = False
-                    
-                    # check for quit (typically the Esc key)
-                    if defaultKeyboard.getKeys(keyList=["escape"]):
-                        thisExp.status = FINISHED
-                    if thisExp.status == FINISHED or endExpNow:
-                        endExperiment(thisExp, win=win)
-                        return
-                    # pause experiment here if requested
-                    if thisExp.status == PAUSED:
-                        pauseExperiment(
-                            thisExp=thisExp, 
-                            win=win, 
-                            timers=[routineTimer, globalClock], 
-                            currentRoutine=INSTRUCTIONS,
-                        )
-                        # skip the frame we paused on
-                        continue
-                    
-                    # check if all components have finished
-                    if not continueRoutine:  # a component has requested a forced-end of Routine
-                        INSTRUCTIONS.forceEnded = routineForceEnded = True
-                        break
-                    continueRoutine = False  # will revert to True if at least one component still running
-                    for thisComponent in INSTRUCTIONS.components:
-                        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                            continueRoutine = True
-                            break  # at least one component has not yet finished
-                    
-                    # refresh the screen
-                    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-                        win.flip()
-                
-                # --- Ending Routine "INSTRUCTIONS" ---
-                for thisComponent in INSTRUCTIONS.components:
-                    if hasattr(thisComponent, "setAutoDraw"):
-                        thisComponent.setAutoDraw(False)
-                # store stop times for INSTRUCTIONS
-                INSTRUCTIONS.tStop = globalClock.getTime(format='float')
-                INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
-                thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                BL3_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
-                if button_next_instruction_2.numClicks:
-                   BL3_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   BL3_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
-                else:
-                   BL3_instructions.addData('button_next_instruction_2.timesOn', "")
-                   BL3_instructions.addData('button_next_instruction_2.timesOff', "")
-                BL3_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
-                if button_previous_instruction_2.numClicks:
-                   BL3_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   BL3_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
-                else:
-                   BL3_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   BL3_instructions.addData('button_previous_instruction_2.timesOff', "")
-                # check responses
-                if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
-                    key_resp_skip_instructions_2.keys = None
-                BL3_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
-                if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    BL3_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    BL3_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
-                # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
-                routineTimer.reset()
-                # mark thisBL3_instruction as finished
-                if hasattr(thisBL3_instruction, 'status'):
-                    thisBL3_instruction.status = FINISHED
-                # if awaiting a pause, pause now
-                if BL3_instructions.status == PAUSED:
-                    thisExp.status = PAUSED
-                    pauseExperiment(
-                        thisExp=thisExp, 
-                        win=win, 
-                        timers=[globalClock], 
-                    )
-                    # once done pausing, restore running status
-                    BL3_instructions.status = STARTED
-            # completed 1.0 repeats of 'BL3_instructions'
-            BL3_instructions.status = FINISHED
-            
-            
-            # set up handler to look after randomisation of conditions etc
-            trials_bl_3 = data.TrialHandler2(
-                name='trials_bl_3',
-                nReps=1.0, 
-                method='sequential', 
-                extraInfo=expInfo, 
-                originPath=-1, 
-                trialList=data.importConditions('CSV_protocol_config_files/module_1_test_3_CS.csv'), 
-                seed=None, 
-            )
-            thisExp.addLoop(trials_bl_3)  # add the loop to the experiment
-            thisTrials_bl_3 = trials_bl_3.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_3.rgb)
-            if thisTrials_bl_3 != None:
-                for paramName in thisTrials_bl_3:
-                    globals()[paramName] = thisTrials_bl_3[paramName]
-            
-            for thisTrials_bl_3 in trials_bl_3:
-                trials_bl_3.status = STARTED
-                if hasattr(thisTrials_bl_3, 'status'):
-                    thisTrials_bl_3.status = STARTED
-                currentLoop = trials_bl_3
-                thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_3.rgb)
-                if thisTrials_bl_3 != None:
-                    for paramName in thisTrials_bl_3:
-                        globals()[paramName] = thisTrials_bl_3[paramName]
-                
-                # --- Prepare to start Routine "BL_3_CONTRAST" ---
-                # create an object to store info about Routine BL_3_CONTRAST
-                BL_3_CONTRAST = data.Routine(
-                    name='BL_3_CONTRAST',
-                    components=[dots_black_7, dots_white_7, stim_5, key_resp_9, logs_background_8, logs_parametros_trial_5, feedback_txt_3],
-                )
-                BL_3_CONTRAST.status = NOT_STARTED
-                continueRoutine = True
-                # update component parameters for each repeat
-                dots_black_7.refreshDots()
-                dots_white_7.refreshDots()
-                stim_5.setColor([1,1,1], colorSpace='rgb')
-                stim_5.setPos((stim_x, stim_y))
-                stim_5.setSize(grating_size)
-                # create starting attributes for key_resp_9
-                key_resp_9.keys = []
-                key_resp_9.rt = []
-                _key_resp_9_allKeys = []
-                # Run 'Begin Routine' code from code_8
-                import math
-                import random
-                
-                ####################################################
-                ########____LOAD STAIRCASE TEST RESULTS____#########
-                ####################################################
-                #threshold_dict = load_thresholds_from_json()
-                spatial_frequency_threshold = threshold_dict['spatial_frequency_threshold']
-                contrast_threshold = threshold_dict['contrast_threshold']
-                
-                ####################################################
-                ###############____PARAMS CONFIG____################
-                ####################################################
-                posicion_estimulo = stim_x, stim_y = calcular_posicion_stim(posicion_angular, excentricidad, dim_y)
-                diametros_central_periferica = calculate_diameter(9, 0.65, dim_y)
-                diametros_estimulo = calculate_diameter(excentricidad, 0.65, dim_y)
-                
-                stim_5.sf = spatial_frequency_threshold
-                stim_5.contrast = contrast_threshold + contrast_threshold*offset_porcentual*(-1)
-                stim_5.ori = orientacion
-                
-                #other
-                gaze_position = mouse.getPosition()
-                
-                logs_parametros_trial_5.alignText='left'
-                logs_parametros_trial_5.anchorHoriz='left'
-                event.clearEvents()
-                
-                first_frame             = True
-                flag_skip_all           = False
-                flag_answer_registered  = False
-                success                 = -1
-                undecided               = False
-                
-                logs_parametros_trial_5.setAutoDraw(False)
-                logs_background_8.setAutoDraw(False)
-                # store start times for BL_3_CONTRAST
-                BL_3_CONTRAST.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-                BL_3_CONTRAST.tStart = globalClock.getTime(format='float')
-                BL_3_CONTRAST.status = STARTED
-                thisExp.addData('BL_3_CONTRAST.started', BL_3_CONTRAST.tStart)
-                BL_3_CONTRAST.maxDuration = None
-                # keep track of which components have finished
-                BL_3_CONTRASTComponents = BL_3_CONTRAST.components
-                for thisComponent in BL_3_CONTRAST.components:
-                    thisComponent.tStart = None
-                    thisComponent.tStop = None
-                    thisComponent.tStartRefresh = None
-                    thisComponent.tStopRefresh = None
-                    if hasattr(thisComponent, 'status'):
-                        thisComponent.status = NOT_STARTED
-                # reset timers
-                t = 0
-                _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-                frameN = -1
-                
-                # --- Run Routine "BL_3_CONTRAST" ---
-                BL_3_CONTRAST.forceEnded = routineForceEnded = not continueRoutine
-                while continueRoutine:
-                    # if trial has changed, end Routine now
-                    if hasattr(thisTrials_bl_3, 'status') and thisTrials_bl_3.status == STOPPING:
-                        continueRoutine = False
-                    # get current time
-                    t = routineTimer.getTime()
-                    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-                    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-                    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-                    # update/draw components on each frame
-                    
-                    # *dots_black_7* updates
-                    
-                    # if dots_black_7 is starting this frame...
-                    if dots_black_7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        dots_black_7.frameNStart = frameN  # exact frame index
-                        dots_black_7.tStart = t  # local t and not account for scr refresh
-                        dots_black_7.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(dots_black_7, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        dots_black_7.status = STARTED
-                        dots_black_7.setAutoDraw(True)
-                    
-                    # if dots_black_7 is active this frame...
-                    if dots_black_7.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # *dots_white_7* updates
-                    
-                    # if dots_white_7 is starting this frame...
-                    if dots_white_7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        dots_white_7.frameNStart = frameN  # exact frame index
-                        dots_white_7.tStart = t  # local t and not account for scr refresh
-                        dots_white_7.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(dots_white_7, 'tStartRefresh')  # time at next scr refresh
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'dots_white_7.started')
-                        # update status
-                        dots_white_7.status = STARTED
-                        dots_white_7.setAutoDraw(True)
-                    
-                    # if dots_white_7 is active this frame...
-                    if dots_white_7.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # *stim_5* updates
-                    
-                    # if stim_5 is starting this frame...
-                    if stim_5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        stim_5.frameNStart = frameN  # exact frame index
-                        stim_5.tStart = t  # local t and not account for scr refresh
-                        stim_5.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(stim_5, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        stim_5.status = STARTED
-                        stim_5.setAutoDraw(True)
-                    
-                    # if stim_5 is active this frame...
-                    if stim_5.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # if stim_5 is stopping this frame...
-                    if stim_5.status == STARTED:
-                        # is it time to stop? (based on global clock, using actual start)
-                        if tThisFlipGlobal > stim_5.tStartRefresh + 2-frameTolerance:
-                            # keep track of stop time/frame for later
-                            stim_5.tStop = t  # not accounting for scr refresh
-                            stim_5.tStopRefresh = tThisFlipGlobal  # on global time
-                            stim_5.frameNStop = frameN  # exact frame index
-                            # update status
-                            stim_5.status = FINISHED
-                            stim_5.setAutoDraw(False)
-                    
-                    # *key_resp_9* updates
-                    
-                    # if key_resp_9 is starting this frame...
-                    if key_resp_9.status == NOT_STARTED and t >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp_9.frameNStart = frameN  # exact frame index
-                        key_resp_9.tStart = t  # local t and not account for scr refresh
-                        key_resp_9.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp_9, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp_9.status = STARTED
-                        # keyboard checking is just starting
-                        key_resp_9.clock.reset()  # now t=0
-                    if key_resp_9.status == STARTED:
-                        theseKeys = key_resp_9.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_9_allKeys.extend(theseKeys)
-                        if len(_key_resp_9_allKeys):
-                            key_resp_9.keys = _key_resp_9_allKeys[-1].name  # just the last key pressed
-                            key_resp_9.rt = _key_resp_9_allKeys[-1].rt
-                            key_resp_9.duration = _key_resp_9_allKeys[-1].duration
-                            # a response ends the routine
-                            continueRoutine = False
-                    
-                    # *logs_background_8* updates
-                    
-                    # if logs_background_8 is starting this frame...
-                    if logs_background_8.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        logs_background_8.frameNStart = frameN  # exact frame index
-                        logs_background_8.tStart = t  # local t and not account for scr refresh
-                        logs_background_8.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(logs_background_8, 'tStartRefresh')  # time at next scr refresh
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'logs_background_8.started')
-                        # update status
-                        logs_background_8.status = STARTED
-                        logs_background_8.setAutoDraw(True)
-                    
-                    # if logs_background_8 is active this frame...
-                    if logs_background_8.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # *logs_parametros_trial_5* updates
-                    
-                    # if logs_parametros_trial_5 is starting this frame...
-                    if logs_parametros_trial_5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        logs_parametros_trial_5.frameNStart = frameN  # exact frame index
-                        logs_parametros_trial_5.tStart = t  # local t and not account for scr refresh
-                        logs_parametros_trial_5.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(logs_parametros_trial_5, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        logs_parametros_trial_5.status = STARTED
-                        logs_parametros_trial_5.setAutoDraw(True)
-                    
-                    # if logs_parametros_trial_5 is active this frame...
-                    if logs_parametros_trial_5.status == STARTED:
-                        # update params
-                        pass
-                    
-                    # *feedback_txt_3* updates
-                    
-                    # if feedback_txt_3 is starting this frame...
-                    if feedback_txt_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        feedback_txt_3.frameNStart = frameN  # exact frame index
-                        feedback_txt_3.tStart = t  # local t and not account for scr refresh
-                        feedback_txt_3.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(feedback_txt_3, 'tStartRefresh')  # time at next scr refresh
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'feedback_txt_3.started')
-                        # update status
-                        feedback_txt_3.status = STARTED
-                        feedback_txt_3.setAutoDraw(True)
-                    
-                    # if feedback_txt_3 is active this frame...
-                    if feedback_txt_3.status == STARTED:
-                        # update params
-                        pass
-                    # Run 'Each Frame' code from code_8
-                    ####################################################
-                    ##############____ON SCREEN LOGS____################
-                    ####################################################
-                    #gaze_position = mouse.getPosition()
-                    #logs_coordenadas_mirada_5.setText(f'{gaze_position[0]:.2f},{gaze_position[1]:.2f}')
-                    
-                    if advanced_config["logs"]["value"]:
-                        logs_parametros_trial_5.setText(
-                            f"Prueba 3 - Contraste\n"
-                            f"Intento: {intento}\n"
-                            f"Orientación: {orientacion:.2f}\n"
-                            f"Excentricidad: {excentricidad}º\n"
-                            f"Posicion Estimulo: ({posicion_estimulo[0]:.2f}, {posicion_estimulo[1]:.2f})\n"
-                            f"Tamaño Estímulo: {grating_size[0]:.2f}\n"
-                            f"Tipo: {tipo}\n"
-                            f"Umbral contraste cargado: {contrast_threshold:.2f}\n"
-                            f"Offset aplicado: {offset_porcentual}\n"
-                            f"Contraste mostrado: {contrast_threshold + contrast_threshold*offset_porcentual/100:.2f}" 
-                        )
-                    else:
-                        logs_parametros_trial_5.setAutoDraw(False)
-                        logs_background_8.setAutoDraw(False)
-                    
-                    
-                    ####################################################
-                    ##########____GAZE VS REGION POSITION____###########
-                    ####################################################
-                    # Calcula la distancia del ratón al centro de foveal_region
-                    #dist_from_center = ((gaze_position[0] - foveal_region_pos[0])**2 + (gaze_position[1] - foveal_region_pos[1])**2)**0.5
-                    
-                    # Comprueba si la distancia es menor que el radio de foveal_region
-                    #if dist_from_center <= 0.25/2:#foveal_region.radius:
-                    #    logs_6.setText("La mirada está dentro de la región")
-                    
-                    #else:
-                    #    logs_6.setText("La mirada está fuera de la región")
-                    
-                    ####################################################
-                    ##############____EVENTS & STATES____###############
-                    ####################################################
-                    flag_skip_all           = False
-                    flag_answer_registered  = False
-                    undecided               = False
-                    success                 = -1
-                    
-                    keys = event.getKeys()
-                    if 'space' in keys:
-                        flag_skip_all = True
-                        
-                    elif 'right' in keys and orientacion == 45: # Acierto:
-                        flag_answer_registered  = True
-                        success                 = True
-                    elif 'left' in keys and orientacion == 135: # Acierto:
-                        flag_answer_registered  = True
-                        success                 = True
-                    elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
-                        flag_answer_registered  = True
-                        success                 = False
-                    elif 'down' in keys: # NS/NC
-                        flag_answer_registered  = True
-                        success                 = False
-                        undecided               = True
-                    
-                    ####################################################
-                    ###############____TIME & NOISE____#################
-                    ####################################################
-                    
-                    if first_frame: # Ejecucion unica
-                        dots_white_7.setAutoDraw(False)
-                        dots_black_7.setAutoDraw(False)
-                        first_time = False
-                    
-                    if (t>stim_time) or flag_answer_registered: # time exceeded OR answer registered
-                        # SHOW RESULTS IF FEEDBACK ACTIVATED
-                        if advanced_config["feedback"]["value"]:
-                            print(f"El resultado es: {success}")
-                            show_feedback(feedback_txt_3, success)
-                            
-                        # SHOW NOISE
-                        stim_5.setAutoDraw(False)
-                        show_noise(dots_white_7, dots_black_7, response_time, orientacion, feedback_txt_3) #only one call
-                        continueRoutine = False
-                        
-                    if flag_skip_all:
-                        trials_bl_3.finished = True
-                    
-                    # check for quit (typically the Esc key)
-                    if defaultKeyboard.getKeys(keyList=["escape"]):
-                        thisExp.status = FINISHED
-                    if thisExp.status == FINISHED or endExpNow:
-                        endExperiment(thisExp, win=win)
-                        return
-                    # pause experiment here if requested
-                    if thisExp.status == PAUSED:
-                        pauseExperiment(
-                            thisExp=thisExp, 
-                            win=win, 
-                            timers=[routineTimer, globalClock], 
-                            currentRoutine=BL_3_CONTRAST,
-                        )
-                        # skip the frame we paused on
-                        continue
-                    
-                    # check if all components have finished
-                    if not continueRoutine:  # a component has requested a forced-end of Routine
-                        BL_3_CONTRAST.forceEnded = routineForceEnded = True
-                        break
-                    continueRoutine = False  # will revert to True if at least one component still running
-                    for thisComponent in BL_3_CONTRAST.components:
-                        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                            continueRoutine = True
-                            break  # at least one component has not yet finished
-                    
-                    # refresh the screen
-                    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-                        win.flip()
-                
-                # --- Ending Routine "BL_3_CONTRAST" ---
-                for thisComponent in BL_3_CONTRAST.components:
-                    if hasattr(thisComponent, "setAutoDraw"):
-                        thisComponent.setAutoDraw(False)
-                # store stop times for BL_3_CONTRAST
-                BL_3_CONTRAST.tStop = globalClock.getTime(format='float')
-                BL_3_CONTRAST.tStopRefresh = tThisFlipGlobal
-                thisExp.addData('BL_3_CONTRAST.stopped', BL_3_CONTRAST.tStop)
-                # check responses
-                if key_resp_9.keys in ['', [], None]:  # No response was made
-                    key_resp_9.keys = None
-                trials_bl_3.addData('key_resp_9.keys',key_resp_9.keys)
-                if key_resp_9.keys != None:  # we had a response
-                    trials_bl_3.addData('key_resp_9.rt', key_resp_9.rt)
-                    trials_bl_3.addData('key_resp_9.duration', key_resp_9.duration)
-                # the Routine "BL_3_CONTRAST" was not non-slip safe, so reset the non-slip timer
-                routineTimer.reset()
-                # mark thisTrials_bl_3 as finished
-                if hasattr(thisTrials_bl_3, 'status'):
-                    thisTrials_bl_3.status = FINISHED
-                # if awaiting a pause, pause now
-                if trials_bl_3.status == PAUSED:
-                    thisExp.status = PAUSED
-                    pauseExperiment(
-                        thisExp=thisExp, 
-                        win=win, 
-                        timers=[globalClock], 
-                    )
-                    # once done pausing, restore running status
-                    trials_bl_3.status = STARTED
-            # completed 1.0 repeats of 'trials_bl_3'
-            trials_bl_3.status = FINISHED
-            
-            # mark thisMODULE_1_TEST_3_ as finished
-            if hasattr(thisMODULE_1_TEST_3_, 'status'):
-                thisMODULE_1_TEST_3_.status = FINISHED
-            # if awaiting a pause, pause now
-            if MODULE_1_TEST_3_.status == PAUSED:
-                thisExp.status = PAUSED
-                pauseExperiment(
-                    thisExp=thisExp, 
-                    win=win, 
-                    timers=[globalClock], 
-                )
-                # once done pausing, restore running status
-                MODULE_1_TEST_3_.status = STARTED
-        # completed modules["module_1"]["tests"]["test_3"]["selected"] repeats of 'MODULE_1_TEST_3_'
-        MODULE_1_TEST_3_.status = FINISHED
-        
-        
-        # set up handler to look after randomisation of conditions etc
         MODULE_1_TEST_2 = data.TrialHandler2(
             name='MODULE_1_TEST_2',
-            nReps=modules["module_1"]["tests"]["test_2"]["selected"], 
-            method='sequential', 
+            nReps=modules["module_1"]["tests"]["test_3"]["selected"], 
+            method='random', 
             extraInfo=expInfo, 
             originPath=-1, 
             trialList=[None], 
@@ -11121,9 +10157,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if thisMODULE_1_TEST_2 != None:
             for paramName in thisMODULE_1_TEST_2:
                 globals()[paramName] = thisMODULE_1_TEST_2[paramName]
-        if thisSession is not None:
-            # if running in a Session with a Liaison client, send data up to now
-            thisSession.sendExperimentData()
         
         for thisMODULE_1_TEST_2 in MODULE_1_TEST_2:
             MODULE_1_TEST_2.status = STARTED
@@ -11131,9 +10164,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 thisMODULE_1_TEST_2.status = STARTED
             currentLoop = MODULE_1_TEST_2
             thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             # abbreviate parameter names if possible (e.g. rgb = thisMODULE_1_TEST_2.rgb)
             if thisMODULE_1_TEST_2 != None:
                 for paramName in thisMODULE_1_TEST_2:
@@ -11146,7 +10176,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/BL2_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/[ES]BL2_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(BL2_instructions)  # add the loop to the experiment
@@ -11187,16 +10217,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -11208,7 +10231,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -11614,7 +10638,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('CSV_protocol_config_files/module_1_test_2_COLOR.csv'), 
+                trialList=data.importConditions('CSV_protocol_config_files/module_1_test_2_CS.csv'), 
                 seed=None, 
             )
             thisExp.addLoop(trials_bl_2)  # add the loop to the experiment
@@ -11635,13 +10659,948 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     for paramName in thisTrials_bl_2:
                         globals()[paramName] = thisTrials_bl_2[paramName]
                 
-                # --- Prepare to start Routine "BL_2_COLOR" ---
-                # create an object to store info about Routine BL_2_COLOR
-                BL_2_COLOR = data.Routine(
-                    name='BL_2_COLOR',
+                # --- Prepare to start Routine "BL_2_CONTRAST" ---
+                # create an object to store info about Routine BL_2_CONTRAST
+                BL_2_CONTRAST = data.Routine(
+                    name='BL_2_CONTRAST',
+                    components=[dots_black_7, dots_white_7, stim_5, key_resp_9, logs_background_8, logs_parametros_trial_5, feedback_txt_3],
+                )
+                BL_2_CONTRAST.status = NOT_STARTED
+                continueRoutine = True
+                # update component parameters for each repeat
+                dots_black_7.refreshDots()
+                dots_white_7.refreshDots()
+                stim_5.setColor([1,1,1], colorSpace='rgb')
+                stim_5.setPos((stim_x, stim_y))
+                stim_5.setSize(grating_size)
+                # create starting attributes for key_resp_9
+                key_resp_9.keys = []
+                key_resp_9.rt = []
+                _key_resp_9_allKeys = []
+                # Run 'Begin Routine' code from code_8
+                import math
+                import random
+                
+                ####################################################
+                ########____LOAD STAIRCASE TEST RESULTS____#########
+                ####################################################
+                #threshold_dict = load_thresholds_from_json()
+                
+                if (modules["module_1"]["tests"]["test_3"]["config"]["default_sf"]["value"]):
+                    spatial_frequency_threshold = modules["module_1"]["tests"]["test_3"]["config"]["gabor_sf"]["value"]
+                else:
+                    spatial_frequency_threshold = threshold_dict['spatial_frequency_threshold']
+                
+                
+                
+                contrast_threshold = threshold_dict['contrast_threshold']
+                
+                ####################################################
+                ###############____PARAMS CONFIG____################
+                ####################################################
+                posicion_estimulo = stim_x, stim_y = calcular_posicion_stim(posicion_angular, excentricidad, dim_y)
+                diametros_central_periferica = calculate_diameter(9, 0.65, dim_y)
+                diametros_estimulo = calculate_diameter(excentricidad, 0.65, dim_y)
+                
+                stim_5.sf = spatial_frequency_threshold
+                stim_5.contrast = contrast_threshold + contrast_threshold*offset_porcentual*(-1)
+                stim_5.ori = orientacion
+                
+                #other
+                gaze_position = mouse.getPosition()
+                
+                logs_parametros_trial_5.alignText='left'
+                logs_parametros_trial_5.anchorHoriz='left'
+                event.clearEvents()
+                
+                first_frame             = True
+                flag_skip_all           = False
+                flag_answer_registered  = False
+                success                 = -1
+                undecided               = False
+                
+                logs_parametros_trial_5.setAutoDraw(False)
+                logs_background_8.setAutoDraw(False)
+                # store start times for BL_2_CONTRAST
+                BL_2_CONTRAST.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+                BL_2_CONTRAST.tStart = globalClock.getTime(format='float')
+                BL_2_CONTRAST.status = STARTED
+                thisExp.addData('BL_2_CONTRAST.started', BL_2_CONTRAST.tStart)
+                BL_2_CONTRAST.maxDuration = None
+                # keep track of which components have finished
+                BL_2_CONTRASTComponents = BL_2_CONTRAST.components
+                for thisComponent in BL_2_CONTRAST.components:
+                    thisComponent.tStart = None
+                    thisComponent.tStop = None
+                    thisComponent.tStartRefresh = None
+                    thisComponent.tStopRefresh = None
+                    if hasattr(thisComponent, 'status'):
+                        thisComponent.status = NOT_STARTED
+                # reset timers
+                t = 0
+                _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+                frameN = -1
+                
+                # --- Run Routine "BL_2_CONTRAST" ---
+                BL_2_CONTRAST.forceEnded = routineForceEnded = not continueRoutine
+                while continueRoutine:
+                    # if trial has changed, end Routine now
+                    if hasattr(thisTrials_bl_2, 'status') and thisTrials_bl_2.status == STOPPING:
+                        continueRoutine = False
+                    # get current time
+                    t = routineTimer.getTime()
+                    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                    # update/draw components on each frame
+                    
+                    # *dots_black_7* updates
+                    
+                    # if dots_black_7 is starting this frame...
+                    if dots_black_7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        dots_black_7.frameNStart = frameN  # exact frame index
+                        dots_black_7.tStart = t  # local t and not account for scr refresh
+                        dots_black_7.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(dots_black_7, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        dots_black_7.status = STARTED
+                        dots_black_7.setAutoDraw(True)
+                    
+                    # if dots_black_7 is active this frame...
+                    if dots_black_7.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *dots_white_7* updates
+                    
+                    # if dots_white_7 is starting this frame...
+                    if dots_white_7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        dots_white_7.frameNStart = frameN  # exact frame index
+                        dots_white_7.tStart = t  # local t and not account for scr refresh
+                        dots_white_7.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(dots_white_7, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'dots_white_7.started')
+                        # update status
+                        dots_white_7.status = STARTED
+                        dots_white_7.setAutoDraw(True)
+                    
+                    # if dots_white_7 is active this frame...
+                    if dots_white_7.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *stim_5* updates
+                    
+                    # if stim_5 is starting this frame...
+                    if stim_5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        stim_5.frameNStart = frameN  # exact frame index
+                        stim_5.tStart = t  # local t and not account for scr refresh
+                        stim_5.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(stim_5, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        stim_5.status = STARTED
+                        stim_5.setAutoDraw(True)
+                    
+                    # if stim_5 is active this frame...
+                    if stim_5.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # if stim_5 is stopping this frame...
+                    if stim_5.status == STARTED:
+                        # is it time to stop? (based on global clock, using actual start)
+                        if tThisFlipGlobal > stim_5.tStartRefresh + 2-frameTolerance:
+                            # keep track of stop time/frame for later
+                            stim_5.tStop = t  # not accounting for scr refresh
+                            stim_5.tStopRefresh = tThisFlipGlobal  # on global time
+                            stim_5.frameNStop = frameN  # exact frame index
+                            # update status
+                            stim_5.status = FINISHED
+                            stim_5.setAutoDraw(False)
+                    
+                    # *key_resp_9* updates
+                    
+                    # if key_resp_9 is starting this frame...
+                    if key_resp_9.status == NOT_STARTED and t >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_9.frameNStart = frameN  # exact frame index
+                        key_resp_9.tStart = t  # local t and not account for scr refresh
+                        key_resp_9.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_9, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        key_resp_9.status = STARTED
+                        # keyboard checking is just starting
+                        key_resp_9.clock.reset()  # now t=0
+                    if key_resp_9.status == STARTED:
+                        theseKeys = key_resp_9.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_9_allKeys.extend(theseKeys)
+                        if len(_key_resp_9_allKeys):
+                            key_resp_9.keys = _key_resp_9_allKeys[-1].name  # just the last key pressed
+                            key_resp_9.rt = _key_resp_9_allKeys[-1].rt
+                            key_resp_9.duration = _key_resp_9_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
+                    
+                    # *logs_background_8* updates
+                    
+                    # if logs_background_8 is starting this frame...
+                    if logs_background_8.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logs_background_8.frameNStart = frameN  # exact frame index
+                        logs_background_8.tStart = t  # local t and not account for scr refresh
+                        logs_background_8.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logs_background_8, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'logs_background_8.started')
+                        # update status
+                        logs_background_8.status = STARTED
+                        logs_background_8.setAutoDraw(True)
+                    
+                    # if logs_background_8 is active this frame...
+                    if logs_background_8.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *logs_parametros_trial_5* updates
+                    
+                    # if logs_parametros_trial_5 is starting this frame...
+                    if logs_parametros_trial_5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logs_parametros_trial_5.frameNStart = frameN  # exact frame index
+                        logs_parametros_trial_5.tStart = t  # local t and not account for scr refresh
+                        logs_parametros_trial_5.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logs_parametros_trial_5, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        logs_parametros_trial_5.status = STARTED
+                        logs_parametros_trial_5.setAutoDraw(True)
+                    
+                    # if logs_parametros_trial_5 is active this frame...
+                    if logs_parametros_trial_5.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *feedback_txt_3* updates
+                    
+                    # if feedback_txt_3 is starting this frame...
+                    if feedback_txt_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        feedback_txt_3.frameNStart = frameN  # exact frame index
+                        feedback_txt_3.tStart = t  # local t and not account for scr refresh
+                        feedback_txt_3.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(feedback_txt_3, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'feedback_txt_3.started')
+                        # update status
+                        feedback_txt_3.status = STARTED
+                        feedback_txt_3.setAutoDraw(True)
+                    
+                    # if feedback_txt_3 is active this frame...
+                    if feedback_txt_3.status == STARTED:
+                        # update params
+                        pass
+                    # Run 'Each Frame' code from code_8
+                    ####################################################
+                    ##############____ON SCREEN LOGS____################
+                    ####################################################
+                    #gaze_position = mouse.getPosition()
+                    #logs_coordenadas_mirada_5.setText(f'{gaze_position[0]:.2f},{gaze_position[1]:.2f}')
+                    
+                    if advanced_config["logs"]["value"]:
+                        logs_parametros_trial_5.setText(
+                            f"Prueba 3 - Contraste\n"
+                            f"Intento: {intento}\n"
+                            f"Orientación: {orientacion:.2f}\n"
+                            f"Excentricidad: {excentricidad}º\n"
+                            f"Posicion Estimulo: ({posicion_estimulo[0]:.2f}, {posicion_estimulo[1]:.2f})\n"
+                            f"Tamaño Estímulo: {grating_size[0]:.2f}\n"
+                            f"Tipo: {tipo}\n"
+                            f"Umbral contraste cargado: {contrast_threshold:.2f}\n"
+                            f"Offset aplicado: {offset_porcentual}\n"
+                            f"Contraste mostrado: {contrast_threshold + contrast_threshold*offset_porcentual/100:.2f}" 
+                        )
+                    else:
+                        logs_parametros_trial_5.setAutoDraw(False)
+                        logs_background_8.setAutoDraw(False)
+                    
+                    
+                    ####################################################
+                    ##########____GAZE VS REGION POSITION____###########
+                    ####################################################
+                    # Calcula la distancia del ratón al centro de foveal_region
+                    #dist_from_center = ((gaze_position[0] - foveal_region_pos[0])**2 + (gaze_position[1] - foveal_region_pos[1])**2)**0.5
+                    
+                    # Comprueba si la distancia es menor que el radio de foveal_region
+                    #if dist_from_center <= 0.25/2:#foveal_region.radius:
+                    #    logs_6.setText("La mirada está dentro de la región")
+                    
+                    #else:
+                    #    logs_6.setText("La mirada está fuera de la región")
+                    
+                    ####################################################
+                    ##############____EVENTS & STATES____###############
+                    ####################################################
+                    flag_skip_all           = False
+                    flag_answer_registered  = False
+                    undecided               = False
+                    success                 = -1
+                    
+                    keys = event.getKeys()
+                    if 'space' in keys:
+                        flag_skip_all = True
+                        
+                    elif 'right' in keys and orientacion == 45: # Acierto:
+                        flag_answer_registered  = True
+                        success                 = True
+                    elif 'left' in keys and orientacion == 135: # Acierto:
+                        flag_answer_registered  = True
+                        success                 = True
+                    elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
+                        flag_answer_registered  = True
+                        success                 = False
+                    elif 'down' in keys: # NS/NC
+                        flag_answer_registered  = True
+                        success                 = False
+                        undecided               = True
+                    
+                    ####################################################
+                    ###############____TIME & NOISE____#################
+                    ####################################################
+                    
+                    if first_frame: # Ejecucion unica
+                        dots_white_7.setAutoDraw(False)
+                        dots_black_7.setAutoDraw(False)
+                        first_time = False
+                    
+                    if (t>stim_time) or flag_answer_registered: # time exceeded OR answer registered
+                        # SHOW RESULTS IF FEEDBACK ACTIVATED
+                        if advanced_config["feedback"]["value"]:
+                            print(f"El resultado es: {success}")
+                            show_feedback(feedback_txt_3, success)
+                            
+                        # SHOW NOISE
+                        stim_5.setAutoDraw(False)
+                        show_noise(dots_white_7, dots_black_7, response_time, orientacion, feedback_txt_3) #only one call
+                        continueRoutine = False
+                        
+                    if flag_skip_all:
+                        trials_bl_3.finished = True
+                    
+                    # check for quit (typically the Esc key)
+                    if defaultKeyboard.getKeys(keyList=["escape"]):
+                        thisExp.status = FINISHED
+                    if thisExp.status == FINISHED or endExpNow:
+                        endExperiment(thisExp, win=win)
+                        return
+                    # pause experiment here if requested
+                    if thisExp.status == PAUSED:
+                        pauseExperiment(
+                            thisExp=thisExp, 
+                            win=win, 
+                            timers=[routineTimer, globalClock], 
+                            currentRoutine=BL_2_CONTRAST,
+                        )
+                        # skip the frame we paused on
+                        continue
+                    
+                    # check if all components have finished
+                    if not continueRoutine:  # a component has requested a forced-end of Routine
+                        BL_2_CONTRAST.forceEnded = routineForceEnded = True
+                        break
+                    continueRoutine = False  # will revert to True if at least one component still running
+                    for thisComponent in BL_2_CONTRAST.components:
+                        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                            continueRoutine = True
+                            break  # at least one component has not yet finished
+                    
+                    # refresh the screen
+                    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                        win.flip()
+                
+                # --- Ending Routine "BL_2_CONTRAST" ---
+                for thisComponent in BL_2_CONTRAST.components:
+                    if hasattr(thisComponent, "setAutoDraw"):
+                        thisComponent.setAutoDraw(False)
+                # store stop times for BL_2_CONTRAST
+                BL_2_CONTRAST.tStop = globalClock.getTime(format='float')
+                BL_2_CONTRAST.tStopRefresh = tThisFlipGlobal
+                thisExp.addData('BL_2_CONTRAST.stopped', BL_2_CONTRAST.tStop)
+                # check responses
+                if key_resp_9.keys in ['', [], None]:  # No response was made
+                    key_resp_9.keys = None
+                trials_bl_2.addData('key_resp_9.keys',key_resp_9.keys)
+                if key_resp_9.keys != None:  # we had a response
+                    trials_bl_2.addData('key_resp_9.rt', key_resp_9.rt)
+                    trials_bl_2.addData('key_resp_9.duration', key_resp_9.duration)
+                # the Routine "BL_2_CONTRAST" was not non-slip safe, so reset the non-slip timer
+                routineTimer.reset()
+                # mark thisTrials_bl_2 as finished
+                if hasattr(thisTrials_bl_2, 'status'):
+                    thisTrials_bl_2.status = FINISHED
+                # if awaiting a pause, pause now
+                if trials_bl_2.status == PAUSED:
+                    thisExp.status = PAUSED
+                    pauseExperiment(
+                        thisExp=thisExp, 
+                        win=win, 
+                        timers=[globalClock], 
+                    )
+                    # once done pausing, restore running status
+                    trials_bl_2.status = STARTED
+            # completed 1.0 repeats of 'trials_bl_2'
+            trials_bl_2.status = FINISHED
+            
+            # mark thisMODULE_1_TEST_2 as finished
+            if hasattr(thisMODULE_1_TEST_2, 'status'):
+                thisMODULE_1_TEST_2.status = FINISHED
+            # if awaiting a pause, pause now
+            if MODULE_1_TEST_2.status == PAUSED:
+                thisExp.status = PAUSED
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[globalClock], 
+                )
+                # once done pausing, restore running status
+                MODULE_1_TEST_2.status = STARTED
+        # completed modules["module_1"]["tests"]["test_3"]["selected"] repeats of 'MODULE_1_TEST_2'
+        MODULE_1_TEST_2.status = FINISHED
+        
+        
+        # set up handler to look after randomisation of conditions etc
+        MODULE_1_TEST_3 = data.TrialHandler2(
+            name='MODULE_1_TEST_3',
+            nReps=modules["module_1"]["tests"]["test_2"]["selected"], 
+            method='sequential', 
+            extraInfo=expInfo, 
+            originPath=-1, 
+            trialList=[None], 
+            seed=None, 
+        )
+        thisExp.addLoop(MODULE_1_TEST_3)  # add the loop to the experiment
+        thisMODULE_1_TEST_3 = MODULE_1_TEST_3.trialList[0]  # so we can initialise stimuli with some values
+        # abbreviate parameter names if possible (e.g. rgb = thisMODULE_1_TEST_3.rgb)
+        if thisMODULE_1_TEST_3 != None:
+            for paramName in thisMODULE_1_TEST_3:
+                globals()[paramName] = thisMODULE_1_TEST_3[paramName]
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        
+        for thisMODULE_1_TEST_3 in MODULE_1_TEST_3:
+            MODULE_1_TEST_3.status = STARTED
+            if hasattr(thisMODULE_1_TEST_3, 'status'):
+                thisMODULE_1_TEST_3.status = STARTED
+            currentLoop = MODULE_1_TEST_3
+            thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # abbreviate parameter names if possible (e.g. rgb = thisMODULE_1_TEST_3.rgb)
+            if thisMODULE_1_TEST_3 != None:
+                for paramName in thisMODULE_1_TEST_3:
+                    globals()[paramName] = thisMODULE_1_TEST_3[paramName]
+            
+            # set up handler to look after randomisation of conditions etc
+            BL3_instructions = data.TrialHandler2(
+                name='BL3_instructions',
+                nReps=1.0, 
+                method='sequential', 
+                extraInfo=expInfo, 
+                originPath=-1, 
+                trialList=data.importConditions('instructions/module_1/[ES]BL3_instructions.xlsx'), 
+                seed=None, 
+            )
+            thisExp.addLoop(BL3_instructions)  # add the loop to the experiment
+            thisBL3_instruction = BL3_instructions.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisBL3_instruction.rgb)
+            if thisBL3_instruction != None:
+                for paramName in thisBL3_instruction:
+                    globals()[paramName] = thisBL3_instruction[paramName]
+            
+            for thisBL3_instruction in BL3_instructions:
+                BL3_instructions.status = STARTED
+                if hasattr(thisBL3_instruction, 'status'):
+                    thisBL3_instruction.status = STARTED
+                currentLoop = BL3_instructions
+                thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                # abbreviate parameter names if possible (e.g. rgb = thisBL3_instruction.rgb)
+                if thisBL3_instruction != None:
+                    for paramName in thisBL3_instruction:
+                        globals()[paramName] = thisBL3_instruction[paramName]
+                
+                # --- Prepare to start Routine "INSTRUCTIONS" ---
+                # create an object to store info about Routine INSTRUCTIONS
+                INSTRUCTIONS = data.Routine(
+                    name='INSTRUCTIONS',
+                    components=[logo_begibraintool, logo_bio_2, logo_compneurolab_2, text_instructions_2, text_instructions_title, instructions_image, button_next_instruction_2, button_previous_instruction_2, key_resp_skip_instructions_2],
+                )
+                INSTRUCTIONS.status = NOT_STARTED
+                continueRoutine = True
+                # update component parameters for each repeat
+                # Run 'Begin Routine' code from code_9
+                win.color = "grey"
+                instructions_img_path = None
+                relacion_aspecto = 1
+                
+                button_original_color = [-1.0000, 0.0039, -1.0000]  
+                button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+                trial = thisExp.getCurrentTrial()
+                
+                instruction_no = 0
+                messages_instructions = []
+                images_instructions = []
+                
+                for i in range(1, 7):
+                    # TEXTOS
+                    txt = trial.get(f"instruction_{i}", None)
+                    if txt:  
+                        messages_instructions.append(txt)
+                
+                    # IMÁGENES
+                    img = trial.get(f"img_instruction_{i}", None)
+                    if img:
+                        images_instructions.append(img)
+                    else:
+                        images_instructions.append(None)
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
+                print(f'Lista de imágenes cargada: {images_instructions}')
+                
+                instructions_image.setSize((relacion_aspecto,1))
+                button_next_instruction_2.setFillColor(button_original_color)
+                # reset button_next_instruction_2 to account for continued clicks & clear times on/off
+                button_next_instruction_2.reset()
+                # reset button_previous_instruction_2 to account for continued clicks & clear times on/off
+                button_previous_instruction_2.reset()
+                # create starting attributes for key_resp_skip_instructions_2
+                key_resp_skip_instructions_2.keys = []
+                key_resp_skip_instructions_2.rt = []
+                _key_resp_skip_instructions_2_allKeys = []
+                # store start times for INSTRUCTIONS
+                INSTRUCTIONS.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+                INSTRUCTIONS.tStart = globalClock.getTime(format='float')
+                INSTRUCTIONS.status = STARTED
+                thisExp.addData('INSTRUCTIONS.started', INSTRUCTIONS.tStart)
+                INSTRUCTIONS.maxDuration = None
+                # keep track of which components have finished
+                INSTRUCTIONSComponents = INSTRUCTIONS.components
+                for thisComponent in INSTRUCTIONS.components:
+                    thisComponent.tStart = None
+                    thisComponent.tStop = None
+                    thisComponent.tStartRefresh = None
+                    thisComponent.tStopRefresh = None
+                    if hasattr(thisComponent, 'status'):
+                        thisComponent.status = NOT_STARTED
+                # reset timers
+                t = 0
+                _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+                frameN = -1
+                
+                # --- Run Routine "INSTRUCTIONS" ---
+                INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
+                while continueRoutine:
+                    # if trial has changed, end Routine now
+                    if hasattr(thisBL3_instruction, 'status') and thisBL3_instruction.status == STOPPING:
+                        continueRoutine = False
+                    # get current time
+                    t = routineTimer.getTime()
+                    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                    # update/draw components on each frame
+                    
+                    # *logo_begibraintool* updates
+                    
+                    # if logo_begibraintool is starting this frame...
+                    if logo_begibraintool.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logo_begibraintool.frameNStart = frameN  # exact frame index
+                        logo_begibraintool.tStart = t  # local t and not account for scr refresh
+                        logo_begibraintool.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logo_begibraintool, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'logo_begibraintool.started')
+                        # update status
+                        logo_begibraintool.status = STARTED
+                        logo_begibraintool.setAutoDraw(True)
+                    
+                    # if logo_begibraintool is active this frame...
+                    if logo_begibraintool.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *logo_bio_2* updates
+                    
+                    # if logo_bio_2 is starting this frame...
+                    if logo_bio_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logo_bio_2.frameNStart = frameN  # exact frame index
+                        logo_bio_2.tStart = t  # local t and not account for scr refresh
+                        logo_bio_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logo_bio_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        logo_bio_2.status = STARTED
+                        logo_bio_2.setAutoDraw(True)
+                    
+                    # if logo_bio_2 is active this frame...
+                    if logo_bio_2.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *logo_compneurolab_2* updates
+                    
+                    # if logo_compneurolab_2 is starting this frame...
+                    if logo_compneurolab_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        logo_compneurolab_2.frameNStart = frameN  # exact frame index
+                        logo_compneurolab_2.tStart = t  # local t and not account for scr refresh
+                        logo_compneurolab_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(logo_compneurolab_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        logo_compneurolab_2.status = STARTED
+                        logo_compneurolab_2.setAutoDraw(True)
+                    
+                    # if logo_compneurolab_2 is active this frame...
+                    if logo_compneurolab_2.status == STARTED:
+                        # update params
+                        pass
+                    
+                    # *text_instructions_2* updates
+                    
+                    # if text_instructions_2 is starting this frame...
+                    if text_instructions_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        text_instructions_2.frameNStart = frameN  # exact frame index
+                        text_instructions_2.tStart = t  # local t and not account for scr refresh
+                        text_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(text_instructions_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        text_instructions_2.status = STARTED
+                        text_instructions_2.setAutoDraw(True)
+                    
+                    # if text_instructions_2 is active this frame...
+                    if text_instructions_2.status == STARTED:
+                        # update params
+                        text_instructions_2.setText('', log=False)
+                    
+                    # *text_instructions_title* updates
+                    
+                    # if text_instructions_title is starting this frame...
+                    if text_instructions_title.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        text_instructions_title.frameNStart = frameN  # exact frame index
+                        text_instructions_title.tStart = t  # local t and not account for scr refresh
+                        text_instructions_title.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(text_instructions_title, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'text_instructions_title.started')
+                        # update status
+                        text_instructions_title.status = STARTED
+                        text_instructions_title.setAutoDraw(True)
+                    
+                    # if text_instructions_title is active this frame...
+                    if text_instructions_title.status == STARTED:
+                        # update params
+                        pass
+                    # Run 'Each Frame' code from code_9
+                    text_instructions_2.text = messages_instructions[instruction_no]
+                    text_instructions_title.text = title
+                    
+                    ###################################################
+                    ####_____________IMAGE/VIDEO___________________####
+                    ###################################################
+                    if images_instructions[instruction_no] is not None:
+                        file_path = path_from_src + images_instructions[instruction_no]
+                        instructions_img_path = file_path
+                        relacion_aspecto = calcular_relacion_aspecto(file_path)
+                        instructions_image.size = (relacion_aspecto*0.4,0.4)
+                        
+                    else:
+                        instructions_img_path = None
+                        instructions_image.image = None
+                    
+                    ###################################################
+                    ####_______________BUTTONS_____________________####
+                    ###################################################
+                    
+                    if instruction_no == (len(messages_instructions) - 1):
+                        button_next_instruction_2.opacity = 0
+                        #button_next_instruction.status = PAUSED
+                    else:
+                        button_next_instruction_2.opacity = 1.0
+                        #button_next_instruction.status = STARTED
+                    
+                    if instruction_no == 0:
+                        button_previous_instruction_2.opacity = 0
+                        #button_previous_instruction.status = PAUSED
+                    else:
+                        button_previous_instruction_2.opacity = 1.0
+                        #button_previous_instruction.status = STARTED
+                    
+                    ###################################################
+                    ####________________EVENTS_____________________####
+                    ###################################################
+                    
+                    keys = event.getKeys()  # Cada llamada al buffer lo vacía
+                    
+                    if 'right' in keys:
+                        if instruction_no < len(messages_instructions)-1:
+                            instruction_no+=1
+                            button_next_instruction_2.fillColor = button_pressed_color
+                            win.flip()
+                            time.sleep(0.15)
+                            button_next_instruction_2.fillColor = button_original_color
+                            win.flip()
+                    elif 'left' in keys:
+                        if 0 < instruction_no:
+                            instruction_no-=1
+                            button_previous_instruction_2.fillColor = button_pressed_color
+                            win.flip()
+                            time.sleep(0.15)
+                            button_previous_instruction_2.fillColor = button_original_color
+                            win.flip()
+                    
+                    
+                    # *instructions_image* updates
+                    
+                    # if instructions_image is starting this frame...
+                    if instructions_image.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        instructions_image.frameNStart = frameN  # exact frame index
+                        instructions_image.tStart = t  # local t and not account for scr refresh
+                        instructions_image.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(instructions_image, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        instructions_image.status = STARTED
+                        instructions_image.setAutoDraw(True)
+                    
+                    # if instructions_image is active this frame...
+                    if instructions_image.status == STARTED:
+                        # update params
+                        instructions_image.setImage(instructions_img_path, log=False)
+                    # *button_next_instruction_2* updates
+                    
+                    # if button_next_instruction_2 is starting this frame...
+                    if button_next_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                        # keep track of start time/frame for later
+                        button_next_instruction_2.frameNStart = frameN  # exact frame index
+                        button_next_instruction_2.tStart = t  # local t and not account for scr refresh
+                        button_next_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(button_next_instruction_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        button_next_instruction_2.status = STARTED
+                        win.callOnFlip(button_next_instruction_2.buttonClock.reset)
+                        button_next_instruction_2.setAutoDraw(True)
+                    
+                    # if button_next_instruction_2 is active this frame...
+                    if button_next_instruction_2.status == STARTED:
+                        # update params
+                        pass
+                        # check whether button_next_instruction_2 has been pressed
+                        if button_next_instruction_2.isClicked:
+                            if not button_next_instruction_2.wasClicked:
+                                # if this is a new click, store time of first click and clicked until
+                                button_next_instruction_2.timesOn.append(button_next_instruction_2.buttonClock.getTime())
+                                button_next_instruction_2.timesOff.append(button_next_instruction_2.buttonClock.getTime())
+                            elif len(button_next_instruction_2.timesOff):
+                                # if click is continuing from last frame, update time of clicked until
+                                button_next_instruction_2.timesOff[-1] = button_next_instruction_2.buttonClock.getTime()
+                            if not button_next_instruction_2.wasClicked:
+                                # run callback code when button_next_instruction_2 is clicked
+                                if instruction_no < len(messages_instructions)-1:
+                                    instruction_no+=1
+                                    button_next_instruction_2.fillColor = button_pressed_color
+                                    win.flip()
+                                    time.sleep(0.15)
+                                    button_next_instruction_2.fillColor = button_original_color
+                                    win.flip()
+                    # take note of whether button_next_instruction_2 was clicked, so that next frame we know if clicks are new
+                    button_next_instruction_2.wasClicked = button_next_instruction_2.isClicked and button_next_instruction_2.status == STARTED
+                    # *button_previous_instruction_2* updates
+                    
+                    # if button_previous_instruction_2 is starting this frame...
+                    if button_previous_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                        # keep track of start time/frame for later
+                        button_previous_instruction_2.frameNStart = frameN  # exact frame index
+                        button_previous_instruction_2.tStart = t  # local t and not account for scr refresh
+                        button_previous_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(button_previous_instruction_2, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'button_previous_instruction_2.started')
+                        # update status
+                        button_previous_instruction_2.status = STARTED
+                        win.callOnFlip(button_previous_instruction_2.buttonClock.reset)
+                        button_previous_instruction_2.setAutoDraw(True)
+                    
+                    # if button_previous_instruction_2 is active this frame...
+                    if button_previous_instruction_2.status == STARTED:
+                        # update params
+                        pass
+                        # check whether button_previous_instruction_2 has been pressed
+                        if button_previous_instruction_2.isClicked:
+                            if not button_previous_instruction_2.wasClicked:
+                                # if this is a new click, store time of first click and clicked until
+                                button_previous_instruction_2.timesOn.append(button_previous_instruction_2.buttonClock.getTime())
+                                button_previous_instruction_2.timesOff.append(button_previous_instruction_2.buttonClock.getTime())
+                            elif len(button_previous_instruction_2.timesOff):
+                                # if click is continuing from last frame, update time of clicked until
+                                button_previous_instruction_2.timesOff[-1] = button_previous_instruction_2.buttonClock.getTime()
+                            if not button_previous_instruction_2.wasClicked:
+                                # run callback code when button_previous_instruction_2 is clicked
+                                if 0 < instruction_no:
+                                    instruction_no-=1
+                                    button_previous_instruction_2.fillColor = button_pressed_color
+                                    win.flip()
+                                    time.sleep(0.15)
+                                    button_previous_instruction_2.fillColor = button_original_color
+                                    win.flip()
+                    # take note of whether button_previous_instruction_2 was clicked, so that next frame we know if clicks are new
+                    button_previous_instruction_2.wasClicked = button_previous_instruction_2.isClicked and button_previous_instruction_2.status == STARTED
+                    
+                    # *key_resp_skip_instructions_2* updates
+                    waitOnFlip = False
+                    
+                    # if key_resp_skip_instructions_2 is starting this frame...
+                    if key_resp_skip_instructions_2.status == NOT_STARTED and tThisFlip >= 0.35-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_skip_instructions_2.frameNStart = frameN  # exact frame index
+                        key_resp_skip_instructions_2.tStart = t  # local t and not account for scr refresh
+                        key_resp_skip_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_skip_instructions_2, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        key_resp_skip_instructions_2.status = STARTED
+                        # keyboard checking is just starting
+                        waitOnFlip = True
+                        win.callOnFlip(key_resp_skip_instructions_2.clock.reset)  # t=0 on next screen flip
+                        win.callOnFlip(key_resp_skip_instructions_2.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                    if key_resp_skip_instructions_2.status == STARTED and not waitOnFlip:
+                        theseKeys = key_resp_skip_instructions_2.getKeys(keyList=['space','a','b'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_skip_instructions_2_allKeys.extend(theseKeys)
+                        if len(_key_resp_skip_instructions_2_allKeys):
+                            key_resp_skip_instructions_2.keys = _key_resp_skip_instructions_2_allKeys[-1].name  # just the last key pressed
+                            key_resp_skip_instructions_2.rt = _key_resp_skip_instructions_2_allKeys[-1].rt
+                            key_resp_skip_instructions_2.duration = _key_resp_skip_instructions_2_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
+                    
+                    # check for quit (typically the Esc key)
+                    if defaultKeyboard.getKeys(keyList=["escape"]):
+                        thisExp.status = FINISHED
+                    if thisExp.status == FINISHED or endExpNow:
+                        endExperiment(thisExp, win=win)
+                        return
+                    # pause experiment here if requested
+                    if thisExp.status == PAUSED:
+                        pauseExperiment(
+                            thisExp=thisExp, 
+                            win=win, 
+                            timers=[routineTimer, globalClock], 
+                            currentRoutine=INSTRUCTIONS,
+                        )
+                        # skip the frame we paused on
+                        continue
+                    
+                    # check if all components have finished
+                    if not continueRoutine:  # a component has requested a forced-end of Routine
+                        INSTRUCTIONS.forceEnded = routineForceEnded = True
+                        break
+                    continueRoutine = False  # will revert to True if at least one component still running
+                    for thisComponent in INSTRUCTIONS.components:
+                        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                            continueRoutine = True
+                            break  # at least one component has not yet finished
+                    
+                    # refresh the screen
+                    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                        win.flip()
+                
+                # --- Ending Routine "INSTRUCTIONS" ---
+                for thisComponent in INSTRUCTIONS.components:
+                    if hasattr(thisComponent, "setAutoDraw"):
+                        thisComponent.setAutoDraw(False)
+                # store stop times for INSTRUCTIONS
+                INSTRUCTIONS.tStop = globalClock.getTime(format='float')
+                INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
+                thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                BL3_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                if button_next_instruction_2.numClicks:
+                   BL3_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   BL3_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                else:
+                   BL3_instructions.addData('button_next_instruction_2.timesOn', "")
+                   BL3_instructions.addData('button_next_instruction_2.timesOff', "")
+                BL3_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                if button_previous_instruction_2.numClicks:
+                   BL3_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   BL3_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                else:
+                   BL3_instructions.addData('button_previous_instruction_2.timesOn', "")
+                   BL3_instructions.addData('button_previous_instruction_2.timesOff', "")
+                # check responses
+                if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
+                    key_resp_skip_instructions_2.keys = None
+                BL3_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                if key_resp_skip_instructions_2.keys != None:  # we had a response
+                    BL3_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    BL3_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
+                routineTimer.reset()
+                # mark thisBL3_instruction as finished
+                if hasattr(thisBL3_instruction, 'status'):
+                    thisBL3_instruction.status = FINISHED
+                # if awaiting a pause, pause now
+                if BL3_instructions.status == PAUSED:
+                    thisExp.status = PAUSED
+                    pauseExperiment(
+                        thisExp=thisExp, 
+                        win=win, 
+                        timers=[globalClock], 
+                    )
+                    # once done pausing, restore running status
+                    BL3_instructions.status = STARTED
+            # completed 1.0 repeats of 'BL3_instructions'
+            BL3_instructions.status = FINISHED
+            
+            
+            # set up handler to look after randomisation of conditions etc
+            trials_bl_3 = data.TrialHandler2(
+                name='trials_bl_3',
+                nReps=1.0, 
+                method='sequential', 
+                extraInfo=expInfo, 
+                originPath=-1, 
+                trialList=data.importConditions('CSV_protocol_config_files/module_1_test_3_COLOR.csv'), 
+                seed=None, 
+            )
+            thisExp.addLoop(trials_bl_3)  # add the loop to the experiment
+            thisTrials_bl_3 = trials_bl_3.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_3.rgb)
+            if thisTrials_bl_3 != None:
+                for paramName in thisTrials_bl_3:
+                    globals()[paramName] = thisTrials_bl_3[paramName]
+            
+            for thisTrials_bl_3 in trials_bl_3:
+                trials_bl_3.status = STARTED
+                if hasattr(thisTrials_bl_3, 'status'):
+                    thisTrials_bl_3.status = STARTED
+                currentLoop = trials_bl_3
+                thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_3.rgb)
+                if thisTrials_bl_3 != None:
+                    for paramName in thisTrials_bl_3:
+                        globals()[paramName] = thisTrials_bl_3[paramName]
+                
+                # --- Prepare to start Routine "BL_3_COLOR" ---
+                # create an object to store info about Routine BL_3_COLOR
+                BL_3_COLOR = data.Routine(
+                    name='BL_3_COLOR',
                     components=[dots_black_6, dots_white_6, key_resp_10, logs_background_10, logs_parametros_trial_6, stim_img, feedback_txt_2],
                 )
-                BL_2_COLOR.status = NOT_STARTED
+                BL_3_COLOR.status = NOT_STARTED
                 continueRoutine = True
                 # update component parameters for each repeat
                 dots_black_6.refreshDots()
@@ -11659,7 +11618,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 ########____LOAD STAIRCASE TEST RESULTS____#########
                 ####################################################
                 #threshold_dict = load_thresholds_from_json()
-                frecuencia_espacial = threshold_dict['spatial_frequency_threshold']
+                if (modules["module_1"]["tests"]["test_2"]["config"]["default_sf"]["value"]):
+                    spatial_frequency_threshold = modules["module_1"]["tests"]["test_2"]["config"]["gabor_sf"]["value"]
+                else:
+                    spatial_frequency_threshold = threshold_dict['spatial_frequency_threshold']
+                
+                #frecuencia_espacial = threshold_dict['spatial_frequency_threshold']
                 saturation_threshold = threshold_dict['color_threshold'][color_name]
                 
                 ####################################################
@@ -11687,7 +11651,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 success                 = -1
                 undecided               = False
                 # Run 'Begin Routine' code from gabor_generator_2
-                frequency = frecuencia_espacial/500 # division para equiparar con unidades del parche de psychopy
+                frequency = spatial_frequency_threshold/win.size[1] # division para equiparar con unidades del parche de psychopy
                 
                 size = 800
                 c1_hsv = [color_1_h,color_1_s,color_1_v] # color del excel
@@ -11704,15 +11668,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                                        normalizar_rgb(hsv_a_rgb(*c1_hsv)), 
                                        normalizar_rgb(hsv_a_rgb(*c2_hsv)))
                 
-                # store start times for BL_2_COLOR
-                BL_2_COLOR.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-                BL_2_COLOR.tStart = globalClock.getTime(format='float')
-                BL_2_COLOR.status = STARTED
-                thisExp.addData('BL_2_COLOR.started', BL_2_COLOR.tStart)
-                BL_2_COLOR.maxDuration = None
+                # store start times for BL_3_COLOR
+                BL_3_COLOR.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+                BL_3_COLOR.tStart = globalClock.getTime(format='float')
+                BL_3_COLOR.status = STARTED
+                thisExp.addData('BL_3_COLOR.started', BL_3_COLOR.tStart)
+                BL_3_COLOR.maxDuration = None
                 # keep track of which components have finished
-                BL_2_COLORComponents = BL_2_COLOR.components
-                for thisComponent in BL_2_COLOR.components:
+                BL_3_COLORComponents = BL_3_COLOR.components
+                for thisComponent in BL_3_COLOR.components:
                     thisComponent.tStart = None
                     thisComponent.tStop = None
                     thisComponent.tStartRefresh = None
@@ -11724,11 +11688,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
                 frameN = -1
                 
-                # --- Run Routine "BL_2_COLOR" ---
-                BL_2_COLOR.forceEnded = routineForceEnded = not continueRoutine
+                # --- Run Routine "BL_3_COLOR" ---
+                BL_3_COLOR.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisTrials_bl_2, 'status') and thisTrials_bl_2.status == STOPPING:
+                    if hasattr(thisTrials_bl_3, 'status') and thisTrials_bl_3.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -11890,7 +11854,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             f"Excentricidad: {excentricidad}º\n"
                             f"Posicion Estimulo: ({posicion_estimulo[0]:.2f}, {posicion_estimulo[1]:.2f})\n"
                             f"Tamaño Estímulo: {grating_size[0]:.2f}\n"
-                            #f"Tipo: {tipo}\n"
+                            f"SF aplicado: {spatial_frequency_threshold}\n"
                             f"Offset (%): {umbral_porcentual:.2f}\n"
                             f"Umbral color {color_name}(%): {saturation_threshold:.2f}\n"
                             f"Sat. C1 (%): {c1_hsv[1]:.2f}\n"
@@ -11975,17 +11939,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             thisExp=thisExp, 
                             win=win, 
                             timers=[routineTimer, globalClock], 
-                            currentRoutine=BL_2_COLOR,
+                            currentRoutine=BL_3_COLOR,
                         )
                         # skip the frame we paused on
                         continue
                     
                     # check if all components have finished
                     if not continueRoutine:  # a component has requested a forced-end of Routine
-                        BL_2_COLOR.forceEnded = routineForceEnded = True
+                        BL_3_COLOR.forceEnded = routineForceEnded = True
                         break
                     continueRoutine = False  # will revert to True if at least one component still running
-                    for thisComponent in BL_2_COLOR.components:
+                    for thisComponent in BL_3_COLOR.components:
                         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                             continueRoutine = True
                             break  # at least one component has not yet finished
@@ -11994,28 +11958,28 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                         win.flip()
                 
-                # --- Ending Routine "BL_2_COLOR" ---
-                for thisComponent in BL_2_COLOR.components:
+                # --- Ending Routine "BL_3_COLOR" ---
+                for thisComponent in BL_3_COLOR.components:
                     if hasattr(thisComponent, "setAutoDraw"):
                         thisComponent.setAutoDraw(False)
-                # store stop times for BL_2_COLOR
-                BL_2_COLOR.tStop = globalClock.getTime(format='float')
-                BL_2_COLOR.tStopRefresh = tThisFlipGlobal
-                thisExp.addData('BL_2_COLOR.stopped', BL_2_COLOR.tStop)
+                # store stop times for BL_3_COLOR
+                BL_3_COLOR.tStop = globalClock.getTime(format='float')
+                BL_3_COLOR.tStopRefresh = tThisFlipGlobal
+                thisExp.addData('BL_3_COLOR.stopped', BL_3_COLOR.tStop)
                 # check responses
                 if key_resp_10.keys in ['', [], None]:  # No response was made
                     key_resp_10.keys = None
-                trials_bl_2.addData('key_resp_10.keys',key_resp_10.keys)
+                trials_bl_3.addData('key_resp_10.keys',key_resp_10.keys)
                 if key_resp_10.keys != None:  # we had a response
-                    trials_bl_2.addData('key_resp_10.rt', key_resp_10.rt)
-                    trials_bl_2.addData('key_resp_10.duration', key_resp_10.duration)
-                # the Routine "BL_2_COLOR" was not non-slip safe, so reset the non-slip timer
+                    trials_bl_3.addData('key_resp_10.rt', key_resp_10.rt)
+                    trials_bl_3.addData('key_resp_10.duration', key_resp_10.duration)
+                # the Routine "BL_3_COLOR" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisTrials_bl_2 as finished
-                if hasattr(thisTrials_bl_2, 'status'):
-                    thisTrials_bl_2.status = FINISHED
+                # mark thisTrials_bl_3 as finished
+                if hasattr(thisTrials_bl_3, 'status'):
+                    thisTrials_bl_3.status = FINISHED
                 # if awaiting a pause, pause now
-                if trials_bl_2.status == PAUSED:
+                if trials_bl_3.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -12023,15 +11987,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    trials_bl_2.status = STARTED
-            # completed 1.0 repeats of 'trials_bl_2'
-            trials_bl_2.status = FINISHED
+                    trials_bl_3.status = STARTED
+            # completed 1.0 repeats of 'trials_bl_3'
+            trials_bl_3.status = FINISHED
             
-            # mark thisMODULE_1_TEST_2 as finished
-            if hasattr(thisMODULE_1_TEST_2, 'status'):
-                thisMODULE_1_TEST_2.status = FINISHED
+            # mark thisMODULE_1_TEST_3 as finished
+            if hasattr(thisMODULE_1_TEST_3, 'status'):
+                thisMODULE_1_TEST_3.status = FINISHED
             # if awaiting a pause, pause now
-            if MODULE_1_TEST_2.status == PAUSED:
+            if MODULE_1_TEST_3.status == PAUSED:
                 thisExp.status = PAUSED
                 pauseExperiment(
                     thisExp=thisExp, 
@@ -12039,22 +12003,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     timers=[globalClock], 
                 )
                 # once done pausing, restore running status
-                MODULE_1_TEST_2.status = STARTED
+                MODULE_1_TEST_3.status = STARTED
             thisExp.nextEntry()
             
-        # completed modules["module_1"]["tests"]["test_2"]["selected"] repeats of 'MODULE_1_TEST_2'
-        MODULE_1_TEST_2.status = FINISHED
+        # completed modules["module_1"]["tests"]["test_2"]["selected"] repeats of 'MODULE_1_TEST_3'
+        MODULE_1_TEST_3.status = FINISHED
         
         if thisSession is not None:
             # if running in a Session with a Liaison client, send data up to now
             thisSession.sendExperimentData()
         # get names of stimulus parameters
-        if MODULE_1_TEST_2.trialList in ([], [None], None):
+        if MODULE_1_TEST_3.trialList in ([], [None], None):
             params = []
         else:
-            params = MODULE_1_TEST_2.trialList[0].keys()
+            params = MODULE_1_TEST_3.trialList[0].keys()
         # save data for this loop
-        MODULE_1_TEST_2.saveAsExcel(filename + '.xlsx', sheetName='MODULE_1_TEST_2',
+        MODULE_1_TEST_3.saveAsExcel(filename + '.xlsx', sheetName='MODULE_1_TEST_3',
             stimOut=params,
             dataOut=['n','all_mean','all_std', 'all_raw'])
         
@@ -12099,7 +12063,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/tutorial_semantic_sf_color_contrast/tutorial_semantic_sf_color_contrast.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/tutorial_semantic_sf_color_contrast/[ES]tutorial_semantic_sf_color_contrast.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(tutorial_semantic_sf_color_contrast_instructions)  # add the loop to the experiment
@@ -12146,16 +12110,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -12167,7 +12124,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -12587,7 +12545,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/tutorial_semantic_sf_color_contrast/tutorial_sequence.csv'), 
+                trialList=data.importConditions('instructions/module_1/tutorial_semantic_sf_color_contrast/tutorial_sequence.csv'), 
                 seed=None, 
             )
             thisExp.addLoop(semantic_tutorial_loop)  # add the loop to the experiment
@@ -12631,7 +12589,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 logs_parametros_trial_8.alignText='left'
                 logs_parametros_trial_8.anchorHoriz='left'
                 
-                path_prefix = r".\instructions\tutorial_semantic_sf_color_contrast\tutorial_trials_imgs/"
+                path_prefix = r".\instructions\module_1\tutorial_semantic_sf_color_contrast\tutorial_trials_imgs/"
                 
                 # TODO:
                 # if 'marvo' r"./images/autogenerated_datasets/module_1_images/high¿?"
@@ -12775,7 +12733,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dots_black_13.setAutoDraw(False)
                         first_time = False
                     
-                    if (t>stim_time) or flag_answer_registered: # time exceeded OR answer registered
+                    if (t>stim_time+2) or flag_answer_registered: # time exceeded OR answer registered
                         show_feedback(feedback_txt_9, success)
                         semantic_stim_4.setAutoDraw(False)
                         show_noise(dots_white_13, dots_black_13, response_time, 0, feedback_txt_9) #only one call
@@ -13110,7 +13068,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/BL4_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/[ES]BL4_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(BL4_instructions)  # add the loop to the experiment
@@ -13157,16 +13115,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -13178,7 +13129,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -14156,16 +14108,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -14177,7 +14122,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -15148,16 +15094,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -15169,7 +15108,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -16196,16 +16136,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -16217,7 +16150,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -16824,16 +16758,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -16845,7 +16772,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -17543,16 +17471,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -17564,7 +17485,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -18488,16 +18410,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -18509,7 +18424,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -19279,16 +19195,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -19300,7 +19209,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -20084,16 +19994,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -20105,7 +20008,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -20947,16 +20851,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -20968,7 +20865,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -21736,16 +21634,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -21757,7 +21648,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -22608,16 +22500,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -22629,7 +22514,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -23433,16 +23319,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -23454,7 +23333,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -24335,16 +24215,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 instruction_no = 0
                 messages_instructions = []
-                #for i in range(1, 6):
-                #    var_name = f"instruction_{i}"
-                #    if var_name in globals():
-                #        instruction = globals()[var_name]
-                #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-                #            messages_instructions.append(instruction)
-                print(f'Lista de instrucciones cargada: {messages_instructions}')
-                
                 images_instructions = []
-                for i in range(1, 6):
+                
+                for i in range(1, 7):
                     # TEXTOS
                     txt = trial.get(f"instruction_{i}", None)
                     if txt:  
@@ -24356,7 +24229,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         images_instructions.append(img)
                     else:
                         images_instructions.append(None)
-                
+                        
+                print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
                 instructions_image.setSize((relacion_aspecto,1))
@@ -25128,16 +25002,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         
         instruction_no = 0
         messages_instructions = []
-        #for i in range(1, 6):
-        #    var_name = f"instruction_{i}"
-        #    if var_name in globals():
-        #        instruction = globals()[var_name]
-        #        if instruction: # Si la instrucción no esta vacía se añade a la lista que aparecera por pantalla
-        #            messages_instructions.append(instruction)
-        print(f'Lista de instrucciones cargada: {messages_instructions}')
-        
         images_instructions = []
-        for i in range(1, 6):
+        
+        for i in range(1, 7):
             # TEXTOS
             txt = trial.get(f"instruction_{i}", None)
             if txt:  
@@ -25149,7 +25016,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 images_instructions.append(img)
             else:
                 images_instructions.append(None)
-        
+                
+        print(f'Lista de instrucciones cargada: {messages_instructions}')
         print(f'Lista de imágenes cargada: {images_instructions}')
         
         instructions_image.setSize((relacion_aspecto,1))
