@@ -343,7 +343,41 @@ modules = {
                     "es": "Evaluación de visión cromática",
                     "en": "Color vision evaluation",
                     "eu": "Kolore ikusmenaren ebaluazioa"
-                }
+                },
+                "config": {
+                    "default_sf": {
+                        "value": True,
+                        "default": True,
+                        "type": bool,
+                        "options": [True, False],
+                        "variable_display_name": {
+                            "es": "Usar SF estándar",
+                            "en": "Use standard SF",
+                            "eu": "Erabili SF estandarra"
+                        },
+                        "tooltip": {
+                            "es": "Si se habilita la opción la SF durante la prueba de color será la definida en el campo inferior. Si se deshabilita, se usará la SF obtenida en el pretest para la prueba de color.",
+                            "en": "If enabled, the SF during the color test will be the one defined in the field below. If disabled, the SF obtained in the pretest will be used.",
+                            "eu": "Aukera gaituta badago, kolore-proban erabiliko den SF beheko eremuan definitutako izango da. Desgaituta badago, aurreproban lortutako SF erabiliko da."
+                        }
+                    },
+
+                    "gabor_sf": {
+                        "value": 100,
+                        "default": 100,
+                        "type": int,
+                        "variable_display_name": {
+                            "es": "Frecuencia espacial",
+                            "en": "Spatial frequency",
+                            "eu": "Maiztasun espaziala"
+                        },
+                        "tooltip": {
+                            "es": "Frecuencia espacial del parche para la prueba de contraste",
+                            "en": "Spatial frequency of the patch for the contrast test",
+                            "eu": "Kontraste-probarako txertaketaren maiztasun espaziala"
+                        },
+                    },
+            },
             },
             "test_3": {
                 "name": {
@@ -358,7 +392,41 @@ modules = {
                     "es": "Evaluación de sensibilidad al contraste",
                     "en": "Contrast sensitivity evaluation",
                     "eu": "Kontrastearekiko sentikortasunaren ebaluazioa"
-                }
+                },
+                "config": {
+                    "default_sf": {
+                        "value": True,
+                        "default": True,
+                        "type": bool,
+                        "options": [True, False],
+                        "variable_display_name": {
+                            "es": "Usar SF estándar",
+                            "en": "Use standard SF",
+                            "eu": "Erabili SF estandarra"
+                        },
+                        "tooltip": {
+                            "es": "Si se habilita la opción la SF durante la prueba de contraste será la definida en el campo inferior. Si se deshabilita, se usará la SF obtenida en el pretest.",
+                            "en": "If enabled, the SF during the contrast test will be the one defined in the field below. If disabled, the SF obtained in the pretest will be used.",
+                            "eu": "Aukera gaituta badago, kontraste-proban erabiliko den SF beheko eremuan definitutako izango da. Desgaituta badago, aurreproban lortutako SF erabiliko da."
+                        }
+                    },
+
+                    "gabor_sf": {
+                        "value": 100,
+                        "default": 100,
+                        "type": int,
+                        "variable_display_name": {
+                            "es": "Frecuencia espacial",
+                            "en": "Spatial frequency",
+                            "eu": "Maiztasun espaziala"
+                        },
+                        "tooltip": {
+                            "es": "Frecuencia espacial del parche para la prueba de contraste",
+                            "en": "Spatial frequency of the patch for the contrast test",
+                            "eu": "Kontraste-probarako txertaketaren maiztasun espaziala"
+                        },
+                    },
+            },
             },
             "test_4": {
                 "name": {
