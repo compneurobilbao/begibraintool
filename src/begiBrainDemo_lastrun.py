@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on enero 05, 2026, at 18:41
+    on enero 07, 2026, at 13:39
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -4461,9 +4461,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
     # --- Initialize components for Routine "FEARFUL_AND_AFFECTIVE_IMAGES_TASK" ---
-    img = visual.ImageStim(
+    affective_image = visual.ImageStim(
         win=win,
-        name='img', 
+        name='affective_image', 
         image='default.png', mask=None, anchor='center',
         ori=0.0, pos=(0, 0), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
@@ -14061,7 +14061,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/BL5_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/[ES]BL5_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(BL5_instructions)  # add the loop to the experiment
@@ -15047,7 +15047,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/BL6_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_1/[ES]BL6_instructions.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(BL6_instructions)  # add the loop to the experiment
@@ -16095,7 +16095,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/et_resting_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]1.1.RESTING_ET.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(et_resting_state_instructions)  # add the loop to the experiment
@@ -16717,7 +16717,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/et_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]1.2.ET.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(et_task_instructions)  # add the loop to the experiment
@@ -17418,38 +17418,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_2[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            trials = data.TrialHandler2(
-                name='trials',
+            FFT_instructions = data.TrialHandler2(
+                name='FFT_instructions',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/BL4_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]2.FFT.xlsx'), 
                 seed=None, 
             )
-            thisExp.addLoop(trials)  # add the loop to the experiment
-            thisTrial = trials.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisTrial.rgb)
-            if thisTrial != None:
-                for paramName in thisTrial:
-                    globals()[paramName] = thisTrial[paramName]
+            thisExp.addLoop(FFT_instructions)  # add the loop to the experiment
+            thisFFT_instruction = FFT_instructions.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisFFT_instruction.rgb)
+            if thisFFT_instruction != None:
+                for paramName in thisFFT_instruction:
+                    globals()[paramName] = thisFFT_instruction[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisTrial in trials:
-                trials.status = STARTED
-                if hasattr(thisTrial, 'status'):
-                    thisTrial.status = STARTED
-                currentLoop = trials
+            for thisFFT_instruction in FFT_instructions:
+                FFT_instructions.status = STARTED
+                if hasattr(thisFFT_instruction, 'status'):
+                    thisFFT_instruction.status = STARTED
+                currentLoop = FFT_instructions
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisTrial.rgb)
-                if thisTrial != None:
-                    for paramName in thisTrial:
-                        globals()[paramName] = thisTrial[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisFFT_instruction.rgb)
+                if thisFFT_instruction != None:
+                    for paramName in thisFFT_instruction:
+                        globals()[paramName] = thisFFT_instruction[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -17523,7 +17523,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisTrial, 'status') and thisTrial.status == STOPPING:
+                    if hasattr(thisFFT_instruction, 'status') and thisFFT_instruction.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -17845,34 +17845,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                trials.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                FFT_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   trials.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   trials.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   FFT_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   FFT_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   trials.addData('button_next_instruction_2.timesOn', "")
-                   trials.addData('button_next_instruction_2.timesOff', "")
-                trials.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   FFT_instructions.addData('button_next_instruction_2.timesOn', "")
+                   FFT_instructions.addData('button_next_instruction_2.timesOff', "")
+                FFT_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   trials.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   trials.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   FFT_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   FFT_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   trials.addData('button_previous_instruction_2.timesOn', "")
-                   trials.addData('button_previous_instruction_2.timesOff', "")
+                   FFT_instructions.addData('button_previous_instruction_2.timesOn', "")
+                   FFT_instructions.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                trials.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                FFT_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    trials.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    trials.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    FFT_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    FFT_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisTrial as finished
-                if hasattr(thisTrial, 'status'):
-                    thisTrial.status = FINISHED
+                # mark thisFFT_instruction as finished
+                if hasattr(thisFFT_instruction, 'status'):
+                    thisFFT_instruction.status = FINISHED
                 # if awaiting a pause, pause now
-                if trials.status == PAUSED:
+                if FFT_instructions.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -17880,22 +17880,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    trials.status = STARTED
+                    FFT_instructions.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'trials'
-            trials.status = FINISHED
+            # completed 1.0 repeats of 'FFT_instructions'
+            FFT_instructions.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if trials.trialList in ([], [None], None):
+            if FFT_instructions.trialList in ([], [None], None):
                 params = []
             else:
-                params = trials.trialList[0].keys()
+                params = FFT_instructions.trialList[0].keys()
             # save data for this loop
-            trials.saveAsExcel(filename + '.xlsx', sheetName='trials',
+            FFT_instructions.saveAsExcel(filename + '.xlsx', sheetName='FFT_instructions',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -18369,7 +18369,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2_test_3_saccades/et_saccade_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]3.1.ET_SACCADE.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(et_saccade_task_instructions)  # add the loop to the experiment
@@ -19148,7 +19148,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2_test_3_saccades/et_antisaccade_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]3.2.ET_ANTISACCADE.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(antisaccade_instructions)  # add the loop to the experiment
@@ -19947,7 +19947,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2_test_3_saccades/et_saccade_and_antisaccade_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(saccade_and_antisaccade_instructions)  # add the loop to the experiment
@@ -20804,32 +20804,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_4[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            DVS_coherence_instructions = data.TrialHandler2(
-                name='DVS_coherence_instructions',
+            smooth_pursuit_instructions = data.TrialHandler2(
+                name='smooth_pursuit_instructions',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/DVS_tracking_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]4.SMOOTH_PURSUIT.xlsx'), 
                 seed=None, 
             )
-            thisExp.addLoop(DVS_coherence_instructions)  # add the loop to the experiment
-            thisDVS_coherence_instruction = DVS_coherence_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisDVS_coherence_instruction.rgb)
-            if thisDVS_coherence_instruction != None:
-                for paramName in thisDVS_coherence_instruction:
-                    globals()[paramName] = thisDVS_coherence_instruction[paramName]
+            thisExp.addLoop(smooth_pursuit_instructions)  # add the loop to the experiment
+            thisSmooth_pursuit_instruction = smooth_pursuit_instructions.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisSmooth_pursuit_instruction.rgb)
+            if thisSmooth_pursuit_instruction != None:
+                for paramName in thisSmooth_pursuit_instruction:
+                    globals()[paramName] = thisSmooth_pursuit_instruction[paramName]
             
-            for thisDVS_coherence_instruction in DVS_coherence_instructions:
-                DVS_coherence_instructions.status = STARTED
-                if hasattr(thisDVS_coherence_instruction, 'status'):
-                    thisDVS_coherence_instruction.status = STARTED
-                currentLoop = DVS_coherence_instructions
+            for thisSmooth_pursuit_instruction in smooth_pursuit_instructions:
+                smooth_pursuit_instructions.status = STARTED
+                if hasattr(thisSmooth_pursuit_instruction, 'status'):
+                    thisSmooth_pursuit_instruction.status = STARTED
+                currentLoop = smooth_pursuit_instructions
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisDVS_coherence_instruction.rgb)
-                if thisDVS_coherence_instruction != None:
-                    for paramName in thisDVS_coherence_instruction:
-                        globals()[paramName] = thisDVS_coherence_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisSmooth_pursuit_instruction.rgb)
+                if thisSmooth_pursuit_instruction != None:
+                    for paramName in thisSmooth_pursuit_instruction:
+                        globals()[paramName] = thisSmooth_pursuit_instruction[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -20903,7 +20903,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisDVS_coherence_instruction, 'status') and thisDVS_coherence_instruction.status == STOPPING:
+                    if hasattr(thisSmooth_pursuit_instruction, 'status') and thisSmooth_pursuit_instruction.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -21225,34 +21225,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                DVS_coherence_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                smooth_pursuit_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   DVS_coherence_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   DVS_coherence_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   DVS_coherence_instructions.addData('button_next_instruction_2.timesOn', "")
-                   DVS_coherence_instructions.addData('button_next_instruction_2.timesOff', "")
-                DVS_coherence_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOn', "")
+                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOff', "")
+                smooth_pursuit_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   DVS_coherence_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   DVS_coherence_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   DVS_coherence_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   DVS_coherence_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOn', "")
+                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                DVS_coherence_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                smooth_pursuit_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    DVS_coherence_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    DVS_coherence_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    smooth_pursuit_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    smooth_pursuit_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisDVS_coherence_instruction as finished
-                if hasattr(thisDVS_coherence_instruction, 'status'):
-                    thisDVS_coherence_instruction.status = FINISHED
+                # mark thisSmooth_pursuit_instruction as finished
+                if hasattr(thisSmooth_pursuit_instruction, 'status'):
+                    thisSmooth_pursuit_instruction.status = FINISHED
                 # if awaiting a pause, pause now
-                if DVS_coherence_instructions.status == PAUSED:
+                if smooth_pursuit_instructions.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -21260,9 +21260,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    DVS_coherence_instructions.status = STARTED
-            # completed 1.0 repeats of 'DVS_coherence_instructions'
-            DVS_coherence_instructions.status = FINISHED
+                    smooth_pursuit_instructions.status = STARTED
+            # completed 1.0 repeats of 'smooth_pursuit_instructions'
+            smooth_pursuit_instructions.status = FINISHED
             
             
             # --- Prepare to start Routine "SMOOTH_PURSUIT" ---
@@ -21593,7 +21593,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/visual_search_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]5.STATIC_VISUAL_SEARCH.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(visual_search_instructions)  # add the loop to the experiment
@@ -22453,7 +22453,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/dynamic_visual_search_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_2/[ES]6.DYNAMIC_VISUAL_SEARCH.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(dynamic_visual_search_instructions)  # add the loop to the experiment
@@ -23278,7 +23278,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/pupilometry_task_instructions.xlsx'), 
+                trialList=data.importConditions('instructions/module_3/[ES]1.PUPILLOMETRY.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(pupilometry_instructions)  # add the loop to the experiment
@@ -24168,7 +24168,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/fearful_and_affective_images_instrucitons.xlsx'), 
+                trialList=data.importConditions('instructions/module_3/[ES]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx'), 
                 seed=None, 
             )
             thisExp.addLoop(fearful_and_affective_images_insructions)  # add the loop to the experiment
@@ -24681,7 +24681,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine FEARFUL_AND_AFFECTIVE_IMAGES_TASK
                 FEARFUL_AND_AFFECTIVE_IMAGES_TASK = data.Routine(
                     name='FEARFUL_AND_AFFECTIVE_IMAGES_TASK',
-                    components=[img, key_resp_29, logs_29],
+                    components=[affective_image, key_resp_29, logs_29],
                 )
                 FEARFUL_AND_AFFECTIVE_IMAGES_TASK.status = NOT_STARTED
                 continueRoutine = True
@@ -24704,11 +24704,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         raise ValueError(f"Error al abrir la imagen: {e}")
                 
                 relacion_aspecto = calcular_relacion_aspecto(affective_image_relative_path_1 + affective_image_relative_path_2)
-                
+                print(affective_image_relative_path_1 + affective_image_relative_path_2)
+                print(relacion_aspecto)
                 if advanced_config["logs"]["value"]:
                     logs_29.text = f"Img path: {affective_image_relative_path_1 + affective_image_relative_path_2}"
-                img.setSize((relacion_aspecto,1))
-                img.setImage((affective_image_relative_path_1 + affective_image_relative_path_2))
+                affective_image.setSize((relacion_aspecto,1))
+                affective_image.setImage((affective_image_relative_path_1 + affective_image_relative_path_2))
                 # create starting attributes for key_resp_29
                 key_resp_29.keys = []
                 key_resp_29.rt = []
@@ -24749,39 +24750,39 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if t>autonomic_response_basal_time + autonomic_response_image_time + autonomic_response_recovery_time:
                         continueRoutine = False
                     
-                    # *img* updates
+                    # *affective_image* updates
                     
-                    # if img is starting this frame...
-                    if img.status == NOT_STARTED and tThisFlip >= autonomic_response_basal_time-frameTolerance:
+                    # if affective_image is starting this frame...
+                    if affective_image.status == NOT_STARTED and tThisFlip >= autonomic_response_basal_time-frameTolerance:
                         # keep track of start time/frame for later
-                        img.frameNStart = frameN  # exact frame index
-                        img.tStart = t  # local t and not account for scr refresh
-                        img.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(img, 'tStartRefresh')  # time at next scr refresh
+                        affective_image.frameNStart = frameN  # exact frame index
+                        affective_image.tStart = t  # local t and not account for scr refresh
+                        affective_image.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(affective_image, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'img.started')
+                        thisExp.timestampOnFlip(win, 'affective_image.started')
                         # update status
-                        img.status = STARTED
-                        img.setAutoDraw(True)
+                        affective_image.status = STARTED
+                        affective_image.setAutoDraw(True)
                     
-                    # if img is active this frame...
-                    if img.status == STARTED:
+                    # if affective_image is active this frame...
+                    if affective_image.status == STARTED:
                         # update params
                         pass
                     
-                    # if img is stopping this frame...
-                    if img.status == STARTED:
+                    # if affective_image is stopping this frame...
+                    if affective_image.status == STARTED:
                         # is it time to stop? (based on global clock, using actual start)
-                        if tThisFlipGlobal > img.tStartRefresh + autonomic_response_image_time-frameTolerance:
+                        if tThisFlipGlobal > affective_image.tStartRefresh + autonomic_response_image_time-frameTolerance:
                             # keep track of stop time/frame for later
-                            img.tStop = t  # not accounting for scr refresh
-                            img.tStopRefresh = tThisFlipGlobal  # on global time
-                            img.frameNStop = frameN  # exact frame index
+                            affective_image.tStop = t  # not accounting for scr refresh
+                            affective_image.tStopRefresh = tThisFlipGlobal  # on global time
+                            affective_image.frameNStop = frameN  # exact frame index
                             # add timestamp to datafile
-                            thisExp.timestampOnFlip(win, 'img.stopped')
+                            thisExp.timestampOnFlip(win, 'affective_image.stopped')
                             # update status
-                            img.status = FINISHED
-                            img.setAutoDraw(False)
+                            affective_image.status = FINISHED
+                            affective_image.setAutoDraw(False)
                     
                     # *key_resp_29* updates
                     waitOnFlip = False
@@ -24961,7 +24962,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         method='random', 
         extraInfo=expInfo, 
         originPath=-1, 
-        trialList=data.importConditions('instructions/end_of_experiment_instructions.xlsx'), 
+        trialList=data.importConditions('instructions/[ES]END_OF_EXPERIMENT.xlsx'), 
         seed=None, 
     )
     thisExp.addLoop(END_OF_EXPERIMENT)  # add the loop to the experiment
