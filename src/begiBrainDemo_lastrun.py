@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on enero 07, 2026, at 13:39
+    on enero 09, 2026, at 13:14
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -1221,7 +1221,104 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=0.0, 
+        languageStyle='LTR',
+        depth=-4.0);
+    # Run 'Begin Experiment' code from code_9
+    def calcular_relacion_aspecto(ruta_archivo):
+        """
+        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
+        
+        :param ruta_archivo: Ruta completa de la imagen (str).
+        :return: Relación de aspecto (float).
+        """
+        try:
+            with Image.open(ruta_archivo) as img:
+                anchura, altura = img.size
+                return anchura / altura
+        except Exception as e:
+            raise ValueError(f"Error al abrir la imagen: {e}")
+    instructions_image = visual.ImageStim(
+        win=win,
+        name='instructions_image', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-6.0)
+    button_next_instruction_2 = visual.ButtonStim(win, 
+        text='Siguiente -->', font='Arvo',
+        pos=(0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor='white', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_next_instruction_2',
+        depth=-7
+    )
+    button_next_instruction_2.buttonClock = core.Clock()
+    button_previous_instruction_2 = visual.ButtonStim(win, 
+        text='<--Anterior', font='Arvo',
+        pos=(-0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_previous_instruction_2',
+        depth=-8
+    )
+    button_previous_instruction_2.buttonClock = core.Clock()
+    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
+    
+    # --- Initialize components for Routine "INSTRUCTIONS" ---
+    logo_begibraintool = visual.ImageStim(
+        win=win,
+        name='logo_begibraintool', 
+        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=0.0)
+    logo_bio_2 = visual.ImageStim(
+        win=win,
+        name='logo_bio_2', 
+        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
+        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-1.0)
+    logo_compneurolab_2 = visual.ImageStim(
+        win=win,
+        name='logo_compneurolab_2', 
+        image='images/compneuro_horizontal.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-2.0)
+    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-3.0);
+    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
+        text=None,
+        font='Arial',
+        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -1320,7 +1417,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -1477,7 +1574,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -1613,7 +1710,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -1744,7 +1841,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -1878,7 +1975,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -2043,7 +2140,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -2201,7 +2298,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -2352,7 +2449,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -2518,7 +2615,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -2684,7 +2781,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -2850,7 +2947,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -3023,7 +3120,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -3130,7 +3227,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -3244,7 +3341,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -3382,7 +3479,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -3523,7 +3620,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -3664,7 +3761,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -3805,7 +3902,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -4023,7 +4120,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -4169,7 +4266,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -4282,7 +4379,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -4399,7 +4496,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -4514,7 +4611,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
+        color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
         depth=-4.0);
     # Run 'Begin Experiment' code from code_9
@@ -4761,6 +4858,488 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     routineTimer.reset()
     
     # set up handler to look after randomisation of conditions etc
+    welcome_screen = data.TrialHandler2(
+        name='welcome_screen',
+        nReps=1.0, 
+        method='random', 
+        extraInfo=expInfo, 
+        originPath=-1, 
+        trialList=data.importConditions('instructions/[ES]WELCOME_SCREEN.xlsx'), 
+        seed=None, 
+    )
+    thisExp.addLoop(welcome_screen)  # add the loop to the experiment
+    thisWelcome_screen = welcome_screen.trialList[0]  # so we can initialise stimuli with some values
+    # abbreviate parameter names if possible (e.g. rgb = thisWelcome_screen.rgb)
+    if thisWelcome_screen != None:
+        for paramName in thisWelcome_screen:
+            globals()[paramName] = thisWelcome_screen[paramName]
+    if thisSession is not None:
+        # if running in a Session with a Liaison client, send data up to now
+        thisSession.sendExperimentData()
+    
+    for thisWelcome_screen in welcome_screen:
+        welcome_screen.status = STARTED
+        if hasattr(thisWelcome_screen, 'status'):
+            thisWelcome_screen.status = STARTED
+        currentLoop = welcome_screen
+        thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        # abbreviate parameter names if possible (e.g. rgb = thisWelcome_screen.rgb)
+        if thisWelcome_screen != None:
+            for paramName in thisWelcome_screen:
+                globals()[paramName] = thisWelcome_screen[paramName]
+        
+        # --- Prepare to start Routine "INSTRUCTIONS" ---
+        # create an object to store info about Routine INSTRUCTIONS
+        INSTRUCTIONS = data.Routine(
+            name='INSTRUCTIONS',
+            components=[logo_begibraintool, logo_bio_2, logo_compneurolab_2, text_instructions_2, text_instructions_title, instructions_image, button_next_instruction_2, button_previous_instruction_2, key_resp_skip_instructions_2],
+        )
+        INSTRUCTIONS.status = NOT_STARTED
+        continueRoutine = True
+        # update component parameters for each repeat
+        # Run 'Begin Routine' code from code_9
+        win.color = "grey"
+        instructions_img_path = None
+        relacion_aspecto = 1
+        
+        button_original_color = [-1.0000, 0.0039, -1.0000]  
+        button_pressed_color = [-1.0000, -0.2157, -1.0000]  
+        trial = thisExp.getCurrentTrial()
+        
+        instruction_no = 0
+        messages_instructions = []
+        images_instructions = []
+        
+        for i in range(1, 7):
+            # TEXTOS
+            txt = trial.get(f"instruction_{i}", None)
+            if txt:  
+                messages_instructions.append(txt)
+        
+            # IMÁGENES
+            img = trial.get(f"img_instruction_{i}", None)
+            if img:
+                images_instructions.append(img)
+            else:
+                images_instructions.append(None)
+                
+        print(f'Lista de instrucciones cargada: {messages_instructions}')
+        print(f'Lista de imágenes cargada: {images_instructions}')
+        
+        instructions_image.setSize((relacion_aspecto,1.2))
+        button_next_instruction_2.setFillColor(button_original_color)
+        # reset button_next_instruction_2 to account for continued clicks & clear times on/off
+        button_next_instruction_2.reset()
+        # reset button_previous_instruction_2 to account for continued clicks & clear times on/off
+        button_previous_instruction_2.reset()
+        # create starting attributes for key_resp_skip_instructions_2
+        key_resp_skip_instructions_2.keys = []
+        key_resp_skip_instructions_2.rt = []
+        _key_resp_skip_instructions_2_allKeys = []
+        # store start times for INSTRUCTIONS
+        INSTRUCTIONS.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+        INSTRUCTIONS.tStart = globalClock.getTime(format='float')
+        INSTRUCTIONS.status = STARTED
+        thisExp.addData('INSTRUCTIONS.started', INSTRUCTIONS.tStart)
+        INSTRUCTIONS.maxDuration = None
+        # keep track of which components have finished
+        INSTRUCTIONSComponents = INSTRUCTIONS.components
+        for thisComponent in INSTRUCTIONS.components:
+            thisComponent.tStart = None
+            thisComponent.tStop = None
+            thisComponent.tStartRefresh = None
+            thisComponent.tStopRefresh = None
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        # reset timers
+        t = 0
+        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+        frameN = -1
+        
+        # --- Run Routine "INSTRUCTIONS" ---
+        INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
+        while continueRoutine:
+            # if trial has changed, end Routine now
+            if hasattr(thisWelcome_screen, 'status') and thisWelcome_screen.status == STOPPING:
+                continueRoutine = False
+            # get current time
+            t = routineTimer.getTime()
+            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # *logo_begibraintool* updates
+            
+            # if logo_begibraintool is starting this frame...
+            if logo_begibraintool.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                logo_begibraintool.frameNStart = frameN  # exact frame index
+                logo_begibraintool.tStart = t  # local t and not account for scr refresh
+                logo_begibraintool.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(logo_begibraintool, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'logo_begibraintool.started')
+                # update status
+                logo_begibraintool.status = STARTED
+                logo_begibraintool.setAutoDraw(True)
+            
+            # if logo_begibraintool is active this frame...
+            if logo_begibraintool.status == STARTED:
+                # update params
+                pass
+            
+            # *logo_bio_2* updates
+            
+            # if logo_bio_2 is starting this frame...
+            if logo_bio_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                logo_bio_2.frameNStart = frameN  # exact frame index
+                logo_bio_2.tStart = t  # local t and not account for scr refresh
+                logo_bio_2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(logo_bio_2, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                logo_bio_2.status = STARTED
+                logo_bio_2.setAutoDraw(True)
+            
+            # if logo_bio_2 is active this frame...
+            if logo_bio_2.status == STARTED:
+                # update params
+                pass
+            
+            # *logo_compneurolab_2* updates
+            
+            # if logo_compneurolab_2 is starting this frame...
+            if logo_compneurolab_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                logo_compneurolab_2.frameNStart = frameN  # exact frame index
+                logo_compneurolab_2.tStart = t  # local t and not account for scr refresh
+                logo_compneurolab_2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(logo_compneurolab_2, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                logo_compneurolab_2.status = STARTED
+                logo_compneurolab_2.setAutoDraw(True)
+            
+            # if logo_compneurolab_2 is active this frame...
+            if logo_compneurolab_2.status == STARTED:
+                # update params
+                pass
+            
+            # *text_instructions_2* updates
+            
+            # if text_instructions_2 is starting this frame...
+            if text_instructions_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                text_instructions_2.frameNStart = frameN  # exact frame index
+                text_instructions_2.tStart = t  # local t and not account for scr refresh
+                text_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(text_instructions_2, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                text_instructions_2.status = STARTED
+                text_instructions_2.setAutoDraw(True)
+            
+            # if text_instructions_2 is active this frame...
+            if text_instructions_2.status == STARTED:
+                # update params
+                text_instructions_2.setText('', log=False)
+            
+            # *text_instructions_title* updates
+            
+            # if text_instructions_title is starting this frame...
+            if text_instructions_title.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                text_instructions_title.frameNStart = frameN  # exact frame index
+                text_instructions_title.tStart = t  # local t and not account for scr refresh
+                text_instructions_title.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(text_instructions_title, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'text_instructions_title.started')
+                # update status
+                text_instructions_title.status = STARTED
+                text_instructions_title.setAutoDraw(True)
+            
+            # if text_instructions_title is active this frame...
+            if text_instructions_title.status == STARTED:
+                # update params
+                pass
+            # Run 'Each Frame' code from code_9
+            text_instructions_2.text = messages_instructions[instruction_no]
+            text_instructions_title.text = title
+            
+            ###################################################
+            ####_____________IMAGE/VIDEO___________________####
+            ###################################################
+            if images_instructions[instruction_no] is not None:
+                file_path = path_from_src + images_instructions[instruction_no]
+                instructions_img_path = file_path
+                relacion_aspecto = calcular_relacion_aspecto(file_path)
+                instructions_image.size = (relacion_aspecto*0.4,0.4)
+                
+            else:
+                instructions_img_path = None
+                instructions_image.image = None
+            
+            ###################################################
+            ####_______________BUTTONS_____________________####
+            ###################################################
+            
+            if instruction_no == (len(messages_instructions) - 1):
+                button_next_instruction_2.opacity = 0
+                #button_next_instruction.status = PAUSED
+            else:
+                button_next_instruction_2.opacity = 1.0
+                #button_next_instruction.status = STARTED
+            
+            if instruction_no == 0:
+                button_previous_instruction_2.opacity = 0
+                #button_previous_instruction.status = PAUSED
+            else:
+                button_previous_instruction_2.opacity = 1.0
+                #button_previous_instruction.status = STARTED
+            
+            ###################################################
+            ####________________EVENTS_____________________####
+            ###################################################
+            
+            keys = event.getKeys()  # Cada llamada al buffer lo vacía
+            
+            if 'right' in keys:
+                if instruction_no < len(messages_instructions)-1:
+                    instruction_no+=1
+                    button_next_instruction_2.fillColor = button_pressed_color
+                    win.flip()
+                    time.sleep(0.15)
+                    button_next_instruction_2.fillColor = button_original_color
+                    win.flip()
+            elif 'left' in keys:
+                if 0 < instruction_no:
+                    instruction_no-=1
+                    button_previous_instruction_2.fillColor = button_pressed_color
+                    win.flip()
+                    time.sleep(0.15)
+                    button_previous_instruction_2.fillColor = button_original_color
+                    win.flip()
+            
+            
+            # *instructions_image* updates
+            
+            # if instructions_image is starting this frame...
+            if instructions_image.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                instructions_image.frameNStart = frameN  # exact frame index
+                instructions_image.tStart = t  # local t and not account for scr refresh
+                instructions_image.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(instructions_image, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                instructions_image.status = STARTED
+                instructions_image.setAutoDraw(True)
+            
+            # if instructions_image is active this frame...
+            if instructions_image.status == STARTED:
+                # update params
+                instructions_image.setImage(instructions_img_path, log=False)
+            # *button_next_instruction_2* updates
+            
+            # if button_next_instruction_2 is starting this frame...
+            if button_next_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                # keep track of start time/frame for later
+                button_next_instruction_2.frameNStart = frameN  # exact frame index
+                button_next_instruction_2.tStart = t  # local t and not account for scr refresh
+                button_next_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(button_next_instruction_2, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                button_next_instruction_2.status = STARTED
+                win.callOnFlip(button_next_instruction_2.buttonClock.reset)
+                button_next_instruction_2.setAutoDraw(True)
+            
+            # if button_next_instruction_2 is active this frame...
+            if button_next_instruction_2.status == STARTED:
+                # update params
+                pass
+                # check whether button_next_instruction_2 has been pressed
+                if button_next_instruction_2.isClicked:
+                    if not button_next_instruction_2.wasClicked:
+                        # if this is a new click, store time of first click and clicked until
+                        button_next_instruction_2.timesOn.append(button_next_instruction_2.buttonClock.getTime())
+                        button_next_instruction_2.timesOff.append(button_next_instruction_2.buttonClock.getTime())
+                    elif len(button_next_instruction_2.timesOff):
+                        # if click is continuing from last frame, update time of clicked until
+                        button_next_instruction_2.timesOff[-1] = button_next_instruction_2.buttonClock.getTime()
+                    if not button_next_instruction_2.wasClicked:
+                        # run callback code when button_next_instruction_2 is clicked
+                        if instruction_no < len(messages_instructions)-1:
+                            instruction_no+=1
+                            button_next_instruction_2.fillColor = button_pressed_color
+                            win.flip()
+                            time.sleep(0.15)
+                            button_next_instruction_2.fillColor = button_original_color
+                            win.flip()
+            # take note of whether button_next_instruction_2 was clicked, so that next frame we know if clicks are new
+            button_next_instruction_2.wasClicked = button_next_instruction_2.isClicked and button_next_instruction_2.status == STARTED
+            # *button_previous_instruction_2* updates
+            
+            # if button_previous_instruction_2 is starting this frame...
+            if button_previous_instruction_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                # keep track of start time/frame for later
+                button_previous_instruction_2.frameNStart = frameN  # exact frame index
+                button_previous_instruction_2.tStart = t  # local t and not account for scr refresh
+                button_previous_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(button_previous_instruction_2, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'button_previous_instruction_2.started')
+                # update status
+                button_previous_instruction_2.status = STARTED
+                win.callOnFlip(button_previous_instruction_2.buttonClock.reset)
+                button_previous_instruction_2.setAutoDraw(True)
+            
+            # if button_previous_instruction_2 is active this frame...
+            if button_previous_instruction_2.status == STARTED:
+                # update params
+                pass
+                # check whether button_previous_instruction_2 has been pressed
+                if button_previous_instruction_2.isClicked:
+                    if not button_previous_instruction_2.wasClicked:
+                        # if this is a new click, store time of first click and clicked until
+                        button_previous_instruction_2.timesOn.append(button_previous_instruction_2.buttonClock.getTime())
+                        button_previous_instruction_2.timesOff.append(button_previous_instruction_2.buttonClock.getTime())
+                    elif len(button_previous_instruction_2.timesOff):
+                        # if click is continuing from last frame, update time of clicked until
+                        button_previous_instruction_2.timesOff[-1] = button_previous_instruction_2.buttonClock.getTime()
+                    if not button_previous_instruction_2.wasClicked:
+                        # run callback code when button_previous_instruction_2 is clicked
+                        if 0 < instruction_no:
+                            instruction_no-=1
+                            button_previous_instruction_2.fillColor = button_pressed_color
+                            win.flip()
+                            time.sleep(0.15)
+                            button_previous_instruction_2.fillColor = button_original_color
+                            win.flip()
+            # take note of whether button_previous_instruction_2 was clicked, so that next frame we know if clicks are new
+            button_previous_instruction_2.wasClicked = button_previous_instruction_2.isClicked and button_previous_instruction_2.status == STARTED
+            
+            # *key_resp_skip_instructions_2* updates
+            waitOnFlip = False
+            
+            # if key_resp_skip_instructions_2 is starting this frame...
+            if key_resp_skip_instructions_2.status == NOT_STARTED and tThisFlip >= 0.35-frameTolerance:
+                # keep track of start time/frame for later
+                key_resp_skip_instructions_2.frameNStart = frameN  # exact frame index
+                key_resp_skip_instructions_2.tStart = t  # local t and not account for scr refresh
+                key_resp_skip_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(key_resp_skip_instructions_2, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                key_resp_skip_instructions_2.status = STARTED
+                # keyboard checking is just starting
+                waitOnFlip = True
+                win.callOnFlip(key_resp_skip_instructions_2.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(key_resp_skip_instructions_2.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            if key_resp_skip_instructions_2.status == STARTED and not waitOnFlip:
+                theseKeys = key_resp_skip_instructions_2.getKeys(keyList=['space','a','b'], ignoreKeys=["escape"], waitRelease=False)
+                _key_resp_skip_instructions_2_allKeys.extend(theseKeys)
+                if len(_key_resp_skip_instructions_2_allKeys):
+                    key_resp_skip_instructions_2.keys = _key_resp_skip_instructions_2_allKeys[-1].name  # just the last key pressed
+                    key_resp_skip_instructions_2.rt = _key_resp_skip_instructions_2_allKeys[-1].rt
+                    key_resp_skip_instructions_2.duration = _key_resp_skip_instructions_2_allKeys[-1].duration
+                    # a response ends the routine
+                    continueRoutine = False
+            
+            # check for quit (typically the Esc key)
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
+            if thisExp.status == FINISHED or endExpNow:
+                endExperiment(thisExp, win=win)
+                return
+            # pause experiment here if requested
+            if thisExp.status == PAUSED:
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[routineTimer, globalClock], 
+                    currentRoutine=INSTRUCTIONS,
+                )
+                # skip the frame we paused on
+                continue
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                INSTRUCTIONS.forceEnded = routineForceEnded = True
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in INSTRUCTIONS.components:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                win.flip()
+        
+        # --- Ending Routine "INSTRUCTIONS" ---
+        for thisComponent in INSTRUCTIONS.components:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+        # store stop times for INSTRUCTIONS
+        INSTRUCTIONS.tStop = globalClock.getTime(format='float')
+        INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
+        thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+        welcome_screen.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+        if button_next_instruction_2.numClicks:
+           welcome_screen.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+           welcome_screen.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+        else:
+           welcome_screen.addData('button_next_instruction_2.timesOn', "")
+           welcome_screen.addData('button_next_instruction_2.timesOff', "")
+        welcome_screen.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+        if button_previous_instruction_2.numClicks:
+           welcome_screen.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+           welcome_screen.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+        else:
+           welcome_screen.addData('button_previous_instruction_2.timesOn', "")
+           welcome_screen.addData('button_previous_instruction_2.timesOff', "")
+        # check responses
+        if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
+            key_resp_skip_instructions_2.keys = None
+        welcome_screen.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+        if key_resp_skip_instructions_2.keys != None:  # we had a response
+            welcome_screen.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+            welcome_screen.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+        # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
+        routineTimer.reset()
+        # mark thisWelcome_screen as finished
+        if hasattr(thisWelcome_screen, 'status'):
+            thisWelcome_screen.status = FINISHED
+        # if awaiting a pause, pause now
+        if welcome_screen.status == PAUSED:
+            thisExp.status = PAUSED
+            pauseExperiment(
+                thisExp=thisExp, 
+                win=win, 
+                timers=[globalClock], 
+            )
+            # once done pausing, restore running status
+            welcome_screen.status = STARTED
+        thisExp.nextEntry()
+        
+    # completed 1.0 repeats of 'welcome_screen'
+    welcome_screen.status = FINISHED
+    
+    if thisSession is not None:
+        # if running in a Session with a Liaison client, send data up to now
+        thisSession.sendExperimentData()
+    # get names of stimulus parameters
+    if welcome_screen.trialList in ([], [None], None):
+        params = []
+    else:
+        params = welcome_screen.trialList[0].keys()
+    # save data for this loop
+    welcome_screen.saveAsExcel(filename + '.xlsx', sheetName='welcome_screen',
+        stimOut=params,
+        dataOut=['n','all_mean','all_std', 'all_raw'])
+    
+    # set up handler to look after randomisation of conditions etc
     tutorial_button_panel = data.TrialHandler2(
         name='tutorial_button_panel',
         nReps=general_config["start_tutorial"]["value"], 
@@ -4866,7 +5445,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             print(f'Lista de instrucciones cargada: {messages_instructions}')
             print(f'Lista de imágenes cargada: {images_instructions}')
             
-            instructions_image.setSize((relacion_aspecto,1))
+            instructions_image.setSize((relacion_aspecto,1.2))
             button_next_instruction_2.setFillColor(button_original_color)
             # reset button_next_instruction_2 to account for continued clicks & clear times on/off
             button_next_instruction_2.reset()
@@ -5518,7 +6097,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -6402,7 +6981,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
                     
-                    instructions_image.setSize((relacion_aspecto,1))
+                    instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
                     # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                     button_next_instruction_2.reset()
@@ -7274,7 +7853,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -8126,7 +8705,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -9278,7 +9857,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -10235,7 +10814,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -11170,7 +11749,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -12128,7 +12707,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -12733,7 +13312,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dots_black_13.setAutoDraw(False)
                         first_time = False
                     
-                    if (t>stim_time+2) or flag_answer_registered: # time exceeded OR answer registered
+                    if (t>stim_time+4) or flag_answer_registered: # time exceeded OR answer registered
                         show_feedback(feedback_txt_9, success)
                         semantic_stim_4.setAutoDraw(False)
                         show_noise(dots_white_13, dots_black_13, response_time, 0, feedback_txt_9) #only one call
@@ -13133,7 +13712,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -14126,7 +14705,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -14683,7 +15262,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'a' in keys: # NS/NC
+                    elif 'down' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -15112,7 +15691,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -15713,7 +16292,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'a' in keys: # NS/NC
+                    elif 'down' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -16154,7 +16733,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -16776,7 +17355,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -17489,7 +18068,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -18428,7 +19007,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -19213,7 +19792,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -20012,7 +20591,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -20869,7 +21448,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -21652,7 +22231,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -22518,7 +23097,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -23337,7 +23916,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -24233,7 +24812,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 print(f'Lista de instrucciones cargada: {messages_instructions}')
                 print(f'Lista de imágenes cargada: {images_instructions}')
                 
-                instructions_image.setSize((relacion_aspecto,1))
+                instructions_image.setSize((relacion_aspecto,1.2))
                 button_next_instruction_2.setFillColor(button_original_color)
                 # reset button_next_instruction_2 to account for continued clicks & clear times on/off
                 button_next_instruction_2.reset()
@@ -25021,7 +25600,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         print(f'Lista de instrucciones cargada: {messages_instructions}')
         print(f'Lista de imágenes cargada: {images_instructions}')
         
-        instructions_image.setSize((relacion_aspecto,1))
+        instructions_image.setSize((relacion_aspecto,1.2))
         button_next_instruction_2.setFillColor(button_original_color)
         # reset button_next_instruction_2 to account for continued clicks & clear times on/off
         button_next_instruction_2.reset()
