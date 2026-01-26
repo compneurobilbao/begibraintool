@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on enero 09, 2026, at 13:14
+    on enero 20, 2026, at 11:04
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -1238,6 +1238,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1335,6 +1387,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1434,6 +1538,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1591,6 +1747,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1727,6 +1935,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1858,6 +2118,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1992,6 +2304,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2157,6 +2521,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2315,6 +2731,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2466,6 +2934,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2632,6 +3152,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2798,6 +3370,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2964,6 +3588,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3137,6 +3813,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3244,6 +3972,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3358,6 +4138,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3496,6 +4328,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3637,6 +4521,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3778,6 +4714,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3919,6 +4907,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4137,6 +5177,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4283,6 +5375,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4396,6 +5540,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4513,6 +5709,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4628,6 +5876,58 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 return anchura / altura
         except Exception as e:
             raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4858,38 +6158,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     routineTimer.reset()
     
     # set up handler to look after randomisation of conditions etc
-    welcome_screen = data.TrialHandler2(
-        name='welcome_screen',
+    instruction_welcome_screen = data.TrialHandler2(
+        name='instruction_welcome_screen',
         nReps=1.0, 
         method='random', 
         extraInfo=expInfo, 
         originPath=-1, 
-        trialList=data.importConditions('instructions/[ES]WELCOME_SCREEN.xlsx'), 
+        trialList=data.importConditions(instruction_welcome_screen), 
         seed=None, 
     )
-    thisExp.addLoop(welcome_screen)  # add the loop to the experiment
-    thisWelcome_screen = welcome_screen.trialList[0]  # so we can initialise stimuli with some values
-    # abbreviate parameter names if possible (e.g. rgb = thisWelcome_screen.rgb)
-    if thisWelcome_screen != None:
-        for paramName in thisWelcome_screen:
-            globals()[paramName] = thisWelcome_screen[paramName]
+    thisExp.addLoop(instruction_welcome_screen)  # add the loop to the experiment
+    thisInstruction_welcome_screen = instruction_welcome_screen.trialList[0]  # so we can initialise stimuli with some values
+    # abbreviate parameter names if possible (e.g. rgb = thisInstruction_welcome_screen.rgb)
+    if thisInstruction_welcome_screen != None:
+        for paramName in thisInstruction_welcome_screen:
+            globals()[paramName] = thisInstruction_welcome_screen[paramName]
     if thisSession is not None:
         # if running in a Session with a Liaison client, send data up to now
         thisSession.sendExperimentData()
     
-    for thisWelcome_screen in welcome_screen:
-        welcome_screen.status = STARTED
-        if hasattr(thisWelcome_screen, 'status'):
-            thisWelcome_screen.status = STARTED
-        currentLoop = welcome_screen
+    for thisInstruction_welcome_screen in instruction_welcome_screen:
+        instruction_welcome_screen.status = STARTED
+        if hasattr(thisInstruction_welcome_screen, 'status'):
+            thisInstruction_welcome_screen.status = STARTED
+        currentLoop = instruction_welcome_screen
         thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
         if thisSession is not None:
             # if running in a Session with a Liaison client, send data up to now
             thisSession.sendExperimentData()
-        # abbreviate parameter names if possible (e.g. rgb = thisWelcome_screen.rgb)
-        if thisWelcome_screen != None:
-            for paramName in thisWelcome_screen:
-                globals()[paramName] = thisWelcome_screen[paramName]
+        # abbreviate parameter names if possible (e.g. rgb = thisInstruction_welcome_screen.rgb)
+        if thisInstruction_welcome_screen != None:
+            for paramName in thisInstruction_welcome_screen:
+                globals()[paramName] = thisInstruction_welcome_screen[paramName]
         
         # --- Prepare to start Routine "INSTRUCTIONS" ---
         # create an object to store info about Routine INSTRUCTIONS
@@ -4963,7 +6263,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
         while continueRoutine:
             # if trial has changed, end Routine now
-            if hasattr(thisWelcome_screen, 'status') and thisWelcome_screen.status == STOPPING:
+            if hasattr(thisInstruction_welcome_screen, 'status') and thisInstruction_welcome_screen.status == STOPPING:
                 continueRoutine = False
             # get current time
             t = routineTimer.getTime()
@@ -5285,34 +6585,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         INSTRUCTIONS.tStop = globalClock.getTime(format='float')
         INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
         thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-        welcome_screen.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+        instruction_welcome_screen.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
         if button_next_instruction_2.numClicks:
-           welcome_screen.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-           welcome_screen.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+           instruction_welcome_screen.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+           instruction_welcome_screen.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
         else:
-           welcome_screen.addData('button_next_instruction_2.timesOn', "")
-           welcome_screen.addData('button_next_instruction_2.timesOff', "")
-        welcome_screen.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+           instruction_welcome_screen.addData('button_next_instruction_2.timesOn', "")
+           instruction_welcome_screen.addData('button_next_instruction_2.timesOff', "")
+        instruction_welcome_screen.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
         if button_previous_instruction_2.numClicks:
-           welcome_screen.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-           welcome_screen.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+           instruction_welcome_screen.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+           instruction_welcome_screen.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
         else:
-           welcome_screen.addData('button_previous_instruction_2.timesOn', "")
-           welcome_screen.addData('button_previous_instruction_2.timesOff', "")
+           instruction_welcome_screen.addData('button_previous_instruction_2.timesOn', "")
+           instruction_welcome_screen.addData('button_previous_instruction_2.timesOff', "")
         # check responses
         if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
             key_resp_skip_instructions_2.keys = None
-        welcome_screen.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+        instruction_welcome_screen.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
         if key_resp_skip_instructions_2.keys != None:  # we had a response
-            welcome_screen.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-            welcome_screen.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+            instruction_welcome_screen.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+            instruction_welcome_screen.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
         # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-        # mark thisWelcome_screen as finished
-        if hasattr(thisWelcome_screen, 'status'):
-            thisWelcome_screen.status = FINISHED
+        # mark thisInstruction_welcome_screen as finished
+        if hasattr(thisInstruction_welcome_screen, 'status'):
+            thisInstruction_welcome_screen.status = FINISHED
         # if awaiting a pause, pause now
-        if welcome_screen.status == PAUSED:
+        if instruction_welcome_screen.status == PAUSED:
             thisExp.status = PAUSED
             pauseExperiment(
                 thisExp=thisExp, 
@@ -5320,22 +6620,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 timers=[globalClock], 
             )
             # once done pausing, restore running status
-            welcome_screen.status = STARTED
+            instruction_welcome_screen.status = STARTED
         thisExp.nextEntry()
         
-    # completed 1.0 repeats of 'welcome_screen'
-    welcome_screen.status = FINISHED
+    # completed 1.0 repeats of 'instruction_welcome_screen'
+    instruction_welcome_screen.status = FINISHED
     
     if thisSession is not None:
         # if running in a Session with a Liaison client, send data up to now
         thisSession.sendExperimentData()
     # get names of stimulus parameters
-    if welcome_screen.trialList in ([], [None], None):
+    if instruction_welcome_screen.trialList in ([], [None], None):
         params = []
     else:
-        params = welcome_screen.trialList[0].keys()
+        params = instruction_welcome_screen.trialList[0].keys()
     # save data for this loop
-    welcome_screen.saveAsExcel(filename + '.xlsx', sheetName='welcome_screen',
+    instruction_welcome_screen.saveAsExcel(filename + '.xlsx', sheetName='instruction_welcome_screen',
         stimOut=params,
         dataOut=['n','all_mean','all_std', 'all_raw'])
     
@@ -5374,38 +6674,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 globals()[paramName] = thisTutorial_button_panel[paramName]
         
         # set up handler to look after randomisation of conditions etc
-        button_panel_instructions = data.TrialHandler2(
-            name='button_panel_instructions',
+        instruction_tutorial_button_panel = data.TrialHandler2(
+            name='instruction_tutorial_button_panel',
             nReps=1.0, 
             method='sequential', 
             extraInfo=expInfo, 
             originPath=-1, 
-            trialList=data.importConditions('instructions/tutorial_button_panel/[ES]tutorial_button_panel.xlsx'), 
+            trialList=data.importConditions(instruction_tutorial_button_panel), 
             seed=None, 
         )
-        thisExp.addLoop(button_panel_instructions)  # add the loop to the experiment
-        thisButton_panel_instruction = button_panel_instructions.trialList[0]  # so we can initialise stimuli with some values
-        # abbreviate parameter names if possible (e.g. rgb = thisButton_panel_instruction.rgb)
-        if thisButton_panel_instruction != None:
-            for paramName in thisButton_panel_instruction:
-                globals()[paramName] = thisButton_panel_instruction[paramName]
+        thisExp.addLoop(instruction_tutorial_button_panel)  # add the loop to the experiment
+        thisInstruction_tutorial_button_panel = instruction_tutorial_button_panel.trialList[0]  # so we can initialise stimuli with some values
+        # abbreviate parameter names if possible (e.g. rgb = thisInstruction_tutorial_button_panel.rgb)
+        if thisInstruction_tutorial_button_panel != None:
+            for paramName in thisInstruction_tutorial_button_panel:
+                globals()[paramName] = thisInstruction_tutorial_button_panel[paramName]
         if thisSession is not None:
             # if running in a Session with a Liaison client, send data up to now
             thisSession.sendExperimentData()
         
-        for thisButton_panel_instruction in button_panel_instructions:
-            button_panel_instructions.status = STARTED
-            if hasattr(thisButton_panel_instruction, 'status'):
-                thisButton_panel_instruction.status = STARTED
-            currentLoop = button_panel_instructions
+        for thisInstruction_tutorial_button_panel in instruction_tutorial_button_panel:
+            instruction_tutorial_button_panel.status = STARTED
+            if hasattr(thisInstruction_tutorial_button_panel, 'status'):
+                thisInstruction_tutorial_button_panel.status = STARTED
+            currentLoop = instruction_tutorial_button_panel
             thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
-            # abbreviate parameter names if possible (e.g. rgb = thisButton_panel_instruction.rgb)
-            if thisButton_panel_instruction != None:
-                for paramName in thisButton_panel_instruction:
-                    globals()[paramName] = thisButton_panel_instruction[paramName]
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_tutorial_button_panel.rgb)
+            if thisInstruction_tutorial_button_panel != None:
+                for paramName in thisInstruction_tutorial_button_panel:
+                    globals()[paramName] = thisInstruction_tutorial_button_panel[paramName]
             
             # --- Prepare to start Routine "INSTRUCTIONS" ---
             # create an object to store info about Routine INSTRUCTIONS
@@ -5479,7 +6779,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
             while continueRoutine:
                 # if trial has changed, end Routine now
-                if hasattr(thisButton_panel_instruction, 'status') and thisButton_panel_instruction.status == STOPPING:
+                if hasattr(thisInstruction_tutorial_button_panel, 'status') and thisInstruction_tutorial_button_panel.status == STOPPING:
                     continueRoutine = False
                 # get current time
                 t = routineTimer.getTime()
@@ -5801,34 +7101,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             INSTRUCTIONS.tStop = globalClock.getTime(format='float')
             INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
             thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-            button_panel_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+            instruction_tutorial_button_panel.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
             if button_next_instruction_2.numClicks:
-               button_panel_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-               button_panel_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+               instruction_tutorial_button_panel.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+               instruction_tutorial_button_panel.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
             else:
-               button_panel_instructions.addData('button_next_instruction_2.timesOn', "")
-               button_panel_instructions.addData('button_next_instruction_2.timesOff', "")
-            button_panel_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+               instruction_tutorial_button_panel.addData('button_next_instruction_2.timesOn', "")
+               instruction_tutorial_button_panel.addData('button_next_instruction_2.timesOff', "")
+            instruction_tutorial_button_panel.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
             if button_previous_instruction_2.numClicks:
-               button_panel_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-               button_panel_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+               instruction_tutorial_button_panel.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+               instruction_tutorial_button_panel.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
             else:
-               button_panel_instructions.addData('button_previous_instruction_2.timesOn', "")
-               button_panel_instructions.addData('button_previous_instruction_2.timesOff', "")
+               instruction_tutorial_button_panel.addData('button_previous_instruction_2.timesOn', "")
+               instruction_tutorial_button_panel.addData('button_previous_instruction_2.timesOff', "")
             # check responses
             if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                 key_resp_skip_instructions_2.keys = None
-            button_panel_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+            instruction_tutorial_button_panel.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
             if key_resp_skip_instructions_2.keys != None:  # we had a response
-                button_panel_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                button_panel_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                instruction_tutorial_button_panel.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                instruction_tutorial_button_panel.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
             # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
-            # mark thisButton_panel_instruction as finished
-            if hasattr(thisButton_panel_instruction, 'status'):
-                thisButton_panel_instruction.status = FINISHED
+            # mark thisInstruction_tutorial_button_panel as finished
+            if hasattr(thisInstruction_tutorial_button_panel, 'status'):
+                thisInstruction_tutorial_button_panel.status = FINISHED
             # if awaiting a pause, pause now
-            if button_panel_instructions.status == PAUSED:
+            if instruction_tutorial_button_panel.status == PAUSED:
                 thisExp.status = PAUSED
                 pauseExperiment(
                     thisExp=thisExp, 
@@ -5836,22 +7136,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     timers=[globalClock], 
                 )
                 # once done pausing, restore running status
-                button_panel_instructions.status = STARTED
+                instruction_tutorial_button_panel.status = STARTED
             thisExp.nextEntry()
             
-        # completed 1.0 repeats of 'button_panel_instructions'
-        button_panel_instructions.status = FINISHED
+        # completed 1.0 repeats of 'instruction_tutorial_button_panel'
+        instruction_tutorial_button_panel.status = FINISHED
         
         if thisSession is not None:
             # if running in a Session with a Liaison client, send data up to now
             thisSession.sendExperimentData()
         # get names of stimulus parameters
-        if button_panel_instructions.trialList in ([], [None], None):
+        if instruction_tutorial_button_panel.trialList in ([], [None], None):
             params = []
         else:
-            params = button_panel_instructions.trialList[0].keys()
+            params = instruction_tutorial_button_panel.trialList[0].keys()
         # save data for this loop
-        button_panel_instructions.saveAsExcel(filename + '.xlsx', sheetName='button_panel_instructions',
+        instruction_tutorial_button_panel.saveAsExcel(filename + '.xlsx', sheetName='instruction_tutorial_button_panel',
             stimOut=params,
             dataOut=['n','all_mean','all_std', 'all_raw'])
         
@@ -5985,6 +7285,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     if thisMODULE_1 != None:
         for paramName in thisMODULE_1:
             globals()[paramName] = thisMODULE_1[paramName]
+    if thisSession is not None:
+        # if running in a Session with a Liaison client, send data up to now
+        thisSession.sendExperimentData()
     
     for thisMODULE_1 in MODULE_1:
         MODULE_1.status = STARTED
@@ -5992,6 +7295,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             thisMODULE_1.status = STARTED
         currentLoop = MODULE_1
         thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
         # abbreviate parameter names if possible (e.g. rgb = thisMODULE_1.rgb)
         if thisMODULE_1 != None:
             for paramName in thisMODULE_1:
@@ -6032,32 +7338,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_1_PRETEST[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            spatial_freq_instructions = data.TrialHandler2(
-                name='spatial_freq_instructions',
+            instruction_m1_sf_staircase_1 = data.TrialHandler2(
+                name='instruction_m1_sf_staircase_1',
                 nReps=1.0, 
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/spatial_frequency_staircase/[ES]spatial_frequency_staircase_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_sf_staircase_1), 
                 seed=None, 
             )
-            thisExp.addLoop(spatial_freq_instructions)  # add the loop to the experiment
-            thisSpatial_freq_instruction = spatial_freq_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisSpatial_freq_instruction.rgb)
-            if thisSpatial_freq_instruction != None:
-                for paramName in thisSpatial_freq_instruction:
-                    globals()[paramName] = thisSpatial_freq_instruction[paramName]
+            thisExp.addLoop(instruction_m1_sf_staircase_1)  # add the loop to the experiment
+            thisInstruction_m1_sf_staircase_1 = instruction_m1_sf_staircase_1.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_sf_staircase_1.rgb)
+            if thisInstruction_m1_sf_staircase_1 != None:
+                for paramName in thisInstruction_m1_sf_staircase_1:
+                    globals()[paramName] = thisInstruction_m1_sf_staircase_1[paramName]
             
-            for thisSpatial_freq_instruction in spatial_freq_instructions:
-                spatial_freq_instructions.status = STARTED
-                if hasattr(thisSpatial_freq_instruction, 'status'):
-                    thisSpatial_freq_instruction.status = STARTED
-                currentLoop = spatial_freq_instructions
+            for thisInstruction_m1_sf_staircase_1 in instruction_m1_sf_staircase_1:
+                instruction_m1_sf_staircase_1.status = STARTED
+                if hasattr(thisInstruction_m1_sf_staircase_1, 'status'):
+                    thisInstruction_m1_sf_staircase_1.status = STARTED
+                currentLoop = instruction_m1_sf_staircase_1
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisSpatial_freq_instruction.rgb)
-                if thisSpatial_freq_instruction != None:
-                    for paramName in thisSpatial_freq_instruction:
-                        globals()[paramName] = thisSpatial_freq_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_sf_staircase_1.rgb)
+                if thisInstruction_m1_sf_staircase_1 != None:
+                    for paramName in thisInstruction_m1_sf_staircase_1:
+                        globals()[paramName] = thisInstruction_m1_sf_staircase_1[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -6131,7 +7437,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisSpatial_freq_instruction, 'status') and thisSpatial_freq_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_sf_staircase_1, 'status') and thisInstruction_m1_sf_staircase_1.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -6453,34 +7759,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                spatial_freq_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_sf_staircase_1.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   spatial_freq_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   spatial_freq_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_sf_staircase_1.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_sf_staircase_1.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   spatial_freq_instructions.addData('button_next_instruction_2.timesOn', "")
-                   spatial_freq_instructions.addData('button_next_instruction_2.timesOff', "")
-                spatial_freq_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_sf_staircase_1.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_sf_staircase_1.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_sf_staircase_1.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   spatial_freq_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   spatial_freq_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_sf_staircase_1.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_sf_staircase_1.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   spatial_freq_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   spatial_freq_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_sf_staircase_1.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_sf_staircase_1.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                spatial_freq_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_sf_staircase_1.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    spatial_freq_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    spatial_freq_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_sf_staircase_1.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_sf_staircase_1.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisSpatial_freq_instruction as finished
-                if hasattr(thisSpatial_freq_instruction, 'status'):
-                    thisSpatial_freq_instruction.status = FINISHED
+                # mark thisInstruction_m1_sf_staircase_1 as finished
+                if hasattr(thisInstruction_m1_sf_staircase_1, 'status'):
+                    thisInstruction_m1_sf_staircase_1.status = FINISHED
                 # if awaiting a pause, pause now
-                if spatial_freq_instructions.status == PAUSED:
+                if instruction_m1_sf_staircase_1.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -6488,9 +7794,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    spatial_freq_instructions.status = STARTED
-            # completed 1.0 repeats of 'spatial_freq_instructions'
-            spatial_freq_instructions.status = FINISHED
+                    instruction_m1_sf_staircase_1.status = STARTED
+            # completed 1.0 repeats of 'instruction_m1_sf_staircase_1'
+            instruction_m1_sf_staircase_1.status = FINISHED
             
             
             # set up handler to look after randomisation of conditions etc
@@ -6910,38 +8216,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 routineTimer.reset()
                 
                 # set up handler to look after randomisation of conditions etc
-                spatial_freq_instructions_2 = data.TrialHandler2(
-                    name='spatial_freq_instructions_2',
+                instruction_m1_sf_staircase_2 = data.TrialHandler2(
+                    name='instruction_m1_sf_staircase_2',
                     nReps=1.0, 
                     method='sequential', 
                     extraInfo=expInfo, 
                     originPath=-1, 
-                    trialList=data.importConditions('instructions/module_1/spatial_frequency_staircase/[ES]spatial_frequency_staircase_instructions_2.xlsx'), 
+                    trialList=data.importConditions(instruction_m1_sf_staircase_2), 
                     seed=None, 
                 )
-                thisExp.addLoop(spatial_freq_instructions_2)  # add the loop to the experiment
-                thisSpatial_freq_instruction_2 = spatial_freq_instructions_2.trialList[0]  # so we can initialise stimuli with some values
-                # abbreviate parameter names if possible (e.g. rgb = thisSpatial_freq_instruction_2.rgb)
-                if thisSpatial_freq_instruction_2 != None:
-                    for paramName in thisSpatial_freq_instruction_2:
-                        globals()[paramName] = thisSpatial_freq_instruction_2[paramName]
+                thisExp.addLoop(instruction_m1_sf_staircase_2)  # add the loop to the experiment
+                thisInstruction_m1_sf_staircase_2 = instruction_m1_sf_staircase_2.trialList[0]  # so we can initialise stimuli with some values
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_sf_staircase_2.rgb)
+                if thisInstruction_m1_sf_staircase_2 != None:
+                    for paramName in thisInstruction_m1_sf_staircase_2:
+                        globals()[paramName] = thisInstruction_m1_sf_staircase_2[paramName]
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
                 
-                for thisSpatial_freq_instruction_2 in spatial_freq_instructions_2:
-                    spatial_freq_instructions_2.status = STARTED
-                    if hasattr(thisSpatial_freq_instruction_2, 'status'):
-                        thisSpatial_freq_instruction_2.status = STARTED
-                    currentLoop = spatial_freq_instructions_2
+                for thisInstruction_m1_sf_staircase_2 in instruction_m1_sf_staircase_2:
+                    instruction_m1_sf_staircase_2.status = STARTED
+                    if hasattr(thisInstruction_m1_sf_staircase_2, 'status'):
+                        thisInstruction_m1_sf_staircase_2.status = STARTED
+                    currentLoop = instruction_m1_sf_staircase_2
                     thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                     if thisSession is not None:
                         # if running in a Session with a Liaison client, send data up to now
                         thisSession.sendExperimentData()
-                    # abbreviate parameter names if possible (e.g. rgb = thisSpatial_freq_instruction_2.rgb)
-                    if thisSpatial_freq_instruction_2 != None:
-                        for paramName in thisSpatial_freq_instruction_2:
-                            globals()[paramName] = thisSpatial_freq_instruction_2[paramName]
+                    # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_sf_staircase_2.rgb)
+                    if thisInstruction_m1_sf_staircase_2 != None:
+                        for paramName in thisInstruction_m1_sf_staircase_2:
+                            globals()[paramName] = thisInstruction_m1_sf_staircase_2[paramName]
                     
                     # --- Prepare to start Routine "INSTRUCTIONS" ---
                     # create an object to store info about Routine INSTRUCTIONS
@@ -7015,7 +8321,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                     while continueRoutine:
                         # if trial has changed, end Routine now
-                        if hasattr(thisSpatial_freq_instruction_2, 'status') and thisSpatial_freq_instruction_2.status == STOPPING:
+                        if hasattr(thisInstruction_m1_sf_staircase_2, 'status') and thisInstruction_m1_sf_staircase_2.status == STOPPING:
                             continueRoutine = False
                         # get current time
                         t = routineTimer.getTime()
@@ -7337,34 +8643,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                    spatial_freq_instructions_2.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                    instruction_m1_sf_staircase_2.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
-                       spatial_freq_instructions_2.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                       spatial_freq_instructions_2.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                       instruction_m1_sf_staircase_2.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                       instruction_m1_sf_staircase_2.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                     else:
-                       spatial_freq_instructions_2.addData('button_next_instruction_2.timesOn', "")
-                       spatial_freq_instructions_2.addData('button_next_instruction_2.timesOff', "")
-                    spatial_freq_instructions_2.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                       instruction_m1_sf_staircase_2.addData('button_next_instruction_2.timesOn', "")
+                       instruction_m1_sf_staircase_2.addData('button_next_instruction_2.timesOff', "")
+                    instruction_m1_sf_staircase_2.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                     if button_previous_instruction_2.numClicks:
-                       spatial_freq_instructions_2.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                       spatial_freq_instructions_2.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                       instruction_m1_sf_staircase_2.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                       instruction_m1_sf_staircase_2.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                     else:
-                       spatial_freq_instructions_2.addData('button_previous_instruction_2.timesOn', "")
-                       spatial_freq_instructions_2.addData('button_previous_instruction_2.timesOff', "")
+                       instruction_m1_sf_staircase_2.addData('button_previous_instruction_2.timesOn', "")
+                       instruction_m1_sf_staircase_2.addData('button_previous_instruction_2.timesOff', "")
                     # check responses
                     if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                         key_resp_skip_instructions_2.keys = None
-                    spatial_freq_instructions_2.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                    instruction_m1_sf_staircase_2.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                     if key_resp_skip_instructions_2.keys != None:  # we had a response
-                        spatial_freq_instructions_2.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                        spatial_freq_instructions_2.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                        instruction_m1_sf_staircase_2.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                        instruction_m1_sf_staircase_2.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                     # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                     routineTimer.reset()
-                    # mark thisSpatial_freq_instruction_2 as finished
-                    if hasattr(thisSpatial_freq_instruction_2, 'status'):
-                        thisSpatial_freq_instruction_2.status = FINISHED
+                    # mark thisInstruction_m1_sf_staircase_2 as finished
+                    if hasattr(thisInstruction_m1_sf_staircase_2, 'status'):
+                        thisInstruction_m1_sf_staircase_2.status = FINISHED
                     # if awaiting a pause, pause now
-                    if spatial_freq_instructions_2.status == PAUSED:
+                    if instruction_m1_sf_staircase_2.status == PAUSED:
                         thisExp.status = PAUSED
                         pauseExperiment(
                             thisExp=thisExp, 
@@ -7372,22 +8678,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             timers=[globalClock], 
                         )
                         # once done pausing, restore running status
-                        spatial_freq_instructions_2.status = STARTED
+                        instruction_m1_sf_staircase_2.status = STARTED
                     thisExp.nextEntry()
                     
-                # completed 1.0 repeats of 'spatial_freq_instructions_2'
-                spatial_freq_instructions_2.status = FINISHED
+                # completed 1.0 repeats of 'instruction_m1_sf_staircase_2'
+                instruction_m1_sf_staircase_2.status = FINISHED
                 
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
                 # get names of stimulus parameters
-                if spatial_freq_instructions_2.trialList in ([], [None], None):
+                if instruction_m1_sf_staircase_2.trialList in ([], [None], None):
                     params = []
                 else:
-                    params = spatial_freq_instructions_2.trialList[0].keys()
+                    params = instruction_m1_sf_staircase_2.trialList[0].keys()
                 # save data for this loop
-                spatial_freq_instructions_2.saveAsExcel(filename + '.xlsx', sheetName='spatial_freq_instructions_2',
+                instruction_m1_sf_staircase_2.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_sf_staircase_2',
                     stimOut=params,
                     dataOut=['n','all_mean','all_std', 'all_raw'])
                 # mark thisTutorial_sf as finished
@@ -7782,38 +9088,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             routineTimer.reset()
             
             # set up handler to look after randomisation of conditions etc
-            contrast_instructions = data.TrialHandler2(
-                name='contrast_instructions',
+            instruction_m1_contrast_staircase = data.TrialHandler2(
+                name='instruction_m1_contrast_staircase',
                 nReps=1.0, 
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]contrast_staircase_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_contrast_staircase), 
                 seed=None, 
             )
-            thisExp.addLoop(contrast_instructions)  # add the loop to the experiment
-            thisContrast_instruction = contrast_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisContrast_instruction.rgb)
-            if thisContrast_instruction != None:
-                for paramName in thisContrast_instruction:
-                    globals()[paramName] = thisContrast_instruction[paramName]
+            thisExp.addLoop(instruction_m1_contrast_staircase)  # add the loop to the experiment
+            thisInstruction_m1_contrast_staircase = instruction_m1_contrast_staircase.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_contrast_staircase.rgb)
+            if thisInstruction_m1_contrast_staircase != None:
+                for paramName in thisInstruction_m1_contrast_staircase:
+                    globals()[paramName] = thisInstruction_m1_contrast_staircase[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisContrast_instruction in contrast_instructions:
-                contrast_instructions.status = STARTED
-                if hasattr(thisContrast_instruction, 'status'):
-                    thisContrast_instruction.status = STARTED
-                currentLoop = contrast_instructions
+            for thisInstruction_m1_contrast_staircase in instruction_m1_contrast_staircase:
+                instruction_m1_contrast_staircase.status = STARTED
+                if hasattr(thisInstruction_m1_contrast_staircase, 'status'):
+                    thisInstruction_m1_contrast_staircase.status = STARTED
+                currentLoop = instruction_m1_contrast_staircase
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisContrast_instruction.rgb)
-                if thisContrast_instruction != None:
-                    for paramName in thisContrast_instruction:
-                        globals()[paramName] = thisContrast_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_contrast_staircase.rgb)
+                if thisInstruction_m1_contrast_staircase != None:
+                    for paramName in thisInstruction_m1_contrast_staircase:
+                        globals()[paramName] = thisInstruction_m1_contrast_staircase[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -7887,7 +9193,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisContrast_instruction, 'status') and thisContrast_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_contrast_staircase, 'status') and thisInstruction_m1_contrast_staircase.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -8209,34 +9515,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                contrast_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_contrast_staircase.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   contrast_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   contrast_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_contrast_staircase.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_contrast_staircase.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   contrast_instructions.addData('button_next_instruction_2.timesOn', "")
-                   contrast_instructions.addData('button_next_instruction_2.timesOff', "")
-                contrast_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_contrast_staircase.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_contrast_staircase.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_contrast_staircase.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   contrast_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   contrast_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_contrast_staircase.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_contrast_staircase.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   contrast_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   contrast_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_contrast_staircase.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_contrast_staircase.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                contrast_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_contrast_staircase.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    contrast_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    contrast_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_contrast_staircase.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_contrast_staircase.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisContrast_instruction as finished
-                if hasattr(thisContrast_instruction, 'status'):
-                    thisContrast_instruction.status = FINISHED
+                # mark thisInstruction_m1_contrast_staircase as finished
+                if hasattr(thisInstruction_m1_contrast_staircase, 'status'):
+                    thisInstruction_m1_contrast_staircase.status = FINISHED
                 # if awaiting a pause, pause now
-                if contrast_instructions.status == PAUSED:
+                if instruction_m1_contrast_staircase.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -8244,22 +9550,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    contrast_instructions.status = STARTED
+                    instruction_m1_contrast_staircase.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'contrast_instructions'
-            contrast_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m1_contrast_staircase'
+            instruction_m1_contrast_staircase.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if contrast_instructions.trialList in ([], [None], None):
+            if instruction_m1_contrast_staircase.trialList in ([], [None], None):
                 params = []
             else:
-                params = contrast_instructions.trialList[0].keys()
+                params = instruction_m1_contrast_staircase.trialList[0].keys()
             # save data for this loop
-            contrast_instructions.saveAsExcel(filename + '.xlsx', sheetName='contrast_instructions',
+            instruction_m1_contrast_staircase.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_contrast_staircase',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -8634,38 +9940,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             routineTimer.reset()
             
             # set up handler to look after randomisation of conditions etc
-            color_instructions = data.TrialHandler2(
-                name='color_instructions',
+            instruction_m1_color_staircase = data.TrialHandler2(
+                name='instruction_m1_color_staircase',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]color_staircase_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_color_staircase), 
                 seed=None, 
             )
-            thisExp.addLoop(color_instructions)  # add the loop to the experiment
-            thisColor_instruction = color_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisColor_instruction.rgb)
-            if thisColor_instruction != None:
-                for paramName in thisColor_instruction:
-                    globals()[paramName] = thisColor_instruction[paramName]
+            thisExp.addLoop(instruction_m1_color_staircase)  # add the loop to the experiment
+            thisInstruction_m1_color_staircase = instruction_m1_color_staircase.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_color_staircase.rgb)
+            if thisInstruction_m1_color_staircase != None:
+                for paramName in thisInstruction_m1_color_staircase:
+                    globals()[paramName] = thisInstruction_m1_color_staircase[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisColor_instruction in color_instructions:
-                color_instructions.status = STARTED
-                if hasattr(thisColor_instruction, 'status'):
-                    thisColor_instruction.status = STARTED
-                currentLoop = color_instructions
+            for thisInstruction_m1_color_staircase in instruction_m1_color_staircase:
+                instruction_m1_color_staircase.status = STARTED
+                if hasattr(thisInstruction_m1_color_staircase, 'status'):
+                    thisInstruction_m1_color_staircase.status = STARTED
+                currentLoop = instruction_m1_color_staircase
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisColor_instruction.rgb)
-                if thisColor_instruction != None:
-                    for paramName in thisColor_instruction:
-                        globals()[paramName] = thisColor_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_color_staircase.rgb)
+                if thisInstruction_m1_color_staircase != None:
+                    for paramName in thisInstruction_m1_color_staircase:
+                        globals()[paramName] = thisInstruction_m1_color_staircase[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -8739,7 +10045,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisColor_instruction, 'status') and thisColor_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_color_staircase, 'status') and thisInstruction_m1_color_staircase.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -9061,34 +10367,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                color_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_color_staircase.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   color_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   color_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_color_staircase.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_color_staircase.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   color_instructions.addData('button_next_instruction_2.timesOn', "")
-                   color_instructions.addData('button_next_instruction_2.timesOff', "")
-                color_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_color_staircase.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_color_staircase.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_color_staircase.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   color_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   color_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_color_staircase.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_color_staircase.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   color_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   color_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_color_staircase.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_color_staircase.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                color_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_color_staircase.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    color_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    color_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_color_staircase.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_color_staircase.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisColor_instruction as finished
-                if hasattr(thisColor_instruction, 'status'):
-                    thisColor_instruction.status = FINISHED
+                # mark thisInstruction_m1_color_staircase as finished
+                if hasattr(thisInstruction_m1_color_staircase, 'status'):
+                    thisInstruction_m1_color_staircase.status = FINISHED
                 # if awaiting a pause, pause now
-                if color_instructions.status == PAUSED:
+                if instruction_m1_color_staircase.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -9096,22 +10402,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    color_instructions.status = STARTED
+                    instruction_m1_color_staircase.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'color_instructions'
-            color_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m1_color_staircase'
+            instruction_m1_color_staircase.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if color_instructions.trialList in ([], [None], None):
+            if instruction_m1_color_staircase.trialList in ([], [None], None):
                 params = []
             else:
-                params = color_instructions.trialList[0].keys()
+                params = instruction_m1_color_staircase.trialList[0].keys()
             # save data for this loop
-            color_instructions.saveAsExcel(filename + '.xlsx', sheetName='color_instructions',
+            instruction_m1_color_staircase.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_color_staircase',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -9786,38 +11092,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_1_TEST_1[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            BL1_instructions = data.TrialHandler2(
-                name='BL1_instructions',
+            instruction_m1_bl1 = data.TrialHandler2(
+                name='instruction_m1_bl1',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]BL1_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_bl1), 
                 seed=None, 
             )
-            thisExp.addLoop(BL1_instructions)  # add the loop to the experiment
-            thisBL1_instruction = BL1_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisBL1_instruction.rgb)
-            if thisBL1_instruction != None:
-                for paramName in thisBL1_instruction:
-                    globals()[paramName] = thisBL1_instruction[paramName]
+            thisExp.addLoop(instruction_m1_bl1)  # add the loop to the experiment
+            thisInstruction_m1_bl1 = instruction_m1_bl1.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl1.rgb)
+            if thisInstruction_m1_bl1 != None:
+                for paramName in thisInstruction_m1_bl1:
+                    globals()[paramName] = thisInstruction_m1_bl1[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisBL1_instruction in BL1_instructions:
-                BL1_instructions.status = STARTED
-                if hasattr(thisBL1_instruction, 'status'):
-                    thisBL1_instruction.status = STARTED
-                currentLoop = BL1_instructions
+            for thisInstruction_m1_bl1 in instruction_m1_bl1:
+                instruction_m1_bl1.status = STARTED
+                if hasattr(thisInstruction_m1_bl1, 'status'):
+                    thisInstruction_m1_bl1.status = STARTED
+                currentLoop = instruction_m1_bl1
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisBL1_instruction.rgb)
-                if thisBL1_instruction != None:
-                    for paramName in thisBL1_instruction:
-                        globals()[paramName] = thisBL1_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl1.rgb)
+                if thisInstruction_m1_bl1 != None:
+                    for paramName in thisInstruction_m1_bl1:
+                        globals()[paramName] = thisInstruction_m1_bl1[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -9891,7 +11197,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisBL1_instruction, 'status') and thisBL1_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_bl1, 'status') and thisInstruction_m1_bl1.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -10213,34 +11519,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                BL1_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_bl1.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   BL1_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   BL1_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_bl1.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_bl1.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   BL1_instructions.addData('button_next_instruction_2.timesOn', "")
-                   BL1_instructions.addData('button_next_instruction_2.timesOff', "")
-                BL1_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_bl1.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_bl1.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_bl1.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   BL1_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   BL1_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_bl1.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_bl1.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   BL1_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   BL1_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_bl1.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_bl1.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                BL1_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_bl1.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    BL1_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    BL1_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_bl1.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_bl1.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisBL1_instruction as finished
-                if hasattr(thisBL1_instruction, 'status'):
-                    thisBL1_instruction.status = FINISHED
+                # mark thisInstruction_m1_bl1 as finished
+                if hasattr(thisInstruction_m1_bl1, 'status'):
+                    thisInstruction_m1_bl1.status = FINISHED
                 # if awaiting a pause, pause now
-                if BL1_instructions.status == PAUSED:
+                if instruction_m1_bl1.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -10248,22 +11554,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    BL1_instructions.status = STARTED
+                    instruction_m1_bl1.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'BL1_instructions'
-            BL1_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m1_bl1'
+            instruction_m1_bl1.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if BL1_instructions.trialList in ([], [None], None):
+            if instruction_m1_bl1.trialList in ([], [None], None):
                 params = []
             else:
-                params = BL1_instructions.trialList[0].keys()
+                params = instruction_m1_bl1.trialList[0].keys()
             # save data for this loop
-            BL1_instructions.saveAsExcel(filename + '.xlsx', sheetName='BL1_instructions',
+            instruction_m1_bl1.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl1',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -10749,32 +12055,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_1_TEST_2[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            BL2_instructions = data.TrialHandler2(
-                name='BL2_instructions',
+            instruction_m1_bl2 = data.TrialHandler2(
+                name='instruction_m1_bl2',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]BL2_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_bl2), 
                 seed=None, 
             )
-            thisExp.addLoop(BL2_instructions)  # add the loop to the experiment
-            thisBL2_instruction = BL2_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisBL2_instruction.rgb)
-            if thisBL2_instruction != None:
-                for paramName in thisBL2_instruction:
-                    globals()[paramName] = thisBL2_instruction[paramName]
+            thisExp.addLoop(instruction_m1_bl2)  # add the loop to the experiment
+            thisInstruction_m1_bl2 = instruction_m1_bl2.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl2.rgb)
+            if thisInstruction_m1_bl2 != None:
+                for paramName in thisInstruction_m1_bl2:
+                    globals()[paramName] = thisInstruction_m1_bl2[paramName]
             
-            for thisBL2_instruction in BL2_instructions:
-                BL2_instructions.status = STARTED
-                if hasattr(thisBL2_instruction, 'status'):
-                    thisBL2_instruction.status = STARTED
-                currentLoop = BL2_instructions
+            for thisInstruction_m1_bl2 in instruction_m1_bl2:
+                instruction_m1_bl2.status = STARTED
+                if hasattr(thisInstruction_m1_bl2, 'status'):
+                    thisInstruction_m1_bl2.status = STARTED
+                currentLoop = instruction_m1_bl2
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisBL2_instruction.rgb)
-                if thisBL2_instruction != None:
-                    for paramName in thisBL2_instruction:
-                        globals()[paramName] = thisBL2_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl2.rgb)
+                if thisInstruction_m1_bl2 != None:
+                    for paramName in thisInstruction_m1_bl2:
+                        globals()[paramName] = thisInstruction_m1_bl2[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -10848,7 +12154,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisBL2_instruction, 'status') and thisBL2_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_bl2, 'status') and thisInstruction_m1_bl2.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -11170,34 +12476,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                BL2_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_bl2.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   BL2_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   BL2_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_bl2.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_bl2.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   BL2_instructions.addData('button_next_instruction_2.timesOn', "")
-                   BL2_instructions.addData('button_next_instruction_2.timesOff', "")
-                BL2_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_bl2.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_bl2.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_bl2.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   BL2_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   BL2_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_bl2.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_bl2.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   BL2_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   BL2_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_bl2.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_bl2.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                BL2_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_bl2.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    BL2_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    BL2_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_bl2.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_bl2.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisBL2_instruction as finished
-                if hasattr(thisBL2_instruction, 'status'):
-                    thisBL2_instruction.status = FINISHED
+                # mark thisInstruction_m1_bl2 as finished
+                if hasattr(thisInstruction_m1_bl2, 'status'):
+                    thisInstruction_m1_bl2.status = FINISHED
                 # if awaiting a pause, pause now
-                if BL2_instructions.status == PAUSED:
+                if instruction_m1_bl2.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -11205,9 +12511,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    BL2_instructions.status = STARTED
-            # completed 1.0 repeats of 'BL2_instructions'
-            BL2_instructions.status = FINISHED
+                    instruction_m1_bl2.status = STARTED
+            # completed 1.0 repeats of 'instruction_m1_bl2'
+            instruction_m1_bl2.status = FINISHED
             
             
             # set up handler to look after randomisation of conditions etc
@@ -11566,7 +12872,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         continueRoutine = False
                         
                     if flag_skip_all:
-                        trials_bl_3.finished = True
+                        trials_bl_2.finished = True
                     
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -11684,32 +12990,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_1_TEST_3[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            BL3_instructions = data.TrialHandler2(
-                name='BL3_instructions',
+            instruction_m1_bl3 = data.TrialHandler2(
+                name='instruction_m1_bl3',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]BL3_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_bl3), 
                 seed=None, 
             )
-            thisExp.addLoop(BL3_instructions)  # add the loop to the experiment
-            thisBL3_instruction = BL3_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisBL3_instruction.rgb)
-            if thisBL3_instruction != None:
-                for paramName in thisBL3_instruction:
-                    globals()[paramName] = thisBL3_instruction[paramName]
+            thisExp.addLoop(instruction_m1_bl3)  # add the loop to the experiment
+            thisInstruction_m1_bl3 = instruction_m1_bl3.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl3.rgb)
+            if thisInstruction_m1_bl3 != None:
+                for paramName in thisInstruction_m1_bl3:
+                    globals()[paramName] = thisInstruction_m1_bl3[paramName]
             
-            for thisBL3_instruction in BL3_instructions:
-                BL3_instructions.status = STARTED
-                if hasattr(thisBL3_instruction, 'status'):
-                    thisBL3_instruction.status = STARTED
-                currentLoop = BL3_instructions
+            for thisInstruction_m1_bl3 in instruction_m1_bl3:
+                instruction_m1_bl3.status = STARTED
+                if hasattr(thisInstruction_m1_bl3, 'status'):
+                    thisInstruction_m1_bl3.status = STARTED
+                currentLoop = instruction_m1_bl3
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisBL3_instruction.rgb)
-                if thisBL3_instruction != None:
-                    for paramName in thisBL3_instruction:
-                        globals()[paramName] = thisBL3_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl3.rgb)
+                if thisInstruction_m1_bl3 != None:
+                    for paramName in thisInstruction_m1_bl3:
+                        globals()[paramName] = thisInstruction_m1_bl3[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -11783,7 +13089,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisBL3_instruction, 'status') and thisBL3_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_bl3, 'status') and thisInstruction_m1_bl3.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -12105,34 +13411,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                BL3_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_bl3.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   BL3_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   BL3_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_bl3.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_bl3.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   BL3_instructions.addData('button_next_instruction_2.timesOn', "")
-                   BL3_instructions.addData('button_next_instruction_2.timesOff', "")
-                BL3_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_bl3.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_bl3.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_bl3.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   BL3_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   BL3_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_bl3.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_bl3.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   BL3_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   BL3_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_bl3.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_bl3.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                BL3_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_bl3.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    BL3_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    BL3_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_bl3.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_bl3.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisBL3_instruction as finished
-                if hasattr(thisBL3_instruction, 'status'):
-                    thisBL3_instruction.status = FINISHED
+                # mark thisInstruction_m1_bl3 as finished
+                if hasattr(thisInstruction_m1_bl3, 'status'):
+                    thisInstruction_m1_bl3.status = FINISHED
                 # if awaiting a pause, pause now
-                if BL3_instructions.status == PAUSED:
+                if instruction_m1_bl3.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -12140,9 +13446,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    BL3_instructions.status = STARTED
-            # completed 1.0 repeats of 'BL3_instructions'
-            BL3_instructions.status = FINISHED
+                    instruction_m1_bl3.status = STARTED
+            # completed 1.0 repeats of 'instruction_m1_bl3'
+            instruction_m1_bl3.status = FINISHED
             
             
             # set up handler to look after randomisation of conditions etc
@@ -12504,7 +13810,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         continueRoutine = False
                     
                     if flag_skip_all:
-                        trials_bl_2.finished = True
+                        trials_bl_3.finished = True
                     
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -12636,38 +13942,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisTutorial_semantic_sf_color_contrast[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            tutorial_semantic_sf_color_contrast_instructions = data.TrialHandler2(
-                name='tutorial_semantic_sf_color_contrast_instructions',
+            instruction_m1_tutorial_semantic = data.TrialHandler2(
+                name='instruction_m1_tutorial_semantic',
                 nReps=1.0, 
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/tutorial_semantic_sf_color_contrast/[ES]tutorial_semantic_sf_color_contrast.xlsx'), 
+                trialList=data.importConditions(instruction_m1_tutorial_semantic), 
                 seed=None, 
             )
-            thisExp.addLoop(tutorial_semantic_sf_color_contrast_instructions)  # add the loop to the experiment
-            thisTutorial_semantic_sf_color_contrast_instruction = tutorial_semantic_sf_color_contrast_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisTutorial_semantic_sf_color_contrast_instruction.rgb)
-            if thisTutorial_semantic_sf_color_contrast_instruction != None:
-                for paramName in thisTutorial_semantic_sf_color_contrast_instruction:
-                    globals()[paramName] = thisTutorial_semantic_sf_color_contrast_instruction[paramName]
+            thisExp.addLoop(instruction_m1_tutorial_semantic)  # add the loop to the experiment
+            thisInstruction_m1_tutorial_semantic = instruction_m1_tutorial_semantic.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_tutorial_semantic.rgb)
+            if thisInstruction_m1_tutorial_semantic != None:
+                for paramName in thisInstruction_m1_tutorial_semantic:
+                    globals()[paramName] = thisInstruction_m1_tutorial_semantic[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisTutorial_semantic_sf_color_contrast_instruction in tutorial_semantic_sf_color_contrast_instructions:
-                tutorial_semantic_sf_color_contrast_instructions.status = STARTED
-                if hasattr(thisTutorial_semantic_sf_color_contrast_instruction, 'status'):
-                    thisTutorial_semantic_sf_color_contrast_instruction.status = STARTED
-                currentLoop = tutorial_semantic_sf_color_contrast_instructions
+            for thisInstruction_m1_tutorial_semantic in instruction_m1_tutorial_semantic:
+                instruction_m1_tutorial_semantic.status = STARTED
+                if hasattr(thisInstruction_m1_tutorial_semantic, 'status'):
+                    thisInstruction_m1_tutorial_semantic.status = STARTED
+                currentLoop = instruction_m1_tutorial_semantic
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisTutorial_semantic_sf_color_contrast_instruction.rgb)
-                if thisTutorial_semantic_sf_color_contrast_instruction != None:
-                    for paramName in thisTutorial_semantic_sf_color_contrast_instruction:
-                        globals()[paramName] = thisTutorial_semantic_sf_color_contrast_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_tutorial_semantic.rgb)
+                if thisInstruction_m1_tutorial_semantic != None:
+                    for paramName in thisInstruction_m1_tutorial_semantic:
+                        globals()[paramName] = thisInstruction_m1_tutorial_semantic[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -12741,7 +14047,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisTutorial_semantic_sf_color_contrast_instruction, 'status') and thisTutorial_semantic_sf_color_contrast_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_tutorial_semantic, 'status') and thisInstruction_m1_tutorial_semantic.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -13063,34 +14369,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_tutorial_semantic.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_tutorial_semantic.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_tutorial_semantic.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOn', "")
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_next_instruction_2.timesOff', "")
-                tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_tutorial_semantic.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_tutorial_semantic.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_tutorial_semantic.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_tutorial_semantic.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_tutorial_semantic.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   tutorial_semantic_sf_color_contrast_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_tutorial_semantic.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_tutorial_semantic.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                tutorial_semantic_sf_color_contrast_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_tutorial_semantic.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    tutorial_semantic_sf_color_contrast_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    tutorial_semantic_sf_color_contrast_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_tutorial_semantic.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_tutorial_semantic.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisTutorial_semantic_sf_color_contrast_instruction as finished
-                if hasattr(thisTutorial_semantic_sf_color_contrast_instruction, 'status'):
-                    thisTutorial_semantic_sf_color_contrast_instruction.status = FINISHED
+                # mark thisInstruction_m1_tutorial_semantic as finished
+                if hasattr(thisInstruction_m1_tutorial_semantic, 'status'):
+                    thisInstruction_m1_tutorial_semantic.status = FINISHED
                 # if awaiting a pause, pause now
-                if tutorial_semantic_sf_color_contrast_instructions.status == PAUSED:
+                if instruction_m1_tutorial_semantic.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -13098,22 +14404,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    tutorial_semantic_sf_color_contrast_instructions.status = STARTED
+                    instruction_m1_tutorial_semantic.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'tutorial_semantic_sf_color_contrast_instructions'
-            tutorial_semantic_sf_color_contrast_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m1_tutorial_semantic'
+            instruction_m1_tutorial_semantic.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if tutorial_semantic_sf_color_contrast_instructions.trialList in ([], [None], None):
+            if instruction_m1_tutorial_semantic.trialList in ([], [None], None):
                 params = []
             else:
-                params = tutorial_semantic_sf_color_contrast_instructions.trialList[0].keys()
+                params = instruction_m1_tutorial_semantic.trialList[0].keys()
             # save data for this loop
-            tutorial_semantic_sf_color_contrast_instructions.saveAsExcel(filename + '.xlsx', sheetName='tutorial_semantic_sf_color_contrast_instructions',
+            instruction_m1_tutorial_semantic.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_tutorial_semantic',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -13265,6 +14571,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             key_resp_33.keys = _key_resp_33_allKeys[-1].name  # just the last key pressed
                             key_resp_33.rt = _key_resp_33_allKeys[-1].rt
                             key_resp_33.duration = _key_resp_33_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
                     # Run 'Each Frame' code from code_31
                     if advanced_config["logs"]["value"]:
                         logs_parametros_trial_11.setText(
@@ -13641,38 +14949,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_1_TEST_4[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            BL4_instructions = data.TrialHandler2(
-                name='BL4_instructions',
+            instruction_m1_bl4 = data.TrialHandler2(
+                name='instruction_m1_bl4',
                 nReps=1.0, 
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]BL4_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_bl4), 
                 seed=None, 
             )
-            thisExp.addLoop(BL4_instructions)  # add the loop to the experiment
-            thisBL4_instruction = BL4_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisBL4_instruction.rgb)
-            if thisBL4_instruction != None:
-                for paramName in thisBL4_instruction:
-                    globals()[paramName] = thisBL4_instruction[paramName]
+            thisExp.addLoop(instruction_m1_bl4)  # add the loop to the experiment
+            thisInstruction_m1_bl4 = instruction_m1_bl4.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl4.rgb)
+            if thisInstruction_m1_bl4 != None:
+                for paramName in thisInstruction_m1_bl4:
+                    globals()[paramName] = thisInstruction_m1_bl4[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisBL4_instruction in BL4_instructions:
-                BL4_instructions.status = STARTED
-                if hasattr(thisBL4_instruction, 'status'):
-                    thisBL4_instruction.status = STARTED
-                currentLoop = BL4_instructions
+            for thisInstruction_m1_bl4 in instruction_m1_bl4:
+                instruction_m1_bl4.status = STARTED
+                if hasattr(thisInstruction_m1_bl4, 'status'):
+                    thisInstruction_m1_bl4.status = STARTED
+                currentLoop = instruction_m1_bl4
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisBL4_instruction.rgb)
-                if thisBL4_instruction != None:
-                    for paramName in thisBL4_instruction:
-                        globals()[paramName] = thisBL4_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl4.rgb)
+                if thisInstruction_m1_bl4 != None:
+                    for paramName in thisInstruction_m1_bl4:
+                        globals()[paramName] = thisInstruction_m1_bl4[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -13746,7 +15054,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisBL4_instruction, 'status') and thisBL4_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_bl4, 'status') and thisInstruction_m1_bl4.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -14068,34 +15376,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                BL4_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_bl4.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   BL4_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   BL4_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_bl4.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_bl4.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   BL4_instructions.addData('button_next_instruction_2.timesOn', "")
-                   BL4_instructions.addData('button_next_instruction_2.timesOff', "")
-                BL4_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_bl4.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_bl4.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_bl4.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   BL4_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   BL4_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_bl4.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_bl4.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   BL4_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   BL4_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_bl4.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_bl4.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                BL4_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_bl4.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    BL4_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    BL4_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_bl4.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_bl4.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisBL4_instruction as finished
-                if hasattr(thisBL4_instruction, 'status'):
-                    thisBL4_instruction.status = FINISHED
+                # mark thisInstruction_m1_bl4 as finished
+                if hasattr(thisInstruction_m1_bl4, 'status'):
+                    thisInstruction_m1_bl4.status = FINISHED
                 # if awaiting a pause, pause now
-                if BL4_instructions.status == PAUSED:
+                if instruction_m1_bl4.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -14103,22 +15411,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    BL4_instructions.status = STARTED
+                    instruction_m1_bl4.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'BL4_instructions'
-            BL4_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m1_bl4'
+            instruction_m1_bl4.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if BL4_instructions.trialList in ([], [None], None):
+            if instruction_m1_bl4.trialList in ([], [None], None):
                 params = []
             else:
-                params = BL4_instructions.trialList[0].keys()
+                params = instruction_m1_bl4.trialList[0].keys()
             # save data for this loop
-            BL4_instructions.saveAsExcel(filename + '.xlsx', sheetName='BL4_instructions',
+            instruction_m1_bl4.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl4',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -14634,38 +15942,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_1_TEST_5[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            BL5_instructions = data.TrialHandler2(
-                name='BL5_instructions',
+            instruction_m1_bl5 = data.TrialHandler2(
+                name='instruction_m1_bl5',
                 nReps=1.0, 
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]BL5_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_bl5), 
                 seed=None, 
             )
-            thisExp.addLoop(BL5_instructions)  # add the loop to the experiment
-            thisBL5_instruction = BL5_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisBL5_instruction.rgb)
-            if thisBL5_instruction != None:
-                for paramName in thisBL5_instruction:
-                    globals()[paramName] = thisBL5_instruction[paramName]
+            thisExp.addLoop(instruction_m1_bl5)  # add the loop to the experiment
+            thisInstruction_m1_bl5 = instruction_m1_bl5.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl5.rgb)
+            if thisInstruction_m1_bl5 != None:
+                for paramName in thisInstruction_m1_bl5:
+                    globals()[paramName] = thisInstruction_m1_bl5[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisBL5_instruction in BL5_instructions:
-                BL5_instructions.status = STARTED
-                if hasattr(thisBL5_instruction, 'status'):
-                    thisBL5_instruction.status = STARTED
-                currentLoop = BL5_instructions
+            for thisInstruction_m1_bl5 in instruction_m1_bl5:
+                instruction_m1_bl5.status = STARTED
+                if hasattr(thisInstruction_m1_bl5, 'status'):
+                    thisInstruction_m1_bl5.status = STARTED
+                currentLoop = instruction_m1_bl5
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisBL5_instruction.rgb)
-                if thisBL5_instruction != None:
-                    for paramName in thisBL5_instruction:
-                        globals()[paramName] = thisBL5_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl5.rgb)
+                if thisInstruction_m1_bl5 != None:
+                    for paramName in thisInstruction_m1_bl5:
+                        globals()[paramName] = thisInstruction_m1_bl5[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -14739,7 +16047,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisBL5_instruction, 'status') and thisBL5_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_bl5, 'status') and thisInstruction_m1_bl5.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -15061,34 +16369,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                BL5_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_bl5.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   BL5_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   BL5_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_bl5.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_bl5.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   BL5_instructions.addData('button_next_instruction_2.timesOn', "")
-                   BL5_instructions.addData('button_next_instruction_2.timesOff', "")
-                BL5_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_bl5.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_bl5.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_bl5.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   BL5_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   BL5_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_bl5.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_bl5.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   BL5_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   BL5_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_bl5.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_bl5.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                BL5_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_bl5.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    BL5_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    BL5_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_bl5.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_bl5.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisBL5_instruction as finished
-                if hasattr(thisBL5_instruction, 'status'):
-                    thisBL5_instruction.status = FINISHED
+                # mark thisInstruction_m1_bl5 as finished
+                if hasattr(thisInstruction_m1_bl5, 'status'):
+                    thisInstruction_m1_bl5.status = FINISHED
                 # if awaiting a pause, pause now
-                if BL5_instructions.status == PAUSED:
+                if instruction_m1_bl5.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -15096,22 +16404,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    BL5_instructions.status = STARTED
+                    instruction_m1_bl5.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'BL5_instructions'
-            BL5_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m1_bl5'
+            instruction_m1_bl5.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if BL5_instructions.trialList in ([], [None], None):
+            if instruction_m1_bl5.trialList in ([], [None], None):
                 params = []
             else:
-                params = BL5_instructions.trialList[0].keys()
+                params = instruction_m1_bl5.trialList[0].keys()
             # save data for this loop
-            BL5_instructions.saveAsExcel(filename + '.xlsx', sheetName='BL5_instructions',
+            instruction_m1_bl5.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl5',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -15620,38 +16928,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_1_TEST_6[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            BL6_instructions = data.TrialHandler2(
-                name='BL6_instructions',
+            instruction_m1_bl6 = data.TrialHandler2(
+                name='instruction_m1_bl6',
                 nReps=1.0, 
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_1/[ES]BL6_instructions.xlsx'), 
+                trialList=data.importConditions(instruction_m1_bl6), 
                 seed=None, 
             )
-            thisExp.addLoop(BL6_instructions)  # add the loop to the experiment
-            thisBL6_instruction = BL6_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisBL6_instruction.rgb)
-            if thisBL6_instruction != None:
-                for paramName in thisBL6_instruction:
-                    globals()[paramName] = thisBL6_instruction[paramName]
+            thisExp.addLoop(instruction_m1_bl6)  # add the loop to the experiment
+            thisInstruction_m1_bl6 = instruction_m1_bl6.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl6.rgb)
+            if thisInstruction_m1_bl6 != None:
+                for paramName in thisInstruction_m1_bl6:
+                    globals()[paramName] = thisInstruction_m1_bl6[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisBL6_instruction in BL6_instructions:
-                BL6_instructions.status = STARTED
-                if hasattr(thisBL6_instruction, 'status'):
-                    thisBL6_instruction.status = STARTED
-                currentLoop = BL6_instructions
+            for thisInstruction_m1_bl6 in instruction_m1_bl6:
+                instruction_m1_bl6.status = STARTED
+                if hasattr(thisInstruction_m1_bl6, 'status'):
+                    thisInstruction_m1_bl6.status = STARTED
+                currentLoop = instruction_m1_bl6
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisBL6_instruction.rgb)
-                if thisBL6_instruction != None:
-                    for paramName in thisBL6_instruction:
-                        globals()[paramName] = thisBL6_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl6.rgb)
+                if thisInstruction_m1_bl6 != None:
+                    for paramName in thisInstruction_m1_bl6:
+                        globals()[paramName] = thisInstruction_m1_bl6[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -15725,7 +17033,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisBL6_instruction, 'status') and thisBL6_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m1_bl6, 'status') and thisInstruction_m1_bl6.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -16047,34 +17355,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                BL6_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m1_bl6.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   BL6_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   BL6_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m1_bl6.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m1_bl6.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   BL6_instructions.addData('button_next_instruction_2.timesOn', "")
-                   BL6_instructions.addData('button_next_instruction_2.timesOff', "")
-                BL6_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m1_bl6.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m1_bl6.addData('button_next_instruction_2.timesOff', "")
+                instruction_m1_bl6.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   BL6_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   BL6_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m1_bl6.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m1_bl6.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   BL6_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   BL6_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m1_bl6.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m1_bl6.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                BL6_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m1_bl6.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    BL6_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    BL6_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m1_bl6.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m1_bl6.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisBL6_instruction as finished
-                if hasattr(thisBL6_instruction, 'status'):
-                    thisBL6_instruction.status = FINISHED
+                # mark thisInstruction_m1_bl6 as finished
+                if hasattr(thisInstruction_m1_bl6, 'status'):
+                    thisInstruction_m1_bl6.status = FINISHED
                 # if awaiting a pause, pause now
-                if BL6_instructions.status == PAUSED:
+                if instruction_m1_bl6.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -16082,22 +17390,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    BL6_instructions.status = STARTED
+                    instruction_m1_bl6.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'BL6_instructions'
-            BL6_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m1_bl6'
+            instruction_m1_bl6.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if BL6_instructions.trialList in ([], [None], None):
+            if instruction_m1_bl6.trialList in ([], [None], None):
                 params = []
             else:
-                params = BL6_instructions.trialList[0].keys()
+                params = instruction_m1_bl6.trialList[0].keys()
             # save data for this loop
-            BL6_instructions.saveAsExcel(filename + '.xlsx', sheetName='BL6_instructions',
+            instruction_m1_bl6.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl6',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -16601,9 +17909,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             )
             # once done pausing, restore running status
             MODULE_1.status = STARTED
+        thisExp.nextEntry()
+        
     # completed modules["module_1"]["selected"] repeats of 'MODULE_1'
     MODULE_1.status = FINISHED
     
+    if thisSession is not None:
+        # if running in a Session with a Liaison client, send data up to now
+        thisSession.sendExperimentData()
+    # get names of stimulus parameters
+    if MODULE_1.trialList in ([], [None], None):
+        params = []
+    else:
+        params = MODULE_1.trialList[0].keys()
+    # save data for this loop
+    MODULE_1.saveAsExcel(filename + '.xlsx', sheetName='MODULE_1',
+        stimOut=params,
+        dataOut=['n','all_mean','all_std', 'all_raw'])
     
     # set up handler to look after randomisation of conditions etc
     MODULE_2 = data.TrialHandler2(
@@ -16668,32 +17990,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_1[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            et_resting_state_instructions = data.TrialHandler2(
-                name='et_resting_state_instructions',
+            instruction_m2_1_1_resting_et = data.TrialHandler2(
+                name='instruction_m2_1_1_resting_et',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]1.1.RESTING_ET.xlsx'), 
+                trialList=data.importConditions(instruction_m2_1_1_resting_et), 
                 seed=None, 
             )
-            thisExp.addLoop(et_resting_state_instructions)  # add the loop to the experiment
-            thisEt_resting_state_instruction = et_resting_state_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisEt_resting_state_instruction.rgb)
-            if thisEt_resting_state_instruction != None:
-                for paramName in thisEt_resting_state_instruction:
-                    globals()[paramName] = thisEt_resting_state_instruction[paramName]
+            thisExp.addLoop(instruction_m2_1_1_resting_et)  # add the loop to the experiment
+            thisInstruction_m2_1_1_resting_et = instruction_m2_1_1_resting_et.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_1_1_resting_et.rgb)
+            if thisInstruction_m2_1_1_resting_et != None:
+                for paramName in thisInstruction_m2_1_1_resting_et:
+                    globals()[paramName] = thisInstruction_m2_1_1_resting_et[paramName]
             
-            for thisEt_resting_state_instruction in et_resting_state_instructions:
-                et_resting_state_instructions.status = STARTED
-                if hasattr(thisEt_resting_state_instruction, 'status'):
-                    thisEt_resting_state_instruction.status = STARTED
-                currentLoop = et_resting_state_instructions
+            for thisInstruction_m2_1_1_resting_et in instruction_m2_1_1_resting_et:
+                instruction_m2_1_1_resting_et.status = STARTED
+                if hasattr(thisInstruction_m2_1_1_resting_et, 'status'):
+                    thisInstruction_m2_1_1_resting_et.status = STARTED
+                currentLoop = instruction_m2_1_1_resting_et
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisEt_resting_state_instruction.rgb)
-                if thisEt_resting_state_instruction != None:
-                    for paramName in thisEt_resting_state_instruction:
-                        globals()[paramName] = thisEt_resting_state_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_1_1_resting_et.rgb)
+                if thisInstruction_m2_1_1_resting_et != None:
+                    for paramName in thisInstruction_m2_1_1_resting_et:
+                        globals()[paramName] = thisInstruction_m2_1_1_resting_et[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -16767,7 +18089,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisEt_resting_state_instruction, 'status') and thisEt_resting_state_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_1_1_resting_et, 'status') and thisInstruction_m2_1_1_resting_et.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -17089,34 +18411,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                et_resting_state_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_1_1_resting_et.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   et_resting_state_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   et_resting_state_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_1_1_resting_et.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_1_1_resting_et.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   et_resting_state_instructions.addData('button_next_instruction_2.timesOn', "")
-                   et_resting_state_instructions.addData('button_next_instruction_2.timesOff', "")
-                et_resting_state_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_1_1_resting_et.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_1_1_resting_et.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_1_1_resting_et.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   et_resting_state_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   et_resting_state_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_1_1_resting_et.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_1_1_resting_et.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   et_resting_state_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   et_resting_state_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_1_1_resting_et.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_1_1_resting_et.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                et_resting_state_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_1_1_resting_et.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    et_resting_state_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    et_resting_state_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_1_1_resting_et.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_1_1_resting_et.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisEt_resting_state_instruction as finished
-                if hasattr(thisEt_resting_state_instruction, 'status'):
-                    thisEt_resting_state_instruction.status = FINISHED
+                # mark thisInstruction_m2_1_1_resting_et as finished
+                if hasattr(thisInstruction_m2_1_1_resting_et, 'status'):
+                    thisInstruction_m2_1_1_resting_et.status = FINISHED
                 # if awaiting a pause, pause now
-                if et_resting_state_instructions.status == PAUSED:
+                if instruction_m2_1_1_resting_et.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -17124,9 +18446,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    et_resting_state_instructions.status = STARTED
-            # completed 1.0 repeats of 'et_resting_state_instructions'
-            et_resting_state_instructions.status = FINISHED
+                    instruction_m2_1_1_resting_et.status = STARTED
+            # completed 1.0 repeats of 'instruction_m2_1_1_resting_et'
+            instruction_m2_1_1_resting_et.status = FINISHED
             
             
             # --- Prepare to start Routine "ET_RESTING_STATE" ---
@@ -17290,32 +18612,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             routineTimer.reset()
             
             # set up handler to look after randomisation of conditions etc
-            et_task_instructions = data.TrialHandler2(
-                name='et_task_instructions',
+            instruction_m2_1_2_et = data.TrialHandler2(
+                name='instruction_m2_1_2_et',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]1.2.ET.xlsx'), 
+                trialList=data.importConditions(instruction_m2_1_2_et), 
                 seed=None, 
             )
-            thisExp.addLoop(et_task_instructions)  # add the loop to the experiment
-            thisEt_task_instruction = et_task_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisEt_task_instruction.rgb)
-            if thisEt_task_instruction != None:
-                for paramName in thisEt_task_instruction:
-                    globals()[paramName] = thisEt_task_instruction[paramName]
+            thisExp.addLoop(instruction_m2_1_2_et)  # add the loop to the experiment
+            thisInstruction_m2_1_2_et = instruction_m2_1_2_et.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_1_2_et.rgb)
+            if thisInstruction_m2_1_2_et != None:
+                for paramName in thisInstruction_m2_1_2_et:
+                    globals()[paramName] = thisInstruction_m2_1_2_et[paramName]
             
-            for thisEt_task_instruction in et_task_instructions:
-                et_task_instructions.status = STARTED
-                if hasattr(thisEt_task_instruction, 'status'):
-                    thisEt_task_instruction.status = STARTED
-                currentLoop = et_task_instructions
+            for thisInstruction_m2_1_2_et in instruction_m2_1_2_et:
+                instruction_m2_1_2_et.status = STARTED
+                if hasattr(thisInstruction_m2_1_2_et, 'status'):
+                    thisInstruction_m2_1_2_et.status = STARTED
+                currentLoop = instruction_m2_1_2_et
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisEt_task_instruction.rgb)
-                if thisEt_task_instruction != None:
-                    for paramName in thisEt_task_instruction:
-                        globals()[paramName] = thisEt_task_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_1_2_et.rgb)
+                if thisInstruction_m2_1_2_et != None:
+                    for paramName in thisInstruction_m2_1_2_et:
+                        globals()[paramName] = thisInstruction_m2_1_2_et[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -17389,7 +18711,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisEt_task_instruction, 'status') and thisEt_task_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_1_2_et, 'status') and thisInstruction_m2_1_2_et.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -17711,34 +19033,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                et_task_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_1_2_et.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   et_task_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   et_task_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_1_2_et.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_1_2_et.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   et_task_instructions.addData('button_next_instruction_2.timesOn', "")
-                   et_task_instructions.addData('button_next_instruction_2.timesOff', "")
-                et_task_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_1_2_et.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_1_2_et.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_1_2_et.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   et_task_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   et_task_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_1_2_et.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_1_2_et.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   et_task_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   et_task_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_1_2_et.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_1_2_et.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                et_task_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_1_2_et.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    et_task_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    et_task_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_1_2_et.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_1_2_et.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisEt_task_instruction as finished
-                if hasattr(thisEt_task_instruction, 'status'):
-                    thisEt_task_instruction.status = FINISHED
+                # mark thisInstruction_m2_1_2_et as finished
+                if hasattr(thisInstruction_m2_1_2_et, 'status'):
+                    thisInstruction_m2_1_2_et.status = FINISHED
                 # if awaiting a pause, pause now
-                if et_task_instructions.status == PAUSED:
+                if instruction_m2_1_2_et.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -17746,9 +19068,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    et_task_instructions.status = STARTED
-            # completed 1.0 repeats of 'et_task_instructions'
-            et_task_instructions.status = FINISHED
+                    instruction_m2_1_2_et.status = STARTED
+            # completed 1.0 repeats of 'instruction_m2_1_2_et'
+            instruction_m2_1_2_et.status = FINISHED
             
             
             # --- Prepare to start Routine "ET_SCREEN_POINT_TASK" ---
@@ -17997,38 +19319,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_2[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            FFT_instructions = data.TrialHandler2(
-                name='FFT_instructions',
+            instruction_m2_2_fft = data.TrialHandler2(
+                name='instruction_m2_2_fft',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]2.FFT.xlsx'), 
+                trialList=data.importConditions(instruction_m2_2_fft), 
                 seed=None, 
             )
-            thisExp.addLoop(FFT_instructions)  # add the loop to the experiment
-            thisFFT_instruction = FFT_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisFFT_instruction.rgb)
-            if thisFFT_instruction != None:
-                for paramName in thisFFT_instruction:
-                    globals()[paramName] = thisFFT_instruction[paramName]
+            thisExp.addLoop(instruction_m2_2_fft)  # add the loop to the experiment
+            thisInstruction_m2_2_fft = instruction_m2_2_fft.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_2_fft.rgb)
+            if thisInstruction_m2_2_fft != None:
+                for paramName in thisInstruction_m2_2_fft:
+                    globals()[paramName] = thisInstruction_m2_2_fft[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisFFT_instruction in FFT_instructions:
-                FFT_instructions.status = STARTED
-                if hasattr(thisFFT_instruction, 'status'):
-                    thisFFT_instruction.status = STARTED
-                currentLoop = FFT_instructions
+            for thisInstruction_m2_2_fft in instruction_m2_2_fft:
+                instruction_m2_2_fft.status = STARTED
+                if hasattr(thisInstruction_m2_2_fft, 'status'):
+                    thisInstruction_m2_2_fft.status = STARTED
+                currentLoop = instruction_m2_2_fft
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisFFT_instruction.rgb)
-                if thisFFT_instruction != None:
-                    for paramName in thisFFT_instruction:
-                        globals()[paramName] = thisFFT_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_2_fft.rgb)
+                if thisInstruction_m2_2_fft != None:
+                    for paramName in thisInstruction_m2_2_fft:
+                        globals()[paramName] = thisInstruction_m2_2_fft[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -18102,7 +19424,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisFFT_instruction, 'status') and thisFFT_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_2_fft, 'status') and thisInstruction_m2_2_fft.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -18424,34 +19746,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                FFT_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_2_fft.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   FFT_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   FFT_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_2_fft.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_2_fft.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   FFT_instructions.addData('button_next_instruction_2.timesOn', "")
-                   FFT_instructions.addData('button_next_instruction_2.timesOff', "")
-                FFT_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_2_fft.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_2_fft.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_2_fft.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   FFT_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   FFT_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_2_fft.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_2_fft.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   FFT_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   FFT_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_2_fft.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_2_fft.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                FFT_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_2_fft.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    FFT_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    FFT_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_2_fft.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_2_fft.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisFFT_instruction as finished
-                if hasattr(thisFFT_instruction, 'status'):
-                    thisFFT_instruction.status = FINISHED
+                # mark thisInstruction_m2_2_fft as finished
+                if hasattr(thisInstruction_m2_2_fft, 'status'):
+                    thisInstruction_m2_2_fft.status = FINISHED
                 # if awaiting a pause, pause now
-                if FFT_instructions.status == PAUSED:
+                if instruction_m2_2_fft.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -18459,22 +19781,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    FFT_instructions.status = STARTED
+                    instruction_m2_2_fft.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'FFT_instructions'
-            FFT_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m2_2_fft'
+            instruction_m2_2_fft.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if FFT_instructions.trialList in ([], [None], None):
+            if instruction_m2_2_fft.trialList in ([], [None], None):
                 params = []
             else:
-                params = FFT_instructions.trialList[0].keys()
+                params = instruction_m2_2_fft.trialList[0].keys()
             # save data for this loop
-            FFT_instructions.saveAsExcel(filename + '.xlsx', sheetName='FFT_instructions',
+            instruction_m2_2_fft.saveAsExcel(filename + '.xlsx', sheetName='instruction_m2_2_fft',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -18942,32 +20264,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_3[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            et_saccade_task_instructions = data.TrialHandler2(
-                name='et_saccade_task_instructions',
+            instruction_m2_3_1_saccade = data.TrialHandler2(
+                name='instruction_m2_3_1_saccade',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]3.1.ET_SACCADE.xlsx'), 
+                trialList=data.importConditions(instruction_m2_3_1_saccade), 
                 seed=None, 
             )
-            thisExp.addLoop(et_saccade_task_instructions)  # add the loop to the experiment
-            thisEt_saccade_task_instruction = et_saccade_task_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisEt_saccade_task_instruction.rgb)
-            if thisEt_saccade_task_instruction != None:
-                for paramName in thisEt_saccade_task_instruction:
-                    globals()[paramName] = thisEt_saccade_task_instruction[paramName]
+            thisExp.addLoop(instruction_m2_3_1_saccade)  # add the loop to the experiment
+            thisInstruction_m2_3_1_saccade = instruction_m2_3_1_saccade.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_3_1_saccade.rgb)
+            if thisInstruction_m2_3_1_saccade != None:
+                for paramName in thisInstruction_m2_3_1_saccade:
+                    globals()[paramName] = thisInstruction_m2_3_1_saccade[paramName]
             
-            for thisEt_saccade_task_instruction in et_saccade_task_instructions:
-                et_saccade_task_instructions.status = STARTED
-                if hasattr(thisEt_saccade_task_instruction, 'status'):
-                    thisEt_saccade_task_instruction.status = STARTED
-                currentLoop = et_saccade_task_instructions
+            for thisInstruction_m2_3_1_saccade in instruction_m2_3_1_saccade:
+                instruction_m2_3_1_saccade.status = STARTED
+                if hasattr(thisInstruction_m2_3_1_saccade, 'status'):
+                    thisInstruction_m2_3_1_saccade.status = STARTED
+                currentLoop = instruction_m2_3_1_saccade
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisEt_saccade_task_instruction.rgb)
-                if thisEt_saccade_task_instruction != None:
-                    for paramName in thisEt_saccade_task_instruction:
-                        globals()[paramName] = thisEt_saccade_task_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_3_1_saccade.rgb)
+                if thisInstruction_m2_3_1_saccade != None:
+                    for paramName in thisInstruction_m2_3_1_saccade:
+                        globals()[paramName] = thisInstruction_m2_3_1_saccade[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -19041,7 +20363,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisEt_saccade_task_instruction, 'status') and thisEt_saccade_task_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_3_1_saccade, 'status') and thisInstruction_m2_3_1_saccade.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -19363,34 +20685,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                et_saccade_task_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_3_1_saccade.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   et_saccade_task_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   et_saccade_task_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_3_1_saccade.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_3_1_saccade.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   et_saccade_task_instructions.addData('button_next_instruction_2.timesOn', "")
-                   et_saccade_task_instructions.addData('button_next_instruction_2.timesOff', "")
-                et_saccade_task_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_3_1_saccade.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_3_1_saccade.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_3_1_saccade.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   et_saccade_task_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   et_saccade_task_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_3_1_saccade.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_3_1_saccade.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   et_saccade_task_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   et_saccade_task_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_3_1_saccade.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_3_1_saccade.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                et_saccade_task_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_3_1_saccade.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    et_saccade_task_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    et_saccade_task_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_3_1_saccade.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_3_1_saccade.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisEt_saccade_task_instruction as finished
-                if hasattr(thisEt_saccade_task_instruction, 'status'):
-                    thisEt_saccade_task_instruction.status = FINISHED
+                # mark thisInstruction_m2_3_1_saccade as finished
+                if hasattr(thisInstruction_m2_3_1_saccade, 'status'):
+                    thisInstruction_m2_3_1_saccade.status = FINISHED
                 # if awaiting a pause, pause now
-                if et_saccade_task_instructions.status == PAUSED:
+                if instruction_m2_3_1_saccade.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -19398,9 +20720,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    et_saccade_task_instructions.status = STARTED
-            # completed 1.0 repeats of 'et_saccade_task_instructions'
-            et_saccade_task_instructions.status = FINISHED
+                    instruction_m2_3_1_saccade.status = STARTED
+            # completed 1.0 repeats of 'instruction_m2_3_1_saccade'
+            instruction_m2_3_1_saccade.status = FINISHED
             
             
             # set up handler to look after randomisation of conditions etc
@@ -19721,38 +21043,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             
             
             # set up handler to look after randomisation of conditions etc
-            antisaccade_instructions = data.TrialHandler2(
-                name='antisaccade_instructions',
+            instruction_m2_3_2_antisaccade = data.TrialHandler2(
+                name='instruction_m2_3_2_antisaccade',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]3.2.ET_ANTISACCADE.xlsx'), 
+                trialList=data.importConditions(instruction_m2_3_2_antisaccade), 
                 seed=None, 
             )
-            thisExp.addLoop(antisaccade_instructions)  # add the loop to the experiment
-            thisAntisaccade_instruction = antisaccade_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisAntisaccade_instruction.rgb)
-            if thisAntisaccade_instruction != None:
-                for paramName in thisAntisaccade_instruction:
-                    globals()[paramName] = thisAntisaccade_instruction[paramName]
+            thisExp.addLoop(instruction_m2_3_2_antisaccade)  # add the loop to the experiment
+            thisInstruction_m2_3_2_antisaccade = instruction_m2_3_2_antisaccade.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_3_2_antisaccade.rgb)
+            if thisInstruction_m2_3_2_antisaccade != None:
+                for paramName in thisInstruction_m2_3_2_antisaccade:
+                    globals()[paramName] = thisInstruction_m2_3_2_antisaccade[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisAntisaccade_instruction in antisaccade_instructions:
-                antisaccade_instructions.status = STARTED
-                if hasattr(thisAntisaccade_instruction, 'status'):
-                    thisAntisaccade_instruction.status = STARTED
-                currentLoop = antisaccade_instructions
+            for thisInstruction_m2_3_2_antisaccade in instruction_m2_3_2_antisaccade:
+                instruction_m2_3_2_antisaccade.status = STARTED
+                if hasattr(thisInstruction_m2_3_2_antisaccade, 'status'):
+                    thisInstruction_m2_3_2_antisaccade.status = STARTED
+                currentLoop = instruction_m2_3_2_antisaccade
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisAntisaccade_instruction.rgb)
-                if thisAntisaccade_instruction != None:
-                    for paramName in thisAntisaccade_instruction:
-                        globals()[paramName] = thisAntisaccade_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_3_2_antisaccade.rgb)
+                if thisInstruction_m2_3_2_antisaccade != None:
+                    for paramName in thisInstruction_m2_3_2_antisaccade:
+                        globals()[paramName] = thisInstruction_m2_3_2_antisaccade[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -19826,7 +21148,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisAntisaccade_instruction, 'status') and thisAntisaccade_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_3_2_antisaccade, 'status') and thisInstruction_m2_3_2_antisaccade.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -20148,34 +21470,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                antisaccade_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_3_2_antisaccade.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   antisaccade_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   antisaccade_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_3_2_antisaccade.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_3_2_antisaccade.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   antisaccade_instructions.addData('button_next_instruction_2.timesOn', "")
-                   antisaccade_instructions.addData('button_next_instruction_2.timesOff', "")
-                antisaccade_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_3_2_antisaccade.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_3_2_antisaccade.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_3_2_antisaccade.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   antisaccade_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   antisaccade_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_3_2_antisaccade.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_3_2_antisaccade.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   antisaccade_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   antisaccade_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_3_2_antisaccade.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_3_2_antisaccade.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                antisaccade_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_3_2_antisaccade.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    antisaccade_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    antisaccade_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_3_2_antisaccade.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_3_2_antisaccade.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisAntisaccade_instruction as finished
-                if hasattr(thisAntisaccade_instruction, 'status'):
-                    thisAntisaccade_instruction.status = FINISHED
+                # mark thisInstruction_m2_3_2_antisaccade as finished
+                if hasattr(thisInstruction_m2_3_2_antisaccade, 'status'):
+                    thisInstruction_m2_3_2_antisaccade.status = FINISHED
                 # if awaiting a pause, pause now
-                if antisaccade_instructions.status == PAUSED:
+                if instruction_m2_3_2_antisaccade.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -20183,22 +21505,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    antisaccade_instructions.status = STARTED
+                    instruction_m2_3_2_antisaccade.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'antisaccade_instructions'
-            antisaccade_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m2_3_2_antisaccade'
+            instruction_m2_3_2_antisaccade.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if antisaccade_instructions.trialList in ([], [None], None):
+            if instruction_m2_3_2_antisaccade.trialList in ([], [None], None):
                 params = []
             else:
-                params = antisaccade_instructions.trialList[0].keys()
+                params = instruction_m2_3_2_antisaccade.trialList[0].keys()
             # save data for this loop
-            antisaccade_instructions.saveAsExcel(filename + '.xlsx', sheetName='antisaccade_instructions',
+            instruction_m2_3_2_antisaccade.saveAsExcel(filename + '.xlsx', sheetName='instruction_m2_3_2_antisaccade',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -20520,38 +21842,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             
             
             # set up handler to look after randomisation of conditions etc
-            saccade_and_antisaccade_instructions = data.TrialHandler2(
-                name='saccade_and_antisaccade_instructions',
+            instruction_m2_3_3_saccade_and_antisaccade = data.TrialHandler2(
+                name='instruction_m2_3_3_saccade_and_antisaccade',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx'), 
+                trialList=data.importConditions(instruction_m2_3_3_saccade_and_antisaccade), 
                 seed=None, 
             )
-            thisExp.addLoop(saccade_and_antisaccade_instructions)  # add the loop to the experiment
-            thisSaccade_and_antisaccade_instruction = saccade_and_antisaccade_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisSaccade_and_antisaccade_instruction.rgb)
-            if thisSaccade_and_antisaccade_instruction != None:
-                for paramName in thisSaccade_and_antisaccade_instruction:
-                    globals()[paramName] = thisSaccade_and_antisaccade_instruction[paramName]
+            thisExp.addLoop(instruction_m2_3_3_saccade_and_antisaccade)  # add the loop to the experiment
+            thisInstruction_m2_3_3_saccade_and_antisaccade = instruction_m2_3_3_saccade_and_antisaccade.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_3_3_saccade_and_antisaccade.rgb)
+            if thisInstruction_m2_3_3_saccade_and_antisaccade != None:
+                for paramName in thisInstruction_m2_3_3_saccade_and_antisaccade:
+                    globals()[paramName] = thisInstruction_m2_3_3_saccade_and_antisaccade[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisSaccade_and_antisaccade_instruction in saccade_and_antisaccade_instructions:
-                saccade_and_antisaccade_instructions.status = STARTED
-                if hasattr(thisSaccade_and_antisaccade_instruction, 'status'):
-                    thisSaccade_and_antisaccade_instruction.status = STARTED
-                currentLoop = saccade_and_antisaccade_instructions
+            for thisInstruction_m2_3_3_saccade_and_antisaccade in instruction_m2_3_3_saccade_and_antisaccade:
+                instruction_m2_3_3_saccade_and_antisaccade.status = STARTED
+                if hasattr(thisInstruction_m2_3_3_saccade_and_antisaccade, 'status'):
+                    thisInstruction_m2_3_3_saccade_and_antisaccade.status = STARTED
+                currentLoop = instruction_m2_3_3_saccade_and_antisaccade
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisSaccade_and_antisaccade_instruction.rgb)
-                if thisSaccade_and_antisaccade_instruction != None:
-                    for paramName in thisSaccade_and_antisaccade_instruction:
-                        globals()[paramName] = thisSaccade_and_antisaccade_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_3_3_saccade_and_antisaccade.rgb)
+                if thisInstruction_m2_3_3_saccade_and_antisaccade != None:
+                    for paramName in thisInstruction_m2_3_3_saccade_and_antisaccade:
+                        globals()[paramName] = thisInstruction_m2_3_3_saccade_and_antisaccade[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -20625,7 +21947,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisSaccade_and_antisaccade_instruction, 'status') and thisSaccade_and_antisaccade_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_3_3_saccade_and_antisaccade, 'status') and thisInstruction_m2_3_3_saccade_and_antisaccade.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -20947,34 +22269,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                saccade_and_antisaccade_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_3_3_saccade_and_antisaccade.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   saccade_and_antisaccade_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   saccade_and_antisaccade_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   saccade_and_antisaccade_instructions.addData('button_next_instruction_2.timesOn', "")
-                   saccade_and_antisaccade_instructions.addData('button_next_instruction_2.timesOff', "")
-                saccade_and_antisaccade_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_3_3_saccade_and_antisaccade.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   saccade_and_antisaccade_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   saccade_and_antisaccade_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   saccade_and_antisaccade_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   saccade_and_antisaccade_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_3_3_saccade_and_antisaccade.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                saccade_and_antisaccade_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_3_3_saccade_and_antisaccade.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    saccade_and_antisaccade_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    saccade_and_antisaccade_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_3_3_saccade_and_antisaccade.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_3_3_saccade_and_antisaccade.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisSaccade_and_antisaccade_instruction as finished
-                if hasattr(thisSaccade_and_antisaccade_instruction, 'status'):
-                    thisSaccade_and_antisaccade_instruction.status = FINISHED
+                # mark thisInstruction_m2_3_3_saccade_and_antisaccade as finished
+                if hasattr(thisInstruction_m2_3_3_saccade_and_antisaccade, 'status'):
+                    thisInstruction_m2_3_3_saccade_and_antisaccade.status = FINISHED
                 # if awaiting a pause, pause now
-                if saccade_and_antisaccade_instructions.status == PAUSED:
+                if instruction_m2_3_3_saccade_and_antisaccade.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -20982,22 +22304,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    saccade_and_antisaccade_instructions.status = STARTED
+                    instruction_m2_3_3_saccade_and_antisaccade.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'saccade_and_antisaccade_instructions'
-            saccade_and_antisaccade_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m2_3_3_saccade_and_antisaccade'
+            instruction_m2_3_3_saccade_and_antisaccade.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if saccade_and_antisaccade_instructions.trialList in ([], [None], None):
+            if instruction_m2_3_3_saccade_and_antisaccade.trialList in ([], [None], None):
                 params = []
             else:
-                params = saccade_and_antisaccade_instructions.trialList[0].keys()
+                params = instruction_m2_3_3_saccade_and_antisaccade.trialList[0].keys()
             # save data for this loop
-            saccade_and_antisaccade_instructions.saveAsExcel(filename + '.xlsx', sheetName='saccade_and_antisaccade_instructions',
+            instruction_m2_3_3_saccade_and_antisaccade.saveAsExcel(filename + '.xlsx', sheetName='instruction_m2_3_3_saccade_and_antisaccade',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -21383,32 +22705,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_4[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            smooth_pursuit_instructions = data.TrialHandler2(
-                name='smooth_pursuit_instructions',
+            instruction_m2_4_smooth_pursuit = data.TrialHandler2(
+                name='instruction_m2_4_smooth_pursuit',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]4.SMOOTH_PURSUIT.xlsx'), 
+                trialList=data.importConditions(instruction_m2_4_smooth_pursuit), 
                 seed=None, 
             )
-            thisExp.addLoop(smooth_pursuit_instructions)  # add the loop to the experiment
-            thisSmooth_pursuit_instruction = smooth_pursuit_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisSmooth_pursuit_instruction.rgb)
-            if thisSmooth_pursuit_instruction != None:
-                for paramName in thisSmooth_pursuit_instruction:
-                    globals()[paramName] = thisSmooth_pursuit_instruction[paramName]
+            thisExp.addLoop(instruction_m2_4_smooth_pursuit)  # add the loop to the experiment
+            thisInstruction_m2_4_smooth_pursuit = instruction_m2_4_smooth_pursuit.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_4_smooth_pursuit.rgb)
+            if thisInstruction_m2_4_smooth_pursuit != None:
+                for paramName in thisInstruction_m2_4_smooth_pursuit:
+                    globals()[paramName] = thisInstruction_m2_4_smooth_pursuit[paramName]
             
-            for thisSmooth_pursuit_instruction in smooth_pursuit_instructions:
-                smooth_pursuit_instructions.status = STARTED
-                if hasattr(thisSmooth_pursuit_instruction, 'status'):
-                    thisSmooth_pursuit_instruction.status = STARTED
-                currentLoop = smooth_pursuit_instructions
+            for thisInstruction_m2_4_smooth_pursuit in instruction_m2_4_smooth_pursuit:
+                instruction_m2_4_smooth_pursuit.status = STARTED
+                if hasattr(thisInstruction_m2_4_smooth_pursuit, 'status'):
+                    thisInstruction_m2_4_smooth_pursuit.status = STARTED
+                currentLoop = instruction_m2_4_smooth_pursuit
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisSmooth_pursuit_instruction.rgb)
-                if thisSmooth_pursuit_instruction != None:
-                    for paramName in thisSmooth_pursuit_instruction:
-                        globals()[paramName] = thisSmooth_pursuit_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_4_smooth_pursuit.rgb)
+                if thisInstruction_m2_4_smooth_pursuit != None:
+                    for paramName in thisInstruction_m2_4_smooth_pursuit:
+                        globals()[paramName] = thisInstruction_m2_4_smooth_pursuit[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -21482,7 +22804,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisSmooth_pursuit_instruction, 'status') and thisSmooth_pursuit_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_4_smooth_pursuit, 'status') and thisInstruction_m2_4_smooth_pursuit.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -21804,34 +23126,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                smooth_pursuit_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_4_smooth_pursuit.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_4_smooth_pursuit.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_4_smooth_pursuit.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOn', "")
-                   smooth_pursuit_instructions.addData('button_next_instruction_2.timesOff', "")
-                smooth_pursuit_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_4_smooth_pursuit.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_4_smooth_pursuit.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_4_smooth_pursuit.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_4_smooth_pursuit.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_4_smooth_pursuit.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   smooth_pursuit_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_4_smooth_pursuit.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_4_smooth_pursuit.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                smooth_pursuit_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_4_smooth_pursuit.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    smooth_pursuit_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    smooth_pursuit_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_4_smooth_pursuit.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_4_smooth_pursuit.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisSmooth_pursuit_instruction as finished
-                if hasattr(thisSmooth_pursuit_instruction, 'status'):
-                    thisSmooth_pursuit_instruction.status = FINISHED
+                # mark thisInstruction_m2_4_smooth_pursuit as finished
+                if hasattr(thisInstruction_m2_4_smooth_pursuit, 'status'):
+                    thisInstruction_m2_4_smooth_pursuit.status = FINISHED
                 # if awaiting a pause, pause now
-                if smooth_pursuit_instructions.status == PAUSED:
+                if instruction_m2_4_smooth_pursuit.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -21839,9 +23161,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    smooth_pursuit_instructions.status = STARTED
-            # completed 1.0 repeats of 'smooth_pursuit_instructions'
-            smooth_pursuit_instructions.status = FINISHED
+                    instruction_m2_4_smooth_pursuit.status = STARTED
+            # completed 1.0 repeats of 'instruction_m2_4_smooth_pursuit'
+            instruction_m2_4_smooth_pursuit.status = FINISHED
             
             
             # --- Prepare to start Routine "SMOOTH_PURSUIT" ---
@@ -22166,32 +23488,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_5[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            visual_search_instructions = data.TrialHandler2(
-                name='visual_search_instructions',
+            instruction_m2_5_static_visual_search = data.TrialHandler2(
+                name='instruction_m2_5_static_visual_search',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]5.STATIC_VISUAL_SEARCH.xlsx'), 
+                trialList=data.importConditions(instruction_m2_5_static_visual_search), 
                 seed=None, 
             )
-            thisExp.addLoop(visual_search_instructions)  # add the loop to the experiment
-            thisVisual_search_instruction = visual_search_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisVisual_search_instruction.rgb)
-            if thisVisual_search_instruction != None:
-                for paramName in thisVisual_search_instruction:
-                    globals()[paramName] = thisVisual_search_instruction[paramName]
+            thisExp.addLoop(instruction_m2_5_static_visual_search)  # add the loop to the experiment
+            thisInstruction_m2_5_static_visual_search = instruction_m2_5_static_visual_search.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_5_static_visual_search.rgb)
+            if thisInstruction_m2_5_static_visual_search != None:
+                for paramName in thisInstruction_m2_5_static_visual_search:
+                    globals()[paramName] = thisInstruction_m2_5_static_visual_search[paramName]
             
-            for thisVisual_search_instruction in visual_search_instructions:
-                visual_search_instructions.status = STARTED
-                if hasattr(thisVisual_search_instruction, 'status'):
-                    thisVisual_search_instruction.status = STARTED
-                currentLoop = visual_search_instructions
+            for thisInstruction_m2_5_static_visual_search in instruction_m2_5_static_visual_search:
+                instruction_m2_5_static_visual_search.status = STARTED
+                if hasattr(thisInstruction_m2_5_static_visual_search, 'status'):
+                    thisInstruction_m2_5_static_visual_search.status = STARTED
+                currentLoop = instruction_m2_5_static_visual_search
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisVisual_search_instruction.rgb)
-                if thisVisual_search_instruction != None:
-                    for paramName in thisVisual_search_instruction:
-                        globals()[paramName] = thisVisual_search_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_5_static_visual_search.rgb)
+                if thisInstruction_m2_5_static_visual_search != None:
+                    for paramName in thisInstruction_m2_5_static_visual_search:
+                        globals()[paramName] = thisInstruction_m2_5_static_visual_search[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -22265,7 +23587,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisVisual_search_instruction, 'status') and thisVisual_search_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_5_static_visual_search, 'status') and thisInstruction_m2_5_static_visual_search.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -22587,34 +23909,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                visual_search_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_5_static_visual_search.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   visual_search_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   visual_search_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_5_static_visual_search.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_5_static_visual_search.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   visual_search_instructions.addData('button_next_instruction_2.timesOn', "")
-                   visual_search_instructions.addData('button_next_instruction_2.timesOff', "")
-                visual_search_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_5_static_visual_search.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_5_static_visual_search.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_5_static_visual_search.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   visual_search_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   visual_search_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_5_static_visual_search.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_5_static_visual_search.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   visual_search_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   visual_search_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_5_static_visual_search.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_5_static_visual_search.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                visual_search_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_5_static_visual_search.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    visual_search_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    visual_search_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_5_static_visual_search.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_5_static_visual_search.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisVisual_search_instruction as finished
-                if hasattr(thisVisual_search_instruction, 'status'):
-                    thisVisual_search_instruction.status = FINISHED
+                # mark thisInstruction_m2_5_static_visual_search as finished
+                if hasattr(thisInstruction_m2_5_static_visual_search, 'status'):
+                    thisInstruction_m2_5_static_visual_search.status = FINISHED
                 # if awaiting a pause, pause now
-                if visual_search_instructions.status == PAUSED:
+                if instruction_m2_5_static_visual_search.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -22622,9 +23944,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    visual_search_instructions.status = STARTED
-            # completed 1.0 repeats of 'visual_search_instructions'
-            visual_search_instructions.status = FINISHED
+                    instruction_m2_5_static_visual_search.status = STARTED
+            # completed 1.0 repeats of 'instruction_m2_5_static_visual_search'
+            instruction_m2_5_static_visual_search.status = FINISHED
             
             
             # set up handler to look after randomisation of conditions etc
@@ -23026,38 +24348,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_2_TEST_6[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            dynamic_visual_search_instructions = data.TrialHandler2(
-                name='dynamic_visual_search_instructions',
+            instruction_m2_6_dynamic_visual_search = data.TrialHandler2(
+                name='instruction_m2_6_dynamic_visual_search',
                 nReps=1.0, 
                 method='random', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_2/[ES]6.DYNAMIC_VISUAL_SEARCH.xlsx'), 
+                trialList=data.importConditions(instruction_m2_6_dynamic_visual_search), 
                 seed=None, 
             )
-            thisExp.addLoop(dynamic_visual_search_instructions)  # add the loop to the experiment
-            thisDynamic_visual_search_instruction = dynamic_visual_search_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisDynamic_visual_search_instruction.rgb)
-            if thisDynamic_visual_search_instruction != None:
-                for paramName in thisDynamic_visual_search_instruction:
-                    globals()[paramName] = thisDynamic_visual_search_instruction[paramName]
+            thisExp.addLoop(instruction_m2_6_dynamic_visual_search)  # add the loop to the experiment
+            thisInstruction_m2_6_dynamic_visual_search = instruction_m2_6_dynamic_visual_search.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_6_dynamic_visual_search.rgb)
+            if thisInstruction_m2_6_dynamic_visual_search != None:
+                for paramName in thisInstruction_m2_6_dynamic_visual_search:
+                    globals()[paramName] = thisInstruction_m2_6_dynamic_visual_search[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisDynamic_visual_search_instruction in dynamic_visual_search_instructions:
-                dynamic_visual_search_instructions.status = STARTED
-                if hasattr(thisDynamic_visual_search_instruction, 'status'):
-                    thisDynamic_visual_search_instruction.status = STARTED
-                currentLoop = dynamic_visual_search_instructions
+            for thisInstruction_m2_6_dynamic_visual_search in instruction_m2_6_dynamic_visual_search:
+                instruction_m2_6_dynamic_visual_search.status = STARTED
+                if hasattr(thisInstruction_m2_6_dynamic_visual_search, 'status'):
+                    thisInstruction_m2_6_dynamic_visual_search.status = STARTED
+                currentLoop = instruction_m2_6_dynamic_visual_search
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisDynamic_visual_search_instruction.rgb)
-                if thisDynamic_visual_search_instruction != None:
-                    for paramName in thisDynamic_visual_search_instruction:
-                        globals()[paramName] = thisDynamic_visual_search_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m2_6_dynamic_visual_search.rgb)
+                if thisInstruction_m2_6_dynamic_visual_search != None:
+                    for paramName in thisInstruction_m2_6_dynamic_visual_search:
+                        globals()[paramName] = thisInstruction_m2_6_dynamic_visual_search[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -23131,7 +24453,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisDynamic_visual_search_instruction, 'status') and thisDynamic_visual_search_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m2_6_dynamic_visual_search, 'status') and thisInstruction_m2_6_dynamic_visual_search.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -23453,34 +24775,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                dynamic_visual_search_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m2_6_dynamic_visual_search.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   dynamic_visual_search_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   dynamic_visual_search_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m2_6_dynamic_visual_search.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m2_6_dynamic_visual_search.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   dynamic_visual_search_instructions.addData('button_next_instruction_2.timesOn', "")
-                   dynamic_visual_search_instructions.addData('button_next_instruction_2.timesOff', "")
-                dynamic_visual_search_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m2_6_dynamic_visual_search.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m2_6_dynamic_visual_search.addData('button_next_instruction_2.timesOff', "")
+                instruction_m2_6_dynamic_visual_search.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   dynamic_visual_search_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   dynamic_visual_search_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m2_6_dynamic_visual_search.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m2_6_dynamic_visual_search.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   dynamic_visual_search_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   dynamic_visual_search_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m2_6_dynamic_visual_search.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m2_6_dynamic_visual_search.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                dynamic_visual_search_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m2_6_dynamic_visual_search.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    dynamic_visual_search_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    dynamic_visual_search_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m2_6_dynamic_visual_search.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m2_6_dynamic_visual_search.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisDynamic_visual_search_instruction as finished
-                if hasattr(thisDynamic_visual_search_instruction, 'status'):
-                    thisDynamic_visual_search_instruction.status = FINISHED
+                # mark thisInstruction_m2_6_dynamic_visual_search as finished
+                if hasattr(thisInstruction_m2_6_dynamic_visual_search, 'status'):
+                    thisInstruction_m2_6_dynamic_visual_search.status = FINISHED
                 # if awaiting a pause, pause now
-                if dynamic_visual_search_instructions.status == PAUSED:
+                if instruction_m2_6_dynamic_visual_search.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -23488,22 +24810,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    dynamic_visual_search_instructions.status = STARTED
+                    instruction_m2_6_dynamic_visual_search.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'dynamic_visual_search_instructions'
-            dynamic_visual_search_instructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m2_6_dynamic_visual_search'
+            instruction_m2_6_dynamic_visual_search.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if dynamic_visual_search_instructions.trialList in ([], [None], None):
+            if instruction_m2_6_dynamic_visual_search.trialList in ([], [None], None):
                 params = []
             else:
-                params = dynamic_visual_search_instructions.trialList[0].keys()
+                params = instruction_m2_6_dynamic_visual_search.trialList[0].keys()
             # save data for this loop
-            dynamic_visual_search_instructions.saveAsExcel(filename + '.xlsx', sheetName='dynamic_visual_search_instructions',
+            instruction_m2_6_dynamic_visual_search.saveAsExcel(filename + '.xlsx', sheetName='instruction_m2_6_dynamic_visual_search',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -23851,32 +25173,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_3_TEST_1[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            pupilometry_instructions = data.TrialHandler2(
-                name='pupilometry_instructions',
+            instruction_m3_pupillometry = data.TrialHandler2(
+                name='instruction_m3_pupillometry',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_3/[ES]1.PUPILLOMETRY.xlsx'), 
+                trialList=data.importConditions(instruction_m3_pupillometry), 
                 seed=None, 
             )
-            thisExp.addLoop(pupilometry_instructions)  # add the loop to the experiment
-            thisPupilometry_instruction = pupilometry_instructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisPupilometry_instruction.rgb)
-            if thisPupilometry_instruction != None:
-                for paramName in thisPupilometry_instruction:
-                    globals()[paramName] = thisPupilometry_instruction[paramName]
+            thisExp.addLoop(instruction_m3_pupillometry)  # add the loop to the experiment
+            thisInstruction_m3_pupillometry = instruction_m3_pupillometry.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m3_pupillometry.rgb)
+            if thisInstruction_m3_pupillometry != None:
+                for paramName in thisInstruction_m3_pupillometry:
+                    globals()[paramName] = thisInstruction_m3_pupillometry[paramName]
             
-            for thisPupilometry_instruction in pupilometry_instructions:
-                pupilometry_instructions.status = STARTED
-                if hasattr(thisPupilometry_instruction, 'status'):
-                    thisPupilometry_instruction.status = STARTED
-                currentLoop = pupilometry_instructions
+            for thisInstruction_m3_pupillometry in instruction_m3_pupillometry:
+                instruction_m3_pupillometry.status = STARTED
+                if hasattr(thisInstruction_m3_pupillometry, 'status'):
+                    thisInstruction_m3_pupillometry.status = STARTED
+                currentLoop = instruction_m3_pupillometry
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                # abbreviate parameter names if possible (e.g. rgb = thisPupilometry_instruction.rgb)
-                if thisPupilometry_instruction != None:
-                    for paramName in thisPupilometry_instruction:
-                        globals()[paramName] = thisPupilometry_instruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m3_pupillometry.rgb)
+                if thisInstruction_m3_pupillometry != None:
+                    for paramName in thisInstruction_m3_pupillometry:
+                        globals()[paramName] = thisInstruction_m3_pupillometry[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -23950,7 +25272,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisPupilometry_instruction, 'status') and thisPupilometry_instruction.status == STOPPING:
+                    if hasattr(thisInstruction_m3_pupillometry, 'status') and thisInstruction_m3_pupillometry.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -24272,34 +25594,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                pupilometry_instructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m3_pupillometry.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   pupilometry_instructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   pupilometry_instructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m3_pupillometry.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m3_pupillometry.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   pupilometry_instructions.addData('button_next_instruction_2.timesOn', "")
-                   pupilometry_instructions.addData('button_next_instruction_2.timesOff', "")
-                pupilometry_instructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m3_pupillometry.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m3_pupillometry.addData('button_next_instruction_2.timesOff', "")
+                instruction_m3_pupillometry.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   pupilometry_instructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   pupilometry_instructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m3_pupillometry.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m3_pupillometry.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   pupilometry_instructions.addData('button_previous_instruction_2.timesOn', "")
-                   pupilometry_instructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m3_pupillometry.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m3_pupillometry.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                pupilometry_instructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m3_pupillometry.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    pupilometry_instructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    pupilometry_instructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m3_pupillometry.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m3_pupillometry.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisPupilometry_instruction as finished
-                if hasattr(thisPupilometry_instruction, 'status'):
-                    thisPupilometry_instruction.status = FINISHED
+                # mark thisInstruction_m3_pupillometry as finished
+                if hasattr(thisInstruction_m3_pupillometry, 'status'):
+                    thisInstruction_m3_pupillometry.status = FINISHED
                 # if awaiting a pause, pause now
-                if pupilometry_instructions.status == PAUSED:
+                if instruction_m3_pupillometry.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -24307,9 +25629,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    pupilometry_instructions.status = STARTED
-            # completed 1.0 repeats of 'pupilometry_instructions'
-            pupilometry_instructions.status = FINISHED
+                    instruction_m3_pupillometry.status = STARTED
+            # completed 1.0 repeats of 'instruction_m3_pupillometry'
+            instruction_m3_pupillometry.status = FINISHED
             
             
             # set up handler to look after randomisation of conditions etc
@@ -24741,38 +26063,38 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     globals()[paramName] = thisMODULE_3_TEST_2[paramName]
             
             # set up handler to look after randomisation of conditions etc
-            fearful_and_affective_images_insructions = data.TrialHandler2(
-                name='fearful_and_affective_images_insructions',
+            instruction_m3_fearful_affective_images = data.TrialHandler2(
+                name='instruction_m3_fearful_affective_images',
                 nReps=1.0, 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
-                trialList=data.importConditions('instructions/module_3/[ES]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx'), 
+                trialList=data.importConditions(instruction_m3_fearful_affective_images), 
                 seed=None, 
             )
-            thisExp.addLoop(fearful_and_affective_images_insructions)  # add the loop to the experiment
-            thisFearful_and_affective_images_insruction = fearful_and_affective_images_insructions.trialList[0]  # so we can initialise stimuli with some values
-            # abbreviate parameter names if possible (e.g. rgb = thisFearful_and_affective_images_insruction.rgb)
-            if thisFearful_and_affective_images_insruction != None:
-                for paramName in thisFearful_and_affective_images_insruction:
-                    globals()[paramName] = thisFearful_and_affective_images_insruction[paramName]
+            thisExp.addLoop(instruction_m3_fearful_affective_images)  # add the loop to the experiment
+            thisInstruction_m3_fearful_affective_image = instruction_m3_fearful_affective_images.trialList[0]  # so we can initialise stimuli with some values
+            # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m3_fearful_affective_image.rgb)
+            if thisInstruction_m3_fearful_affective_image != None:
+                for paramName in thisInstruction_m3_fearful_affective_image:
+                    globals()[paramName] = thisInstruction_m3_fearful_affective_image[paramName]
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            for thisFearful_and_affective_images_insruction in fearful_and_affective_images_insructions:
-                fearful_and_affective_images_insructions.status = STARTED
-                if hasattr(thisFearful_and_affective_images_insruction, 'status'):
-                    thisFearful_and_affective_images_insruction.status = STARTED
-                currentLoop = fearful_and_affective_images_insructions
+            for thisInstruction_m3_fearful_affective_image in instruction_m3_fearful_affective_images:
+                instruction_m3_fearful_affective_images.status = STARTED
+                if hasattr(thisInstruction_m3_fearful_affective_image, 'status'):
+                    thisInstruction_m3_fearful_affective_image.status = STARTED
+                currentLoop = instruction_m3_fearful_affective_images
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
                 if thisSession is not None:
                     # if running in a Session with a Liaison client, send data up to now
                     thisSession.sendExperimentData()
-                # abbreviate parameter names if possible (e.g. rgb = thisFearful_and_affective_images_insruction.rgb)
-                if thisFearful_and_affective_images_insruction != None:
-                    for paramName in thisFearful_and_affective_images_insruction:
-                        globals()[paramName] = thisFearful_and_affective_images_insruction[paramName]
+                # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m3_fearful_affective_image.rgb)
+                if thisInstruction_m3_fearful_affective_image != None:
+                    for paramName in thisInstruction_m3_fearful_affective_image:
+                        globals()[paramName] = thisInstruction_m3_fearful_affective_image[paramName]
                 
                 # --- Prepare to start Routine "INSTRUCTIONS" ---
                 # create an object to store info about Routine INSTRUCTIONS
@@ -24846,7 +26168,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
                 while continueRoutine:
                     # if trial has changed, end Routine now
-                    if hasattr(thisFearful_and_affective_images_insruction, 'status') and thisFearful_and_affective_images_insruction.status == STOPPING:
+                    if hasattr(thisInstruction_m3_fearful_affective_image, 'status') and thisInstruction_m3_fearful_affective_image.status == STOPPING:
                         continueRoutine = False
                     # get current time
                     t = routineTimer.getTime()
@@ -25168,34 +26490,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                 INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-                fearful_and_affective_images_insructions.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+                instruction_m3_fearful_affective_images.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                 if button_next_instruction_2.numClicks:
-                   fearful_and_affective_images_insructions.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-                   fearful_and_affective_images_insructions.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+                   instruction_m3_fearful_affective_images.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+                   instruction_m3_fearful_affective_images.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
                 else:
-                   fearful_and_affective_images_insructions.addData('button_next_instruction_2.timesOn', "")
-                   fearful_and_affective_images_insructions.addData('button_next_instruction_2.timesOff', "")
-                fearful_and_affective_images_insructions.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+                   instruction_m3_fearful_affective_images.addData('button_next_instruction_2.timesOn', "")
+                   instruction_m3_fearful_affective_images.addData('button_next_instruction_2.timesOff', "")
+                instruction_m3_fearful_affective_images.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
                 if button_previous_instruction_2.numClicks:
-                   fearful_and_affective_images_insructions.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-                   fearful_and_affective_images_insructions.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+                   instruction_m3_fearful_affective_images.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+                   instruction_m3_fearful_affective_images.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
                 else:
-                   fearful_and_affective_images_insructions.addData('button_previous_instruction_2.timesOn', "")
-                   fearful_and_affective_images_insructions.addData('button_previous_instruction_2.timesOff', "")
+                   instruction_m3_fearful_affective_images.addData('button_previous_instruction_2.timesOn', "")
+                   instruction_m3_fearful_affective_images.addData('button_previous_instruction_2.timesOff', "")
                 # check responses
                 if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
                     key_resp_skip_instructions_2.keys = None
-                fearful_and_affective_images_insructions.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+                instruction_m3_fearful_affective_images.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
                 if key_resp_skip_instructions_2.keys != None:  # we had a response
-                    fearful_and_affective_images_insructions.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-                    fearful_and_affective_images_insructions.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+                    instruction_m3_fearful_affective_images.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+                    instruction_m3_fearful_affective_images.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
                 # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
-                # mark thisFearful_and_affective_images_insruction as finished
-                if hasattr(thisFearful_and_affective_images_insruction, 'status'):
-                    thisFearful_and_affective_images_insruction.status = FINISHED
+                # mark thisInstruction_m3_fearful_affective_image as finished
+                if hasattr(thisInstruction_m3_fearful_affective_image, 'status'):
+                    thisInstruction_m3_fearful_affective_image.status = FINISHED
                 # if awaiting a pause, pause now
-                if fearful_and_affective_images_insructions.status == PAUSED:
+                if instruction_m3_fearful_affective_images.status == PAUSED:
                     thisExp.status = PAUSED
                     pauseExperiment(
                         thisExp=thisExp, 
@@ -25203,22 +26525,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         timers=[globalClock], 
                     )
                     # once done pausing, restore running status
-                    fearful_and_affective_images_insructions.status = STARTED
+                    instruction_m3_fearful_affective_images.status = STARTED
                 thisExp.nextEntry()
                 
-            # completed 1.0 repeats of 'fearful_and_affective_images_insructions'
-            fearful_and_affective_images_insructions.status = FINISHED
+            # completed 1.0 repeats of 'instruction_m3_fearful_affective_images'
+            instruction_m3_fearful_affective_images.status = FINISHED
             
             if thisSession is not None:
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             # get names of stimulus parameters
-            if fearful_and_affective_images_insructions.trialList in ([], [None], None):
+            if instruction_m3_fearful_affective_images.trialList in ([], [None], None):
                 params = []
             else:
-                params = fearful_and_affective_images_insructions.trialList[0].keys()
+                params = instruction_m3_fearful_affective_images.trialList[0].keys()
             # save data for this loop
-            fearful_and_affective_images_insructions.saveAsExcel(filename + '.xlsx', sheetName='fearful_and_affective_images_insructions',
+            instruction_m3_fearful_affective_images.saveAsExcel(filename + '.xlsx', sheetName='instruction_m3_fearful_affective_images',
                 stimOut=params,
                 dataOut=['n','all_mean','all_std', 'all_raw'])
             
@@ -25535,32 +26857,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     
     # set up handler to look after randomisation of conditions etc
-    END_OF_EXPERIMENT = data.TrialHandler2(
-        name='END_OF_EXPERIMENT',
+    instruction_end_of_experiment = data.TrialHandler2(
+        name='instruction_end_of_experiment',
         nReps=1.0, 
         method='random', 
         extraInfo=expInfo, 
         originPath=-1, 
-        trialList=data.importConditions('instructions/[ES]END_OF_EXPERIMENT.xlsx'), 
+        trialList=data.importConditions(instruction_end_of_experiment), 
         seed=None, 
     )
-    thisExp.addLoop(END_OF_EXPERIMENT)  # add the loop to the experiment
-    thisEND_OF_EXPERIMENT = END_OF_EXPERIMENT.trialList[0]  # so we can initialise stimuli with some values
-    # abbreviate parameter names if possible (e.g. rgb = thisEND_OF_EXPERIMENT.rgb)
-    if thisEND_OF_EXPERIMENT != None:
-        for paramName in thisEND_OF_EXPERIMENT:
-            globals()[paramName] = thisEND_OF_EXPERIMENT[paramName]
+    thisExp.addLoop(instruction_end_of_experiment)  # add the loop to the experiment
+    thisInstruction_end_of_experiment = instruction_end_of_experiment.trialList[0]  # so we can initialise stimuli with some values
+    # abbreviate parameter names if possible (e.g. rgb = thisInstruction_end_of_experiment.rgb)
+    if thisInstruction_end_of_experiment != None:
+        for paramName in thisInstruction_end_of_experiment:
+            globals()[paramName] = thisInstruction_end_of_experiment[paramName]
     
-    for thisEND_OF_EXPERIMENT in END_OF_EXPERIMENT:
-        END_OF_EXPERIMENT.status = STARTED
-        if hasattr(thisEND_OF_EXPERIMENT, 'status'):
-            thisEND_OF_EXPERIMENT.status = STARTED
-        currentLoop = END_OF_EXPERIMENT
+    for thisInstruction_end_of_experiment in instruction_end_of_experiment:
+        instruction_end_of_experiment.status = STARTED
+        if hasattr(thisInstruction_end_of_experiment, 'status'):
+            thisInstruction_end_of_experiment.status = STARTED
+        currentLoop = instruction_end_of_experiment
         thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-        # abbreviate parameter names if possible (e.g. rgb = thisEND_OF_EXPERIMENT.rgb)
-        if thisEND_OF_EXPERIMENT != None:
-            for paramName in thisEND_OF_EXPERIMENT:
-                globals()[paramName] = thisEND_OF_EXPERIMENT[paramName]
+        # abbreviate parameter names if possible (e.g. rgb = thisInstruction_end_of_experiment.rgb)
+        if thisInstruction_end_of_experiment != None:
+            for paramName in thisInstruction_end_of_experiment:
+                globals()[paramName] = thisInstruction_end_of_experiment[paramName]
         
         # --- Prepare to start Routine "INSTRUCTIONS" ---
         # create an object to store info about Routine INSTRUCTIONS
@@ -25634,7 +26956,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         INSTRUCTIONS.forceEnded = routineForceEnded = not continueRoutine
         while continueRoutine:
             # if trial has changed, end Routine now
-            if hasattr(thisEND_OF_EXPERIMENT, 'status') and thisEND_OF_EXPERIMENT.status == STOPPING:
+            if hasattr(thisInstruction_end_of_experiment, 'status') and thisInstruction_end_of_experiment.status == STOPPING:
                 continueRoutine = False
             # get current time
             t = routineTimer.getTime()
@@ -25956,34 +27278,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         INSTRUCTIONS.tStop = globalClock.getTime(format='float')
         INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
         thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
-        END_OF_EXPERIMENT.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
+        instruction_end_of_experiment.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
         if button_next_instruction_2.numClicks:
-           END_OF_EXPERIMENT.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
-           END_OF_EXPERIMENT.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
+           instruction_end_of_experiment.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
+           instruction_end_of_experiment.addData('button_next_instruction_2.timesOff', button_next_instruction_2.timesOff)
         else:
-           END_OF_EXPERIMENT.addData('button_next_instruction_2.timesOn', "")
-           END_OF_EXPERIMENT.addData('button_next_instruction_2.timesOff', "")
-        END_OF_EXPERIMENT.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
+           instruction_end_of_experiment.addData('button_next_instruction_2.timesOn', "")
+           instruction_end_of_experiment.addData('button_next_instruction_2.timesOff', "")
+        instruction_end_of_experiment.addData('button_previous_instruction_2.numClicks', button_previous_instruction_2.numClicks)
         if button_previous_instruction_2.numClicks:
-           END_OF_EXPERIMENT.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
-           END_OF_EXPERIMENT.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
+           instruction_end_of_experiment.addData('button_previous_instruction_2.timesOn', button_previous_instruction_2.timesOn)
+           instruction_end_of_experiment.addData('button_previous_instruction_2.timesOff', button_previous_instruction_2.timesOff)
         else:
-           END_OF_EXPERIMENT.addData('button_previous_instruction_2.timesOn', "")
-           END_OF_EXPERIMENT.addData('button_previous_instruction_2.timesOff', "")
+           instruction_end_of_experiment.addData('button_previous_instruction_2.timesOn', "")
+           instruction_end_of_experiment.addData('button_previous_instruction_2.timesOff', "")
         # check responses
         if key_resp_skip_instructions_2.keys in ['', [], None]:  # No response was made
             key_resp_skip_instructions_2.keys = None
-        END_OF_EXPERIMENT.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
+        instruction_end_of_experiment.addData('key_resp_skip_instructions_2.keys',key_resp_skip_instructions_2.keys)
         if key_resp_skip_instructions_2.keys != None:  # we had a response
-            END_OF_EXPERIMENT.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
-            END_OF_EXPERIMENT.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
+            instruction_end_of_experiment.addData('key_resp_skip_instructions_2.rt', key_resp_skip_instructions_2.rt)
+            instruction_end_of_experiment.addData('key_resp_skip_instructions_2.duration', key_resp_skip_instructions_2.duration)
         # the Routine "INSTRUCTIONS" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-        # mark thisEND_OF_EXPERIMENT as finished
-        if hasattr(thisEND_OF_EXPERIMENT, 'status'):
-            thisEND_OF_EXPERIMENT.status = FINISHED
+        # mark thisInstruction_end_of_experiment as finished
+        if hasattr(thisInstruction_end_of_experiment, 'status'):
+            thisInstruction_end_of_experiment.status = FINISHED
         # if awaiting a pause, pause now
-        if END_OF_EXPERIMENT.status == PAUSED:
+        if instruction_end_of_experiment.status == PAUSED:
             thisExp.status = PAUSED
             pauseExperiment(
                 thisExp=thisExp, 
@@ -25991,9 +27313,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 timers=[globalClock], 
             )
             # once done pausing, restore running status
-            END_OF_EXPERIMENT.status = STARTED
-    # completed 1.0 repeats of 'END_OF_EXPERIMENT'
-    END_OF_EXPERIMENT.status = FINISHED
+            instruction_end_of_experiment.status = STARTED
+    # completed 1.0 repeats of 'instruction_end_of_experiment'
+    instruction_end_of_experiment.status = FINISHED
     
     # Run 'End Experiment' code from GLOBAL_VARIABLES_AND_FUNCTIONS
     #staircase_data_filename = f"./data/{expInfo['participant']}/sf_staircase_data_{expInfo['participant']}.csv"
