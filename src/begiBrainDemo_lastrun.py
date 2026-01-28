@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on enero 20, 2026, at 11:04
+    on enero 28, 2026, at 10:53
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -23193,6 +23193,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 dots_2.setAutoDraw(False)
                 dots_2.opacity = 0
             
+            # ==============================
+            # PREALLOCATED STIMULUS TRAJECTORY (SMOOTH PURSUIT)
+            # ==============================
+            
+            expected_duration = 75.0  # seconds
+            fps = win.getActualFrameRate()
+            
+            if fps is None:
+                fps = 60.0  # fallback seguro
+            
+            max_frames = int(expected_duration * fps) + 5
+            
+            # [time, x, y]
+            stim_traj = np.empty((max_frames, 3), dtype=np.float32)
+            
+            stim_frame_idx = 0
             # create starting attributes for key_resp_25
             key_resp_25.keys = []
             key_resp_25.rt = []
@@ -23280,7 +23296,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     current_angle, frame_count = move_dot_smooth(dot_2, dot_speed, field_size, current_angle, frames_in_direction, frame_count)
                     
                     if noise_coherent_motion: # Move noise with stimuli
-                        if frame_count % frames_in_direction*5 == 0: # each 100 frames change angle
+                        #if frame_count % frames_in_direction*5 == 0: # each 100 frames change angle
+                        if frame_count % (frames_in_direction * 5) == 0:
                             desvio = random.uniform(-20, 20)
                         noise_dots_direction = math.degrees(current_angle) + desvio
                 
@@ -23345,6 +23362,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         #noise_dots_direction = 0
                     elif t>75:
                         continueRoutine = False
+                
+                # ==============================
+                # REGISTER STIMULUS POSITION (FAST)
+                # ==============================
+                
+                t_now = globalClock.getTime()
+                x, y = dot_2.pos
+                
+                stim_traj[stim_frame_idx, 0] = t_now
+                stim_traj[stim_frame_idx, 1] = x
+                stim_traj[stim_frame_idx, 2] = y
+                
+                stim_frame_idx += 1
                 
                 # *key_resp_25* updates
                 waitOnFlip = False
@@ -23413,6 +23443,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             SMOOTH_PURSUIT.tStop = globalClock.getTime(format='float')
             SMOOTH_PURSUIT.tStopRefresh = tThisFlipGlobal
             thisExp.addData('SMOOTH_PURSUIT.stopped', SMOOTH_PURSUIT.tStop)
+            # Run 'End Routine' code from code_26
+            # ==============================
+            # TRIM UNUSED FRAMES
+            # ==============================
+            
+            stim_traj = stim_traj[:stim_frame_idx]
+            
+            # Save as numpy (recommended for offline analysis)
+            np.save("smooth_pursuit_stimulus_trajectory.npy", stim_traj)
+            
+            # Optional: also store in PsychoPy data
+            thisExp.addData(f"./data/{expInfo['participant']}/smooth_pursuit_stimulus_trajectory_frames", stim_frame_idx)
             # check responses
             if key_resp_25.keys in ['', [], None]:  # No response was made
                 key_resp_25.keys = None
