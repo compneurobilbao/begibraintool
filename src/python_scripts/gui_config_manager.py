@@ -708,6 +708,21 @@ modules = {
                 },
                 "gif_source":"C:\\Users\\akoun\\Desktop\\Biocruces\\begibraintool\\src\\images\\gui_images\\module_1_example_2_compressed.gif",
                 "config": {
+                    "defined_trajectory": {
+                        "value": True,
+                        "default": True,
+                        "type": bool,
+                        "variable_display_name": {
+                            "es": "Trayectoria Predefinida (determinista)",
+                            "en": "Predefined Trajectory (determinista)",
+                            "eu": "-"
+                        },
+                        "tooltip": {
+                            "es": "Si se habilita la opción todos los trials seguirán la misma trayectoria. Si la opción está desactivada la trayectoria será estocástica. La trayectoria se puede encontrar en CSV_protocol_config_files\module_2_test_4",
+                            "en": "If this option is enabled, all trials will follow the same trajectory. If disables trajectory will be stocastic. You can find the trajectory file in CSV_protocol_config_files\module_2_test_4",
+                            "eu": "Aukera autatuz gero, estimulua ibilbide berbera errepikatuko du saiakera guztietan."
+                        }
+                    },
                     "dot_size": {
                         "value": 0.01,
                         "default": 0.01,
@@ -860,8 +875,8 @@ modules = {
                         }
                     },
                     "background_color": {
-                        "value": "white",
-                        "default": "white",
+                        "value": "black",
+                        "default": "black",
                         "type": "color",
                         "variable_display_name": {
                             "es": "Color de fondo",

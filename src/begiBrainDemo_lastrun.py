@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on enero 28, 2026, at 10:53
+    on febrero 02, 2026, at 12:05
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -23192,10 +23192,31 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if not enable_noise_dots:
                 dots_2.setAutoDraw(False)
                 dots_2.opacity = 0
+                
+            
+            
+            # ==============================
+            # LOAD DEFINED STIMULUS TRAJECTORY
+            # ==============================
+            USE_DEFINED_TRAJECTORY = True
+            
+            if USE_DEFINED_TRAJECTORY:
+                defined_traj_path = r".\CSV_protocol_config_files\module_2_test_4\smooth_pursuit_stimulus_trajectory_FRAMES.npy"
+                loaded_traj = np.load(defined_traj_path)
+            
+                # Expect shape: [n_frames, 3] -> time, x, y
+                defined_xy = loaded_traj[:, 1:3].astype(np.float32)
+            
+                defined_traj_len = defined_xy.shape[0]
+            
+                # Safety: start at first point
+                stim_frame_idx = 0
+                
             
             # ==============================
             # PREALLOCATED STIMULUS TRAJECTORY (SMOOTH PURSUIT)
             # ==============================
+            # Allocate memory to save the trajectory
             
             expected_duration = 75.0  # seconds
             fps = win.getActualFrameRate()
@@ -23203,7 +23224,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if fps is None:
                 fps = 60.0  # fallback seguro
             
-            max_frames = int(expected_duration * fps) + 5
+            max_frames = int(expected_duration * fps * 1.2)
             
             # [time, x, y]
             stim_traj = np.empty((max_frames, 3), dtype=np.float32)
@@ -23284,9 +23305,37 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update params
                     pass
                 # Run 'Each Frame' code from code_26
-                # Dentro del bucle de cada frame
+                USE_DEFINED_TRAJECTORY = modules["module_2"]["tests"]["test_4"]["config"]["defined_trajectory"]["value"]
                 
-                if mode == 1: # movimiento random del estimulo. Cuando cambia la coherencia del ruido el estimulo se mantiene igual
+                # LOADED TRAJECTORY:
+                if USE_DEFINED_TRAJECTORY and mode != 3: # ONLY TRAJECTORIES (DURING MODE 3 NOISE DIRECTION IS MODIFIED)
+                    if stim_frame_idx < defined_traj_len:
+                        dot_2.pos = defined_xy[stim_frame_idx]
+                    else:
+                        continueRoutine = False
+                
+                elif USE_DEFINED_TRAJECTORY and mode == 3:
+                    if stim_frame_idx < defined_traj_len:
+                        x, y = defined_xy[stim_frame_idx]
+                        dot_2.pos = (x, y)
+                        # --- Compute angle from trajectory ---
+                        if stim_frame_idx > 0:
+                            x_prev, y_prev = defined_xy[stim_frame_idx - 1]
+                            dx = x - x_prev
+                            dy = y - y_prev
+                            # Protect against zero movement
+                            if dx != 0 or dy != 0:
+                                current_angle = math.atan2(dy, dx)
+                        # --- Noise follows stimulus direction ---
+                        if noise_coherent_motion:
+                            if frame_count % (frames_in_direction * 5) == 0:
+                                desvio = random.uniform(-20, 20)
+                            noise_dots_direction = math.degrees(current_angle) + desvio
+                    else:
+                        continueRoutine = False
+                
+                # RANDOM TRAJECTORY:
+                elif mode == 1: # movimiento random del estimulo. Cuando cambia la coherencia del ruido el estimulo se mantiene igual
                     current_angle, frame_count = move_dot_smooth(dot_2, dot_speed, field_size, current_angle, frames_in_direction, frame_count)
                     
                 elif mode == 2: # movimiento lateral del estimulo. Cuando cambia la coherencia del ruido el estimulo se mantiene igual
@@ -23364,7 +23413,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         continueRoutine = False
                 
                 # ==============================
-                # REGISTER STIMULUS POSITION (FAST)
+                # REGISTER STIMULUS POSITION
                 # ==============================
                 
                 t_now = globalClock.getTime()
@@ -23451,10 +23500,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             stim_traj = stim_traj[:stim_frame_idx]
             
             # Save as numpy (recommended for offline analysis)
-            np.save("smooth_pursuit_stimulus_trajectory.npy", stim_traj)
+            np.save(f"./data/{expInfo['participant']}/smooth_pursuit_stimulus_trajectory_frames", stim_traj)
             
-            # Optional: also store in PsychoPy data
-            thisExp.addData(f"./data/{expInfo['participant']}/smooth_pursuit_stimulus_trajectory_frames", stim_frame_idx)
+            # also store in PsychoPy data
+            #thisExp.addData(f"./data/{expInfo['participant']}/smooth_pursuit_stimulus_trajectory_frames", stim_frame_idx)
             # check responses
             if key_resp_25.keys in ['', [], None]:  # No response was made
                 key_resp_25.keys = None
