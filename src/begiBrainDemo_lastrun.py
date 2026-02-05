@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on febrero 02, 2026, at 12:05
+    on febrero 03, 2026, at 11:57
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -11900,7 +11900,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' in keys: # NS/NC
+                    elif 'down' or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -12846,7 +12846,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' in keys: # NS/NC
+                    elif 'down' or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -13785,7 +13785,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' in keys: # NS/NC
+                    elif 'down' or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -15610,7 +15610,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' in keys: # NS/NC
+                    elif 'down' in keys or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -16570,7 +16570,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' in keys: # NS/NC
+                    elif 'down' in keys or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -17600,7 +17600,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' in keys: # NS/NC
+                    elif 'down' in keys or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -19897,9 +19897,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # Run 'Each Frame' code from code_21
                 keys = event.getKeys()
                 
-                if 's' in keys: # El paciente ve el estimulo
+                if 's' in keys or 'right' in keys: # El paciente ve el estimulo
                     response = True
-                elif 'n' in keys: # El paciente no ve las lineas
+                elif 'n' in keys or 'left' in keys: # El paciente no ve las lineas
                     response = False
                 '''
                 elif 'right' in keys and staircase_test_orientation == 45: # Acierto
