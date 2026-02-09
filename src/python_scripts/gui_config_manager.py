@@ -923,6 +923,21 @@ modules = {
                     "eu": "Bilaketa bisuala (eye-tracking)"
                 },
                 "config": {
+                    "show_gaze": {
+                        "value": False,
+                        "default": False,
+                        "type": bool,
+                        "variable_display_name": {
+                            "es": "Mostrar mirada",
+                            "en": "Show Gaze",
+                            "eu": "-"
+                        },
+                        "tooltip": {
+                            "es": "Si se habilita la opción y el eye tracker (GP3HD) está conectado se mostrará un marcador al usuario (feedback) de la ubicación de su mirada.",
+                            "en": "If enabled and GP3 connected, gaze will be shown to the user.",
+                            "eu": "-"
+                        }
+                    },
                     "visual_search_image_time": {
                         "value": 5.5,
                         "default": 5.5,

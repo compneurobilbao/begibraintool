@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on febrero 03, 2026, at 11:57
+    on febrero 09, 2026, at 13:25
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -2424,35 +2424,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
         texRes=512.0, interpolate=True, depth=-2.0)
-    key_resp = keyboard.Keyboard(deviceName='key_resp')
     logs_background_2 = visual.Rect(
         win=win, name='logs_background_2',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-3.0, interpolate=True)
     logs = visual.TextStim(win=win, name='logs',
         text=None,
         font='Open Sans',
         pos=(-0.45, 0.45), draggable=False, height=0.035, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-4.0);
     logs_parametros_trial = visual.TextStim(win=win, name='logs_parametros_trial',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-5.0);
     feedback_txt = visual.TextStim(win=win, name='feedback_txt',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-7.0);
+        depth=-6.0);
     # Run 'Begin Experiment' code from code
     from psychopy.iohub import launchHubServer
     
@@ -2467,6 +2466,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     #other
     gaze_position = mouse.getPosition()
+    key_resp = keyboard.Keyboard(deviceName='key_resp')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -2641,28 +2641,27 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
         texRes=512.0, interpolate=True, depth=-2.0)
-    key_resp_9 = keyboard.Keyboard(deviceName='key_resp_9')
     logs_background_8 = visual.Rect(
         win=win, name='logs_background_8',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-3.0, interpolate=True)
     logs_parametros_trial_5 = visual.TextStim(win=win, name='logs_parametros_trial_5',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-4.0);
     feedback_txt_3 = visual.TextStim(win=win, name='feedback_txt_3',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_8
     from psychopy.iohub import launchHubServer
     
@@ -2677,6 +2676,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     #other
     gaze_position = mouse.getPosition()
+    key_resp_9 = keyboard.Keyboard(deviceName='key_resp_9')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -2844,21 +2844,20 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
         depth=-1.0)
-    key_resp_10 = keyboard.Keyboard(deviceName='key_resp_10')
     logs_background_10 = visual.Rect(
         win=win, name='logs_background_10',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-2.0, interpolate=True)
     logs_parametros_trial_6 = visual.TextStim(win=win, name='logs_parametros_trial_6',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-3.0);
     stim_img = visual.ImageStim(
         win=win,
         name='stim_img', 
@@ -2866,20 +2865,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=grating_size,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=True, depth=-5.0)
+        texRes=512.0, interpolate=True, depth=-4.0)
     feedback_txt_2 = visual.TextStim(win=win, name='feedback_txt_2',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_14
     posicion_estimulo = (0,0)
     stim_x = 0
     stim_y = 0
     
     foveal_region_pos = [0,0]
+    key_resp_10 = keyboard.Keyboard(deviceName='key_resp_10')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -11605,7 +11605,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine BL_1_SPATIAL_FREQ
                 BL_1_SPATIAL_FREQ = data.Routine(
                     name='BL_1_SPATIAL_FREQ',
-                    components=[dots_black_5, dots_white_5, stim, key_resp, logs_background_2, logs, logs_parametros_trial, feedback_txt],
+                    components=[dots_black_5, dots_white_5, stim, logs_background_2, logs, logs_parametros_trial, feedback_txt, key_resp],
                 )
                 BL_1_SPATIAL_FREQ.status = NOT_STARTED
                 continueRoutine = True
@@ -11616,10 +11616,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 stim.setContrast(1.0)
                 stim.setPos((stim_x, stim_y))
                 stim.setSize(grating_size)
-                # create starting attributes for key_resp
-                key_resp.keys = []
-                key_resp.rt = []
-                _key_resp_allKeys = []
                 # Run 'Begin Routine' code from code
                 ####################################################
                 ########____LOAD STAIRCASE TEST RESULTS____#########
@@ -11655,6 +11651,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 logs.setAutoDraw(False)
                 logs_parametros_trial.setAutoDraw(False)
                 logs_background_2.setAutoDraw(False)
+                # create starting attributes for key_resp
+                key_resp.keys = []
+                key_resp.rt = []
+                _key_resp_allKeys = []
                 # store start times for BL_1_SPATIAL_FREQ
                 BL_1_SPATIAL_FREQ.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
                 BL_1_SPATIAL_FREQ.tStart = globalClock.getTime(format='float')
@@ -11741,27 +11741,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if stim.status == STARTED:
                         # update params
                         pass
-                    
-                    # *key_resp* updates
-                    
-                    # if key_resp is starting this frame...
-                    if key_resp.status == NOT_STARTED and t >= 0-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp.frameNStart = frameN  # exact frame index
-                        key_resp.tStart = t  # local t and not account for scr refresh
-                        key_resp.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp.status = STARTED
-                        # keyboard checking is just starting
-                        key_resp.clock.reset()  # now t=0
-                    if key_resp.status == STARTED:
-                        theseKeys = key_resp.getKeys(keyList=['space', 'right', 'left', 'down'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_allKeys.extend(theseKeys)
-                        if len(_key_resp_allKeys):
-                            key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
-                            key_resp.rt = _key_resp_allKeys[-1].rt
-                            key_resp.duration = _key_resp_allKeys[-1].duration
                     
                     # *logs_background_2* updates
                     
@@ -11900,7 +11879,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' or 'a' in keys: # NS/NC
+                    elif 'down' in keys or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -11915,6 +11894,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         first_time = False
                     
                     if (t>stim_time) or flag_answer_registered: # time exceeded OR answer registered
+                        print(f"Respuesta registrada en instante {t} sobre {stim_time} con boton pulsado {flag_answer_registered} {keys}")
                         # SHOW RESULTS IF FEEDBACK ACTIVATED
                         if advanced_config["feedback"]["value"]:
                                 #print(f"El resultado es: {success}")
@@ -11930,6 +11910,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         #trials_bl_1 = None
                         trials_bl_1.finished = True
                         #MODULE_1_TEST_1.finished = True
+                    
+                    # *key_resp* updates
+                    
+                    # if key_resp is starting this frame...
+                    if key_resp.status == NOT_STARTED and t >= 0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp.frameNStart = frameN  # exact frame index
+                        key_resp.tStart = t  # local t and not account for scr refresh
+                        key_resp.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        key_resp.status = STARTED
+                        # keyboard checking is just starting
+                        key_resp.clock.reset()  # now t=0
+                    if key_resp.status == STARTED:
+                        theseKeys = key_resp.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_allKeys.extend(theseKeys)
+                        if len(_key_resp_allKeys):
+                            key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
+                            key_resp.rt = _key_resp_allKeys[-1].rt
+                            key_resp.duration = _key_resp_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
                     
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -12548,7 +12551,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine BL_2_CONTRAST
                 BL_2_CONTRAST = data.Routine(
                     name='BL_2_CONTRAST',
-                    components=[dots_black_7, dots_white_7, stim_5, key_resp_9, logs_background_8, logs_parametros_trial_5, feedback_txt_3],
+                    components=[dots_black_7, dots_white_7, stim_5, logs_background_8, logs_parametros_trial_5, feedback_txt_3, key_resp_9],
                 )
                 BL_2_CONTRAST.status = NOT_STARTED
                 continueRoutine = True
@@ -12558,10 +12561,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 stim_5.setColor([1,1,1], colorSpace='rgb')
                 stim_5.setPos((stim_x, stim_y))
                 stim_5.setSize(grating_size)
-                # create starting attributes for key_resp_9
-                key_resp_9.keys = []
-                key_resp_9.rt = []
-                _key_resp_9_allKeys = []
                 # Run 'Begin Routine' code from code_8
                 import math
                 import random
@@ -12606,6 +12605,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 logs_parametros_trial_5.setAutoDraw(False)
                 logs_background_8.setAutoDraw(False)
+                # create starting attributes for key_resp_9
+                key_resp_9.keys = []
+                key_resp_9.rt = []
+                _key_resp_9_allKeys = []
                 # store start times for BL_2_CONTRAST
                 BL_2_CONTRAST.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
                 BL_2_CONTRAST.tStart = globalClock.getTime(format='float')
@@ -12706,29 +12709,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             # update status
                             stim_5.status = FINISHED
                             stim_5.setAutoDraw(False)
-                    
-                    # *key_resp_9* updates
-                    
-                    # if key_resp_9 is starting this frame...
-                    if key_resp_9.status == NOT_STARTED and t >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp_9.frameNStart = frameN  # exact frame index
-                        key_resp_9.tStart = t  # local t and not account for scr refresh
-                        key_resp_9.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp_9, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp_9.status = STARTED
-                        # keyboard checking is just starting
-                        key_resp_9.clock.reset()  # now t=0
-                    if key_resp_9.status == STARTED:
-                        theseKeys = key_resp_9.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_9_allKeys.extend(theseKeys)
-                        if len(_key_resp_9_allKeys):
-                            key_resp_9.keys = _key_resp_9_allKeys[-1].name  # just the last key pressed
-                            key_resp_9.rt = _key_resp_9_allKeys[-1].rt
-                            key_resp_9.duration = _key_resp_9_allKeys[-1].duration
-                            # a response ends the routine
-                            continueRoutine = False
                     
                     # *logs_background_8* updates
                     
@@ -12846,7 +12826,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' or 'a' in keys: # NS/NC
+                    elif 'down' in keys or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -12873,6 +12853,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     if flag_skip_all:
                         trials_bl_2.finished = True
+                    
+                    # *key_resp_9* updates
+                    
+                    # if key_resp_9 is starting this frame...
+                    if key_resp_9.status == NOT_STARTED and t >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_9.frameNStart = frameN  # exact frame index
+                        key_resp_9.tStart = t  # local t and not account for scr refresh
+                        key_resp_9.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_9, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        key_resp_9.status = STARTED
+                        # keyboard checking is just starting
+                        key_resp_9.clock.reset()  # now t=0
+                    if key_resp_9.status == STARTED:
+                        theseKeys = key_resp_9.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_9_allKeys.extend(theseKeys)
+                        if len(_key_resp_9_allKeys):
+                            key_resp_9.keys = _key_resp_9_allKeys[-1].name  # just the last key pressed
+                            key_resp_9.rt = _key_resp_9_allKeys[-1].rt
+                            key_resp_9.duration = _key_resp_9_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
                     
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -13483,17 +13486,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine BL_3_COLOR
                 BL_3_COLOR = data.Routine(
                     name='BL_3_COLOR',
-                    components=[dots_black_6, dots_white_6, key_resp_10, logs_background_10, logs_parametros_trial_6, stim_img, feedback_txt_2],
+                    components=[dots_black_6, dots_white_6, logs_background_10, logs_parametros_trial_6, stim_img, feedback_txt_2, key_resp_10],
                 )
                 BL_3_COLOR.status = NOT_STARTED
                 continueRoutine = True
                 # update component parameters for each repeat
                 dots_black_6.refreshDots()
                 dots_white_6.refreshDots()
-                # create starting attributes for key_resp_10
-                key_resp_10.keys = []
-                key_resp_10.rt = []
-                _key_resp_10_allKeys = []
                 stim_img.setImage('./images/custom_stim.png')
                 # Run 'Begin Routine' code from code_14
                 import math
@@ -13553,6 +13552,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                                        normalizar_rgb(hsv_a_rgb(*c1_hsv)), 
                                        normalizar_rgb(hsv_a_rgb(*c2_hsv)))
                 
+                # create starting attributes for key_resp_10
+                key_resp_10.keys = []
+                key_resp_10.rt = []
+                _key_resp_10_allKeys = []
                 # store start times for BL_3_COLOR
                 BL_3_COLOR.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
                 BL_3_COLOR.tStart = globalClock.getTime(format='float')
@@ -13623,29 +13626,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if dots_white_6.status == STARTED:
                         # update params
                         pass
-                    
-                    # *key_resp_10* updates
-                    
-                    # if key_resp_10 is starting this frame...
-                    if key_resp_10.status == NOT_STARTED and t >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp_10.frameNStart = frameN  # exact frame index
-                        key_resp_10.tStart = t  # local t and not account for scr refresh
-                        key_resp_10.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp_10, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp_10.status = STARTED
-                        # keyboard checking is just starting
-                        key_resp_10.clock.reset()  # now t=0
-                    if key_resp_10.status == STARTED:
-                        theseKeys = key_resp_10.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_10_allKeys.extend(theseKeys)
-                        if len(_key_resp_10_allKeys):
-                            key_resp_10.keys = _key_resp_10_allKeys[-1].name  # just the last key pressed
-                            key_resp_10.rt = _key_resp_10_allKeys[-1].rt
-                            key_resp_10.duration = _key_resp_10_allKeys[-1].duration
-                            # a response ends the routine
-                            continueRoutine = False
                     
                     # *logs_background_10* updates
                     
@@ -13785,7 +13765,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif 'right' in keys or 'left' in keys: # Respuesta incorrecta
                         flag_answer_registered  = True
                         success                 = False
-                    elif 'down' or 'a' in keys: # NS/NC
+                    elif 'down' in keys or 'a' in keys: # NS/NC
                         flag_answer_registered  = True
                         success                 = False
                         undecided               = True
@@ -13811,6 +13791,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     if flag_skip_all:
                         trials_bl_3.finished = True
+                    
+                    # *key_resp_10* updates
+                    
+                    # if key_resp_10 is starting this frame...
+                    if key_resp_10.status == NOT_STARTED and t >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_10.frameNStart = frameN  # exact frame index
+                        key_resp_10.tStart = t  # local t and not account for scr refresh
+                        key_resp_10.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_10, 'tStartRefresh')  # time at next scr refresh
+                        # update status
+                        key_resp_10.status = STARTED
+                        # keyboard checking is just starting
+                        key_resp_10.clock.reset()  # now t=0
+                    if key_resp_10.status == STARTED:
+                        theseKeys = key_resp_10.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_10_allKeys.extend(theseKeys)
+                        if len(_key_resp_10_allKeys):
+                            key_resp_10.keys = _key_resp_10_allKeys[-1].name  # just the last key pressed
+                            key_resp_10.rt = _key_resp_10_allKeys[-1].rt
+                            key_resp_10.duration = _key_resp_10_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
                     
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -24056,9 +24059,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTrial_2 != None:
                 for paramName in thisTrial_2:
                     globals()[paramName] = thisTrial_2[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisTrial_2 in trials_2:
                 trials_2.status = STARTED
@@ -24066,9 +24066,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTrial_2.status = STARTED
                 currentLoop = trials_2
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTrial_2.rgb)
                 if thisTrial_2 != None:
                     for paramName in thisTrial_2:
@@ -24128,7 +24125,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 ADDRESS = (HOST, PORT)
                 
                 # Variable global para controlar si el gaze está disponible
-                gaze_enabled = True
+                gaze_enabled = modules["module_2"]["tests"]["test_5"]["config"]["show_gaze"]["value"]#True
                 gaze_position = (0, 0)  # valor por defecto
                 
                 try:
@@ -24184,6 +24181,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         
                     #if t>visual_search_image_time:
                     #    rings_img.autoDraw=False
+                    
+                    keys = event.getKeys()
+                    if 'space' in keys:
+                        trials_2.finished = True
                     
                     # *rings_img* updates
                     
@@ -24356,23 +24357,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     trials_2.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'trials_2'
             trials_2.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if trials_2.trialList in ([], [None], None):
-                params = []
-            else:
-                params = trials_2.trialList[0].keys()
-            # save data for this loop
-            trials_2.saveAsExcel(filename + '.xlsx', sheetName='trials_2',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisMODULE_2_TEST_5 as finished
             if hasattr(thisMODULE_2_TEST_5, 'status'):
                 thisMODULE_2_TEST_5.status = FINISHED
