@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on febrero 09, 2026, at 13:25
+    on febrero 09, 2026, at 22:39
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -5640,11 +5640,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_23 = keyboard.Keyboard(deviceName='key_resp_23')
     polygon = visual.ShapeStim(
         win=win, name='polygon', vertices='cross',
-        size=(0.04, 0.04),
+        size=(0.015, 0.015),
         ori=0.0, pos=(0, 0), draggable=False, anchor='center',
         lineWidth=1.0,
-        colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
-        opacity=None, depth=-2.0, interpolate=True)
+        colorSpace='rgb', lineColor=[0.0902, -1.0000, -1.0000], fillColor=[0.0902, -1.0000, -1.0000],
+        opacity=0.9, depth=-2.0, interpolate=True)
     
     # --- Initialize components for Routine "PUPILOMETRY_TASK_flash" ---
     text_4 = visual.TextStim(win=win, name='text_4',
@@ -23214,7 +23214,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             
                 # Safety: start at first point
                 stim_frame_idx = 0
-                
+            
+            traj_start_time = globalClock.getTime()
+            traj_dt = 1/240.0   # frecuencia original con la que se generó la trayectoria
+            
             
             # ==============================
             # PREALLOCATED STIMULUS TRAJECTORY (SMOOTH PURSUIT)
@@ -23312,15 +23315,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # LOADED TRAJECTORY:
                 if USE_DEFINED_TRAJECTORY and mode != 3: # ONLY TRAJECTORIES (DURING MODE 3 NOISE DIRECTION IS MODIFIED)
-                    if stim_frame_idx < defined_traj_len:
-                        dot_2.pos = defined_xy[stim_frame_idx]
+                    elapsed = globalClock.getTime() - traj_start_time
+                    target_idx = int(elapsed / traj_dt)
+                
+                    if target_idx < defined_traj_len:
+                        dot_2.pos = defined_xy[target_idx]
                     else:
                         continueRoutine = False
                 
                 elif USE_DEFINED_TRAJECTORY and mode == 3:
-                    if stim_frame_idx < defined_traj_len:
-                        x, y = defined_xy[stim_frame_idx]
-                        dot_2.pos = (x, y)
+                    elapsed = globalClock.getTime() - traj_start_time
+                    target_idx = int(elapsed / traj_dt)
+                    
+                    if target_idx < defined_traj_len:
+                        dot_2.pos = defined_xy[target_idx]
+                        
                         # --- Compute angle from trajectory ---
                         if stim_frame_idx > 0:
                             x_prev, y_prev = defined_xy[stim_frame_idx - 1]
@@ -25030,6 +25039,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     else:
                         continueRoutine = False
                     
+                    keys = event.getKeys()
+                    if 'space' in keys:
+                        trials_3.finished = True
                     
                     # *key_resp_3* updates
                     waitOnFlip = False
@@ -25789,10 +25801,16 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update/draw components on each frame
                     # Run 'Each Frame' code from code_25
                     if not hasattr(thisExp, 'last_print_time'):
-                        thisExp.last_print_time = 0  # Inicializa la variable de tiempo
+                        thisExp.last_print_time = 0 
                     
-                    if t - thisExp.last_print_time >= 1:  # Se ejecuta cada 10 segundos
-                        print(adaptation_time - int(t))
+                    if t - thisExp.last_print_time >= 1:  # Every 1 sec
+                        remaining_time = adaptation_time - int(t)
+                    
+                        minutes = remaining_time // 60
+                        seconds = remaining_time % 60
+                    
+                        print(f"{minutes:02d}:{seconds:02d}")
+                        
                         thisExp.last_print_time = t  # Actualiza el último tiempo de impresión
                     
                     if t>adaptation_time:
