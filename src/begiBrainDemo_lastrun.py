@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on febrero 09, 2026, at 22:39
+    on febrero 18, 2026, at 19:47
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -11589,6 +11589,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTrials_bl_1 != None:
                 for paramName in thisTrials_bl_1:
                     globals()[paramName] = thisTrials_bl_1[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
             
             for thisTrials_bl_1 in trials_bl_1:
                 trials_bl_1.status = STARTED
@@ -11596,6 +11599,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTrials_bl_1.status = STARTED
                 currentLoop = trials_bl_1
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_1.rgb)
                 if thisTrials_bl_1 != None:
                     for paramName in thisTrials_bl_1:
@@ -11995,9 +12001,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     trials_bl_1.status = STARTED
+                thisExp.nextEntry()
+                
             # completed 1.0 repeats of 'trials_bl_1'
             trials_bl_1.status = FINISHED
             
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if trials_bl_1.trialList in ([], [None], None):
+                params = []
+            else:
+                params = trials_bl_1.trialList[0].keys()
+            # save data for this loop
+            trials_bl_1.saveAsExcel(filename + '.xlsx', sheetName='trials_bl_1',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisMODULE_1_TEST_1 as finished
             if hasattr(thisMODULE_1_TEST_1, 'status'):
                 thisMODULE_1_TEST_1.status = FINISHED
