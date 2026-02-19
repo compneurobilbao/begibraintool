@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on febrero 18, 2026, at 19:47
+    on febrero 19, 2026, at 09:33
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -6655,9 +6655,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     if thisTutorial_button_panel != None:
         for paramName in thisTutorial_button_panel:
             globals()[paramName] = thisTutorial_button_panel[paramName]
-    if thisSession is not None:
-        # if running in a Session with a Liaison client, send data up to now
-        thisSession.sendExperimentData()
     
     for thisTutorial_button_panel in tutorial_button_panel:
         tutorial_button_panel.status = STARTED
@@ -6665,9 +6662,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             thisTutorial_button_panel.status = STARTED
         currentLoop = tutorial_button_panel
         thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-        if thisSession is not None:
-            # if running in a Session with a Liaison client, send data up to now
-            thisSession.sendExperimentData()
         # abbreviate parameter names if possible (e.g. rgb = thisTutorial_button_panel.rgb)
         if thisTutorial_button_panel != None:
             for paramName in thisTutorial_button_panel:
@@ -6689,9 +6683,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if thisInstruction_tutorial_button_panel != None:
             for paramName in thisInstruction_tutorial_button_panel:
                 globals()[paramName] = thisInstruction_tutorial_button_panel[paramName]
-        if thisSession is not None:
-            # if running in a Session with a Liaison client, send data up to now
-            thisSession.sendExperimentData()
         
         for thisInstruction_tutorial_button_panel in instruction_tutorial_button_panel:
             instruction_tutorial_button_panel.status = STARTED
@@ -6699,9 +6690,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 thisInstruction_tutorial_button_panel.status = STARTED
             currentLoop = instruction_tutorial_button_panel
             thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             # abbreviate parameter names if possible (e.g. rgb = thisInstruction_tutorial_button_panel.rgb)
             if thisInstruction_tutorial_button_panel != None:
                 for paramName in thisInstruction_tutorial_button_panel:
@@ -7137,23 +7125,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 )
                 # once done pausing, restore running status
                 instruction_tutorial_button_panel.status = STARTED
-            thisExp.nextEntry()
-            
         # completed 1.0 repeats of 'instruction_tutorial_button_panel'
         instruction_tutorial_button_panel.status = FINISHED
         
-        if thisSession is not None:
-            # if running in a Session with a Liaison client, send data up to now
-            thisSession.sendExperimentData()
-        # get names of stimulus parameters
-        if instruction_tutorial_button_panel.trialList in ([], [None], None):
-            params = []
-        else:
-            params = instruction_tutorial_button_panel.trialList[0].keys()
-        # save data for this loop
-        instruction_tutorial_button_panel.saveAsExcel(filename + '.xlsx', sheetName='instruction_tutorial_button_panel',
-            stimOut=params,
-            dataOut=['n','all_mean','all_std', 'all_raw'])
         
         # --- Prepare to start Routine "TUTORIAL_BUTTON_PANEL" ---
         # create an object to store info about Routine TUTORIAL_BUTTON_PANEL
@@ -7251,23 +7225,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             )
             # once done pausing, restore running status
             tutorial_button_panel.status = STARTED
-        thisExp.nextEntry()
-        
     # completed general_config["start_tutorial"]["value"] repeats of 'tutorial_button_panel'
     tutorial_button_panel.status = FINISHED
     
-    if thisSession is not None:
-        # if running in a Session with a Liaison client, send data up to now
-        thisSession.sendExperimentData()
-    # get names of stimulus parameters
-    if tutorial_button_panel.trialList in ([], [None], None):
-        params = []
-    else:
-        params = tutorial_button_panel.trialList[0].keys()
-    # save data for this loop
-    tutorial_button_panel.saveAsExcel(filename + '.xlsx', sheetName='tutorial_button_panel',
-        stimOut=params,
-        dataOut=['n','all_mean','all_std', 'all_raw'])
     
     # set up handler to look after randomisation of conditions etc
     MODULE_1 = data.TrialHandler2(
@@ -7815,9 +7775,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTutorial_sf != None:
                 for paramName in thisTutorial_sf:
                     globals()[paramName] = thisTutorial_sf[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisTutorial_sf in tutorial_sf:
                 tutorial_sf.status = STARTED
@@ -7825,9 +7782,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTutorial_sf.status = STARTED
                 currentLoop = tutorial_sf
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTutorial_sf.rgb)
                 if thisTutorial_sf != None:
                     for paramName in thisTutorial_sf:
@@ -8231,9 +8185,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if thisInstruction_m1_sf_staircase_2 != None:
                     for paramName in thisInstruction_m1_sf_staircase_2:
                         globals()[paramName] = thisInstruction_m1_sf_staircase_2[paramName]
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 
                 for thisInstruction_m1_sf_staircase_2 in instruction_m1_sf_staircase_2:
                     instruction_m1_sf_staircase_2.status = STARTED
@@ -8241,9 +8192,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         thisInstruction_m1_sf_staircase_2.status = STARTED
                     currentLoop = instruction_m1_sf_staircase_2
                     thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                    if thisSession is not None:
-                        # if running in a Session with a Liaison client, send data up to now
-                        thisSession.sendExperimentData()
                     # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_sf_staircase_2.rgb)
                     if thisInstruction_m1_sf_staircase_2 != None:
                         for paramName in thisInstruction_m1_sf_staircase_2:
@@ -8679,23 +8627,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         )
                         # once done pausing, restore running status
                         instruction_m1_sf_staircase_2.status = STARTED
-                    thisExp.nextEntry()
-                    
                 # completed 1.0 repeats of 'instruction_m1_sf_staircase_2'
                 instruction_m1_sf_staircase_2.status = FINISHED
                 
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
-                # get names of stimulus parameters
-                if instruction_m1_sf_staircase_2.trialList in ([], [None], None):
-                    params = []
-                else:
-                    params = instruction_m1_sf_staircase_2.trialList[0].keys()
-                # save data for this loop
-                instruction_m1_sf_staircase_2.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_sf_staircase_2',
-                    stimOut=params,
-                    dataOut=['n','all_mean','all_std', 'all_raw'])
                 # mark thisTutorial_sf as finished
                 if hasattr(thisTutorial_sf, 'status'):
                     thisTutorial_sf.status = FINISHED
@@ -8709,23 +8643,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     tutorial_sf.status = STARTED
-                thisExp.nextEntry()
-                
             # completed general_config["test_tutorial"]["value"] repeats of 'tutorial_sf'
             tutorial_sf.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if tutorial_sf.trialList in ([], [None], None):
-                params = []
-            else:
-                params = tutorial_sf.trialList[0].keys()
-            # save data for this loop
-            tutorial_sf.saveAsExcel(filename + '.xlsx', sheetName='tutorial_sf',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # --- Prepare to start Routine "SPATIAL_FREQ_STAIRCASE_TEST" ---
             # create an object to store info about Routine SPATIAL_FREQ_STAIRCASE_TEST
@@ -9103,9 +9023,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisInstruction_m1_contrast_staircase != None:
                 for paramName in thisInstruction_m1_contrast_staircase:
                     globals()[paramName] = thisInstruction_m1_contrast_staircase[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisInstruction_m1_contrast_staircase in instruction_m1_contrast_staircase:
                 instruction_m1_contrast_staircase.status = STARTED
@@ -9113,9 +9030,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisInstruction_m1_contrast_staircase.status = STARTED
                 currentLoop = instruction_m1_contrast_staircase
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_contrast_staircase.rgb)
                 if thisInstruction_m1_contrast_staircase != None:
                     for paramName in thisInstruction_m1_contrast_staircase:
@@ -9551,23 +9465,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     instruction_m1_contrast_staircase.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'instruction_m1_contrast_staircase'
             instruction_m1_contrast_staircase.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if instruction_m1_contrast_staircase.trialList in ([], [None], None):
-                params = []
-            else:
-                params = instruction_m1_contrast_staircase.trialList[0].keys()
-            # save data for this loop
-            instruction_m1_contrast_staircase.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_contrast_staircase',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # --- Prepare to start Routine "CONTRAST_STAIRCASE_TEST" ---
             # create an object to store info about Routine CONTRAST_STAIRCASE_TEST
@@ -9955,9 +9855,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisInstruction_m1_color_staircase != None:
                 for paramName in thisInstruction_m1_color_staircase:
                     globals()[paramName] = thisInstruction_m1_color_staircase[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisInstruction_m1_color_staircase in instruction_m1_color_staircase:
                 instruction_m1_color_staircase.status = STARTED
@@ -9965,9 +9862,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisInstruction_m1_color_staircase.status = STARTED
                 currentLoop = instruction_m1_color_staircase
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_color_staircase.rgb)
                 if thisInstruction_m1_color_staircase != None:
                     for paramName in thisInstruction_m1_color_staircase:
@@ -10403,23 +10297,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     instruction_m1_color_staircase.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'instruction_m1_color_staircase'
             instruction_m1_color_staircase.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if instruction_m1_color_staircase.trialList in ([], [None], None):
-                params = []
-            else:
-                params = instruction_m1_color_staircase.trialList[0].keys()
-            # save data for this loop
-            instruction_m1_color_staircase.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_color_staircase',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # set up handler to look after randomisation of conditions etc
             colors_to_test = data.TrialHandler2(
@@ -11107,9 +10987,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisInstruction_m1_bl1 != None:
                 for paramName in thisInstruction_m1_bl1:
                     globals()[paramName] = thisInstruction_m1_bl1[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisInstruction_m1_bl1 in instruction_m1_bl1:
                 instruction_m1_bl1.status = STARTED
@@ -11117,9 +10994,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisInstruction_m1_bl1.status = STARTED
                 currentLoop = instruction_m1_bl1
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl1.rgb)
                 if thisInstruction_m1_bl1 != None:
                     for paramName in thisInstruction_m1_bl1:
@@ -11555,23 +11429,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     instruction_m1_bl1.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'instruction_m1_bl1'
             instruction_m1_bl1.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if instruction_m1_bl1.trialList in ([], [None], None):
-                params = []
-            else:
-                params = instruction_m1_bl1.trialList[0].keys()
-            # save data for this loop
-            instruction_m1_bl1.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl1',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # set up handler to look after randomisation of conditions etc
             trials_bl_1 = data.TrialHandler2(
@@ -12555,6 +12415,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTrials_bl_2 != None:
                 for paramName in thisTrials_bl_2:
                     globals()[paramName] = thisTrials_bl_2[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
             
             for thisTrials_bl_2 in trials_bl_2:
                 trials_bl_2.status = STARTED
@@ -12562,6 +12425,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTrials_bl_2.status = STARTED
                 currentLoop = trials_bl_2
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_2.rgb)
                 if thisTrials_bl_2 != None:
                     for paramName in thisTrials_bl_2:
@@ -12958,9 +12824,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     trials_bl_2.status = STARTED
+                thisExp.nextEntry()
+                
             # completed 1.0 repeats of 'trials_bl_2'
             trials_bl_2.status = FINISHED
             
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if trials_bl_2.trialList in ([], [None], None):
+                params = []
+            else:
+                params = trials_bl_2.trialList[0].keys()
+            # save data for this loop
+            trials_bl_2.saveAsExcel(filename + '.xlsx', sheetName='trials_bl_2',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisMODULE_1_TEST_2 as finished
             if hasattr(thisMODULE_1_TEST_2, 'status'):
                 thisMODULE_1_TEST_2.status = FINISHED
@@ -13490,6 +13370,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTrials_bl_3 != None:
                 for paramName in thisTrials_bl_3:
                     globals()[paramName] = thisTrials_bl_3[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
             
             for thisTrials_bl_3 in trials_bl_3:
                 trials_bl_3.status = STARTED
@@ -13497,6 +13380,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTrials_bl_3.status = STARTED
                 currentLoop = trials_bl_3
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_3.rgb)
                 if thisTrials_bl_3 != None:
                     for paramName in thisTrials_bl_3:
@@ -13896,9 +13782,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     trials_bl_3.status = STARTED
+                thisExp.nextEntry()
+                
             # completed 1.0 repeats of 'trials_bl_3'
             trials_bl_3.status = FINISHED
             
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if trials_bl_3.trialList in ([], [None], None):
+                params = []
+            else:
+                params = trials_bl_3.trialList[0].keys()
+            # save data for this loop
+            trials_bl_3.saveAsExcel(filename + '.xlsx', sheetName='trials_bl_3',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisMODULE_1_TEST_3 as finished
             if hasattr(thisMODULE_1_TEST_3, 'status'):
                 thisMODULE_1_TEST_3.status = FINISHED
@@ -13980,9 +13880,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisInstruction_m1_tutorial_semantic != None:
                 for paramName in thisInstruction_m1_tutorial_semantic:
                     globals()[paramName] = thisInstruction_m1_tutorial_semantic[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisInstruction_m1_tutorial_semantic in instruction_m1_tutorial_semantic:
                 instruction_m1_tutorial_semantic.status = STARTED
@@ -13990,9 +13887,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisInstruction_m1_tutorial_semantic.status = STARTED
                 currentLoop = instruction_m1_tutorial_semantic
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_tutorial_semantic.rgb)
                 if thisInstruction_m1_tutorial_semantic != None:
                     for paramName in thisInstruction_m1_tutorial_semantic:
@@ -14428,23 +14322,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     instruction_m1_tutorial_semantic.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'instruction_m1_tutorial_semantic'
             instruction_m1_tutorial_semantic.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if instruction_m1_tutorial_semantic.trialList in ([], [None], None):
-                params = []
-            else:
-                params = instruction_m1_tutorial_semantic.trialList[0].keys()
-            # save data for this loop
-            instruction_m1_tutorial_semantic.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_tutorial_semantic',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # set up handler to look after randomisation of conditions etc
             semantic_tutorial_loop = data.TrialHandler2(
@@ -14462,9 +14342,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisSemantic_tutorial_loop != None:
                 for paramName in thisSemantic_tutorial_loop:
                     globals()[paramName] = thisSemantic_tutorial_loop[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisSemantic_tutorial_loop in semantic_tutorial_loop:
                 semantic_tutorial_loop.status = STARTED
@@ -14472,9 +14349,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisSemantic_tutorial_loop.status = STARTED
                 currentLoop = semantic_tutorial_loop
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisSemantic_tutorial_loop.rgb)
                 if thisSemantic_tutorial_loop != None:
                     for paramName in thisSemantic_tutorial_loop:
@@ -14889,23 +14763,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     semantic_tutorial_loop.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'semantic_tutorial_loop'
             semantic_tutorial_loop.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if semantic_tutorial_loop.trialList in ([], [None], None):
-                params = []
-            else:
-                params = semantic_tutorial_loop.trialList[0].keys()
-            # save data for this loop
-            semantic_tutorial_loop.saveAsExcel(filename + '.xlsx', sheetName='semantic_tutorial_loop',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisTutorial_semantic_sf_color_contrast as finished
             if hasattr(thisTutorial_semantic_sf_color_contrast, 'status'):
                 thisTutorial_semantic_sf_color_contrast.status = FINISHED
@@ -14987,9 +14847,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisInstruction_m1_bl4 != None:
                 for paramName in thisInstruction_m1_bl4:
                     globals()[paramName] = thisInstruction_m1_bl4[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisInstruction_m1_bl4 in instruction_m1_bl4:
                 instruction_m1_bl4.status = STARTED
@@ -14997,9 +14854,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisInstruction_m1_bl4.status = STARTED
                 currentLoop = instruction_m1_bl4
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl4.rgb)
                 if thisInstruction_m1_bl4 != None:
                     for paramName in thisInstruction_m1_bl4:
@@ -15435,23 +15289,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     instruction_m1_bl4.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'instruction_m1_bl4'
             instruction_m1_bl4.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if instruction_m1_bl4.trialList in ([], [None], None):
-                params = []
-            else:
-                params = instruction_m1_bl4.trialList[0].keys()
-            # save data for this loop
-            instruction_m1_bl4.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl4',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # set up handler to look after randomisation of conditions etc
             trials_bl_4 = data.TrialHandler2(
@@ -15473,6 +15313,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTrials_bl_4 != None:
                 for paramName in thisTrials_bl_4:
                     globals()[paramName] = thisTrials_bl_4[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
             
             for thisTrials_bl_4 in trials_bl_4:
                 trials_bl_4.status = STARTED
@@ -15480,6 +15323,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTrials_bl_4.status = STARTED
                 currentLoop = trials_bl_4
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_4.rgb)
                 if thisTrials_bl_4 != None:
                     for paramName in thisTrials_bl_4:
@@ -15896,9 +15742,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     trials_bl_4.status = STARTED
+                thisExp.nextEntry()
+                
             # completed 1.0 repeats of 'trials_bl_4'
             trials_bl_4.status = FINISHED
             
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if trials_bl_4.trialList in ([], [None], None):
+                params = []
+            else:
+                params = trials_bl_4.trialList[0].keys()
+            # save data for this loop
+            trials_bl_4.saveAsExcel(filename + '.xlsx', sheetName='trials_bl_4',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisMODULE_1_TEST_4 as finished
             if hasattr(thisMODULE_1_TEST_4, 'status'):
                 thisMODULE_1_TEST_4.status = FINISHED
@@ -15980,9 +15840,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisInstruction_m1_bl5 != None:
                 for paramName in thisInstruction_m1_bl5:
                     globals()[paramName] = thisInstruction_m1_bl5[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisInstruction_m1_bl5 in instruction_m1_bl5:
                 instruction_m1_bl5.status = STARTED
@@ -15990,9 +15847,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisInstruction_m1_bl5.status = STARTED
                 currentLoop = instruction_m1_bl5
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl5.rgb)
                 if thisInstruction_m1_bl5 != None:
                     for paramName in thisInstruction_m1_bl5:
@@ -16428,23 +16282,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     instruction_m1_bl5.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'instruction_m1_bl5'
             instruction_m1_bl5.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if instruction_m1_bl5.trialList in ([], [None], None):
-                params = []
-            else:
-                params = instruction_m1_bl5.trialList[0].keys()
-            # save data for this loop
-            instruction_m1_bl5.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl5',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # set up handler to look after randomisation of conditions etc
             trials_bl_5 = data.TrialHandler2(
@@ -16466,6 +16306,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTrials_bl_5 != None:
                 for paramName in thisTrials_bl_5:
                     globals()[paramName] = thisTrials_bl_5[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
             
             for thisTrials_bl_5 in trials_bl_5:
                 trials_bl_5.status = STARTED
@@ -16473,6 +16316,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTrials_bl_5.status = STARTED
                 currentLoop = trials_bl_5
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_5.rgb)
                 if thisTrials_bl_5 != None:
                     for paramName in thisTrials_bl_5:
@@ -16882,9 +16728,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     trials_bl_5.status = STARTED
+                thisExp.nextEntry()
+                
             # completed 1.0 repeats of 'trials_bl_5'
             trials_bl_5.status = FINISHED
             
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if trials_bl_5.trialList in ([], [None], None):
+                params = []
+            else:
+                params = trials_bl_5.trialList[0].keys()
+            # save data for this loop
+            trials_bl_5.saveAsExcel(filename + '.xlsx', sheetName='trials_bl_5',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisMODULE_1_TEST_5 as finished
             if hasattr(thisMODULE_1_TEST_5, 'status'):
                 thisMODULE_1_TEST_5.status = FINISHED
@@ -16966,9 +16826,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisInstruction_m1_bl6 != None:
                 for paramName in thisInstruction_m1_bl6:
                     globals()[paramName] = thisInstruction_m1_bl6[paramName]
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
             
             for thisInstruction_m1_bl6 in instruction_m1_bl6:
                 instruction_m1_bl6.status = STARTED
@@ -16976,9 +16833,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisInstruction_m1_bl6.status = STARTED
                 currentLoop = instruction_m1_bl6
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
-                if thisSession is not None:
-                    # if running in a Session with a Liaison client, send data up to now
-                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisInstruction_m1_bl6.rgb)
                 if thisInstruction_m1_bl6 != None:
                     for paramName in thisInstruction_m1_bl6:
@@ -17414,23 +17268,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     instruction_m1_bl6.status = STARTED
-                thisExp.nextEntry()
-                
             # completed 1.0 repeats of 'instruction_m1_bl6'
             instruction_m1_bl6.status = FINISHED
             
-            if thisSession is not None:
-                # if running in a Session with a Liaison client, send data up to now
-                thisSession.sendExperimentData()
-            # get names of stimulus parameters
-            if instruction_m1_bl6.trialList in ([], [None], None):
-                params = []
-            else:
-                params = instruction_m1_bl6.trialList[0].keys()
-            # save data for this loop
-            instruction_m1_bl6.saveAsExcel(filename + '.xlsx', sheetName='instruction_m1_bl6',
-                stimOut=params,
-                dataOut=['n','all_mean','all_std', 'all_raw'])
             
             # set up handler to look after randomisation of conditions etc
             trials_bl_6 = data.TrialHandler2(
@@ -17452,6 +17292,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if thisTrials_bl_6 != None:
                 for paramName in thisTrials_bl_6:
                     globals()[paramName] = thisTrials_bl_6[paramName]
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
             
             for thisTrials_bl_6 in trials_bl_6:
                 trials_bl_6.status = STARTED
@@ -17459,6 +17302,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisTrials_bl_6.status = STARTED
                 currentLoop = trials_bl_6
                 thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_bl_6.rgb)
                 if thisTrials_bl_6 != None:
                     for paramName in thisTrials_bl_6:
@@ -17886,9 +17732,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     trials_bl_6.status = STARTED
+                thisExp.nextEntry()
+                
             # completed 1.0 repeats of 'trials_bl_6'
             trials_bl_6.status = FINISHED
             
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # get names of stimulus parameters
+            if trials_bl_6.trialList in ([], [None], None):
+                params = []
+            else:
+                params = trials_bl_6.trialList[0].keys()
+            # save data for this loop
+            trials_bl_6.saveAsExcel(filename + '.xlsx', sheetName='trials_bl_6',
+                stimOut=params,
+                dataOut=['n','all_mean','all_std', 'all_raw'])
             # mark thisMODULE_1_TEST_6 as finished
             if hasattr(thisMODULE_1_TEST_6, 'status'):
                 thisMODULE_1_TEST_6.status = FINISHED
