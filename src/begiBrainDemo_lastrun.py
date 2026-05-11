@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on febrero 19, 2026, at 09:33
+    on mayo 11, 2026, at 15:40
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -1663,6 +1663,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     def get_random_orientation():
         return random.choice([45, 135])
+        
+    def get_random_sf():
+        return random.randint(15, 100)
     key_resp_31 = keyboard.Keyboard(deviceName='key_resp_31')
     logs_14 = visual.TextStim(win=win, name='logs_14',
         text='Any text\n\nincluding line breaks',
@@ -2401,6 +2404,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
     # --- Initialize components for Routine "BL_1_SPATIAL_FREQ" ---
+    key_resp = keyboard.Keyboard(deviceName='key_resp')
     dots_black_5 = visual.DotStim(
         win=win, name='dots_black_5',
         nDots=noise_dots, dotSize=2.0,
@@ -2408,7 +2412,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=0.0)
+        depth=-1.0)
     dots_white_5 = visual.DotStim(
         win=win, name='dots_white_5',
         nDots=noise_dots, dotSize=2.0,
@@ -2416,42 +2420,42 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     stim = visual.GratingStim(
         win=win, name='stim',
         tex='sin', mask=grating_mask, anchor='center',
         ori=0.0, pos=[0,0], draggable=False, size=1.0, sf=1.0, phase=0.5,
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
-        texRes=512.0, interpolate=True, depth=-2.0)
+        texRes=512.0, interpolate=True, depth=-3.0)
     logs_background_2 = visual.Rect(
         win=win, name='logs_background_2',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     logs = visual.TextStim(win=win, name='logs',
         text=None,
         font='Open Sans',
         pos=(-0.45, 0.45), draggable=False, height=0.035, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     logs_parametros_trial = visual.TextStim(win=win, name='logs_parametros_trial',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     feedback_txt = visual.TextStim(win=win, name='feedback_txt',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-7.0);
     # Run 'Begin Experiment' code from code
     from psychopy.iohub import launchHubServer
     
@@ -2466,7 +2470,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     #other
     gaze_position = mouse.getPosition()
-    key_resp = keyboard.Keyboard(deviceName='key_resp')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -2618,6 +2621,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
     # --- Initialize components for Routine "BL_2_CONTRAST" ---
+    key_resp_9 = keyboard.Keyboard(deviceName='key_resp_9')
     dots_black_7 = visual.DotStim(
         win=win, name='dots_black_7',
         nDots=noise_dots, dotSize=2.0,
@@ -2625,7 +2629,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=0.0)
+        depth=-1.0)
     dots_white_7 = visual.DotStim(
         win=win, name='dots_white_7',
         nDots=noise_dots, dotSize=2.0,
@@ -2633,35 +2637,35 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     stim_5 = visual.GratingStim(
         win=win, name='stim_5',
         tex='sin', mask=grating_mask, anchor='center',
         ori=0.0, pos=[0,0], draggable=False, size=1.0, sf=1.0, phase=0.5,
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
-        texRes=512.0, interpolate=True, depth=-2.0)
+        texRes=512.0, interpolate=True, depth=-3.0)
     logs_background_8 = visual.Rect(
         win=win, name='logs_background_8',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     logs_parametros_trial_5 = visual.TextStim(win=win, name='logs_parametros_trial_5',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     feedback_txt_3 = visual.TextStim(win=win, name='feedback_txt_3',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     # Run 'Begin Experiment' code from code_8
     from psychopy.iohub import launchHubServer
     
@@ -2676,7 +2680,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     #other
     gaze_position = mouse.getPosition()
-    key_resp_9 = keyboard.Keyboard(deviceName='key_resp_9')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -2828,6 +2831,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
     # --- Initialize components for Routine "BL_3_COLOR" ---
+    key_resp_10 = keyboard.Keyboard(deviceName='key_resp_10')
     dots_black_6 = visual.DotStim(
         win=win, name='dots_black_6',
         nDots=noise_dots, dotSize=2.0,
@@ -2835,7 +2839,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=0.0)
+        depth=-1.0)
     dots_white_6 = visual.DotStim(
         win=win, name='dots_white_6',
         nDots=noise_dots, dotSize=2.0,
@@ -2843,21 +2847,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     logs_background_10 = visual.Rect(
         win=win, name='logs_background_10',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-2.0, interpolate=True)
+        opacity=None, depth=-3.0, interpolate=True)
     logs_parametros_trial_6 = visual.TextStim(win=win, name='logs_parametros_trial_6',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     stim_img = visual.ImageStim(
         win=win,
         name='stim_img', 
@@ -2865,21 +2869,20 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=grating_size,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=True, depth=-4.0)
+        texRes=512.0, interpolate=True, depth=-5.0)
     feedback_txt_2 = visual.TextStim(win=win, name='feedback_txt_2',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     # Run 'Begin Experiment' code from code_14
     posicion_estimulo = (0,0)
     stim_x = 0
     stim_y = 0
     
     foveal_region_pos = [0,0]
-    key_resp_10 = keyboard.Keyboard(deviceName='key_resp_10')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -5274,6 +5277,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
     # --- Initialize components for Routine "VISUAL_SEARCH_RINGS" ---
+    polygon_10 = visual.ShapeStim(
+        win=win, name='polygon_10', vertices='cross',
+        size=(0.04, 0.04),
+        ori=0.0, pos=(0, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
+        opacity=None, depth=0.0, interpolate=True)
     rings_img = visual.ImageStim(
         win=win,
         name='rings_img', 
@@ -5281,7 +5291,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=False, depth=-1.0)
+        texRes=512.0, interpolate=False, depth=-2.0)
     key_resp_28 = keyboard.Keyboard(deviceName='key_resp_28')
     # Run 'Begin Experiment' code from GP_data_adq_backend_3
     def convert_to_psychopy_units(FPOGX, FPOGY, screen_bounds):
@@ -5320,7 +5330,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=[0,0], draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
-        opacity=0.4, depth=-4.0, interpolate=True)
+        opacity=0.4, depth=-5.0, interpolate=True)
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -5472,6 +5482,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
     # --- Initialize components for Routine "DYNAMIC_VISUAL_SEARCH" ---
+    polygon_11 = visual.ShapeStim(
+        win=win, name='polygon_11', vertices='cross',
+        size=(0.04, 0.04),
+        ori=0.0, pos=(0, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
+        opacity=None, depth=0.0, interpolate=True)
     # Run 'Begin Experiment' code from code_4
     frame_rate = win.getActualFrameRate()
     
@@ -7802,7 +7819,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 import csv
                 
                 # Variables estaticas
-                sf_starting_value = 50
+                sf_starting_value = 30
                 sf_step_size = 15
                 sf_starting_orientation = get_random_orientation()
                 
@@ -7949,7 +7966,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         grating_9.setAutoDraw(True)
                         
                         # Actualizar el sf y orientacion del estímulo
-                        grating_9.sf = sf
+                        grating_9.sf = get_random_sf()
                         trial_orientation = get_random_orientation()
                         grating_9.ori = trial_orientation
                         arrow.ori = 45 if trial_orientation == 45 else -45
@@ -7965,8 +7982,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         elif consecutive_hits == 0:
                             arrow.setAutoDraw(True)    # reaparece si vuelve a 0
                             
-                        # Interrumpir rutina si hay 4 aciertos seguidos
-                        if consecutive_hits >= 5:
+                        # Interrumpir rutina si hay 5 aciertos seguidos
+                        if consecutive_hits >= 6:
                             continueRoutine = False
                         
                         # Restablecer la respuesta para el siguiente ensayo
@@ -11471,11 +11488,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine BL_1_SPATIAL_FREQ
                 BL_1_SPATIAL_FREQ = data.Routine(
                     name='BL_1_SPATIAL_FREQ',
-                    components=[dots_black_5, dots_white_5, stim, logs_background_2, logs, logs_parametros_trial, feedback_txt, key_resp],
+                    components=[key_resp, dots_black_5, dots_white_5, stim, logs_background_2, logs, logs_parametros_trial, feedback_txt],
                 )
                 BL_1_SPATIAL_FREQ.status = NOT_STARTED
                 continueRoutine = True
                 # update component parameters for each repeat
+                # create starting attributes for key_resp
+                key_resp.keys = []
+                key_resp.rt = []
+                _key_resp_allKeys = []
                 dots_black_5.refreshDots()
                 dots_white_5.refreshDots()
                 stim.setColor([1,1,1], colorSpace='rgb')
@@ -11517,10 +11538,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 logs.setAutoDraw(False)
                 logs_parametros_trial.setAutoDraw(False)
                 logs_background_2.setAutoDraw(False)
-                # create starting attributes for key_resp
-                key_resp.keys = []
-                key_resp.rt = []
-                _key_resp_allKeys = []
                 # store start times for BL_1_SPATIAL_FREQ
                 BL_1_SPATIAL_FREQ.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
                 BL_1_SPATIAL_FREQ.tStart = globalClock.getTime(format='float')
@@ -11553,6 +11570,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    
+                    # *key_resp* updates
+                    waitOnFlip = False
+                    
+                    # if key_resp is starting this frame...
+                    if key_resp.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp.frameNStart = frameN  # exact frame index
+                        key_resp.tStart = t  # local t and not account for scr refresh
+                        key_resp.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'key_resp.started')
+                        # update status
+                        key_resp.status = STARTED
+                        # keyboard checking is just starting
+                        waitOnFlip = True
+                        win.callOnFlip(key_resp.clock.reset)  # t=0 on next screen flip
+                        win.callOnFlip(key_resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                    if key_resp.status == STARTED and not waitOnFlip:
+                        theseKeys = key_resp.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_allKeys.extend(theseKeys)
+                        if len(_key_resp_allKeys):
+                            key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
+                            key_resp.rt = _key_resp_allKeys[-1].rt
+                            key_resp.duration = _key_resp_allKeys[-1].duration
                     
                     # *dots_black_5* updates
                     
@@ -11777,29 +11820,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         trials_bl_1.finished = True
                         #MODULE_1_TEST_1.finished = True
                     
-                    # *key_resp* updates
-                    
-                    # if key_resp is starting this frame...
-                    if key_resp.status == NOT_STARTED and t >= 0-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp.frameNStart = frameN  # exact frame index
-                        key_resp.tStart = t  # local t and not account for scr refresh
-                        key_resp.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp.status = STARTED
-                        # keyboard checking is just starting
-                        key_resp.clock.reset()  # now t=0
-                    if key_resp.status == STARTED:
-                        theseKeys = key_resp.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_allKeys.extend(theseKeys)
-                        if len(_key_resp_allKeys):
-                            key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
-                            key_resp.rt = _key_resp_allKeys[-1].rt
-                            key_resp.duration = _key_resp_allKeys[-1].duration
-                            # a response ends the routine
-                            continueRoutine = False
-                    
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
                         thisExp.status = FINISHED
@@ -11925,6 +11945,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if thisMODULE_1_TEST_2 != None:
             for paramName in thisMODULE_1_TEST_2:
                 globals()[paramName] = thisMODULE_1_TEST_2[paramName]
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
         
         for thisMODULE_1_TEST_2 in MODULE_1_TEST_2:
             MODULE_1_TEST_2.status = STARTED
@@ -11932,6 +11955,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 thisMODULE_1_TEST_2.status = STARTED
             currentLoop = MODULE_1_TEST_2
             thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
             # abbreviate parameter names if possible (e.g. rgb = thisMODULE_1_TEST_2.rgb)
             if thisMODULE_1_TEST_2 != None:
                 for paramName in thisMODULE_1_TEST_2:
@@ -12437,11 +12463,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine BL_2_CONTRAST
                 BL_2_CONTRAST = data.Routine(
                     name='BL_2_CONTRAST',
-                    components=[dots_black_7, dots_white_7, stim_5, logs_background_8, logs_parametros_trial_5, feedback_txt_3, key_resp_9],
+                    components=[key_resp_9, dots_black_7, dots_white_7, stim_5, logs_background_8, logs_parametros_trial_5, feedback_txt_3],
                 )
                 BL_2_CONTRAST.status = NOT_STARTED
                 continueRoutine = True
                 # update component parameters for each repeat
+                # create starting attributes for key_resp_9
+                key_resp_9.keys = []
+                key_resp_9.rt = []
+                _key_resp_9_allKeys = []
                 dots_black_7.refreshDots()
                 dots_white_7.refreshDots()
                 stim_5.setColor([1,1,1], colorSpace='rgb')
@@ -12491,10 +12521,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 logs_parametros_trial_5.setAutoDraw(False)
                 logs_background_8.setAutoDraw(False)
-                # create starting attributes for key_resp_9
-                key_resp_9.keys = []
-                key_resp_9.rt = []
-                _key_resp_9_allKeys = []
                 # store start times for BL_2_CONTRAST
                 BL_2_CONTRAST.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
                 BL_2_CONTRAST.tStart = globalClock.getTime(format='float')
@@ -12527,6 +12553,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    
+                    # *key_resp_9* updates
+                    waitOnFlip = False
+                    
+                    # if key_resp_9 is starting this frame...
+                    if key_resp_9.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_9.frameNStart = frameN  # exact frame index
+                        key_resp_9.tStart = t  # local t and not account for scr refresh
+                        key_resp_9.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_9, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'key_resp_9.started')
+                        # update status
+                        key_resp_9.status = STARTED
+                        # keyboard checking is just starting
+                        waitOnFlip = True
+                        win.callOnFlip(key_resp_9.clock.reset)  # t=0 on next screen flip
+                        win.callOnFlip(key_resp_9.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                    if key_resp_9.status == STARTED and not waitOnFlip:
+                        theseKeys = key_resp_9.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_9_allKeys.extend(theseKeys)
+                        if len(_key_resp_9_allKeys):
+                            key_resp_9.keys = _key_resp_9_allKeys[-1].name  # just the last key pressed
+                            key_resp_9.rt = _key_resp_9_allKeys[-1].rt
+                            key_resp_9.duration = _key_resp_9_allKeys[-1].duration
                     
                     # *dots_black_7* updates
                     
@@ -12740,29 +12792,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if flag_skip_all:
                         trials_bl_2.finished = True
                     
-                    # *key_resp_9* updates
-                    
-                    # if key_resp_9 is starting this frame...
-                    if key_resp_9.status == NOT_STARTED and t >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp_9.frameNStart = frameN  # exact frame index
-                        key_resp_9.tStart = t  # local t and not account for scr refresh
-                        key_resp_9.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp_9, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp_9.status = STARTED
-                        # keyboard checking is just starting
-                        key_resp_9.clock.reset()  # now t=0
-                    if key_resp_9.status == STARTED:
-                        theseKeys = key_resp_9.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_9_allKeys.extend(theseKeys)
-                        if len(_key_resp_9_allKeys):
-                            key_resp_9.keys = _key_resp_9_allKeys[-1].name  # just the last key pressed
-                            key_resp_9.rt = _key_resp_9_allKeys[-1].rt
-                            key_resp_9.duration = _key_resp_9_allKeys[-1].duration
-                            # a response ends the routine
-                            continueRoutine = False
-                    
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
                         thisExp.status = FINISHED
@@ -12854,9 +12883,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 )
                 # once done pausing, restore running status
                 MODULE_1_TEST_2.status = STARTED
+            thisExp.nextEntry()
+            
         # completed modules["module_1"]["tests"]["test_3"]["selected"] repeats of 'MODULE_1_TEST_2'
         MODULE_1_TEST_2.status = FINISHED
         
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        # get names of stimulus parameters
+        if MODULE_1_TEST_2.trialList in ([], [None], None):
+            params = []
+        else:
+            params = MODULE_1_TEST_2.trialList[0].keys()
+        # save data for this loop
+        MODULE_1_TEST_2.saveAsExcel(filename + '.xlsx', sheetName='MODULE_1_TEST_2',
+            stimOut=params,
+            dataOut=['n','all_mean','all_std', 'all_raw'])
         
         # set up handler to look after randomisation of conditions etc
         MODULE_1_TEST_3 = data.TrialHandler2(
@@ -13392,11 +13435,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine BL_3_COLOR
                 BL_3_COLOR = data.Routine(
                     name='BL_3_COLOR',
-                    components=[dots_black_6, dots_white_6, logs_background_10, logs_parametros_trial_6, stim_img, feedback_txt_2, key_resp_10],
+                    components=[key_resp_10, dots_black_6, dots_white_6, logs_background_10, logs_parametros_trial_6, stim_img, feedback_txt_2],
                 )
                 BL_3_COLOR.status = NOT_STARTED
                 continueRoutine = True
                 # update component parameters for each repeat
+                # create starting attributes for key_resp_10
+                key_resp_10.keys = []
+                key_resp_10.rt = []
+                _key_resp_10_allKeys = []
                 dots_black_6.refreshDots()
                 dots_white_6.refreshDots()
                 stim_img.setImage('./images/custom_stim.png')
@@ -13458,10 +13505,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                                        normalizar_rgb(hsv_a_rgb(*c1_hsv)), 
                                        normalizar_rgb(hsv_a_rgb(*c2_hsv)))
                 
-                # create starting attributes for key_resp_10
-                key_resp_10.keys = []
-                key_resp_10.rt = []
-                _key_resp_10_allKeys = []
                 # store start times for BL_3_COLOR
                 BL_3_COLOR.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
                 BL_3_COLOR.tStart = globalClock.getTime(format='float')
@@ -13494,6 +13537,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    
+                    # *key_resp_10* updates
+                    waitOnFlip = False
+                    
+                    # if key_resp_10 is starting this frame...
+                    if key_resp_10.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        key_resp_10.frameNStart = frameN  # exact frame index
+                        key_resp_10.tStart = t  # local t and not account for scr refresh
+                        key_resp_10.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(key_resp_10, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'key_resp_10.started')
+                        # update status
+                        key_resp_10.status = STARTED
+                        # keyboard checking is just starting
+                        waitOnFlip = True
+                        win.callOnFlip(key_resp_10.clock.reset)  # t=0 on next screen flip
+                        win.callOnFlip(key_resp_10.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                    if key_resp_10.status == STARTED and not waitOnFlip:
+                        theseKeys = key_resp_10.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
+                        _key_resp_10_allKeys.extend(theseKeys)
+                        if len(_key_resp_10_allKeys):
+                            key_resp_10.keys = _key_resp_10_allKeys[-1].name  # just the last key pressed
+                            key_resp_10.rt = _key_resp_10_allKeys[-1].rt
+                            key_resp_10.duration = _key_resp_10_allKeys[-1].duration
                     
                     # *dots_black_6* updates
                     
@@ -13697,29 +13766,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     if flag_skip_all:
                         trials_bl_3.finished = True
-                    
-                    # *key_resp_10* updates
-                    
-                    # if key_resp_10 is starting this frame...
-                    if key_resp_10.status == NOT_STARTED and t >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        key_resp_10.frameNStart = frameN  # exact frame index
-                        key_resp_10.tStart = t  # local t and not account for scr refresh
-                        key_resp_10.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(key_resp_10, 'tStartRefresh')  # time at next scr refresh
-                        # update status
-                        key_resp_10.status = STARTED
-                        # keyboard checking is just starting
-                        key_resp_10.clock.reset()  # now t=0
-                    if key_resp_10.status == STARTED:
-                        theseKeys = key_resp_10.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
-                        _key_resp_10_allKeys.extend(theseKeys)
-                        if len(_key_resp_10_allKeys):
-                            key_resp_10.keys = _key_resp_10_allKeys[-1].name  # just the last key pressed
-                            key_resp_10.rt = _key_resp_10_allKeys[-1].rt
-                            key_resp_10.duration = _key_resp_10_allKeys[-1].duration
-                            # a response ends the routine
-                            continueRoutine = False
                     
                     # check for quit (typically the Esc key)
                     if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -19884,7 +19930,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     win.callOnFlip(key_resp_17.clock.reset)  # t=0 on next screen flip
                     win.callOnFlip(key_resp_17.clearEvents, eventType='keyboard')  # clear events on next screen flip
                 if key_resp_17.status == STARTED and not waitOnFlip:
-                    theseKeys = key_resp_17.getKeys(keyList=['s','n'], ignoreKeys=["escape"], waitRelease=False)
+                    theseKeys = key_resp_17.getKeys(keyList=['space', 'right', 'left'], ignoreKeys=["escape"], waitRelease=False)
                     _key_resp_17_allKeys.extend(theseKeys)
                     if len(_key_resp_17_allKeys):
                         key_resp_17.keys = _key_resp_17_allKeys[-1].name  # just the last key pressed
@@ -23964,7 +24010,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine VISUAL_SEARCH_RINGS
                 VISUAL_SEARCH_RINGS = data.Routine(
                     name='VISUAL_SEARCH_RINGS',
-                    components=[rings_img, key_resp_28, gaze],
+                    components=[polygon_10, rings_img, key_resp_28, gaze],
                 )
                 VISUAL_SEARCH_RINGS.status = NOT_STARTED
                 continueRoutine = True
@@ -24064,6 +24110,26 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    
+                    # *polygon_10* updates
+                    
+                    # if polygon_10 is starting this frame...
+                    if polygon_10.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        polygon_10.frameNStart = frameN  # exact frame index
+                        polygon_10.tStart = t  # local t and not account for scr refresh
+                        polygon_10.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(polygon_10, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'polygon_10.started')
+                        # update status
+                        polygon_10.status = STARTED
+                        polygon_10.setAutoDraw(True)
+                    
+                    # if polygon_10 is active this frame...
+                    if polygon_10.status == STARTED:
+                        # update params
+                        pass
                     # Run 'Each Frame' code from code_28
                     if t>vs_image_time + vs_wait_time:
                         continueRoutine = False
@@ -24834,7 +24900,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine DYNAMIC_VISUAL_SEARCH
                 DYNAMIC_VISUAL_SEARCH = data.Routine(
                     name='DYNAMIC_VISUAL_SEARCH',
-                    components=[key_resp_3],
+                    components=[polygon_11, key_resp_3],
                 )
                 DYNAMIC_VISUAL_SEARCH.status = NOT_STARTED
                 continueRoutine = True
@@ -24909,6 +24975,26 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    
+                    # *polygon_11* updates
+                    
+                    # if polygon_11 is starting this frame...
+                    if polygon_11.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                        # keep track of start time/frame for later
+                        polygon_11.frameNStart = frameN  # exact frame index
+                        polygon_11.tStart = t  # local t and not account for scr refresh
+                        polygon_11.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(polygon_11, 'tStartRefresh')  # time at next scr refresh
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'polygon_11.started')
+                        # update status
+                        polygon_11.status = STARTED
+                        polygon_11.setAutoDraw(True)
+                    
+                    # if polygon_11 is active this frame...
+                    if polygon_11.status == STARTED:
+                        # update params
+                        pass
                     # Run 'Each Frame' code from code_4
                     t = routine_timer.getTime()
                     

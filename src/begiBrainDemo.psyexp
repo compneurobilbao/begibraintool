@@ -72,7 +72,7 @@
     <Param val="1000" valType="num" updates="None" name="plPupilRemoteTimeoutMs"/>
     <Param val="False" valType="bool" updates="None" name="plPupillometryOnly"/>
     <Param val="psychopy_iohub_surface" valType="str" updates="None" name="plSurfaceName"/>
-    <Param val="0" valType="code" updates="None" name="runMode"/>
+    <Param val="1" valType="code" updates="None" name="runMode"/>
     <Param val="True" valType="bool" updates="None" name="rush"/>
     <Param val="time" valType="str" updates="None" name="sortColumns"/>
     <Param val="" valType="str" updates="None" name="tbLicenseFile"/>
@@ -959,6 +959,26 @@
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
       </RoutineSettingsComponent>
+      <KeyboardComponent name="key_resp" plugin="None">
+        <Param val="'space', 'right', 'left'" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="" valType="str" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="key_resp" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
       <DotsComponent name="dots_black_5" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="1.0" valType="num" updates="constant" name="coherence"/>
@@ -1195,26 +1215,6 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="code" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <KeyboardComponent name="key_resp" plugin="None">
-        <Param val="'space', 'right', 'left'" valType="list" updates="constant" name="allowedKeys"/>
-        <Param val="" valType="str" updates="constant" name="correctAns"/>
-        <Param val="" valType="str" updates="None" name="deviceLabel"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="bool" updates="constant" name="discard previous"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
-        <Param val="key_resp" valType="code" updates="None" name="name"/>
-        <Param val="press" valType="str" updates="constant" name="registerOn"/>
-        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="last key" valType="str" updates="constant" name="store"/>
-        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
-        <Param val="False" valType="bool" updates="constant" name="syncScreenRefresh"/>
-      </KeyboardComponent>
     </Routine>
     <Routine name="BL_8_TEMPORAL_FREQ">
       <RoutineSettingsComponent name="BL_8_TEMPORAL_FREQ" plugin="None">
@@ -1789,6 +1789,26 @@
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
       </RoutineSettingsComponent>
+      <KeyboardComponent name="key_resp_9" plugin="None">
+        <Param val="'space', 'right', 'left'" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="" valType="str" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="key_resp_9" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
       <DotsComponent name="dots_black_7" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="1.0" valType="num" updates="constant" name="coherence"/>
@@ -1998,26 +2018,6 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="code_8" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <KeyboardComponent name="key_resp_9" plugin="None">
-        <Param val="'space', 'right', 'left'" valType="list" updates="constant" name="allowedKeys"/>
-        <Param val="" valType="str" updates="constant" name="correctAns"/>
-        <Param val="" valType="str" updates="None" name="deviceLabel"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="bool" updates="constant" name="discard previous"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
-        <Param val="key_resp_9" valType="code" updates="None" name="name"/>
-        <Param val="press" valType="str" updates="constant" name="registerOn"/>
-        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="last key" valType="str" updates="constant" name="store"/>
-        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
-        <Param val="False" valType="bool" updates="constant" name="syncScreenRefresh"/>
-      </KeyboardComponent>
     </Routine>
     <Routine name="BL_3_COLOR">
       <RoutineSettingsComponent name="BL_3_COLOR" plugin="None">
@@ -2036,6 +2036,26 @@
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
       </RoutineSettingsComponent>
+      <KeyboardComponent name="key_resp_10" plugin="None">
+        <Param val="'space', 'right', 'left'" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="" valType="str" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="key_resp_10" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
       <DotsComponent name="dots_black_6" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="1.0" valType="num" updates="constant" name="coherence"/>
@@ -2261,26 +2281,6 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="gabor_generator_2" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <KeyboardComponent name="key_resp_10" plugin="None">
-        <Param val="'space', 'right', 'left'" valType="list" updates="constant" name="allowedKeys"/>
-        <Param val="" valType="str" updates="constant" name="correctAns"/>
-        <Param val="" valType="str" updates="None" name="deviceLabel"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="bool" updates="constant" name="discard previous"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
-        <Param val="key_resp_10" valType="code" updates="None" name="name"/>
-        <Param val="press" valType="str" updates="constant" name="registerOn"/>
-        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="last key" valType="str" updates="constant" name="store"/>
-        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
-        <Param val="False" valType="bool" updates="constant" name="syncScreenRefresh"/>
-      </KeyboardComponent>
     </Routine>
     <Routine name="BL_4_TEMPORAL_FREQ">
       <RoutineSettingsComponent name="BL_4_TEMPORAL_FREQ" plugin="None">
@@ -5543,6 +5543,35 @@
       </KeyboardComponent>
     </Routine>
     <Routine name="VISUAL_SEARCH_RINGS">
+      <PolygonComponent name="polygon_10" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="1.0000, -1.0000, -1.0000" valType="color" updates="constant" name="fillColor"/>
+        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
+        <Param val="1.0000, -1.0000, -1.0000" valType="color" updates="constant" name="lineColor"/>
+        <Param val="1" valType="num" updates="constant" name="lineWidth"/>
+        <Param val="4" valType="int" updates="constant" name="nVertices"/>
+        <Param val="polygon_10" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="cross" valType="str" updates="None" name="shape"/>
+        <Param val="(0.04, 0.04)" valType="list" updates="constant" name="size"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="list" updates="constant" name="vertices"/>
+      </PolygonComponent>
       <RoutineSettingsComponent name="VISUAL_SEARCH_RINGS" plugin="None">
         <Param val="none" valType="str" updates="None" name="backgroundFit"/>
         <Param val="" valType="str" updates="None" name="backgroundImg"/>
@@ -6327,12 +6356,12 @@
       <CodeComponent name="code_32" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="import random&amp;#10;&amp;#10;def get_random_orientation():&amp;#10;    return random.choice([45, 135])" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="import random&amp;#10;&amp;#10;def get_random_orientation():&amp;#10;    return random.choice([45, 135])&amp;#10;    &amp;#10;def get_random_sf():&amp;#10;    return random.randint(15, 100)" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="import * as np from 'numpy';&amp;#10;function staircase_2down_1up(starting_value = 0.2, step_size = 0.01, stop_reversals = 10) {&amp;#10;    var contrast, correct_responses, last_direction, response, reversal_contrasts, reversals, step;&amp;#10;    contrast = starting_value;&amp;#10;    step = step_size;&amp;#10;    reversals = 0;&amp;#10;    last_direction = null;&amp;#10;    reversal_contrasts = [];&amp;#10;    correct_responses = 0;&amp;#10;    trials = [];&amp;#10;    while ((reversals &lt; stop_reversals)) {&amp;#10;        response = (np.random.rand() &lt; 0.7);&amp;#10;        if (response) {&amp;#10;            correct_responses += 1;&amp;#10;            if ((correct_responses === 2)) {&amp;#10;                correct_responses = 0;&amp;#10;                contrast = Math.max(0, (contrast - step));&amp;#10;                if ((last_direction === &quot;up&quot;)) {&amp;#10;                    reversals += 1;&amp;#10;                    reversal_contrasts.push(contrast);&amp;#10;                }&amp;#10;                last_direction = &quot;down&quot;;&amp;#10;            }&amp;#10;        } else {&amp;#10;            contrast += step;&amp;#10;            correct_responses = 0;&amp;#10;            if ((last_direction === &quot;down&quot;)) {&amp;#10;                reversals += 1;&amp;#10;                reversal_contrasts.push(contrast);&amp;#10;            }&amp;#10;            last_direction = &quot;up&quot;;&amp;#10;        }&amp;#10;        trials.push({&quot;trial&quot;: (trials.length + 1), &quot;contrast&quot;: contrast, &quot;response&quot;: response, &quot;reversals&quot;: reversals});&amp;#10;    }&amp;#10;    threshold = np.mean(reversal_contrasts.slice((- (stop_reversals - 1))));&amp;#10;    return [threshold, trials];&amp;#10;}&amp;#10;[threshold, trials] = staircase_2down_1up();&amp;#10;console.log(`Umbral estimado de contraste: ${threshold}`);&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="import csv&amp;#10;&amp;#10;# Variables estaticas&amp;#10;sf_starting_value = 50&amp;#10;sf_step_size = 15&amp;#10;sf_starting_orientation = get_random_orientation()&amp;#10;&amp;#10;&amp;#10;# Inicializacion de variables que posteriormente cambian&amp;#10;sf = sf_starting_value&amp;#10;step = sf_step_size&amp;#10;trial_orientation = sf_starting_orientation&amp;#10;reversals = 0&amp;#10;last_direction = None&amp;#10;reversal_sf = []&amp;#10;correct_responses = 0&amp;#10;trials = []&amp;#10;consecutive_hits = 0 # para saber cuandoa acabar el tutorial&amp;#10;&amp;#10;# Para almacenar las respuestas del participante&amp;#10;response = None&amp;#10;&amp;#10;# Acciones inicio de rutina&amp;#10;grating_9.sf = sf&amp;#10;grating_9.ori = trial_orientation&amp;#10;arrow.ori = 45 if trial_orientation == 45 else -45&amp;#10;&amp;#10;dots_white_12.setAutoDraw(False)&amp;#10;dots_black_12.setAutoDraw(False)" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="import csv&amp;#10;&amp;#10;# Variables estaticas&amp;#10;sf_starting_value = 30&amp;#10;sf_step_size = 15&amp;#10;sf_starting_orientation = get_random_orientation()&amp;#10;&amp;#10;&amp;#10;# Inicializacion de variables que posteriormente cambian&amp;#10;sf = sf_starting_value&amp;#10;step = sf_step_size&amp;#10;trial_orientation = sf_starting_orientation&amp;#10;reversals = 0&amp;#10;last_direction = None&amp;#10;reversal_sf = []&amp;#10;correct_responses = 0&amp;#10;trials = []&amp;#10;consecutive_hits = 0 # para saber cuandoa acabar el tutorial&amp;#10;&amp;#10;# Para almacenar las respuestas del participante&amp;#10;response = None&amp;#10;&amp;#10;# Acciones inicio de rutina&amp;#10;grating_9.sf = sf&amp;#10;grating_9.ori = trial_orientation&amp;#10;arrow.ori = 45 if trial_orientation == 45 else -45&amp;#10;&amp;#10;dots_white_12.setAutoDraw(False)&amp;#10;dots_black_12.setAutoDraw(False)" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="keys = event.getKeys()&amp;#10;&amp;#10;if 's' in keys: # El paciente ve el estimulo&amp;#10;    response = True&amp;#10;elif 'a' in keys: # El paciente no ve las lineas&amp;#10;    response = False&amp;#10;elif 'right' in keys and trial_orientation == 45: # Acierto&amp;#10;    response = True&amp;#10;elif 'left' in keys and trial_orientation == 135: # Acierto&amp;#10;    response = True&amp;#10;elif 'right' in keys or 'left' in keys:&amp;#10;    response = False&amp;#10;&amp;#10;if 'space' in keys:&amp;#10;    flag_skip_all = True&amp;#10;    &amp;#10;# Lógica del staircase&amp;#10;if response is not None:&amp;#10;    show_feedback(feedback_txt_8, response)&amp;#10;    grating_9.setAutoDraw(False)&amp;#10;    show_noise(dots_white_12, dots_black_12, staircase_noise_duration)&amp;#10;    grating_9.setAutoDraw(True)&amp;#10;    &amp;#10;    # Actualizar el sf y orientacion del estímulo&amp;#10;    grating_9.sf = sf&amp;#10;    trial_orientation = get_random_orientation()&amp;#10;    grating_9.ori = trial_orientation&amp;#10;    arrow.ori = 45 if trial_orientation == 45 else -45&amp;#10;    &amp;#10;    # Actualizar contador de aciertos consecutivos&amp;#10;    if response:&amp;#10;        consecutive_hits += 1&amp;#10;    else:&amp;#10;        consecutive_hits = 0  # resetear si fallo&amp;#10;        &amp;#10;    if consecutive_hits &gt; 2:&amp;#10;        arrow.setAutoDraw(False)   # ocultar si supera 3 aciertos&amp;#10;    elif consecutive_hits == 0:&amp;#10;        arrow.setAutoDraw(True)    # reaparece si vuelve a 0&amp;#10;        &amp;#10;    # Interrumpir rutina si hay 4 aciertos seguidos&amp;#10;    if consecutive_hits &gt;= 5:&amp;#10;        continueRoutine = False&amp;#10;    &amp;#10;    # Restablecer la respuesta para el siguiente ensayo&amp;#10;    response = None&amp;#10;&amp;#10;#########################################################&amp;#10;#############____________LOGS_________###################&amp;#10;#########################################################&amp;#10;if advanced_config[&quot;logs&quot;][&quot;value&quot;]:&amp;#10;    logs_14.text = &quot;TUTORIAL&quot;&amp;#10;else:&amp;#10;    logs_14.setAutoDraw(False)&amp;#10;    &amp;#10;dots_white_12.setAutoDraw(False)&amp;#10;dots_black_12.setAutoDraw(False)" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="keys = event.getKeys()&amp;#10;&amp;#10;if 's' in keys: # El paciente ve el estimulo&amp;#10;    response = True&amp;#10;elif 'a' in keys: # El paciente no ve las lineas&amp;#10;    response = False&amp;#10;elif 'right' in keys and trial_orientation == 45: # Acierto&amp;#10;    response = True&amp;#10;elif 'left' in keys and trial_orientation == 135: # Acierto&amp;#10;    response = True&amp;#10;elif 'right' in keys or 'left' in keys:&amp;#10;    response = False&amp;#10;&amp;#10;if 'space' in keys:&amp;#10;    flag_skip_all = True&amp;#10;    &amp;#10;# Lógica del staircase&amp;#10;if response is not None:&amp;#10;    show_feedback(feedback_txt_8, response)&amp;#10;    grating_9.setAutoDraw(False)&amp;#10;    show_noise(dots_white_12, dots_black_12, staircase_noise_duration)&amp;#10;    grating_9.setAutoDraw(True)&amp;#10;    &amp;#10;    # Actualizar el sf y orientacion del estímulo&amp;#10;    grating_9.sf = get_random_sf()&amp;#10;    trial_orientation = get_random_orientation()&amp;#10;    grating_9.ori = trial_orientation&amp;#10;    arrow.ori = 45 if trial_orientation == 45 else -45&amp;#10;    &amp;#10;    # Actualizar contador de aciertos consecutivos&amp;#10;    if response:&amp;#10;        consecutive_hits += 1&amp;#10;    else:&amp;#10;        consecutive_hits = 0  # resetear si fallo&amp;#10;        &amp;#10;    if consecutive_hits &gt; 2:&amp;#10;        arrow.setAutoDraw(False)   # ocultar si supera 3 aciertos&amp;#10;    elif consecutive_hits == 0:&amp;#10;        arrow.setAutoDraw(True)    # reaparece si vuelve a 0&amp;#10;        &amp;#10;    # Interrumpir rutina si hay 5 aciertos seguidos&amp;#10;    if consecutive_hits &gt;= 6:&amp;#10;        continueRoutine = False&amp;#10;    &amp;#10;    # Restablecer la respuesta para el siguiente ensayo&amp;#10;    response = None&amp;#10;&amp;#10;#########################################################&amp;#10;#############____________LOGS_________###################&amp;#10;#########################################################&amp;#10;if advanced_config[&quot;logs&quot;][&quot;value&quot;]:&amp;#10;    logs_14.text = &quot;TUTORIAL&quot;&amp;#10;else:&amp;#10;    logs_14.setAutoDraw(False)&amp;#10;    &amp;#10;dots_white_12.setAutoDraw(False)&amp;#10;dots_black_12.setAutoDraw(False)" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="contrast_pos = slider.value;&amp;#10;if (((opacity_pos !== null) &amp;&amp; (contrast_pos !== null))) {&amp;#10;    logs.text = `contrast = ${util.pad(Number.parseFloat(contrast_pos).toFixed(1), 1)}`;&amp;#10;    grating.contrast = contrast_pos;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
@@ -7203,7 +7232,7 @@
       <Param name="conditions" updates="None" val="None" valType="str"/>
       <Param name="conditionsFile" updates="None" val="" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="False" valType="bool"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
       <Param name="loopType" updates="None" val="random" valType="str"/>
       <Param name="nReps" updates="None" val="modules[&quot;module_1&quot;][&quot;tests&quot;][&quot;test_3&quot;][&quot;selected&quot;]" valType="num"/>
       <Param name="name" updates="None" val="MODULE_1_TEST_2" valType="code"/>
