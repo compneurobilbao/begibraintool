@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BegiBrainTool — Visual Assessment for Neurodegenerative Diseases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #05080f;
+    --surface: #0b1220;
+    --surface2: #121d30;
+    --border: rgba(100, 170, 255, 0.12);
+    --accent: #3d9bff;
+    --accent2: #7b5cfa;
+    --accent3: #00e5c4;
+    --text: #dce8ff;
+    --muted: #6a85a8;
+    --glow: rgba(61, 155, 255, 0.18);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s, opacity 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(61,155,255,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.18s ease, width 0.2s, height 0.2s;
+  }
+
+  /* NOISE overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(5, 8, 15, 0.7);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent3); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    position: relative; overflow: hidden;
+    padding: 8rem 4rem 4rem;
+  }
+
+  /* Animated brain grid background */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(61,155,255,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(123,92,250,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 30% at 20% 80%, rgba(0,229,196,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Scanning line effect */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(61,155,255,0.015) 3px,
+      rgba(61,155,255,0.015) 4px
+    );
+    animation: scanlines 8s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes scanlines { from { transform: translateY(0); } to { transform: translateY(4px); } }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 900px; text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.3rem 1rem;
+    border: 1px solid rgba(0,229,196,0.3);
+    border-radius: 999px;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent3);
+    background: rgba(0,229,196,0.05);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    box-shadow: 0 0 8px var(--accent3);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:0.5; transform:scale(0.7)} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  h1 .line1 { display: block; color: var(--text); }
+  h1 .line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem; line-height: 1.8;
+    color: var(--muted); max-width: 560px; margin: 0 auto 3rem;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: #020610; font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em;
+    border: none; border-radius: 6px;
+    text-decoration: none; cursor: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 0 24px rgba(61,155,255,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(61,155,255,0.5); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--text); font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em;
+    border: 1px solid var(--border);
+    border-radius: 6px; text-decoration: none; cursor: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(100,170,255,0.4); background: rgba(61,155,255,0.06); }
+
+  /* Eye SVG animation in hero */
+  .eye-orbit {
+    position: absolute;
+    right: 6%; top: 50%; transform: translateY(-50%);
+    width: 240px; height: 240px;
+    opacity: 0.55;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+  @media (max-width: 900px) { .eye-orbit { display: none; } }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* STATS */
+  .stats-bar {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    display: flex; justify-content: center;
+    overflow: hidden;
+  }
+  .stats-inner {
+    display: flex; gap: 0;
+    max-width: 1100px; width: 100%;
+  }
+  .stat {
+    flex: 1;
+    padding: 2rem 2.5rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(61,155,255,0.04); }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block; margin-bottom: 0.4rem;
+  }
+  .stat-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  .section-tag {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-tag::before {
+    content: ''; display: block;
+    width: 24px; height: 1px; background: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+
+  /* MODULES */
+  .modules { padding: 7rem 4rem; }
+  .modules-header { max-width: 560px; margin-bottom: 4rem; }
+  .modules-header p { color: var(--muted); line-height: 1.8; font-size: 0.9rem; margin-top: 1rem; }
+
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .module-card {
+    background: var(--surface);
+    padding: 2.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.2s;
+  }
+  .module-card:hover { background: var(--surface2); }
+  .module-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--accent));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .module-card:hover::before { transform: scaleX(1); }
+
+  .module-card.m1 { --card-accent: var(--accent); }
+  .module-card.m2 { --card-accent: var(--accent2); }
+  .module-card.m3 { --card-accent: var(--accent3); }
+
+  .module-icon {
+    font-size: 2.2rem; margin-bottom: 1.2rem;
+    display: block;
+  }
+  .module-num {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.8rem;
+  }
+  .module-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem;
+  }
+  .module-card p { color: var(--muted); font-size: 0.82rem; line-height: 1.8; margin-bottom: 1.2rem; }
+  .module-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--card-accent, var(--accent));
+    border-radius: 3px;
+    color: var(--card-accent, var(--accent));
+    opacity: 0.75;
+  }
+
+  /* WHY */
+  .why {
+    padding: 7rem 4rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .why-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center;
+  }
+  @media (max-width: 800px) { .why-inner { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .why-text p { color: var(--muted); font-size: 0.88rem; line-height: 1.9; margin-top: 1rem; }
+  .why-bullets { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .bullet {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .bullet:hover { border-color: rgba(61,155,255,0.3); }
+  .bullet-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .bullet-text strong {
+    display: block; font-family: 'Syne', sans-serif;
+    font-size: 0.85rem; font-weight: 700; margin-bottom: 0.2rem;
+  }
+  .bullet-text span { color: var(--muted); font-size: 0.78rem; line-height: 1.6; }
+
+  .why-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .vis-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+    text-align: center; transition: border-color 0.2s, transform 0.2s;
+  }
+  .vis-box:hover { border-color: rgba(61,155,255,0.3); transform: translateY(-3px); }
+  .vis-box.wide { grid-column: span 2; }
+  .vis-box-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+  .vis-box-label {
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .vis-box-val {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem;
+    color: var(--text); margin-top: 0.2rem;
+  }
+
+  /* ARCHITECTURE */
+  .arch { padding: 7rem 4rem; }
+  .arch-inner { max-width: 1100px; margin: 0 auto; }
+  .arch-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+  .arch-header p { color: var(--muted); font-size: 0.88rem; line-height: 1.8; margin-top: 1rem; }
+
+  .arch-flow {
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 0; position: relative;
+  }
+  .arch-node {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 1.5rem 1.8rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px; text-align: center; min-width: 130px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .arch-node:hover {
+    border-color: rgba(61,155,255,0.35);
+    box-shadow: 0 0 24px rgba(61,155,255,0.1);
+  }
+  .arch-node-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .arch-node-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 700; margin-bottom: 0.25rem;
+  }
+  .arch-node-sub { font-size: 0.65rem; color: var(--muted); }
+  .arch-arrow {
+    color: var(--muted); font-size: 1.2rem; padding: 0 0.5rem;
+    flex-shrink: 0;
+  }
+
+  /* INSTALL */
+  .install {
+    padding: 7rem 4rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  .install-inner {
+    max-width: 800px; margin: 0 auto;
+  }
+  .install-header { margin-bottom: 3rem; }
+  .install-header p { color: var(--muted); font-size: 0.88rem; line-height: 1.8; margin-top: 1rem; }
+
+  .step { margin-bottom: 1.5rem; }
+  .step-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;
+  }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--accent); color: #020610;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem;
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .step-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  }
+
+  .code-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--accent3);
+    overflow-x: auto;
+    position: relative;
+  }
+  .code-block .comment { color: var(--muted); }
+  .code-block .cmd { color: var(--accent); }
+
+  .req-tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem;
+  }
+  .req-tag {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.7rem; letter-spacing: 0.06em;
+    padding: 0.35rem 0.8rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 5px; color: var(--muted);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    color: var(--accent); font-size: 0.9rem; letter-spacing: 0.08em;
+  }
+  .footer-logo span { color: var(--accent3); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.75rem; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy { color: var(--muted); font-size: 0.72rem; }
+
+  /* REVEAL animations */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .modules, .why, .arch, .install { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    .stats-inner { flex-wrap: wrap; }
+    .stat { flex: 1 1 45%; }
+    .arch-flow { flex-direction: column; }
+    .arch-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Begi<span>Brain</span>Tool</a>
+  <ul class="nav-links">
+    <li><a href="#modules">Modules</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="https://github.com/compneurobilbao/begibraintool" target="_blank">GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Animated eye SVG -->
+  <svg class="eye-orbit" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="120" cy="120" r="100" stroke="rgba(61,155,255,0.1)" stroke-width="1"/>
+    <circle cx="120" cy="120" r="70" stroke="rgba(61,155,255,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
+    <ellipse cx="120" cy="120" rx="90" ry="45" stroke="rgba(61,155,255,0.18)" stroke-width="1.5"/>
+    <circle cx="120" cy="120" r="28" fill="none" stroke="rgba(61,155,255,0.4)" stroke-width="1.5"/>
+    <circle cx="120" cy="120" r="18" fill="rgba(61,155,255,0.12)"/>
+    <circle cx="120" cy="120" r="8" fill="rgba(61,155,255,0.7)"/>
+    <circle cx="126" cy="114" r="3" fill="white" opacity="0.6"/>
+    <!-- Scanning line -->
+    <line x1="30" y1="120" x2="210" y2="120" stroke="rgba(0,229,196,0.3)" stroke-width="1">
+      <animate attributeName="opacity" values="0.1;0.6;0.1" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <!-- Orbit dot -->
+    <circle r="4" fill="var(--accent2)" opacity="0.9">
+      <animateMotion dur="6s" repeatCount="indefinite">
+        <mpath href="#orbit-path"/>
+      </animateMotion>
+    </circle>
+    <path id="orbit-path" d="M120,20 A100,100 0 1,1 119.99,20" fill="none"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="hero-badge">Open-source neuroscience tool — Active development</div>
+    <h1>
+      <span class="line1">Vision reveals</span>
+      <span class="line2">what the brain hides.</span>
+    </h1>
+    <p class="hero-sub">
+      BegiBrainTool is a modular visual assessment battery for early detection and monitoring of Alzheimer's and Parkinson's disease — built on PsychoPy, open-source, and designed for both research and clinical environments.
+    </p>
+    <div class="hero-ctas">
+      <a href="#install" class="btn-primary">↓ Get Started</a>
+      <a href="https://github.com/compneurobilbao/begibraintool" target="_blank" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Assessment Modules</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">10+</span>
+      <span class="stat-label">Visual Tests</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Biometric Signals</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Open Source</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<section class="modules" id="modules">
+  <div class="modules-header reveal">
+    <div class="section-tag">Test Battery</div>
+    <h2>Three modules.<br>One complete picture.</h2>
+    <p>Each module targets a distinct dimension of visual processing, together forming a comprehensive assessment of vision-brain connectivity in neurodegenerative disease.</p>
+  </div>
+
+  <div class="modules-grid reveal">
+    <div class="module-card m1">
+      <span class="module-icon">👁</span>
+      <div class="module-num">Module 01</div>
+      <h3>Spatial Vision</h3>
+      <p>Evaluates basic and semantic visual processing through stimuli that systematically vary along three perceptual axes, with individual threshold calibration for each.</p>
+      <div class="module-tags">
+        <span class="tag">Spatial Frequency</span>
+        <span class="tag">Contrast</span>
+        <span class="tag">Color Saturation</span>
+        <span class="tag">Threshold Detection</span>
+      </div>
+    </div>
+    <div class="module-card m2">
+      <span class="module-icon">🎯</span>
+      <div class="module-num">Module 02</div>
+      <h3>Dynamic Vision & Eye Tracking</h3>
+      <p>Analyzes visual attention, tracking ability, and oculomotor control through a suite of moving stimuli tasks synchronized with a GazePoint GP3 HD eye-tracker.</p>
+      <div class="module-tags">
+        <span class="tag">Fixation Stability</span>
+        <span class="tag">Smooth Pursuit</span>
+        <span class="tag">Saccades</span>
+        <span class="tag">Flicker Fusion</span>
+        <span class="tag">Visual Search</span>
+      </div>
+    </div>
+    <div class="module-card m3">
+      <span class="module-icon">💓</span>
+      <div class="module-num">Module 03</div>
+      <h3>Autonomous Response</h3>
+      <p>Measures unconscious physiological reactions to basic and emotionally charged visual stimuli via multi-modal biometric acquisition, capturing what the eye alone cannot reveal.</p>
+      <div class="module-tags">
+        <span class="tag">Pupillometry</span>
+        <span class="tag">HRV</span>
+        <span class="tag">GSR</span>
+        <span class="tag">Emotional Stimuli</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="why-text reveal">
+      <div class="section-tag">Motivation</div>
+      <h2>Why vision?<br>Why now?</h2>
+      <p>The retina is a direct extension of the brain. Changes in visual processing — saccades, fixation stability, pupil dynamics — emerge years before cognitive symptoms in Alzheimer's and Parkinson's.</p>
+      <div class="why-bullets">
+        <div class="bullet">
+          <span class="bullet-icon">🔍</span>
+          <div class="bullet-text">
+            <strong>A gap in clinical neuroscience</strong>
+            <span>No comprehensive toolbox exists today that evaluates vision specifically for early detection of neurodegenerative diseases.</span>
+          </div>
+        </div>
+        <div class="bullet">
+          <span class="bullet-icon">📈</span>
+          <div class="bullet-text">
+            <strong>Growing clinical need</strong>
+            <span>The aging population in Spain and worldwide demands fast, non-invasive, and personalized screening tools.</span>
+          </div>
+        </div>
+        <div class="bullet">
+          <span class="bullet-icon">🧩</span>
+          <div class="bullet-text">
+            <strong>Modular and adaptable</strong>
+            <span>Run only the tests you need. Designed for multicenter and longitudinal studies with JSON/XLSX parameter configuration.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual reveal">
+      <div class="vis-box">
+        <span class="vis-box-icon">🖥️</span>
+        <div class="vis-box-label">Control PC</div>
+        <div class="vis-box-val">PsychoPy 2024+</div>
+      </div>
+      <div class="vis-box">
+        <span class="vis-box-icon">👁️</span>
+        <div class="vis-box-label">Eye Tracker</div>
+        <div class="vis-box-val">GazePoint GP3 HD</div>
+      </div>
+      <div class="vis-box">
+        <span class="vis-box-icon">💓</span>
+        <div class="vis-box-label">Biometrics</div>
+        <div class="vis-box-val">PPG + GSR</div>
+      </div>
+      <div class="vis-box">
+        <span class="vis-box-icon">🎮</span>
+        <div class="vis-box-label">Response</div>
+        <div class="vis-box-val">Response Pad</div>
+      </div>
+      <div class="vis-box wide">
+        <span class="vis-box-icon">🧠</span>
+        <div class="vis-box-label">Optional</div>
+        <div class="vis-box-val">Head-Mounted Display + DVS Camera (in development)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="arch" id="architecture">
+  <div class="arch-inner">
+    <div class="arch-header reveal">
+      <div class="section-tag">Software Flow</div>
+      <h2>From stimulus to insight</h2>
+      <p>A synchronized pipeline from GUI configuration to biometric acquisition, automated preprocessing, and feature extraction — all in one open platform.</p>
+    </div>
+
+    <div class="arch-flow reveal">
+      <div class="arch-node">
+        <span class="arch-node-icon">⚙️</span>
+        <span class="arch-node-label">GUI Config</span>
+        <span class="arch-node-sub">JSON / XLSX</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🖥️</span>
+        <span class="arch-node-label">PsychoPy</span>
+        <span class="arch-node-sub">Stimulus delivery</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">📡</span>
+        <span class="arch-node-label">Acquisition</span>
+        <span class="arch-node-sub">Gaze + Biometrics</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🔬</span>
+        <span class="arch-node-label">Preprocessing</span>
+        <span class="arch-node-sub">Automated pipeline</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">📊</span>
+        <span class="arch-node-label">Features</span>
+        <span class="arch-node-sub">Biomarker extraction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTALL -->
+<section class="install" id="install">
+  <div class="install-inner">
+    <div class="install-header reveal">
+      <div class="section-tag">Get Started</div>
+      <h2>Up and running in minutes</h2>
+      <p>Three steps to deploy BegiBrainTool in your lab or clinical environment.</p>
+      <div class="req-tags">
+        <span class="req-tag">🐍 Python 3.8+</span>
+        <span class="req-tag">🧪 PsychoPy 2024+</span>
+        <span class="req-tag">👁 GazePoint GP3 HD (recommended)</span>
+        <span class="req-tag">🪟 Windows (tested)</span>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Clone the repository</div>
+      </div>
+      <div class="code-block">
+        <span class="comment"># Clone via HTTPS</span><br>
+        <span class="cmd">git clone</span> https://github.com/compneurobilbao/begibraintool.git<br>
+        <span class="cmd">cd</span> begibraintool
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Install dependencies</div>
+      </div>
+      <div class="code-block">
+        <span class="comment"># Using PsychoPy's Python interpreter</span><br>
+        <span class="cmd">C:\Program Files\PsychoPy\python.exe</span> -m pip install -r requirements.txt<br><br>
+        <span class="comment"># Or via the PIP terminal in PsychoPy:</span><br>
+        <span class="comment"># Tools → Plugin/Packages Manager → Open PIP terminal</span><br>
+        pip install -r requirements.txt
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">Launch the toolbox</div>
+      </div>
+      <div class="code-block">
+        python begibraintool_main.py
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Begi<span>Brain</span>Tool</div>
+  <div class="footer-links">
+    <a href="https://github.com/compneurobilbao/begibraintool" target="_blank">GitHub</a>
+    <a href="mailto:unai.sainz.bc@gmail.com">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 compneurobilbao · Open Source · MIT License</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = (mx - 6) + 'px';
+    cursor.style.top  = (my - 6) + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx - 18) * 0.15;
+    ry += (my - ry - 18) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
