@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on mayo 11, 2026, at 15:40
+    on septiembre 26, 2026, at 19:18
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -1179,7 +1179,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         print("Stablished noise type 2")
     
     
-    # DVS
+    # smooth pursuit
     noise_dots_coherence = 0.0
     noise_coherent_motion = 0.0 # bool
     noise_dots_direction= 45.0
@@ -4440,24 +4440,24 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # OTHER
     REST_TIME = 1
-    IPAST_fixation_cross_size = (0.05, 0.05)
-    cross_1 = visual.ShapeStim(
-        win=win, name='cross_1', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    IPAST_fixation_circle_size = (0.05, 0.05)
+    circle_1 = visual.ShapeStim(
+        win=win, name='circle_1',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=IPAST_stim_position, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
         opacity=None, depth=-1.0, interpolate=True)
-    cross_2 = visual.ShapeStim(
-        win=win, name='cross_2', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    circle_2 = visual.ShapeStim(
+        win=win, name='circle_2',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_L, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
         opacity=None, depth=-2.0, interpolate=True)
-    cross_3 = visual.ShapeStim(
-        win=win, name='cross_3', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    circle_3 = visual.ShapeStim(
+        win=win, name='circle_3',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_R, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
@@ -4633,24 +4633,24 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # OTHER
     REST_TIME = 1
-    IPAST_fixation_cross_size = (0.05, 0.05)
-    cross_1 = visual.ShapeStim(
-        win=win, name='cross_1', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    IPAST_fixation_circle_size = (0.05, 0.05)
+    circle_1 = visual.ShapeStim(
+        win=win, name='circle_1',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=IPAST_stim_position, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
         opacity=None, depth=-1.0, interpolate=True)
-    cross_2 = visual.ShapeStim(
-        win=win, name='cross_2', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    circle_2 = visual.ShapeStim(
+        win=win, name='circle_2',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_L, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
         opacity=None, depth=-2.0, interpolate=True)
-    cross_3 = visual.ShapeStim(
-        win=win, name='cross_3', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    circle_3 = visual.ShapeStim(
+        win=win, name='circle_3',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_R, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
@@ -4826,24 +4826,24 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # OTHER
     REST_TIME = 1
-    IPAST_fixation_cross_size = (0.05, 0.05)
-    cross_1 = visual.ShapeStim(
-        win=win, name='cross_1', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    IPAST_fixation_circle_size = (0.05, 0.05)
+    circle_1 = visual.ShapeStim(
+        win=win, name='circle_1',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=IPAST_stim_position, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
         opacity=None, depth=-1.0, interpolate=True)
-    cross_2 = visual.ShapeStim(
-        win=win, name='cross_2', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    circle_2 = visual.ShapeStim(
+        win=win, name='circle_2',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_L, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
         opacity=None, depth=-2.0, interpolate=True)
-    cross_3 = visual.ShapeStim(
-        win=win, name='cross_3', vertices='cross',
-        size=IPAST_fixation_cross_size,
+    circle_3 = visual.ShapeStim(
+        win=win, name='circle_3',
+        size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_R, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
@@ -5482,13 +5482,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
     
     # --- Initialize components for Routine "DYNAMIC_VISUAL_SEARCH" ---
-    polygon_11 = visual.ShapeStim(
-        win=win, name='polygon_11', vertices='cross',
-        size=(0.04, 0.04),
-        ori=0.0, pos=(0, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
-        opacity=None, depth=0.0, interpolate=True)
     # Run 'Begin Experiment' code from code_4
     frame_rate = win.getActualFrameRate()
     
@@ -20686,7 +20679,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine SACCADE_TASK
                 SACCADE_TASK = data.Routine(
                     name='SACCADE_TASK',
-                    components=[cross_1, cross_2, cross_3, polygon_5, key_resp_27],
+                    components=[circle_1, circle_2, circle_3, polygon_5, key_resp_27],
                 )
                 SACCADE_TASK.status = NOT_STARTED
                 continueRoutine = True
@@ -20698,11 +20691,40 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.color = "black"
                 
                 # SHOW STIMULI WITH COLOR
-                if task_type == "saccade":
-                    polygon_5.color = "green"
-                elif task_type == "antisaccade":
-                    polygon_5.color = "red"
+                #if task_type == "saccade":
+                #    polygon_5.color = "green"
+                #elif task_type == "antisaccade":
+                #    polygon_5.color = "red"
                 
+                if task_type == "saccade":
+                    polygon_5.vertices = "square"
+                    polygon_5.ori = 0
+                    polygon_5.size = (0.10, 0.10)
+                elif task_type == "antisaccade":
+                    polygon_5.vertices = "cross"
+                    polygon_5.ori = 45
+                    polygon_5.size = (0.05, 0.05)
+                
+                # --- FIXATION CIRCUNFERENCES ---
+                #  RGB 0-255
+                fill_rgb = [255, 255, 255]        # color del relleno
+                line_rgb = [255, 255, 255]  # color del borde
+                
+                # Transparencias independientes (0 = invisible, 1 = opaco)
+                fill_alpha = 0.15   # relleno transparente
+                line_alpha = 1.0   # borde opaco
+                
+                circles = [circle_1, circle_2, circle_3]
+                
+                for c in circles:
+                    # opacity global a 1 para que NO multiplique el alfa de cada color
+                    c.opacity = 1.0
+                    # relleno con su propia transparencia
+                    c.fillColorSpace = 'rgba255'
+                    c.fillColor = fill_rgb + [fill_alpha]
+                    # borde con su propia transparencia
+                    c.lineColorSpace = 'rgba255'
+                    c.lineColor = line_rgb + [line_alpha]
                 # create starting attributes for key_resp_27
                 key_resp_27.keys = []
                 key_resp_27.rt = []
@@ -20800,63 +20822,63 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     #text_2.text = f"Time: {t:.2f}"
                     
-                    # *cross_1* updates
+                    # *circle_1* updates
                     
-                    # if cross_1 is starting this frame...
-                    if cross_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_1 is starting this frame...
+                    if circle_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_1.frameNStart = frameN  # exact frame index
-                        cross_1.tStart = t  # local t and not account for scr refresh
-                        cross_1.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_1, 'tStartRefresh')  # time at next scr refresh
+                        circle_1.frameNStart = frameN  # exact frame index
+                        circle_1.tStart = t  # local t and not account for scr refresh
+                        circle_1.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_1, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_1.started')
+                        thisExp.timestampOnFlip(win, 'circle_1.started')
                         # update status
-                        cross_1.status = STARTED
-                        cross_1.setAutoDraw(True)
+                        circle_1.status = STARTED
+                        circle_1.setAutoDraw(True)
                     
-                    # if cross_1 is active this frame...
-                    if cross_1.status == STARTED:
+                    # if circle_1 is active this frame...
+                    if circle_1.status == STARTED:
                         # update params
                         pass
                     
-                    # *cross_2* updates
+                    # *circle_2* updates
                     
-                    # if cross_2 is starting this frame...
-                    if cross_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_2 is starting this frame...
+                    if circle_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_2.frameNStart = frameN  # exact frame index
-                        cross_2.tStart = t  # local t and not account for scr refresh
-                        cross_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_2, 'tStartRefresh')  # time at next scr refresh
+                        circle_2.frameNStart = frameN  # exact frame index
+                        circle_2.tStart = t  # local t and not account for scr refresh
+                        circle_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_2, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_2.started')
+                        thisExp.timestampOnFlip(win, 'circle_2.started')
                         # update status
-                        cross_2.status = STARTED
-                        cross_2.setAutoDraw(True)
+                        circle_2.status = STARTED
+                        circle_2.setAutoDraw(True)
                     
-                    # if cross_2 is active this frame...
-                    if cross_2.status == STARTED:
+                    # if circle_2 is active this frame...
+                    if circle_2.status == STARTED:
                         # update params
                         pass
                     
-                    # *cross_3* updates
+                    # *circle_3* updates
                     
-                    # if cross_3 is starting this frame...
-                    if cross_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_3 is starting this frame...
+                    if circle_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_3.frameNStart = frameN  # exact frame index
-                        cross_3.tStart = t  # local t and not account for scr refresh
-                        cross_3.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_3, 'tStartRefresh')  # time at next scr refresh
+                        circle_3.frameNStart = frameN  # exact frame index
+                        circle_3.tStart = t  # local t and not account for scr refresh
+                        circle_3.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_3, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_3.started')
+                        thisExp.timestampOnFlip(win, 'circle_3.started')
                         # update status
-                        cross_3.status = STARTED
-                        cross_3.setAutoDraw(True)
+                        circle_3.status = STARTED
+                        circle_3.setAutoDraw(True)
                     
-                    # if cross_3 is active this frame...
-                    if cross_3.status == STARTED:
+                    # if circle_3 is active this frame...
+                    if circle_3.status == STARTED:
                         # update params
                         pass
                     
@@ -21485,7 +21507,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine SACCADE_TASK
                 SACCADE_TASK = data.Routine(
                     name='SACCADE_TASK',
-                    components=[cross_1, cross_2, cross_3, polygon_5, key_resp_27],
+                    components=[circle_1, circle_2, circle_3, polygon_5, key_resp_27],
                 )
                 SACCADE_TASK.status = NOT_STARTED
                 continueRoutine = True
@@ -21497,11 +21519,40 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.color = "black"
                 
                 # SHOW STIMULI WITH COLOR
-                if task_type == "saccade":
-                    polygon_5.color = "green"
-                elif task_type == "antisaccade":
-                    polygon_5.color = "red"
+                #if task_type == "saccade":
+                #    polygon_5.color = "green"
+                #elif task_type == "antisaccade":
+                #    polygon_5.color = "red"
                 
+                if task_type == "saccade":
+                    polygon_5.vertices = "square"
+                    polygon_5.ori = 0
+                    polygon_5.size = (0.10, 0.10)
+                elif task_type == "antisaccade":
+                    polygon_5.vertices = "cross"
+                    polygon_5.ori = 45
+                    polygon_5.size = (0.05, 0.05)
+                
+                # --- FIXATION CIRCUNFERENCES ---
+                #  RGB 0-255
+                fill_rgb = [255, 255, 255]        # color del relleno
+                line_rgb = [255, 255, 255]  # color del borde
+                
+                # Transparencias independientes (0 = invisible, 1 = opaco)
+                fill_alpha = 0.15   # relleno transparente
+                line_alpha = 1.0   # borde opaco
+                
+                circles = [circle_1, circle_2, circle_3]
+                
+                for c in circles:
+                    # opacity global a 1 para que NO multiplique el alfa de cada color
+                    c.opacity = 1.0
+                    # relleno con su propia transparencia
+                    c.fillColorSpace = 'rgba255'
+                    c.fillColor = fill_rgb + [fill_alpha]
+                    # borde con su propia transparencia
+                    c.lineColorSpace = 'rgba255'
+                    c.lineColor = line_rgb + [line_alpha]
                 # create starting attributes for key_resp_27
                 key_resp_27.keys = []
                 key_resp_27.rt = []
@@ -21599,63 +21650,63 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     #text_2.text = f"Time: {t:.2f}"
                     
-                    # *cross_1* updates
+                    # *circle_1* updates
                     
-                    # if cross_1 is starting this frame...
-                    if cross_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_1 is starting this frame...
+                    if circle_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_1.frameNStart = frameN  # exact frame index
-                        cross_1.tStart = t  # local t and not account for scr refresh
-                        cross_1.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_1, 'tStartRefresh')  # time at next scr refresh
+                        circle_1.frameNStart = frameN  # exact frame index
+                        circle_1.tStart = t  # local t and not account for scr refresh
+                        circle_1.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_1, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_1.started')
+                        thisExp.timestampOnFlip(win, 'circle_1.started')
                         # update status
-                        cross_1.status = STARTED
-                        cross_1.setAutoDraw(True)
+                        circle_1.status = STARTED
+                        circle_1.setAutoDraw(True)
                     
-                    # if cross_1 is active this frame...
-                    if cross_1.status == STARTED:
+                    # if circle_1 is active this frame...
+                    if circle_1.status == STARTED:
                         # update params
                         pass
                     
-                    # *cross_2* updates
+                    # *circle_2* updates
                     
-                    # if cross_2 is starting this frame...
-                    if cross_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_2 is starting this frame...
+                    if circle_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_2.frameNStart = frameN  # exact frame index
-                        cross_2.tStart = t  # local t and not account for scr refresh
-                        cross_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_2, 'tStartRefresh')  # time at next scr refresh
+                        circle_2.frameNStart = frameN  # exact frame index
+                        circle_2.tStart = t  # local t and not account for scr refresh
+                        circle_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_2, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_2.started')
+                        thisExp.timestampOnFlip(win, 'circle_2.started')
                         # update status
-                        cross_2.status = STARTED
-                        cross_2.setAutoDraw(True)
+                        circle_2.status = STARTED
+                        circle_2.setAutoDraw(True)
                     
-                    # if cross_2 is active this frame...
-                    if cross_2.status == STARTED:
+                    # if circle_2 is active this frame...
+                    if circle_2.status == STARTED:
                         # update params
                         pass
                     
-                    # *cross_3* updates
+                    # *circle_3* updates
                     
-                    # if cross_3 is starting this frame...
-                    if cross_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_3 is starting this frame...
+                    if circle_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_3.frameNStart = frameN  # exact frame index
-                        cross_3.tStart = t  # local t and not account for scr refresh
-                        cross_3.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_3, 'tStartRefresh')  # time at next scr refresh
+                        circle_3.frameNStart = frameN  # exact frame index
+                        circle_3.tStart = t  # local t and not account for scr refresh
+                        circle_3.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_3, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_3.started')
+                        thisExp.timestampOnFlip(win, 'circle_3.started')
                         # update status
-                        cross_3.status = STARTED
-                        cross_3.setAutoDraw(True)
+                        circle_3.status = STARTED
+                        circle_3.setAutoDraw(True)
                     
-                    # if cross_3 is active this frame...
-                    if cross_3.status == STARTED:
+                    # if circle_3 is active this frame...
+                    if circle_3.status == STARTED:
                         # update params
                         pass
                     
@@ -22284,7 +22335,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine SACCADE_TASK
                 SACCADE_TASK = data.Routine(
                     name='SACCADE_TASK',
-                    components=[cross_1, cross_2, cross_3, polygon_5, key_resp_27],
+                    components=[circle_1, circle_2, circle_3, polygon_5, key_resp_27],
                 )
                 SACCADE_TASK.status = NOT_STARTED
                 continueRoutine = True
@@ -22296,11 +22347,40 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.color = "black"
                 
                 # SHOW STIMULI WITH COLOR
-                if task_type == "saccade":
-                    polygon_5.color = "green"
-                elif task_type == "antisaccade":
-                    polygon_5.color = "red"
+                #if task_type == "saccade":
+                #    polygon_5.color = "green"
+                #elif task_type == "antisaccade":
+                #    polygon_5.color = "red"
                 
+                if task_type == "saccade":
+                    polygon_5.vertices = "square"
+                    polygon_5.ori = 0
+                    polygon_5.size = (0.10, 0.10)
+                elif task_type == "antisaccade":
+                    polygon_5.vertices = "cross"
+                    polygon_5.ori = 45
+                    polygon_5.size = (0.05, 0.05)
+                
+                # --- FIXATION CIRCUNFERENCES ---
+                #  RGB 0-255
+                fill_rgb = [255, 255, 255]        # color del relleno
+                line_rgb = [255, 255, 255]  # color del borde
+                
+                # Transparencias independientes (0 = invisible, 1 = opaco)
+                fill_alpha = 0.15   # relleno transparente
+                line_alpha = 1.0   # borde opaco
+                
+                circles = [circle_1, circle_2, circle_3]
+                
+                for c in circles:
+                    # opacity global a 1 para que NO multiplique el alfa de cada color
+                    c.opacity = 1.0
+                    # relleno con su propia transparencia
+                    c.fillColorSpace = 'rgba255'
+                    c.fillColor = fill_rgb + [fill_alpha]
+                    # borde con su propia transparencia
+                    c.lineColorSpace = 'rgba255'
+                    c.lineColor = line_rgb + [line_alpha]
                 # create starting attributes for key_resp_27
                 key_resp_27.keys = []
                 key_resp_27.rt = []
@@ -22398,63 +22478,63 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     #text_2.text = f"Time: {t:.2f}"
                     
-                    # *cross_1* updates
+                    # *circle_1* updates
                     
-                    # if cross_1 is starting this frame...
-                    if cross_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_1 is starting this frame...
+                    if circle_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_1.frameNStart = frameN  # exact frame index
-                        cross_1.tStart = t  # local t and not account for scr refresh
-                        cross_1.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_1, 'tStartRefresh')  # time at next scr refresh
+                        circle_1.frameNStart = frameN  # exact frame index
+                        circle_1.tStart = t  # local t and not account for scr refresh
+                        circle_1.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_1, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_1.started')
+                        thisExp.timestampOnFlip(win, 'circle_1.started')
                         # update status
-                        cross_1.status = STARTED
-                        cross_1.setAutoDraw(True)
+                        circle_1.status = STARTED
+                        circle_1.setAutoDraw(True)
                     
-                    # if cross_1 is active this frame...
-                    if cross_1.status == STARTED:
+                    # if circle_1 is active this frame...
+                    if circle_1.status == STARTED:
                         # update params
                         pass
                     
-                    # *cross_2* updates
+                    # *circle_2* updates
                     
-                    # if cross_2 is starting this frame...
-                    if cross_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_2 is starting this frame...
+                    if circle_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_2.frameNStart = frameN  # exact frame index
-                        cross_2.tStart = t  # local t and not account for scr refresh
-                        cross_2.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_2, 'tStartRefresh')  # time at next scr refresh
+                        circle_2.frameNStart = frameN  # exact frame index
+                        circle_2.tStart = t  # local t and not account for scr refresh
+                        circle_2.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_2, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_2.started')
+                        thisExp.timestampOnFlip(win, 'circle_2.started')
                         # update status
-                        cross_2.status = STARTED
-                        cross_2.setAutoDraw(True)
+                        circle_2.status = STARTED
+                        circle_2.setAutoDraw(True)
                     
-                    # if cross_2 is active this frame...
-                    if cross_2.status == STARTED:
+                    # if circle_2 is active this frame...
+                    if circle_2.status == STARTED:
                         # update params
                         pass
                     
-                    # *cross_3* updates
+                    # *circle_3* updates
                     
-                    # if cross_3 is starting this frame...
-                    if cross_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # if circle_3 is starting this frame...
+                    if circle_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                         # keep track of start time/frame for later
-                        cross_3.frameNStart = frameN  # exact frame index
-                        cross_3.tStart = t  # local t and not account for scr refresh
-                        cross_3.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(cross_3, 'tStartRefresh')  # time at next scr refresh
+                        circle_3.frameNStart = frameN  # exact frame index
+                        circle_3.tStart = t  # local t and not account for scr refresh
+                        circle_3.tStartRefresh = tThisFlipGlobal  # on global time
+                        win.timeOnFlip(circle_3, 'tStartRefresh')  # time at next scr refresh
                         # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'cross_3.started')
+                        thisExp.timestampOnFlip(win, 'circle_3.started')
                         # update status
-                        cross_3.status = STARTED
-                        cross_3.setAutoDraw(True)
+                        circle_3.status = STARTED
+                        circle_3.setAutoDraw(True)
                     
-                    # if cross_3 is active this frame...
-                    if cross_3.status == STARTED:
+                    # if circle_3 is active this frame...
+                    if circle_3.status == STARTED:
                         # update params
                         pass
                     
@@ -24900,7 +24980,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # create an object to store info about Routine DYNAMIC_VISUAL_SEARCH
                 DYNAMIC_VISUAL_SEARCH = data.Routine(
                     name='DYNAMIC_VISUAL_SEARCH',
-                    components=[polygon_11, key_resp_3],
+                    components=[key_resp_3],
                 )
                 DYNAMIC_VISUAL_SEARCH.status = NOT_STARTED
                 continueRoutine = True
@@ -24975,26 +25055,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
-                    
-                    # *polygon_11* updates
-                    
-                    # if polygon_11 is starting this frame...
-                    if polygon_11.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                        # keep track of start time/frame for later
-                        polygon_11.frameNStart = frameN  # exact frame index
-                        polygon_11.tStart = t  # local t and not account for scr refresh
-                        polygon_11.tStartRefresh = tThisFlipGlobal  # on global time
-                        win.timeOnFlip(polygon_11, 'tStartRefresh')  # time at next scr refresh
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'polygon_11.started')
-                        # update status
-                        polygon_11.status = STARTED
-                        polygon_11.setAutoDraw(True)
-                    
-                    # if polygon_11 is active this frame...
-                    if polygon_11.status == STARTED:
-                        # update params
-                        pass
                     # Run 'Each Frame' code from code_4
                     t = routine_timer.getTime()
                     
