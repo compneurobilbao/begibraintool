@@ -7206,7 +7206,7 @@
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
       <Param name="isTrials" updates="None" val="False" valType="bool"/>
       <Param name="loopType" updates="None" val="sequential" valType="str"/>
-      <Param name="nReps" updates="None" val="protocol_step not in (&quot;M1_BL1_SF&quot;, &quot;M1_BL2_CONTRAST&quot;, &quot;M1_BL3_COLOR&quot;, &quot;M1_BL4_SEMANTIC_SF&quot;, &quot;M1_BL5_SEMANTIC_CONTRAST&quot;, &quot;M1_BL6_SEMANTIC_COLOR&quot;)" valType="num"/>
+      <Param name="nReps" updates="None" val="protocol_step in (&quot;M1_BL1_SF&quot;, &quot;M1_BL2_CONTRAST&quot;, &quot;M1_BL3_COLOR&quot;, &quot;M1_BL4_SEMANTIC_SF&quot;, &quot;M1_BL5_SEMANTIC_CONTRAST&quot;, &quot;M1_BL6_SEMANTIC_COLOR&quot;)" valType="num"/>
       <Param name="name" updates="None" val="load_thresholds" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>

@@ -10845,7 +10845,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # set up handler to look after randomisation of conditions etc
             load_thresholds = data.TrialHandler2(
                 name='load_thresholds',
-                nReps=protocol_step not in ("M1_BL1_SF", "M1_BL2_CONTRAST", "M1_BL3_COLOR", "M1_BL4_SEMANTIC_SF", "M1_BL5_SEMANTIC_CONTRAST", "M1_BL6_SEMANTIC_COLOR"), 
+                nReps=protocol_step in ("M1_BL1_SF", "M1_BL2_CONTRAST", "M1_BL3_COLOR", "M1_BL4_SEMANTIC_SF", "M1_BL5_SEMANTIC_CONTRAST", "M1_BL6_SEMANTIC_COLOR"), 
                 method='sequential', 
                 extraInfo=expInfo, 
                 originPath=-1, 
@@ -11015,7 +11015,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     )
                     # once done pausing, restore running status
                     load_thresholds.status = STARTED
-            # completed protocol_step not in ("M1_BL1_SF", "M1_BL2_CONTRAST", "M1_BL3_COLOR", "M1_BL4_SEMANTIC_SF", "M1_BL5_SEMANTIC_CONTRAST", "M1_BL6_SEMANTIC_COLOR") repeats of 'load_thresholds'
+            # completed protocol_step in ("M1_BL1_SF", "M1_BL2_CONTRAST", "M1_BL3_COLOR", "M1_BL4_SEMANTIC_SF", "M1_BL5_SEMANTIC_CONTRAST", "M1_BL6_SEMANTIC_COLOR") repeats of 'load_thresholds'
             load_thresholds.status = FINISHED
             
             
