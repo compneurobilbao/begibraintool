@@ -4,12 +4,12 @@
 
 ## 🧠 What is BegiBrainTool?
 
-BegiBrainTool is an innovative battery of visual tests designed to assess spatial and dynamic vision processing, as well as autonomous visual responses in patients with neurodegenerative diseases. Its goal is to provide a standardized and adaptable tool for both research and clinical practice, facilitating early detection and monitoring of conditions such as Alzheimer’s and Parkinson’s.
+BegiBrainTool is an innovative battery of visual tests designed to assess spatial and dynamic vision processing, autonomous visual responses, and learning and decision-making behavior in patients with neurodegenerative diseases. Its goal is to provide a standardized and adaptable tool for both research and clinical practice, facilitating early detection and monitoring of conditions such as Alzheimer’s and Parkinson’s.
 
 ### 🎯 Key Features:
 ✔ **Modular and customizable test battery**  
 ✔ **PsychoPy-based, open-source platform**  
-✔ **Compatible with eye-tracking and biometric sensors (e.g., GazePoint GP3 HD)**  
+✔ **Compatible with eye-tracking, biometric sensors (e.g., GazePoint GP3 HD) and EEG**  
 ✔ **Designed for both research and clinical use**  
 ✔ **JSON/XLSX parameter configuration**  
 → **Automated preprocessing & feature extraction pipelines (in development)**  
@@ -25,6 +25,7 @@ BegiBrainTool is an innovative battery of visual tests designed to assess spatia
 - 🖥️ Control computer with PsychoPy  
 - 👁️ Eye-tracker (GazePoint GP3 HD)  
 - 💓 Biometric sensors (PPG, GSR)  
+- ⚡ EEG system (required for Module 4)  
 - 🎮 Response pad  
 - 🧠 Head-mounted display (optional)  
 - To be implemented: DVS Camera
@@ -40,9 +41,9 @@ BegiBrainTool is an innovative battery of visual tests designed to assess spatia
 
 ## 🔬 How does it work?
 
-BegiBrainTool consists of three interactive modules, each designed to assess different aspects of visual perception:
+BegiBrainTool consists of four interactive modules. The first three assess different aspects of visual perception; the fourth studies how participants learn and make decisions:
 
-![Modules diagram](https://drive.google.com/uc?export=view&id=1VCpIMSZqYYqGqmp2fy_Fq6NnNz6HDQoV)
+![Modules diagram](https://drive.google.com/file/d/1Q-J0TSwghCw6-cyTywi1BrUpAKS_ylJY/view?usp=sharing)
 
 
 ### 👁 1. Spatial Vision Module
@@ -71,6 +72,18 @@ Each visual parameter (spatial frequency, contrast, saturation) is first calibra
 ✅ **Heart rate variability (HRV)**  
 ✅ **Galvanic skin response (GSR)**  
 
+### 🧩 4. Learning and Decision-Making Module
+
+🟢 Studies participants' behavior while they learn from rewards, combining choices, gaze and brain activity through:  
+✅ **Probabilistic reversal learning task**: on each trial the participant opens one of two treasure chests; one is rewarded more often than the other until the rule reverses without warning  
+✅ **Eye-tracking during choice**: which chest is looked at, and for how long, before deciding  
+✅ **EEG over the medial frontal cortex (required)**: brain response to wins and losses  
+✅ **Computational modeling**: reinforcement-learning and decision models fitted to each participant (learning from gains and losses, choice consistency, perseveration, influence of attention on choice)  
+
+![Module 4 - Learning and Decision-Making]
+
+🤝 Developed in collaboration with Dr. Javier Rasero (School of Data Science, University of Virginia) as part of Unai Sainz-Lugarezaresti's PhD thesis. The task builds on Bond, Rasero et al. (2023), *Competing neural representations of choice shape evidence accumulation in humans*, eLife 12:e85223 ([doi:10.7554/eLife.85223](https://doi.org/10.7554/eLife.85223)).
+
 ---
 
 ## 🚀 Why BegiBrainTool?
@@ -90,6 +103,7 @@ Each visual parameter (spatial frequency, contrast, saturation) is first calibra
 ### 🛠 Next Steps:
 ✅ **Optimization of modules and integration with databases.**  
 ✅ **Clinical validation with patients of different neurodegenerative profiles.**  
+✅ **Computational modeling of Module 4 data, in collaboration with the UVA School of Data Science.**  
 ✅ **Release as an open-source tool for the scientific community.**  
 
 📢 **You can contribute!** If you are a researcher, clinician, or developer, join our community and help us improve BegiBrainTool.  
@@ -99,7 +113,7 @@ Each visual parameter (spatial frequency, contrast, saturation) is first calibra
 ## 📥 Download and Installation
 
 > 🔹 **Requirements:** PsychoPy 2024+, Python 3.8+  
-🔹 **Compatible devices:** GazePoint GP3 HD eye-tracking system and compatible biometric sensors. Other eye-trackers may be used.  
+🔹 **Compatible devices:** GazePoint GP3 HD eye-tracking system and compatible biometric sensors. Other eye-trackers may be used. Module 4 also requires an EEG system.  
 
 ### 1️⃣ Clone the repository
 
