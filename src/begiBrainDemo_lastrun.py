@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on octubre 06, 2026, at 23:32
+    on noviembre 19, 2026, at 12:36
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -49,6 +49,29 @@ general_config, advanced_config, modules = my_gui.run()
 print("General config:", general_config)
 print("Advanced config:", advanced_config)
 print("Modules:", modules)
+
+# =============================================================================
+# Output monitor and window mode chosen in the GUI (python_scripts/screen_selection.py)
+# =============================================================================
+# Builder writes the screen number, window size and full-screen flag as constants
+# (Screen = 2, [1920, 1080], not full screen), so they are replaced when the window is
+# created: exclusive full screen at the native resolution (default), a borderless
+# window over the whole monitor that Gazepoint / OBS can capture (worse timing), a
+# small test window, or the Builder window as before. The GUI made the process DPI
+# aware, so the sizes are physical pixels; the monitor is measured again here.
+from screen_selection import window_kwargs, window_mode, keep_on_top
+from peripherals import summary as peripherals_summary
+SCREEN_SELECTION = dict(my_gui.screen_selection)
+_bbt_window_init = visual.Window.__init__
+def _window_on_selected_monitor(self, *args, **kwargs):
+    kwargs.update(window_kwargs(SCREEN_SELECTION))
+    print('Window:', window_mode(SCREEN_SELECTION), '| screen', kwargs.get('screen'),
+          '| size', kwargs.get('size'), '| full screen', kwargs.get('fullscr'))
+    _bbt_window_init(self, *args, **kwargs)
+    if window_mode(SCREEN_SELECTION) == 'borderless':
+        keep_on_top(self)
+visual.Window.__init__ = _window_on_selected_monitor
+
 # Run 'Before Experiment' code from GLOBAL_VARIABLES_AND_FUNCTIONS
 # IMPORTS
 from psychopy import core
@@ -317,6 +340,11 @@ def generate_staircase_test_graph(test_var_name: str, results_csv_path: str):
     
 
 
+
+# Run 'Before Experiment' code from GAZEPOINT_RECORDING
+# Gazepoint acquisition from PsychoPy (python_scripts/gazepoint_client.py).
+# sys.path already contains python_scripts (EXT_MODULE_SELECTION_GUI).
+from gazepoint_client import GazepointClient, loop_detail as gp_loop_detail
 
 # Run 'Before Experiment' code from gabor_generator
 import numpy as np
@@ -1164,6 +1192,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 threshold_dict = json.load(f)
             print(f"Diccionario cargado desde {filename}")
             return threshold_dict
+    # Run 'Begin Experiment' code from EXT_MODULE_SELECTION_GUI
+    # Window actually created (screen selection of the GUI) and peripherals found by the
+    # GUI, stored in every row of the data file
+    thisExp.extraInfo['window_mode'] = window_mode(SCREEN_SELECTION)
+    thisExp.extraInfo['window_screen'] = SCREEN_SELECTION.get('screen')
+    thisExp.extraInfo['window_size_px'] = 'x'.join(str(int(v)) for v in win.size)
+    thisExp.extraInfo['peripherals_detected'] = peripherals_summary(my_gui.peripherals_status)
+    
     # Run 'Begin Experiment' code from GLOBAL_VARIABLES_AND_FUNCTIONS
     
     continueRoutine_ref = [True]
@@ -1184,6 +1220,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     noise_coherent_motion = 0.0 # bool
     noise_dots_direction= 45.0
     desvio = 0
+    # Run 'Begin Experiment' code from GAZEPOINT_RECORDING
+    # =============================================================================
+    # GAZEPOINT: acquisition from PsychoPy, additional to Gazepoint Analysis
+    # =============================================================================
+    #   <datafile>_gazepoint.csv : every Gazepoint record with the PsychoPy clock
+    #                              (t_psychopy = core.getTime() at reception)
+    #   <datafile>_events.csv    : onset/offset of the routines (gp_markers_* components)
+    #                              and other events, with the same clock
+    # Every event is also written to the Gazepoint USER field, so the recording made in
+    # parallel with Gazepoint Analysis carries the same markers. Keep recording with
+    # Gazepoint Analysis as usual: the analysis (data_analytics_code) reads its exports.
+    # Advanced option 'Record Gazepoint from PsychoPy' turns this path off.
+    gp_enabled = bool(advanced_config.get('gazepoint_psychopy_recording', {}).get('value', True))
+    gp = GazepointClient(host='127.0.0.1', port=4242)
+    if gp_enabled:
+        gp.connect()      # False after 2 s if Gazepoint Control is not running: the experiment goes on
+    thisExp.extraInfo['gazepoint_psychopy_recording'] = gp_enabled
+    thisExp.extraInfo['gazepoint_api_connected'] = gp.connected
+    
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -1193,7 +1248,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -1201,7 +1256,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -1209,21 +1264,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -1290,6 +1345,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1297,7 +1371,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -1312,7 +1386,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -1329,7 +1403,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -1342,7 +1416,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -1350,7 +1424,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -1358,21 +1432,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -1439,6 +1513,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1446,7 +1539,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -1461,7 +1554,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -1478,7 +1571,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -1493,7 +1586,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -1501,7 +1594,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -1509,21 +1602,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -1590,6 +1683,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1597,7 +1709,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -1612,7 +1724,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -1629,7 +1741,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -1641,7 +1753,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=grating_size, sf=None, phase=0.0,
         color=[1,1,1], colorSpace='rgb',
         opacity=None, contrast=1.0, blendmode='avg',
-        texRes=512.0, interpolate=True, depth=0.0)
+        texRes=512.0, interpolate=True, depth=-1.0)
     dots_black_12 = visual.DotStim(
         win=win, name='dots_black_12',
         nDots=noise_dots, dotSize=2.0,
@@ -1649,7 +1761,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     dots_white_12 = visual.DotStim(
         win=win, name='dots_white_12',
         nDots=noise_dots, dotSize=2.0,
@@ -1657,7 +1769,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0,1.0,1.0], colorSpace='rgb', opacity=None,
-        depth=-2.0)
+        depth=-3.0)
     # Run 'Begin Experiment' code from code_32
     import random
     
@@ -1673,7 +1785,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, -0.45), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     key_resp_32 = keyboard.Keyboard(deviceName='key_resp_32')
     text = visual.TextStim(win=win, name='text',
         text='Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?',
@@ -1681,21 +1793,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, 0.35), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-7.0);
+        depth=-8.0);
     arrow = visual.ShapeStim(
         win=win, name='arrow', vertices='arrow',
         size=(0.05, 0.2),
         ori=0.0, pos=(0, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor=[-1.0000, -1.0000, 0.0902],
-        opacity=None, depth=-8.0, interpolate=True)
+        opacity=None, depth=-9.0, interpolate=True)
     feedback_txt_8 = visual.TextStim(win=win, name='feedback_txt_8',
         text=None,
         font='Arial',
         pos=(0, 0), draggable=False, height=0.2, wrapWidth=None, ori=0.0, 
         color=[1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-9.0);
+        depth=-10.0);
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -1705,7 +1817,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -1713,7 +1825,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -1721,21 +1833,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -1802,6 +1914,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1809,7 +1940,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -1824,7 +1955,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -1841,7 +1972,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -1853,7 +1984,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=grating_size, sf=None, phase=0.0,
         color=[1,1,1], colorSpace='rgb',
         opacity=None, contrast=1.0, blendmode='avg',
-        texRes=512.0, interpolate=True, depth=0.0)
+        texRes=512.0, interpolate=True, depth=-1.0)
     dots_black_3 = visual.DotStim(
         win=win, name='dots_black_3',
         nDots=noise_dots, dotSize=2.0,
@@ -1861,7 +1992,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     dots_white_3 = visual.DotStim(
         win=win, name='dots_white_3',
         nDots=noise_dots, dotSize=2.0,
@@ -1869,7 +2000,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0,1.0,1.0], colorSpace='rgb', opacity=None,
-        depth=-2.0)
+        depth=-3.0)
     # Run 'Begin Experiment' code from code_20
     import random
     
@@ -1882,7 +2013,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, -0.45), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     key_resp_19 = keyboard.Keyboard(deviceName='key_resp_19')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -1893,7 +2024,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -1901,7 +2032,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -1909,21 +2040,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -1990,6 +2121,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -1997,7 +2147,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -2012,7 +2162,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -2029,7 +2179,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -2042,14 +2192,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, -0.45), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-2.0);
+        depth=-3.0);
     grating = visual.GratingStim(
         win=win, name='grating',
         tex='sin', mask=grating_mask, anchor='center',
         ori=0.0, pos=(0, 0), draggable=False, size=grating_size, sf=None, phase=0.0,
         color=[1,1,1], colorSpace='rgb',
         opacity=None, contrast=1.0, blendmode='avg',
-        texRes=512.0, interpolate=True, depth=-3.0)
+        texRes=512.0, interpolate=True, depth=-4.0)
     dots_white = visual.DotStim(
         win=win, name='dots_white',
         nDots=noise_dots, dotSize=2.0,
@@ -2057,7 +2207,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0,1.0,1.0], colorSpace='rgb', opacity=None,
-        depth=-4.0)
+        depth=-5.0)
     dots_black = visual.DotStim(
         win=win, name='dots_black',
         nDots=noise_dots, dotSize=2.0,
@@ -2065,7 +2215,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-5.0)
+        depth=-6.0)
     key_resp_20 = keyboard.Keyboard(deviceName='key_resp_20')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -2076,7 +2226,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -2084,7 +2234,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -2092,21 +2242,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -2173,6 +2323,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2180,7 +2349,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -2195,7 +2364,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -2212,7 +2381,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -2225,7 +2394,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, -0.45), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-2.0);
+        depth=-3.0);
     image_2 = visual.ImageStim(
         win=win,
         name='image_2', 
@@ -2233,7 +2402,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=grating_size,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=True, depth=-4.0)
+        texRes=512.0, interpolate=True, depth=-5.0)
     dots_white_2 = visual.DotStim(
         win=win, name='dots_white_2',
         nDots=noise_dots, dotSize=2.0,
@@ -2241,7 +2410,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-5.0)
+        depth=-6.0)
     dots_black_2 = visual.DotStim(
         win=win, name='dots_black_2',
         nDots=noise_dots, dotSize=2.0,
@@ -2249,7 +2418,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-6.0)
+        depth=-7.0)
     key_resp_21 = keyboard.Keyboard(deviceName='key_resp_21')
     
     # --- Initialize components for Routine "LOAD_THRESHOLDS" ---
@@ -2262,7 +2431,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -2270,7 +2439,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -2278,21 +2447,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -2359,6 +2528,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2366,7 +2554,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -2381,7 +2569,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -2398,7 +2586,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -2412,7 +2600,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     dots_white_5 = visual.DotStim(
         win=win, name='dots_white_5',
         nDots=noise_dots, dotSize=2.0,
@@ -2420,42 +2608,42 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-2.0)
+        depth=-3.0)
     stim = visual.GratingStim(
         win=win, name='stim',
         tex='sin', mask=grating_mask, anchor='center',
         ori=0.0, pos=[0,0], draggable=False, size=1.0, sf=1.0, phase=0.5,
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
-        texRes=512.0, interpolate=True, depth=-3.0)
+        texRes=512.0, interpolate=True, depth=-4.0)
     logs_background_2 = visual.Rect(
         win=win, name='logs_background_2',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-5.0, interpolate=True)
     logs = visual.TextStim(win=win, name='logs',
         text=None,
         font='Open Sans',
         pos=(-0.45, 0.45), draggable=False, height=0.035, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     logs_parametros_trial = visual.TextStim(win=win, name='logs_parametros_trial',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-7.0);
     feedback_txt = visual.TextStim(win=win, name='feedback_txt',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-7.0);
+        depth=-8.0);
     # Run 'Begin Experiment' code from code
     from psychopy.iohub import launchHubServer
     
@@ -2479,7 +2667,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -2487,7 +2675,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -2495,21 +2683,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -2576,6 +2764,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2583,7 +2790,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -2598,7 +2805,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -2615,7 +2822,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -2629,7 +2836,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     dots_white_7 = visual.DotStim(
         win=win, name='dots_white_7',
         nDots=noise_dots, dotSize=2.0,
@@ -2637,35 +2844,35 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-2.0)
+        depth=-3.0)
     stim_5 = visual.GratingStim(
         win=win, name='stim_5',
         tex='sin', mask=grating_mask, anchor='center',
         ori=0.0, pos=[0,0], draggable=False, size=1.0, sf=1.0, phase=0.5,
         color='white', colorSpace='rgb',
         opacity=1.0, contrast=1.0, blendmode='avg',
-        texRes=512.0, interpolate=True, depth=-3.0)
+        texRes=512.0, interpolate=True, depth=-4.0)
     logs_background_8 = visual.Rect(
         win=win, name='logs_background_8',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-5.0, interpolate=True)
     logs_parametros_trial_5 = visual.TextStim(win=win, name='logs_parametros_trial_5',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     feedback_txt_3 = visual.TextStim(win=win, name='feedback_txt_3',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-7.0);
     # Run 'Begin Experiment' code from code_8
     from psychopy.iohub import launchHubServer
     
@@ -2689,7 +2896,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -2697,7 +2904,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -2705,21 +2912,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -2786,6 +2993,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2793,7 +3019,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -2808,7 +3034,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -2825,7 +3051,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -2839,7 +3065,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-1.0)
+        depth=-2.0)
     dots_white_6 = visual.DotStim(
         win=win, name='dots_white_6',
         nDots=noise_dots, dotSize=2.0,
@@ -2847,21 +3073,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-2.0)
+        depth=-3.0)
     logs_background_10 = visual.Rect(
         win=win, name='logs_background_10',
         width=(0.5, 1)[0], height=(0.5, 1)[1],
         ori=0.0, pos=(0.75, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     logs_parametros_trial_6 = visual.TextStim(win=win, name='logs_parametros_trial_6',
         text=None,
         font='Open Sans',
         pos=(0.5, 0), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     stim_img = visual.ImageStim(
         win=win,
         name='stim_img', 
@@ -2869,14 +3095,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=grating_size,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=True, depth=-5.0)
+        texRes=512.0, interpolate=True, depth=-6.0)
     feedback_txt_2 = visual.TextStim(win=win, name='feedback_txt_2',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-7.0);
     # Run 'Begin Experiment' code from code_14
     posicion_estimulo = (0,0)
     stim_x = 0
@@ -2892,7 +3118,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -2900,7 +3126,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -2908,21 +3134,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -2989,6 +3215,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -2996,7 +3241,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -3011,7 +3256,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -3028,7 +3273,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -3041,35 +3286,35 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-2.0);
+        depth=-3.0);
     right_arrow_4 = visual.ShapeStim(
         win=win, name='right_arrow_4', vertices='arrow',
         size=(0.3, 0.2),
         ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     left_arrow_4 = visual.ShapeStim(
         win=win, name='left_arrow_4', vertices='arrow',
         size=(0.3, 0.2),
         ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-5.0, interpolate=True)
     right_arrow_text_4 = visual.TextStim(win=win, name='right_arrow_text_4',
         text='Ser vivo',
         font='Open Sans',
         pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-6.0);
     left_arrow_text_4 = visual.TextStim(win=win, name='left_arrow_text_4',
         text='Inerte',
         font='Open Sans',
         pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-7.0);
     semantic_stim_4 = visual.ImageStim(
         win=win,
         name='semantic_stim_4', 
@@ -3077,7 +3322,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.0, 0), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-7.0)
+        texRes=128.0, interpolate=True, depth=-8.0)
     dots_white_13 = visual.DotStim(
         win=win, name='dots_white_13',
         nDots=noise_dots, dotSize=2.0,
@@ -3085,7 +3330,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-8.0)
+        depth=-9.0)
     dots_black_13 = visual.DotStim(
         win=win, name='dots_black_13',
         nDots=noise_dots, dotSize=2.0,
@@ -3093,669 +3338,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-9.0)
+        depth=-10.0)
     feedback_txt_9 = visual.TextStim(win=win, name='feedback_txt_9',
-        text=None,
-        font='Open Sans',
-        pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-10.0);
-    
-    # --- Initialize components for Routine "INSTRUCTIONS" ---
-    logo_begibraintool = visual.ImageStim(
-        win=win,
-        name='logo_begibraintool', 
-        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
-        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
-    logo_bio_2 = visual.ImageStim(
-        win=win,
-        name='logo_bio_2', 
-        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
-        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
-    logo_compneurolab_2 = visual.ImageStim(
-        win=win,
-        name='logo_compneurolab_2', 
-        image='images/compneuro_horizontal.png', mask=None, anchor='center',
-        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
-    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
-        text=None,
-        font='Open Sans',
-        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-3.0);
-    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
-        text=None,
-        font='Arial',
-        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=0.0, 
-        languageStyle='LTR',
-        depth=-4.0);
-    # Run 'Begin Experiment' code from code_9
-    def calcular_relacion_aspecto(ruta_archivo):
-        """
-        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
-        
-        :param ruta_archivo: Ruta completa de la imagen (str).
-        :return: Relación de aspecto (float).
-        """
-        try:
-            with Image.open(ruta_archivo) as img:
-                anchura, altura = img.size
-                return anchura / altura
-        except Exception as e:
-            raise ValueError(f"Error al abrir la imagen: {e}")
-    
-    ##################################################################
-    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
-    ##################################################################
-    
-    language = general_config["language"]["value"].upper()
-    
-    # =========================================================
-    # GLOBAL INSTRUCTIONS
-    # =========================================================
-    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
-    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
-    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
-    
-    # =========================================================
-    # MODULE 1
-    # =========================================================
-    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
-        
-    # ---------- Module 1 · Staircases ----------
-    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
-    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
-    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
-    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
-    
-    # ---------- Module 1 · Block Instructions ----------
-    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
-    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
-    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
-    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
-    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
-    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
-    
-    # =========================================================
-    # MODULE 2 · Eye Tracking & Visual Tasks
-    # =========================================================
-    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
-    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
-    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
-    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
-    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
-    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
-    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
-    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
-    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
-    
-    # =========================================================
-    # MODULE 3 · Pupillometry & Affective Stimuli
-    # =========================================================
-    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
-    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
-    
-    instructions_image = visual.ImageStim(
-        win=win,
-        name='instructions_image', 
-        image='default.png', mask=None, anchor='center',
-        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
-    button_next_instruction_2 = visual.ButtonStim(win, 
-        text='Siguiente -->', font='Arvo',
-        pos=(0.55, -0.4),
-        letterHeight=0.03,
-        size=(0.25, 0.15), 
-        ori=0.0
-        ,borderWidth=0.1,
-        fillColor='white', borderColor=None,
-        color='white', colorSpace='rgb',
-        opacity=None,
-        bold=True, italic=False,
-        padding=None,
-        anchor='center',
-        name='button_next_instruction_2',
-        depth=-7
-    )
-    button_next_instruction_2.buttonClock = core.Clock()
-    button_previous_instruction_2 = visual.ButtonStim(win, 
-        text='<--Anterior', font='Arvo',
-        pos=(-0.55, -0.4),
-        letterHeight=0.03,
-        size=(0.25, 0.15), 
-        ori=0.0
-        ,borderWidth=0.1,
-        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
-        color='white', colorSpace='rgb',
-        opacity=None,
-        bold=True, italic=False,
-        padding=None,
-        anchor='center',
-        name='button_previous_instruction_2',
-        depth=-8
-    )
-    button_previous_instruction_2.buttonClock = core.Clock()
-    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
-    
-    # --- Initialize components for Routine "BL_4_SEMANTIC_SF" ---
-    key_resp_13 = keyboard.Keyboard(deviceName='key_resp_13')
-    logs_parametros_trial_8 = visual.TextStim(win=win, name='logs_parametros_trial_8',
-        text=None,
-        font='Open Sans',
-        pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-2.0);
-    right_arrow = visual.ShapeStim(
-        win=win, name='right_arrow', vertices='arrow',
-        size=(0.3, 0.2),
-        ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
-    left_arrow = visual.ShapeStim(
-        win=win, name='left_arrow', vertices='arrow',
-        size=(0.3, 0.2),
-        ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
-    right_arrow_text = visual.TextStim(win=win, name='right_arrow_text',
-        text='Ser vivo',
-        font='Open Sans',
-        pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-5.0);
-    left_arrow_text = visual.TextStim(win=win, name='left_arrow_text',
-        text='Inerte',
-        font='Open Sans',
-        pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-6.0);
-    dots_white_9 = visual.DotStim(
-        win=win, name='dots_white_9',
-        nDots=noise_dots, dotSize=2.0,
-        speed=0.1, dir=0.0, coherence=1.0,
-        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
-        signalDots='same', noiseDots='direction',dotLife=3.0,
-        color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-7.0)
-    dots_black_9 = visual.DotStim(
-        win=win, name='dots_black_9',
-        nDots=noise_dots, dotSize=2.0,
-        speed=0.1, dir=0.0, coherence=1.0,
-        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
-        signalDots='same', noiseDots='direction',dotLife=3.0,
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-8.0)
-    semantic_stim = visual.ImageStim(
-        win=win,
-        name='semantic_stim', 
-        image='default.png', mask=None, anchor='center',
-        ori=0.0, pos=(0.0, 0), draggable=False, size=1.0,
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-9.0)
-    feedback_txt_5 = visual.TextStim(win=win, name='feedback_txt_5',
-        text=None,
-        font='Open Sans',
-        pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-10.0);
-    
-    # --- Initialize components for Routine "INSTRUCTIONS" ---
-    logo_begibraintool = visual.ImageStim(
-        win=win,
-        name='logo_begibraintool', 
-        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
-        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
-    logo_bio_2 = visual.ImageStim(
-        win=win,
-        name='logo_bio_2', 
-        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
-        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
-    logo_compneurolab_2 = visual.ImageStim(
-        win=win,
-        name='logo_compneurolab_2', 
-        image='images/compneuro_horizontal.png', mask=None, anchor='center',
-        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
-    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
-        text=None,
-        font='Open Sans',
-        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-3.0);
-    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
-        text=None,
-        font='Arial',
-        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=0.0, 
-        languageStyle='LTR',
-        depth=-4.0);
-    # Run 'Begin Experiment' code from code_9
-    def calcular_relacion_aspecto(ruta_archivo):
-        """
-        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
-        
-        :param ruta_archivo: Ruta completa de la imagen (str).
-        :return: Relación de aspecto (float).
-        """
-        try:
-            with Image.open(ruta_archivo) as img:
-                anchura, altura = img.size
-                return anchura / altura
-        except Exception as e:
-            raise ValueError(f"Error al abrir la imagen: {e}")
-    
-    ##################################################################
-    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
-    ##################################################################
-    
-    language = general_config["language"]["value"].upper()
-    
-    # =========================================================
-    # GLOBAL INSTRUCTIONS
-    # =========================================================
-    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
-    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
-    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
-    
-    # =========================================================
-    # MODULE 1
-    # =========================================================
-    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
-        
-    # ---------- Module 1 · Staircases ----------
-    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
-    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
-    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
-    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
-    
-    # ---------- Module 1 · Block Instructions ----------
-    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
-    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
-    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
-    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
-    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
-    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
-    
-    # =========================================================
-    # MODULE 2 · Eye Tracking & Visual Tasks
-    # =========================================================
-    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
-    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
-    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
-    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
-    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
-    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
-    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
-    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
-    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
-    
-    # =========================================================
-    # MODULE 3 · Pupillometry & Affective Stimuli
-    # =========================================================
-    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
-    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
-    
-    instructions_image = visual.ImageStim(
-        win=win,
-        name='instructions_image', 
-        image='default.png', mask=None, anchor='center',
-        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
-    button_next_instruction_2 = visual.ButtonStim(win, 
-        text='Siguiente -->', font='Arvo',
-        pos=(0.55, -0.4),
-        letterHeight=0.03,
-        size=(0.25, 0.15), 
-        ori=0.0
-        ,borderWidth=0.1,
-        fillColor='white', borderColor=None,
-        color='white', colorSpace='rgb',
-        opacity=None,
-        bold=True, italic=False,
-        padding=None,
-        anchor='center',
-        name='button_next_instruction_2',
-        depth=-7
-    )
-    button_next_instruction_2.buttonClock = core.Clock()
-    button_previous_instruction_2 = visual.ButtonStim(win, 
-        text='<--Anterior', font='Arvo',
-        pos=(-0.55, -0.4),
-        letterHeight=0.03,
-        size=(0.25, 0.15), 
-        ori=0.0
-        ,borderWidth=0.1,
-        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
-        color='white', colorSpace='rgb',
-        opacity=None,
-        bold=True, italic=False,
-        padding=None,
-        anchor='center',
-        name='button_previous_instruction_2',
-        depth=-8
-    )
-    button_previous_instruction_2.buttonClock = core.Clock()
-    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
-    
-    # --- Initialize components for Routine "BL_5_SEMANTIC_CONTRAST" ---
-    key_resp_22 = keyboard.Keyboard(deviceName='key_resp_22')
-    logs_parametros_trial_9 = visual.TextStim(win=win, name='logs_parametros_trial_9',
-        text=None,
-        font='Open Sans',
-        pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-2.0);
-    right_arrow_2 = visual.ShapeStim(
-        win=win, name='right_arrow_2', vertices='arrow',
-        size=(0.3, 0.2),
-        ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
-    left_arrow_2 = visual.ShapeStim(
-        win=win, name='left_arrow_2', vertices='arrow',
-        size=(0.3, 0.2),
-        ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
-    right_arrow_text_2 = visual.TextStim(win=win, name='right_arrow_text_2',
-        text='Ser vivo',
-        font='Open Sans',
-        pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-5.0);
-    left_arrow_text_2 = visual.TextStim(win=win, name='left_arrow_text_2',
-        text='Inerte',
-        font='Open Sans',
-        pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-6.0);
-    dots_white_10 = visual.DotStim(
-        win=win, name='dots_white_10',
-        nDots=noise_dots, dotSize=2.0,
-        speed=0.1, dir=0.0, coherence=1.0,
-        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
-        signalDots='same', noiseDots='direction',dotLife=3.0,
-        color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-7.0)
-    dots_black_10 = visual.DotStim(
-        win=win, name='dots_black_10',
-        nDots=noise_dots, dotSize=2.0,
-        speed=0.1, dir=0.0, coherence=1.0,
-        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
-        signalDots='same', noiseDots='direction',dotLife=3.0,
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-8.0)
-    semantic_stim_2 = visual.ImageStim(
-        win=win,
-        name='semantic_stim_2', 
-        image='default.png', mask=None, anchor='center',
-        ori=0.0, pos=(0.0, 0), draggable=False, size=(0.5, 0.5),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-9.0)
-    feedback_txt_6 = visual.TextStim(win=win, name='feedback_txt_6',
-        text=None,
-        font='Open Sans',
-        pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-10.0);
-    
-    # --- Initialize components for Routine "INSTRUCTIONS" ---
-    logo_begibraintool = visual.ImageStim(
-        win=win,
-        name='logo_begibraintool', 
-        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
-        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
-    logo_bio_2 = visual.ImageStim(
-        win=win,
-        name='logo_bio_2', 
-        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
-        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
-    logo_compneurolab_2 = visual.ImageStim(
-        win=win,
-        name='logo_compneurolab_2', 
-        image='images/compneuro_horizontal.png', mask=None, anchor='center',
-        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
-    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
-        text=None,
-        font='Open Sans',
-        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-3.0);
-    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
-        text=None,
-        font='Arial',
-        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=0.0, 
-        languageStyle='LTR',
-        depth=-4.0);
-    # Run 'Begin Experiment' code from code_9
-    def calcular_relacion_aspecto(ruta_archivo):
-        """
-        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
-        
-        :param ruta_archivo: Ruta completa de la imagen (str).
-        :return: Relación de aspecto (float).
-        """
-        try:
-            with Image.open(ruta_archivo) as img:
-                anchura, altura = img.size
-                return anchura / altura
-        except Exception as e:
-            raise ValueError(f"Error al abrir la imagen: {e}")
-    
-    ##################################################################
-    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
-    ##################################################################
-    
-    language = general_config["language"]["value"].upper()
-    
-    # =========================================================
-    # GLOBAL INSTRUCTIONS
-    # =========================================================
-    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
-    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
-    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
-    
-    # =========================================================
-    # MODULE 1
-    # =========================================================
-    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
-        
-    # ---------- Module 1 · Staircases ----------
-    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
-    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
-    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
-    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
-    
-    # ---------- Module 1 · Block Instructions ----------
-    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
-    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
-    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
-    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
-    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
-    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
-    
-    # =========================================================
-    # MODULE 2 · Eye Tracking & Visual Tasks
-    # =========================================================
-    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
-    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
-    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
-    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
-    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
-    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
-    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
-    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
-    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
-    
-    # =========================================================
-    # MODULE 3 · Pupillometry & Affective Stimuli
-    # =========================================================
-    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
-    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
-    
-    instructions_image = visual.ImageStim(
-        win=win,
-        name='instructions_image', 
-        image='default.png', mask=None, anchor='center',
-        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
-    button_next_instruction_2 = visual.ButtonStim(win, 
-        text='Siguiente -->', font='Arvo',
-        pos=(0.55, -0.4),
-        letterHeight=0.03,
-        size=(0.25, 0.15), 
-        ori=0.0
-        ,borderWidth=0.1,
-        fillColor='white', borderColor=None,
-        color='white', colorSpace='rgb',
-        opacity=None,
-        bold=True, italic=False,
-        padding=None,
-        anchor='center',
-        name='button_next_instruction_2',
-        depth=-7
-    )
-    button_next_instruction_2.buttonClock = core.Clock()
-    button_previous_instruction_2 = visual.ButtonStim(win, 
-        text='<--Anterior', font='Arvo',
-        pos=(-0.55, -0.4),
-        letterHeight=0.03,
-        size=(0.25, 0.15), 
-        ori=0.0
-        ,borderWidth=0.1,
-        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
-        color='white', colorSpace='rgb',
-        opacity=None,
-        bold=True, italic=False,
-        padding=None,
-        anchor='center',
-        name='button_previous_instruction_2',
-        depth=-8
-    )
-    button_previous_instruction_2.buttonClock = core.Clock()
-    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
-    
-    # --- Initialize components for Routine "BL_6_SEMANTIC_COLOR" ---
-    img_white_background = visual.Rect(
-        win=win, name='img_white_background',
-        width=(1, 1)[0], height=(1, 1)[1],
-        ori=0.0, pos=(0, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=0.0, interpolate=True)
-    key_resp_30 = keyboard.Keyboard(deviceName='key_resp_30')
-    logs_parametros_trial_10 = visual.TextStim(win=win, name='logs_parametros_trial_10',
-        text=None,
-        font='Open Sans',
-        pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-3.0);
-    right_arrow_3 = visual.ShapeStim(
-        win=win, name='right_arrow_3', vertices='arrow',
-        size=(0.3, 0.2),
-        ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
-    left_arrow_3 = visual.ShapeStim(
-        win=win, name='left_arrow_3', vertices='arrow',
-        size=(0.3, 0.2),
-        ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-5.0, interpolate=True)
-    right_arrow_text_3 = visual.TextStim(win=win, name='right_arrow_text_3',
-        text='Ser vivo',
-        font='Open Sans',
-        pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-6.0);
-    left_arrow_text_3 = visual.TextStim(win=win, name='left_arrow_text_3',
-        text='Inerte',
-        font='Open Sans',
-        pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-7.0);
-    dots_white_11 = visual.DotStim(
-        win=win, name='dots_white_11',
-        nDots=noise_dots, dotSize=2.0,
-        speed=0.1, dir=0.0, coherence=1.0,
-        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
-        signalDots='same', noiseDots='direction',dotLife=3.0,
-        color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
-        depth=-8.0)
-    dots_black_11 = visual.DotStim(
-        win=win, name='dots_black_11',
-        nDots=noise_dots, dotSize=2.0,
-        speed=0.1, dir=0.0, coherence=1.0,
-        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
-        signalDots='same', noiseDots='direction',dotLife=3.0,
-        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-9.0)
-    semantic_stim_3 = visual.ImageStim(
-        win=win,
-        name='semantic_stim_3', 
-        image='default.png', mask=None, anchor='center',
-        ori=0.0, pos=(0.0, 0), draggable=False, size=(0.5, 0.5),
-        color=[1,1,1], colorSpace='rgb', opacity=None,
-        flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=False, depth=-10.0)
-    feedback_txt_7 = visual.TextStim(win=win, name='feedback_txt_7',
         text=None,
         font='Open Sans',
         pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
@@ -3771,7 +3355,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -3779,7 +3363,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -3787,21 +3371,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -3868,6 +3452,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -3875,7 +3478,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -3890,7 +3493,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -3907,7 +3510,725 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
+        depth=-9
+    )
+    button_previous_instruction_2.buttonClock = core.Clock()
+    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
+    
+    # --- Initialize components for Routine "BL_4_SEMANTIC_SF" ---
+    key_resp_13 = keyboard.Keyboard(deviceName='key_resp_13')
+    logs_parametros_trial_8 = visual.TextStim(win=win, name='logs_parametros_trial_8',
+        text=None,
+        font='Open Sans',
+        pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-3.0);
+    right_arrow = visual.ShapeStim(
+        win=win, name='right_arrow', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-4.0, interpolate=True)
+    left_arrow = visual.ShapeStim(
+        win=win, name='left_arrow', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-5.0, interpolate=True)
+    right_arrow_text = visual.TextStim(win=win, name='right_arrow_text',
+        text='Ser vivo',
+        font='Open Sans',
+        pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-6.0);
+    left_arrow_text = visual.TextStim(win=win, name='left_arrow_text',
+        text='Inerte',
+        font='Open Sans',
+        pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-7.0);
+    dots_white_9 = visual.DotStim(
+        win=win, name='dots_white_9',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
+        depth=-8.0)
+    dots_black_9 = visual.DotStim(
+        win=win, name='dots_black_9',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
+        depth=-9.0)
+    semantic_stim = visual.ImageStim(
+        win=win,
+        name='semantic_stim', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.0, 0), draggable=False, size=1.0,
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-10.0)
+    feedback_txt_5 = visual.TextStim(win=win, name='feedback_txt_5',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-11.0);
+    
+    # --- Initialize components for Routine "INSTRUCTIONS" ---
+    logo_begibraintool = visual.ImageStim(
+        win=win,
+        name='logo_begibraintool', 
+        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-1.0)
+    logo_bio_2 = visual.ImageStim(
+        win=win,
+        name='logo_bio_2', 
+        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
+        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-2.0)
+    logo_compneurolab_2 = visual.ImageStim(
+        win=win,
+        name='logo_compneurolab_2', 
+        image='images/compneuro_horizontal.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-3.0)
+    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-4.0);
+    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
+        text=None,
+        font='Arial',
+        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=0.0, 
+        languageStyle='LTR',
+        depth=-5.0);
+    # Run 'Begin Experiment' code from code_9
+    def calcular_relacion_aspecto(ruta_archivo):
+        """
+        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
+        
+        :param ruta_archivo: Ruta completa de la imagen (str).
+        :return: Relación de aspecto (float).
+        """
+        try:
+            with Image.open(ruta_archivo) as img:
+                anchura, altura = img.size
+                return anchura / altura
+        except Exception as e:
+            raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
+    instructions_image = visual.ImageStim(
+        win=win,
+        name='instructions_image', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-7.0)
+    button_next_instruction_2 = visual.ButtonStim(win, 
+        text='Siguiente -->', font='Arvo',
+        pos=(0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor='white', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_next_instruction_2',
         depth=-8
+    )
+    button_next_instruction_2.buttonClock = core.Clock()
+    button_previous_instruction_2 = visual.ButtonStim(win, 
+        text='<--Anterior', font='Arvo',
+        pos=(-0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_previous_instruction_2',
+        depth=-9
+    )
+    button_previous_instruction_2.buttonClock = core.Clock()
+    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
+    
+    # --- Initialize components for Routine "BL_5_SEMANTIC_CONTRAST" ---
+    key_resp_22 = keyboard.Keyboard(deviceName='key_resp_22')
+    logs_parametros_trial_9 = visual.TextStim(win=win, name='logs_parametros_trial_9',
+        text=None,
+        font='Open Sans',
+        pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-3.0);
+    right_arrow_2 = visual.ShapeStim(
+        win=win, name='right_arrow_2', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-4.0, interpolate=True)
+    left_arrow_2 = visual.ShapeStim(
+        win=win, name='left_arrow_2', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-5.0, interpolate=True)
+    right_arrow_text_2 = visual.TextStim(win=win, name='right_arrow_text_2',
+        text='Ser vivo',
+        font='Open Sans',
+        pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-6.0);
+    left_arrow_text_2 = visual.TextStim(win=win, name='left_arrow_text_2',
+        text='Inerte',
+        font='Open Sans',
+        pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-7.0);
+    dots_white_10 = visual.DotStim(
+        win=win, name='dots_white_10',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
+        depth=-8.0)
+    dots_black_10 = visual.DotStim(
+        win=win, name='dots_black_10',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
+        depth=-9.0)
+    semantic_stim_2 = visual.ImageStim(
+        win=win,
+        name='semantic_stim_2', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.0, 0), draggable=False, size=(0.5, 0.5),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-10.0)
+    feedback_txt_6 = visual.TextStim(win=win, name='feedback_txt_6',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-11.0);
+    
+    # --- Initialize components for Routine "INSTRUCTIONS" ---
+    logo_begibraintool = visual.ImageStim(
+        win=win,
+        name='logo_begibraintool', 
+        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-1.0)
+    logo_bio_2 = visual.ImageStim(
+        win=win,
+        name='logo_bio_2', 
+        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
+        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-2.0)
+    logo_compneurolab_2 = visual.ImageStim(
+        win=win,
+        name='logo_compneurolab_2', 
+        image='images/compneuro_horizontal.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-3.0)
+    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-4.0);
+    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
+        text=None,
+        font='Arial',
+        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=0.0, 
+        languageStyle='LTR',
+        depth=-5.0);
+    # Run 'Begin Experiment' code from code_9
+    def calcular_relacion_aspecto(ruta_archivo):
+        """
+        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
+        
+        :param ruta_archivo: Ruta completa de la imagen (str).
+        :return: Relación de aspecto (float).
+        """
+        try:
+            with Image.open(ruta_archivo) as img:
+                anchura, altura = img.size
+                return anchura / altura
+        except Exception as e:
+            raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
+    instructions_image = visual.ImageStim(
+        win=win,
+        name='instructions_image', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-7.0)
+    button_next_instruction_2 = visual.ButtonStim(win, 
+        text='Siguiente -->', font='Arvo',
+        pos=(0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor='white', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_next_instruction_2',
+        depth=-8
+    )
+    button_next_instruction_2.buttonClock = core.Clock()
+    button_previous_instruction_2 = visual.ButtonStim(win, 
+        text='<--Anterior', font='Arvo',
+        pos=(-0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_previous_instruction_2',
+        depth=-9
+    )
+    button_previous_instruction_2.buttonClock = core.Clock()
+    key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
+    
+    # --- Initialize components for Routine "BL_6_SEMANTIC_COLOR" ---
+    img_white_background = visual.Rect(
+        win=win, name='img_white_background',
+        width=(1, 1)[0], height=(1, 1)[1],
+        ori=0.0, pos=(0, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-1.0, interpolate=True)
+    key_resp_30 = keyboard.Keyboard(deviceName='key_resp_30')
+    logs_parametros_trial_10 = visual.TextStim(win=win, name='logs_parametros_trial_10',
+        text=None,
+        font='Open Sans',
+        pos=(0.5, 0.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-4.0);
+    right_arrow_3 = visual.ShapeStim(
+        win=win, name='right_arrow_3', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=90.0, pos=(0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-5.0, interpolate=True)
+    left_arrow_3 = visual.ShapeStim(
+        win=win, name='left_arrow_3', vertices='arrow',
+        size=(0.3, 0.2),
+        ori=-90.0, pos=(-0.65, 0), draggable=False, anchor='center',
+        lineWidth=1.0,
+        colorSpace='rgb', lineColor='white', fillColor='white',
+        opacity=None, depth=-6.0, interpolate=True)
+    right_arrow_text_3 = visual.TextStim(win=win, name='right_arrow_text_3',
+        text='Ser vivo',
+        font='Open Sans',
+        pos=(0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-7.0);
+    left_arrow_text_3 = visual.TextStim(win=win, name='left_arrow_text_3',
+        text='Inerte',
+        font='Open Sans',
+        pos=(-0.65, 0), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-8.0);
+    dots_white_11 = visual.DotStim(
+        win=win, name='dots_white_11',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None,
+        depth=-9.0)
+    dots_black_11 = visual.DotStim(
+        win=win, name='dots_black_11',
+        nDots=noise_dots, dotSize=2.0,
+        speed=0.1, dir=0.0, coherence=1.0,
+        fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
+        signalDots='same', noiseDots='direction',dotLife=3.0,
+        color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
+        depth=-10.0)
+    semantic_stim_3 = visual.ImageStim(
+        win=win,
+        name='semantic_stim_3', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.0, 0), draggable=False, size=(0.5, 0.5),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=512.0, interpolate=False, depth=-11.0)
+    feedback_txt_7 = visual.TextStim(win=win, name='feedback_txt_7',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0), draggable=False, height=0.085, wrapWidth=None, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-12.0);
+    
+    # --- Initialize components for Routine "INSTRUCTIONS" ---
+    logo_begibraintool = visual.ImageStim(
+        win=win,
+        name='logo_begibraintool', 
+        image='images/logo_BBT_no_bg.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-1.0)
+    logo_bio_2 = visual.ImageStim(
+        win=win,
+        name='logo_bio_2', 
+        image='images/BIOBIZKAIA_horizontal_CMYK.png', mask=None, anchor='center',
+        ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-2.0)
+    logo_compneurolab_2 = visual.ImageStim(
+        win=win,
+        name='logo_compneurolab_2', 
+        image='images/compneuro_horizontal.png', mask=None, anchor='center',
+        ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-3.0)
+    text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
+        text=None,
+        font='Open Sans',
+        pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-4.0);
+    text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
+        text=None,
+        font='Arial',
+        pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=0.0, 
+        languageStyle='LTR',
+        depth=-5.0);
+    # Run 'Begin Experiment' code from code_9
+    def calcular_relacion_aspecto(ruta_archivo):
+        """
+        Calcula la relación de aspecto de una imagen a partir de su anchura y altura.
+        
+        :param ruta_archivo: Ruta completa de la imagen (str).
+        :return: Relación de aspecto (float).
+        """
+        try:
+            with Image.open(ruta_archivo) as img:
+                anchura, altura = img.size
+                return anchura / altura
+        except Exception as e:
+            raise ValueError(f"Error al abrir la imagen: {e}")
+    
+    ##################################################################
+    ##  CUSTOM PATH FOR INSTRUCTIONS DEPENDING ON LANGUAGE SELECTED ##
+    ##################################################################
+    
+    language = general_config["language"]["value"].upper()
+    
+    # =========================================================
+    # GLOBAL INSTRUCTIONS
+    # =========================================================
+    instruction_welcome_screen      = f"instructions/[{language}]WELCOME_SCREEN.xlsx"
+    instruction_end_of_experiment   = f"instructions/[{language}]END_OF_EXPERIMENT.xlsx"
+    instruction_tutorial_button_panel = f"instructions/tutorial_button_panel/[{language}]tutorial_button_panel.xlsx"
+    
+    # =========================================================
+    # MODULE 1
+    # =========================================================
+    instruction_m1_tutorial_semantic     = f"instructions/module_1/tutorial_semantic_sf_color_contrast/[{language}]tutorial_semantic_sf_color_contrast.xlsx"
+        
+    # ---------- Module 1 · Staircases ----------
+    instruction_m1_sf_staircase_1       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions.xlsx"
+    instruction_m1_sf_staircase_2       = f"instructions/module_1/spatial_frequency_staircase/[{language}]spatial_frequency_staircase_instructions_2.xlsx"
+    instruction_m1_contrast_staircase   = f"instructions/module_1/[{language}]contrast_staircase_instructions.xlsx"
+    instruction_m1_color_staircase      = f"instructions/module_1/[{language}]color_staircase_instructions.xlsx"
+    
+    # ---------- Module 1 · Block Instructions ----------
+    instruction_m1_bl1 = f"instructions/module_1/[{language}]BL1_instructions.xlsx"
+    instruction_m1_bl2 = f"instructions/module_1/[{language}]BL2_instructions.xlsx"
+    instruction_m1_bl3 = f"instructions/module_1/[{language}]BL3_instructions.xlsx"
+    instruction_m1_bl4 = f"instructions/module_1/[{language}]BL4_instructions.xlsx"
+    instruction_m1_bl5 = f"instructions/module_1/[{language}]BL5_instructions.xlsx"
+    instruction_m1_bl6 = f"instructions/module_1/[{language}]BL6_instructions.xlsx"
+    
+    # =========================================================
+    # MODULE 2 · Eye Tracking & Visual Tasks
+    # =========================================================
+    instruction_m2_1_1_resting_et               = f"instructions/module_2/[{language}]1.1.RESTING_ET.xlsx"
+    instruction_m2_1_2_et                       = f"instructions/module_2/[{language}]1.2.ET.xlsx"
+    instruction_m2_2_fft                        = f"instructions/module_2/[{language}]2.FFT.xlsx"
+    instruction_m2_3_1_saccade                  = f"instructions/module_2/[{language}]3.1.ET_SACCADE.xlsx"
+    instruction_m2_3_2_antisaccade              = f"instructions/module_2/[{language}]3.2.ET_ANTISACCADE.xlsx"
+    instruction_m2_3_3_saccade_and_antisaccade  = f"instructions/module_2/[{language}]3.3.ET_SACCADE_AND_ANTISACCADE.xlsx"
+    instruction_m2_4_smooth_pursuit             = f"instructions/module_2/[{language}]4.SMOOTH_PURSUIT.xlsx"
+    instruction_m2_5_static_visual_search       = f"instructions/module_2/[{language}]5.STATIC_VISUAL_SEARCH.xlsx"
+    instruction_m2_6_dynamic_visual_search      = f"instructions/module_2/[{language}]6.DYNAMIC_VISUAL_SEARCH.xlsx"
+    
+    # =========================================================
+    # MODULE 3 · Pupillometry & Affective Stimuli
+    # =========================================================
+    instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
+    instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
+    
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
+    instructions_image = visual.ImageStim(
+        win=win,
+        name='instructions_image', 
+        image='default.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=-7.0)
+    button_next_instruction_2 = visual.ButtonStim(win, 
+        text='Siguiente -->', font='Arvo',
+        pos=(0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor='white', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_next_instruction_2',
+        depth=-8
+    )
+    button_next_instruction_2.buttonClock = core.Clock()
+    button_previous_instruction_2 = visual.ButtonStim(win, 
+        text='<--Anterior', font='Arvo',
+        pos=(-0.55, -0.4),
+        letterHeight=0.03,
+        size=(0.25, 0.15), 
+        ori=0.0
+        ,borderWidth=0.1,
+        fillColor=[-1.0000, 0.0039, -1.0000], borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='button_previous_instruction_2',
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -3919,7 +4240,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, 0), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-1.0);
+        depth=-2.0);
     key_resp_8 = keyboard.Keyboard(deviceName='key_resp_8')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -3930,7 +4251,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -3938,7 +4259,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -3946,21 +4267,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -4027,6 +4348,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4034,7 +4374,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -4049,7 +4389,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -4066,7 +4406,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -4078,14 +4418,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0.5, 0.5), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-1.0);
+        depth=-2.0);
     polygon_9 = visual.ShapeStim(
         win=win, name='polygon_9', vertices='cross',
         size=(0.04, 0.04),
         ori=0.0, pos=(0, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
-        opacity=None, depth=-2.0, interpolate=True)
+        opacity=None, depth=-3.0, interpolate=True)
     key_resp_26 = keyboard.Keyboard(deviceName='key_resp_26')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -4096,7 +4436,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -4104,7 +4444,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -4112,21 +4452,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -4193,6 +4533,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4200,7 +4559,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -4215,7 +4574,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -4232,7 +4591,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -4245,7 +4604,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, -0.45), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     dots_white_4 = visual.DotStim(
         win=win, name='dots_white_4',
         nDots=noise_dots, dotSize=2.0,
@@ -4253,7 +4612,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[1.0,1.0,1.0], colorSpace='rgb', opacity=None,
-        depth=-4.0)
+        depth=-5.0)
     dots_black_4 = visual.DotStim(
         win=win, name='dots_black_4',
         nDots=noise_dots, dotSize=2.0,
@@ -4261,7 +4620,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[1.75,1], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=3.0,
         color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None,
-        depth=-5.0)
+        depth=-6.0)
     key_resp_18 = keyboard.Keyboard(deviceName='key_resp_18')
     FPS_logs_2 = visual.TextStim(win=win, name='FPS_logs_2',
         text=None,
@@ -4269,14 +4628,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0.35, 0.35), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-8.0);
+        depth=-9.0);
     dot = visual.ShapeStim(
         win=win, name='dot',
         size=(0.25, 0.25), vertices='circle',
         ori=0.0, pos=(0, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-9.0, interpolate=True)
+        opacity=None, depth=-10.0, interpolate=True)
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -4286,7 +4645,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -4294,7 +4653,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -4302,21 +4661,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -4383,6 +4742,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4390,7 +4768,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -4405,7 +4783,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -4422,7 +4800,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -4447,28 +4825,28 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=IPAST_stim_position, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-1.0, interpolate=True)
+        opacity=None, depth=-2.0, interpolate=True)
     circle_2 = visual.ShapeStim(
         win=win, name='circle_2',
         size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_L, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-2.0, interpolate=True)
+        opacity=None, depth=-3.0, interpolate=True)
     circle_3 = visual.ShapeStim(
         win=win, name='circle_3',
         size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_R, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     polygon_5 = visual.ShapeStim(
         win=win, name='polygon_5',
         size=(0.15, 0.15), vertices='circle',
         ori=0.0, pos=[0,0], draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-5.0, interpolate=True)
     key_resp_27 = keyboard.Keyboard(deviceName='key_resp_27')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -4479,7 +4857,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -4487,7 +4865,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -4495,21 +4873,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -4576,6 +4954,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4583,7 +4980,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -4598,7 +4995,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -4615,7 +5012,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -4640,28 +5037,28 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=IPAST_stim_position, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-1.0, interpolate=True)
+        opacity=None, depth=-2.0, interpolate=True)
     circle_2 = visual.ShapeStim(
         win=win, name='circle_2',
         size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_L, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-2.0, interpolate=True)
+        opacity=None, depth=-3.0, interpolate=True)
     circle_3 = visual.ShapeStim(
         win=win, name='circle_3',
         size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_R, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     polygon_5 = visual.ShapeStim(
         win=win, name='polygon_5',
         size=(0.15, 0.15), vertices='circle',
         ori=0.0, pos=[0,0], draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-5.0, interpolate=True)
     key_resp_27 = keyboard.Keyboard(deviceName='key_resp_27')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -4672,7 +5069,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -4680,7 +5077,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -4688,21 +5085,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -4769,6 +5166,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4776,7 +5192,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -4791,7 +5207,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -4808,7 +5224,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -4833,28 +5249,28 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=IPAST_stim_position, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-1.0, interpolate=True)
+        opacity=None, depth=-2.0, interpolate=True)
     circle_2 = visual.ShapeStim(
         win=win, name='circle_2',
         size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_L, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-2.0, interpolate=True)
+        opacity=None, depth=-3.0, interpolate=True)
     circle_3 = visual.ShapeStim(
         win=win, name='circle_3',
         size=IPAST_fixation_circle_size, vertices='circle',
         ori=0.0, pos=PERIPHEREAL_POS_R, draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     polygon_5 = visual.ShapeStim(
         win=win, name='polygon_5',
         size=(0.15, 0.15), vertices='circle',
         ori=0.0, pos=[0,0], draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-4.0, interpolate=True)
+        opacity=None, depth=-5.0, interpolate=True)
     key_resp_27 = keyboard.Keyboard(deviceName='key_resp_27')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -4865,7 +5281,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -4873,7 +5289,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -4881,21 +5297,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -4962,6 +5378,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -4969,7 +5404,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -4984,7 +5419,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -5001,7 +5436,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -5014,14 +5449,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fieldPos=(0.0, 0.0), fieldSize=[field_size[0]+0.5,field_size[1]+0.5], fieldAnchor='center', fieldShape='square',
         signalDots='same', noiseDots='direction',dotLife=noise_dots_lifetime,
         color=noise_dots_color, colorSpace='rgb', opacity=None,
-        depth=0.0)
+        depth=-1.0)
     dot_2 = visual.ShapeStim(
         win=win, name='dot_2',
         size=dot_size, vertices='circle',
         ori=0.0, pos=(0, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor=dot_border_color, fillColor=dot_color,
-        opacity=None, depth=-1.0, interpolate=True)
+        opacity=None, depth=-2.0, interpolate=True)
     # Run 'Begin Experiment' code from code_26
     import numpy as np
     import threading
@@ -5135,7 +5570,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -5143,7 +5578,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -5151,21 +5586,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -5232,6 +5667,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -5239,7 +5693,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -5254,7 +5708,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -5271,7 +5725,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -5283,7 +5737,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
-        opacity=None, depth=0.0, interpolate=True)
+        opacity=None, depth=-1.0, interpolate=True)
     rings_img = visual.ImageStim(
         win=win,
         name='rings_img', 
@@ -5291,7 +5745,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=False, depth=-2.0)
+        texRes=512.0, interpolate=False, depth=-3.0)
     key_resp_28 = keyboard.Keyboard(deviceName='key_resp_28')
     # Run 'Begin Experiment' code from GP_data_adq_backend_3
     def convert_to_psychopy_units(FPOGX, FPOGY, screen_bounds):
@@ -5320,7 +5774,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         return x_psychopy, y_psychopy
     
     
-    screen_bounds = (-0.89, 0.5, 0.89, -0.5)  # Definir los límites de la pantalla en unidades PsychoPy (x_min, y_max, x_max, y_min)
+    # Límites de la pantalla en unidades PsychoPy 'height' (x_min, y_max, x_max, y_min), con el
+    # aspecto real de la ventana (la ventana sigue al monitor elegido; 16:9 -> +-0.89)
+    _vs_aspect = win.size[0] / win.size[1]
+    screen_bounds = (-_vs_aspect / 2, 0.5, _vs_aspect / 2, -0.5)
     
     
     
@@ -5330,7 +5787,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=[0,0], draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor=[1.0000, -1.0000, -1.0000], fillColor=[1.0000, -1.0000, -1.0000],
-        opacity=0.4, depth=-5.0, interpolate=True)
+        opacity=0.4, depth=-6.0, interpolate=True)
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -5340,7 +5797,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -5348,7 +5805,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -5356,21 +5813,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -5437,6 +5894,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -5444,7 +5920,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -5459,7 +5935,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -5476,7 +5952,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -5505,7 +5981,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -5513,7 +5989,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -5521,21 +5997,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -5602,6 +6078,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -5609,7 +6104,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -5624,7 +6119,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -5641,7 +6136,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -5654,7 +6149,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor=[0.0902, -1.0000, -1.0000], fillColor=[0.0902, -1.0000, -1.0000],
-        opacity=0.9, depth=-2.0, interpolate=True)
+        opacity=0.9, depth=-3.0, interpolate=True)
     
     # --- Initialize components for Routine "PUPILOMETRY_TASK_flash" ---
     text_4 = visual.TextStim(win=win, name='text_4',
@@ -5663,7 +6158,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, 0), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-1.0);
+        depth=-2.0);
     key_resp_24 = keyboard.Keyboard(deviceName='key_resp_24')
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
@@ -5674,7 +6169,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -5682,7 +6177,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -5690,21 +6185,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -5771,6 +6266,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -5778,7 +6292,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -5793,7 +6307,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -5810,7 +6324,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -5823,7 +6337,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=512.0, interpolate=False, depth=-1.0)
+        texRes=512.0, interpolate=False, depth=-2.0)
     key_resp_29 = keyboard.Keyboard(deviceName='key_resp_29')
     logs_29 = visual.TextStim(win=win, name='logs_29',
         text=None,
@@ -5831,7 +6345,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(-0.2, -0.4), draggable=False, height=0.02, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     
     # --- Initialize components for Routine "INSTRUCTIONS" ---
     logo_begibraintool = visual.ImageStim(
@@ -5841,7 +6355,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0.4), draggable=False, size=(0.3, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     logo_bio_2 = visual.ImageStim(
         win=win,
         name='logo_bio_2', 
@@ -5849,7 +6363,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(-0.6, 0.4), draggable=False, size=(0.2, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-1.0)
+        texRes=128.0, interpolate=True, depth=-2.0)
     logo_compneurolab_2 = visual.ImageStim(
         win=win,
         name='logo_compneurolab_2', 
@@ -5857,21 +6371,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0.6, 0.4), draggable=False, size=(0.25, 0.1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-2.0)
+        texRes=128.0, interpolate=True, depth=-3.0)
     text_instructions_2 = visual.TextStim(win=win, name='text_instructions_2',
         text=None,
         font='Open Sans',
         pos=(0, 0.1), draggable=False, height=0.04, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-3.0);
+        depth=-4.0);
     text_instructions_title = visual.TextStim(win=win, name='text_instructions_title',
         text=None,
         font='Arial',
         pos=(0, 0.2), draggable=False, height=0.035, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=0.0, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     # Run 'Begin Experiment' code from code_9
     def calcular_relacion_aspecto(ruta_archivo):
         """
@@ -5938,6 +6452,25 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instruction_m3_pupillometry             = f"instructions/module_3/[{language}]1.PUPILLOMETRY.xlsx"
     instruction_m3_fearful_affective_images = f"instructions/module_3/[{language}]2.FEARFUL_&_AFFECTIVE_IMAGES.xlsx"
     
+    # =========================================================
+    # FIXED ON-SCREEN TEXTS IN THE SESSION LANGUAGE
+    # =========================================================
+    # The components keep the Spanish text as their (constant) value; the routines call
+    # set_ui_text() in Begin Routine. Language files cover the instructions themselves.
+    UI_TEXT = {
+        'nav_previous': {'ES': '<--Anterior', 'EN': '<--Previous', 'EU': '<--Aurrekoa'},
+        'nav_next': {'ES': 'Siguiente -->', 'EN': 'Next -->', 'EU': 'Hurrengoa -->'},
+        'living': {'ES': 'Ser vivo', 'EN': 'Living', 'EU': 'Bizidun'},
+        'inert': {'ES': 'Inerte', 'EN': 'Non-living', 'EU': 'Bizigabe'},
+        'tutorial_sf_prompt': {'ES': 'Vamos con una prueba corta. ¿Hacia donde apuntan las líneas?', 'EN': "Let's do a short practice. Which way do the lines point?", 'EU': 'Proba labur bat egingo dugu. Zein norabidetan doaz lerroak?'},
+    }
+    
+    def set_ui_text(stim, key):
+        """Put the text of `key` in the session language on a Text/Button stimulus."""
+        t = UI_TEXT[key].get(language, UI_TEXT[key]['ES'])
+        if stim.text != t:
+            stim.text = t
+    
     instructions_image = visual.ImageStim(
         win=win,
         name='instructions_image', 
@@ -5945,7 +6478,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, -0.2), draggable=False, size=1.0,
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=-6.0)
+        texRes=128.0, interpolate=True, depth=-7.0)
     button_next_instruction_2 = visual.ButtonStim(win, 
         text='Siguiente -->', font='Arvo',
         pos=(0.55, -0.4),
@@ -5960,7 +6493,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_next_instruction_2',
-        depth=-7
+        depth=-8
     )
     button_next_instruction_2.buttonClock = core.Clock()
     button_previous_instruction_2 = visual.ButtonStim(win, 
@@ -5977,7 +6510,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         padding=None,
         anchor='center',
         name='button_previous_instruction_2',
-        depth=-8
+        depth=-9
     )
     button_previous_instruction_2.buttonClock = core.Clock()
     key_resp_skip_instructions_2 = keyboard.Keyboard(deviceName='key_resp_skip_instructions_2')
@@ -6094,6 +6627,20 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                  f'Para una distancia de {distancia_eyetracker} m entre el sujeto y la pantalla, el diametro debe ser de {diameter_unit:.2f} u.\n'
                  f'El diámetro equivalente es de {diameter_m:.2f} m'
                  )
+    # Run 'Begin Routine' code from GAZEPOINT_RECORDING
+    # Recording starts HERE, in the first routine, and not in Begin Experiment: just before
+    # the first routine PsychoPy calls ioServer.syncClock(globalClock), which changes the
+    # base of core.getTime(); samples stored earlier would be on another clock.
+    gp.start_recording(filename)
+    if not gp_enabled:
+        gp.event('GAZEPOINT_PSYCHOPY_RECORDING_OFF')
+    # offset between the clock of the _gazepoint/_events CSVs and globalClock:
+    # t_psychopy = <Routine>.started + clock_offset
+    clock_offset = core.getTime() - globalClock.getTime()
+    gp.event('CLOCK_SYNC', f'monotonic_minus_global={clock_offset:.6f}')
+    thisExp.addData('clock_offset_monotonic_minus_global', clock_offset)
+    thisExp.addData('gazepoint_api_connected', gp.connected)
+    
     # store start times for CONFIGURATION_ROUTINE
     CONFIGURATION_ROUTINE.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
     CONFIGURATION_ROUTINE.tStart = globalClock.getTime(format='float')
@@ -6211,6 +6758,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         continueRoutine = True
         # update component parameters for each repeat
         # Run 'Begin Routine' code from code_9
+        # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+        # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+        # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+        event.clearEvents(eventType='keyboard')
+        
         win.color = "grey"
         instructions_img_path = None
         relacion_aspecto = 1
@@ -6238,6 +6790,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
         print(f'Lista de instrucciones cargada: {messages_instructions}')
         print(f'Lista de imágenes cargada: {images_instructions}')
+        
+        # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+        set_ui_text(button_previous_instruction_2, 'nav_previous')
+        set_ui_text(button_next_instruction_2, 'nav_next')
         
         instructions_image.setSize((relacion_aspecto,1.2))
         button_next_instruction_2.setFillColor(button_original_color)
@@ -6281,6 +6837,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             tThisFlipGlobal = win.getFutureFlipTime(clock=None)
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
+            # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+            # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+            if frameN == 0:
+                win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+            
             
             # *logo_begibraintool* updates
             
@@ -6595,6 +7156,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         INSTRUCTIONS.tStop = globalClock.getTime(format='float')
         INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
         thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+        # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+        gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+        
         loop_instruction_welcome_screen.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
         if button_next_instruction_2.numClicks:
            loop_instruction_welcome_screen.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -6715,6 +7279,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             continueRoutine = True
             # update component parameters for each repeat
             # Run 'Begin Routine' code from code_9
+            # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+            # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+            # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+            event.clearEvents(eventType='keyboard')
+            
             win.color = "grey"
             instructions_img_path = None
             relacion_aspecto = 1
@@ -6742,6 +7311,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
             print(f'Lista de instrucciones cargada: {messages_instructions}')
             print(f'Lista de imágenes cargada: {images_instructions}')
+            
+            # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+            set_ui_text(button_previous_instruction_2, 'nav_previous')
+            set_ui_text(button_next_instruction_2, 'nav_next')
             
             instructions_image.setSize((relacion_aspecto,1.2))
             button_next_instruction_2.setFillColor(button_original_color)
@@ -6785,6 +7358,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
+                # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                if frameN == 0:
+                    win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                
                 
                 # *logo_begibraintool* updates
                 
@@ -7099,6 +7677,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             INSTRUCTIONS.tStop = globalClock.getTime(format='float')
             INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
             thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+            # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+            gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+            
             loop_instruction_tutorial_button_panel.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
             if button_next_instruction_2.numClicks:
                loop_instruction_tutorial_button_panel.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -7373,6 +7954,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -7400,6 +7986,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -7443,6 +8033,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -7757,6 +8352,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_sf_staircase_1.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_sf_staircase_1.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -7837,6 +8435,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     dots_black_12.refreshDots()
                     dots_white_12.refreshDots()
                     # Run 'Begin Routine' code from code_32
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     import csv
                     
                     # Variables estaticas
@@ -7866,6 +8469,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     dots_white_12.setAutoDraw(False)
                     dots_black_12.setAutoDraw(False)
+                    
+                    # Textos fijos en el idioma de la sesión (UI_TEXT, INSTRUCTIONS / code_9)
+                    set_ui_text(text, 'tutorial_sf_prompt')
+                    
                     # create starting attributes for key_resp_31
                     key_resp_31.keys = []
                     key_resp_31.rt = []
@@ -7906,6 +8513,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_TUTORIAL_SF
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'TUTORIAL_SF_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *grating_9* updates
                         
@@ -8190,6 +8802,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     TUTORIAL_SF.tStop = globalClock.getTime(format='float')
                     TUTORIAL_SF.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('TUTORIAL_SF.stopped', TUTORIAL_SF.tStop)
+                    # Run 'End Routine' code from gp_markers_TUTORIAL_SF
+                    gp.event('TUTORIAL_SF_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_31.keys in ['', [], None]:  # No response was made
                         key_resp_31.keys = None
@@ -8245,6 +8860,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         continueRoutine = True
                         # update component parameters for each repeat
                         # Run 'Begin Routine' code from code_9
+                        # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                        # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                        # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                        event.clearEvents(eventType='keyboard')
+                        
                         win.color = "grey"
                         instructions_img_path = None
                         relacion_aspecto = 1
@@ -8272,6 +8892,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                                 
                         print(f'Lista de instrucciones cargada: {messages_instructions}')
                         print(f'Lista de imágenes cargada: {images_instructions}')
+                        
+                        # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                        set_ui_text(button_previous_instruction_2, 'nav_previous')
+                        set_ui_text(button_next_instruction_2, 'nav_next')
                         
                         instructions_image.setSize((relacion_aspecto,1.2))
                         button_next_instruction_2.setFillColor(button_original_color)
@@ -8315,6 +8939,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                             # update/draw components on each frame
+                            # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                            # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                            if frameN == 0:
+                                win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                            
                             
                             # *logo_begibraintool* updates
                             
@@ -8629,6 +9258,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                         INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                         thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                        # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                        gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                        
                         loop_instruction_m1_sf_staircase_2.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                         if button_next_instruction_2.numClicks:
                            loop_instruction_m1_sf_staircase_2.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -8697,6 +9329,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 dots_black_3.refreshDots()
                 dots_white_3.refreshDots()
                 # Run 'Begin Routine' code from code_20
+                # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                event.clearEvents(eventType='keyboard')
+                
                 import csv
                 
                 # Variables estaticas
@@ -8768,6 +9405,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    # Run 'Each Frame' code from gp_markers_SPATIAL_FREQ_STAIRCASE_TEST
+                    # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                    if frameN == 0:
+                        win.callOnFlip(gp.event, 'SPATIAL_FREQ_STAIRCASE_TEST_ONSET', gp_loop_detail(currentLoop))
+                    
                     
                     # *grating_7* updates
                     
@@ -9028,6 +9670,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 SPATIAL_FREQ_STAIRCASE_TEST.tStop = globalClock.getTime(format='float')
                 SPATIAL_FREQ_STAIRCASE_TEST.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('SPATIAL_FREQ_STAIRCASE_TEST.stopped', SPATIAL_FREQ_STAIRCASE_TEST.tStop)
+                # Run 'End Routine' code from gp_markers_SPATIAL_FREQ_STAIRCASE_TEST
+                gp.event('SPATIAL_FREQ_STAIRCASE_TEST_OFFSET', gp_loop_detail(currentLoop))
+                
                 # check responses
                 if key_resp_16.keys in ['', [], None]:  # No response was made
                     key_resp_16.keys = None
@@ -9083,6 +9728,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -9110,6 +9760,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -9153,6 +9807,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -9467,6 +10126,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_contrast_staircase.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_contrast_staircase.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -9517,6 +10179,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 continueRoutine = True
                 # update component parameters for each repeat
                 # Run 'Begin Routine' code from code_18
+                # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                event.clearEvents(eventType='keyboard')
+                
                 import csv
                 import tkinter as tk
                 from tkinter import messagebox
@@ -9604,6 +10271,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    # Run 'Each Frame' code from gp_markers_CONTRAST_STAIRCASE_TEST
+                    # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                    if frameN == 0:
+                        win.callOnFlip(gp.event, 'CONTRAST_STAIRCASE_TEST_ONSET', gp_loop_detail(currentLoop))
+                    
                     # Run 'Each Frame' code from code_18
                     keys = event.getKeys()
                     
@@ -9860,6 +10532,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 CONTRAST_STAIRCASE_TEST.tStop = globalClock.getTime(format='float')
                 CONTRAST_STAIRCASE_TEST.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('CONTRAST_STAIRCASE_TEST.stopped', CONTRAST_STAIRCASE_TEST.tStop)
+                # Run 'End Routine' code from gp_markers_CONTRAST_STAIRCASE_TEST
+                gp.event('CONTRAST_STAIRCASE_TEST_OFFSET', gp_loop_detail(currentLoop))
+                
                 # check responses
                 if key_resp_14.keys in ['', [], None]:  # No response was made
                     key_resp_14.keys = None
@@ -9915,6 +10590,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -9942,6 +10622,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -9985,6 +10669,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -10299,6 +10988,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_color_staircase.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_color_staircase.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -10377,6 +11069,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_19
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     import csv
                     # Variables estaticas
                     saturation_starting_value = 55
@@ -10504,6 +11201,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_COLOR_STAIRCASE_TEST
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'COLOR_STAIRCASE_TEST_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_19
                         keys = event.getKeys()
                         
@@ -10779,6 +11481,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     COLOR_STAIRCASE_TEST.tStop = globalClock.getTime(format='float')
                     COLOR_STAIRCASE_TEST.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('COLOR_STAIRCASE_TEST.stopped', COLOR_STAIRCASE_TEST.tStop)
+                    # Run 'End Routine' code from gp_markers_COLOR_STAIRCASE_TEST
+                    gp.event('COLOR_STAIRCASE_TEST_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_15.keys in ['', [], None]:  # No response was made
                         key_resp_15.keys = None
@@ -11091,6 +11796,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -11118,6 +11828,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -11161,6 +11875,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -11475,6 +12194,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_bl1.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_bl1.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -11635,6 +12357,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_BL_1_SPATIAL_FREQ
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'BL_1_SPATIAL_FREQ_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *key_resp* updates
                         waitOnFlip = False
@@ -11924,6 +12651,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     BL_1_SPATIAL_FREQ.tStop = globalClock.getTime(format='float')
                     BL_1_SPATIAL_FREQ.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('BL_1_SPATIAL_FREQ.stopped', BL_1_SPATIAL_FREQ.tStop)
+                    # Run 'End Routine' code from gp_markers_BL_1_SPATIAL_FREQ
+                    gp.event('BL_1_SPATIAL_FREQ_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp.keys in ['', [], None]:  # No response was made
                         key_resp.keys = None
@@ -12066,6 +12796,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -12093,6 +12828,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -12136,6 +12875,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -12450,6 +13194,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_bl2.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_bl2.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -12618,6 +13365,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_BL_2_CONTRAST
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'BL_2_CONTRAST_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *key_resp_9* updates
                         waitOnFlip = False
@@ -12896,6 +13648,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     BL_2_CONTRAST.tStop = globalClock.getTime(format='float')
                     BL_2_CONTRAST.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('BL_2_CONTRAST.stopped', BL_2_CONTRAST.tStop)
+                    # Run 'End Routine' code from gp_markers_BL_2_CONTRAST
+                    gp.event('BL_2_CONTRAST_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_9.keys in ['', [], None]:  # No response was made
                         key_resp_9.keys = None
@@ -13038,6 +13793,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -13065,6 +13825,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -13108,6 +13872,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -13422,6 +14191,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_bl3.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_bl3.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -13602,6 +14374,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_BL_3_COLOR
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'BL_3_COLOR_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *key_resp_10* updates
                         waitOnFlip = False
@@ -13871,6 +14648,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     BL_3_COLOR.tStop = globalClock.getTime(format='float')
                     BL_3_COLOR.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('BL_3_COLOR.stopped', BL_3_COLOR.tStop)
+                    # Run 'End Routine' code from gp_markers_BL_3_COLOR
+                    gp.event('BL_3_COLOR_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_10.keys in ['', [], None]:  # No response was made
                         key_resp_10.keys = None
@@ -14013,6 +14793,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -14040,6 +14825,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -14083,6 +14872,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -14397,6 +15191,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_tutorial_semantic.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_tutorial_semantic.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -14517,6 +15314,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     flag_answer_registered  = False
                     success                 = -1
                     undecided               = False
+                    
+                    # Textos fijos en el idioma de la sesión (UI_TEXT, INSTRUCTIONS / code_9)
+                    set_ui_text(right_arrow_text_4, 'living')
+                    set_ui_text(left_arrow_text_4, 'inert')
+                    
                     semantic_stim_4.setSize(tamanyo)
                     semantic_stim_4.setImage(sf_semantic_stim_path)
                     dots_white_13.refreshDots()
@@ -14553,6 +15355,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_TUTORIAL_SEMANTIC_SF_COLOR_CS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'TUTORIAL_SEMANTIC_SF_COLOR_CS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *key_resp_33* updates
                         waitOnFlip = False
@@ -14852,6 +15659,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     TUTORIAL_SEMANTIC_SF_COLOR_CS.tStop = globalClock.getTime(format='float')
                     TUTORIAL_SEMANTIC_SF_COLOR_CS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('TUTORIAL_SEMANTIC_SF_COLOR_CS.stopped', TUTORIAL_SEMANTIC_SF_COLOR_CS.tStop)
+                    # Run 'End Routine' code from gp_markers_TUTORIAL_SEMANTIC_SF_COLOR_CS
+                    gp.event('TUTORIAL_SEMANTIC_SF_COLOR_CS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_33.keys in ['', [], None]:  # No response was made
                         key_resp_33.keys = None
@@ -14980,6 +15790,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -15007,6 +15822,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -15050,6 +15869,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -15364,6 +16188,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_bl4.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_bl4.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -15492,6 +16319,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     flag_answer_registered  = False
                     success                 = -1
                     undecided               = False
+                    
+                    # Textos fijos en el idioma de la sesión (UI_TEXT, INSTRUCTIONS / code_9)
+                    set_ui_text(right_arrow_text, 'living')
+                    set_ui_text(left_arrow_text, 'inert')
+                    
                     dots_white_9.refreshDots()
                     dots_black_9.refreshDots()
                     semantic_stim.setSize(tamanyo)
@@ -15528,6 +16360,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_BL_4_SEMANTIC_SF
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'BL_4_SEMANTIC_SF_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *key_resp_13* updates
                         waitOnFlip = False
@@ -15831,6 +16668,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     BL_4_SEMANTIC_SF.tStop = globalClock.getTime(format='float')
                     BL_4_SEMANTIC_SF.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('BL_4_SEMANTIC_SF.stopped', BL_4_SEMANTIC_SF.tStop)
+                    # Run 'End Routine' code from gp_markers_BL_4_SEMANTIC_SF
+                    gp.event('BL_4_SEMANTIC_SF_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_13.keys in ['', [], None]:  # No response was made
                         key_resp_13.keys = None
@@ -15973,6 +16813,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -16000,6 +16845,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -16043,6 +16892,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -16357,6 +17211,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_bl5.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_bl5.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -16477,6 +17334,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     contrast_semantic_stim_path = path_prefix + path_semantic_category + 'silhouette/' + semantic_contrast_filename
                     
+                    # Textos fijos en el idioma de la sesión (UI_TEXT, INSTRUCTIONS / code_9)
+                    set_ui_text(right_arrow_text_2, 'living')
+                    set_ui_text(left_arrow_text_2, 'inert')
+                    
                     # create starting attributes for key_resp_22
                     key_resp_22.keys = []
                     key_resp_22.rt = []
@@ -16516,6 +17377,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_BL_5_SEMANTIC_CONTRAST
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'BL_5_SEMANTIC_CONTRAST_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_23
                         if advanced_config["logs"]["value"]:
                                 logs_parametros_trial_9.setText(
@@ -16817,6 +17683,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     BL_5_SEMANTIC_CONTRAST.tStop = globalClock.getTime(format='float')
                     BL_5_SEMANTIC_CONTRAST.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('BL_5_SEMANTIC_CONTRAST.stopped', BL_5_SEMANTIC_CONTRAST.tStop)
+                    # Run 'End Routine' code from gp_markers_BL_5_SEMANTIC_CONTRAST
+                    gp.event('BL_5_SEMANTIC_CONTRAST_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_22.keys in ['', [], None]:  # No response was made
                         key_resp_22.keys = None
@@ -16959,6 +17828,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -16986,6 +17860,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -17029,6 +17907,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -17343,6 +18226,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m1_bl6.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m1_bl6.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -17467,6 +18353,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     
                     color_semantic_stim_path = path_prefix + path_semantic_category + 'colored_silhouette/' + semantic_color_filename
                     
+                    # Textos fijos en el idioma de la sesión (UI_TEXT, INSTRUCTIONS / code_9)
+                    set_ui_text(right_arrow_text_3, 'living')
+                    set_ui_text(left_arrow_text_3, 'inert')
+                    
                     dots_white_11.refreshDots()
                     dots_black_11.refreshDots()
                     semantic_stim_3.setImage(color_semantic_stim_path)
@@ -17502,6 +18392,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_BL_6_SEMANTIC_COLOR
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'BL_6_SEMANTIC_COLOR_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *img_white_background* updates
                         
@@ -17821,6 +18716,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     BL_6_SEMANTIC_COLOR.tStop = globalClock.getTime(format='float')
                     BL_6_SEMANTIC_COLOR.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('BL_6_SEMANTIC_COLOR.stopped', BL_6_SEMANTIC_COLOR.tStop)
+                    # Run 'End Routine' code from gp_markers_BL_6_SEMANTIC_COLOR
+                    gp.event('BL_6_SEMANTIC_COLOR_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_30.keys in ['', [], None]:  # No response was made
                         key_resp_30.keys = None
@@ -18021,6 +18919,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -18048,6 +18951,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -18091,6 +18998,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -18405,6 +19317,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_1_1_resting_et.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_1_1_resting_et.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -18494,6 +19409,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    # Run 'Each Frame' code from gp_markers_ET_RESTING_STATE
+                    # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                    if frameN == 0:
+                        win.callOnFlip(gp.event, 'ET_RESTING_STATE_ONSET', gp_loop_detail(currentLoop))
+                    
                     # Run 'Each Frame' code from code_13
                     if t>eye_tracking_resting_state_time:
                         continueRoutine = False
@@ -18595,6 +19515,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 ET_RESTING_STATE.tStop = globalClock.getTime(format='float')
                 ET_RESTING_STATE.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('ET_RESTING_STATE.stopped', ET_RESTING_STATE.tStop)
+                # Run 'End Routine' code from gp_markers_ET_RESTING_STATE
+                gp.event('ET_RESTING_STATE_OFFSET', gp_loop_detail(currentLoop))
+                
                 # check responses
                 if key_resp_8.keys in ['', [], None]:  # No response was made
                     key_resp_8.keys = None
@@ -18643,6 +19566,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -18670,6 +19598,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -18713,6 +19645,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -19027,6 +19964,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_1_2_et.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_1_2_et.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -19114,6 +20054,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    # Run 'Each Frame' code from gp_markers_ET_SCREEN_POINT_TASK
+                    # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                    if frameN == 0:
+                        win.callOnFlip(gp.event, 'ET_SCREEN_POINT_TASK_ONSET', gp_loop_detail(currentLoop))
+                    
                     # Run 'Each Frame' code from code_27
                     if t>eye_tracking_resting_state_time:
                         continueRoutine = False
@@ -19238,6 +20183,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 ET_SCREEN_POINT_TASK.tStop = globalClock.getTime(format='float')
                 ET_SCREEN_POINT_TASK.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('ET_SCREEN_POINT_TASK.stopped', ET_SCREEN_POINT_TASK.tStop)
+                # Run 'End Routine' code from gp_markers_ET_SCREEN_POINT_TASK
+                gp.event('ET_SCREEN_POINT_TASK_OFFSET', gp_loop_detail(currentLoop))
+                
                 # check responses
                 if key_resp_26.keys in ['', [], None]:  # No response was made
                     key_resp_26.keys = None
@@ -19356,6 +20304,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -19383,6 +20336,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -19426,6 +20383,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -19740,6 +20702,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_2_fft.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_2_fft.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -19809,6 +20774,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 frames_por_ciclo = int((frecuencia_monitor / frecuencia_parpadeo) / 2)
                 opacidad = 1
                 # Run 'Begin Routine' code from code_21
+                # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                event.clearEvents(eventType='keyboard')
+                
                 import csv
                 
                 # Variables estaticas
@@ -19880,6 +20850,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    # Run 'Each Frame' code from gp_markers_FFT_STAIRCASE_TEST
+                    # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                    if frameN == 0:
+                        win.callOnFlip(gp.event, 'FFT_STAIRCASE_TEST_ONSET', gp_loop_detail(currentLoop))
+                    
                     # Run 'Each Frame' code from flicker_daemon
                     if fft is not None:
                         frames_por_ciclo = int((frecuencia_monitor / fft) / 2)
@@ -20176,6 +21151,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 FFT_STAIRCASE_TEST.tStop = globalClock.getTime(format='float')
                 FFT_STAIRCASE_TEST.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('FFT_STAIRCASE_TEST.stopped', FFT_STAIRCASE_TEST.tStop)
+                # Run 'End Routine' code from gp_markers_FFT_STAIRCASE_TEST
+                gp.event('FFT_STAIRCASE_TEST_OFFSET', gp_loop_detail(currentLoop))
+                
                 # check responses
                 if key_resp_17.keys in ['', [], None]:  # No response was made
                     key_resp_17.keys = None
@@ -20295,6 +21273,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -20322,6 +21305,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -20365,6 +21352,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -20679,6 +21671,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_3_1_saccade.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_3_1_saccade.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -20833,6 +21828,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_SACCADE_TASK
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'SACCADE_TASK_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_12
                         # SEQUENCE
                         
@@ -21039,6 +22039,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     SACCADE_TASK.tStop = globalClock.getTime(format='float')
                     SACCADE_TASK.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('SACCADE_TASK.stopped', SACCADE_TASK.tStop)
+                    # Run 'End Routine' code from gp_markers_SACCADE_TASK
+                    gp.event('SACCADE_TASK_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_27.keys in ['', [], None]:  # No response was made
                         key_resp_27.keys = None
@@ -21109,6 +22112,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -21136,6 +22144,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -21179,6 +22191,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -21493,6 +22510,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_3_2_antisaccade.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_3_2_antisaccade.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -21661,6 +22681,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_SACCADE_TASK
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'SACCADE_TASK_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_12
                         # SEQUENCE
                         
@@ -21867,6 +22892,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     SACCADE_TASK.tStop = globalClock.getTime(format='float')
                     SACCADE_TASK.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('SACCADE_TASK.stopped', SACCADE_TASK.tStop)
+                    # Run 'End Routine' code from gp_markers_SACCADE_TASK
+                    gp.event('SACCADE_TASK_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_27.keys in ['', [], None]:  # No response was made
                         key_resp_27.keys = None
@@ -21937,6 +22965,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -21964,6 +22997,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -22007,6 +23044,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -22321,6 +23363,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_3_3_saccade_and_antisaccade.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_3_3_saccade_and_antisaccade.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -22489,6 +23534,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_SACCADE_TASK
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'SACCADE_TASK_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_12
                         # SEQUENCE
                         
@@ -22695,6 +23745,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     SACCADE_TASK.tStop = globalClock.getTime(format='float')
                     SACCADE_TASK.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('SACCADE_TASK.stopped', SACCADE_TASK.tStop)
+                    # Run 'End Routine' code from gp_markers_SACCADE_TASK
+                    gp.event('SACCADE_TASK_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_27.keys in ['', [], None]:  # No response was made
                         key_resp_27.keys = None
@@ -22823,6 +23876,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -22850,6 +23908,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -22893,6 +23955,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -23207,6 +24274,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_4_smooth_pursuit.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_4_smooth_pursuit.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -23350,6 +24420,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                     # update/draw components on each frame
+                    # Run 'Each Frame' code from gp_markers_SMOOTH_PURSUIT
+                    # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                    if frameN == 0:
+                        win.callOnFlip(gp.event, 'SMOOTH_PURSUIT_ONSET', gp_loop_detail(currentLoop))
+                    
                     
                     # *dots_2* updates
                     
@@ -23582,6 +24657,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 SMOOTH_PURSUIT.tStop = globalClock.getTime(format='float')
                 SMOOTH_PURSUIT.tStopRefresh = tThisFlipGlobal
                 thisExp.addData('SMOOTH_PURSUIT.stopped', SMOOTH_PURSUIT.tStop)
+                # Run 'End Routine' code from gp_markers_SMOOTH_PURSUIT
+                gp.event('SMOOTH_PURSUIT_OFFSET', gp_loop_detail(currentLoop))
+                
                 # Run 'End Routine' code from code_26
                 # ==============================
                 # TRIM UNUSED FRAMES
@@ -23706,6 +24784,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -23733,6 +24816,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -23776,6 +24863,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -24090,6 +25182,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_5_static_visual_search.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_5_static_visual_search.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -24168,6 +25263,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_28
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     import re
                     
                     win.color = "white"
@@ -24214,21 +25314,26 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # Variable global para controlar si el gaze está disponible
                     gaze_enabled = modules["module_2"]["tests"]["test_5"]["config"]["show_gaze"]["value"]#True
                     gaze_position = (0, 0)  # valor por defecto
+                    s = None
                     
-                    try:
-                        # Intentar conectar al eye tracker
-                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        s.connect(ADDRESS)
+                    # With the shared Gazepoint client (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING) the
+                    # gaze comes from gp.latest(): its reader thread receives the data, so the frame loop
+                    # never waits on recv. Only if that client is off (advanced option) or Gazepoint
+                    # Control was not running at the start, the previous socket of its own is used.
+                    if gaze_enabled and not gp.connected:
+                        try:
+                            # Intentar conectar al eye tracker
+                            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                            s.connect(ADDRESS)
                     
-                        # Enviar comandos de inicio
-                        s.send(str.encode('<SET ID="ENABLE_SEND_CURSOR" STATE="1" />\r\n'))
-                        s.send(str.encode('<SET ID="ENABLE_SEND_POG_FIX" STATE="1" />\r\n'))
-                        s.send(str.encode('<SET ID="ENABLE_SEND_DATA" STATE="1" />\r\n'))
+                            # Enviar comandos de inicio
+                            s.send(str.encode('<SET ID="ENABLE_SEND_CURSOR" STATE="1" />\r\n'))
+                            s.send(str.encode('<SET ID="ENABLE_SEND_POG_FIX" STATE="1" />\r\n'))
+                            s.send(str.encode('<SET ID="ENABLE_SEND_DATA" STATE="1" />\r\n'))
                     
-                    except Exception as e:
-                        gaze_enabled = False
-                        print("WARNING: Eye tracker no detectado. No se visualizará el gaze en pantalla.")
-                        print(f"Detalles del error: {e}")
+                        except Exception as e:
+                            gaze_enabled = False
+                            print(f"Detalles del error: {e}")
                     
                     # store start times for VISUAL_SEARCH_RINGS
                     VISUAL_SEARCH_RINGS.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
@@ -24262,6 +25367,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_VISUAL_SEARCH_RINGS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'VISUAL_SEARCH_RINGS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *polygon_10* updates
                         
@@ -24355,14 +25465,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                                 # a response ends the routine
                                 continueRoutine = False
                         # Run 'Each Frame' code from GP_data_adq_backend_3
-                        if gaze_enabled:
+                        if gaze_enabled and gp.connected:
+                            # last record of the shared Gazepoint client (non-blocking)
+                            g = gp.latest()
+                            if g.get('FPOGV') == 1:
+                                gaze_position = convert_to_psychopy_units(g['FPOGX'], g['FPOGY'], screen_bounds)
+                        elif gaze_enabled:
                             try:
                                 # Recibir datos
                                 rxdat = s.recv(1024)
                                 data_r = bytes.decode(rxdat)
                         
                                 FPOGX = -1
-                                FPOGY = -1 
+                                FPOGY = -1
                         
                                 datalist = data_r.split(" ")
                         
@@ -24440,6 +25555,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     VISUAL_SEARCH_RINGS.tStop = globalClock.getTime(format='float')
                     VISUAL_SEARCH_RINGS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('VISUAL_SEARCH_RINGS.stopped', VISUAL_SEARCH_RINGS.tStop)
+                    # Run 'End Routine' code from gp_markers_VISUAL_SEARCH_RINGS
+                    gp.event('VISUAL_SEARCH_RINGS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_28.keys in ['', [], None]:  # No response was made
                         key_resp_28.keys = None
@@ -24448,7 +25566,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         trials_2.addData('key_resp_28.rt', key_resp_28.rt)
                         trials_2.addData('key_resp_28.duration', key_resp_28.duration)
                     # Run 'End Routine' code from GP_data_adq_backend_3
-                    s.close()
+                    if s is not None:
+                        s.close()
+                    
                     # the Routine "VISUAL_SEARCH_RINGS" was not non-slip safe, so reset the non-slip timer
                     routineTimer.reset()
                     # mark thisTrial_2 as finished
@@ -24576,6 +25696,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -24603,6 +25728,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -24646,6 +25775,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -24960,6 +26094,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m2_6_dynamic_visual_search.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m2_6_dynamic_visual_search.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -25058,6 +26195,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_4
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = 'white'
                     
                     # Esperar 2 segundos manteniendo la pantalla en blanco
@@ -25127,6 +26269,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_DYNAMIC_VISUAL_SEARCH
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'DYNAMIC_VISUAL_SEARCH_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_4
                         t = routine_timer.getTime()
                         
@@ -25208,6 +26355,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     DYNAMIC_VISUAL_SEARCH.tStop = globalClock.getTime(format='float')
                     DYNAMIC_VISUAL_SEARCH.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('DYNAMIC_VISUAL_SEARCH.stopped', DYNAMIC_VISUAL_SEARCH.tStop)
+                    # Run 'End Routine' code from gp_markers_DYNAMIC_VISUAL_SEARCH
+                    gp.event('DYNAMIC_VISUAL_SEARCH_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # Run 'End Routine' code from code_4
                     thisExp.addData('dynamic_vs_target_index', target_index)
                     thisExp.addData('dynamic_vs_target_position', positions[target_index])
@@ -25398,6 +26548,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -25425,6 +26580,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -25468,6 +26627,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -25782,6 +26946,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m3_pupillometry.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m3_pupillometry.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -25838,6 +27005,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if thisPupilometry_config != None:
                     for paramName in thisPupilometry_config:
                         globals()[paramName] = thisPupilometry_config[paramName]
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
                 
                 for thisPupilometry_config in pupilometry_config:
                     pupilometry_config.status = STARTED
@@ -25845,6 +27015,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         thisPupilometry_config.status = STARTED
                     currentLoop = pupilometry_config
                     thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+                    if thisSession is not None:
+                        # if running in a Session with a Liaison client, send data up to now
+                        thisSession.sendExperimentData()
                     # abbreviate parameter names if possible (e.g. rgb = thisPupilometry_config.rgb)
                     if thisPupilometry_config != None:
                         for paramName in thisPupilometry_config:
@@ -25897,6 +27070,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_PUPILOMETRY_TASK_adaptation_period
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'PUPILOMETRY_TASK_adaptation_period_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_25
                         if not hasattr(thisExp, 'last_print_time'):
                             thisExp.last_print_time = 0 
@@ -26001,6 +27179,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     PUPILOMETRY_TASK_adaptation_period.tStop = globalClock.getTime(format='float')
                     PUPILOMETRY_TASK_adaptation_period.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('PUPILOMETRY_TASK_adaptation_period.stopped', PUPILOMETRY_TASK_adaptation_period.tStop)
+                    # Run 'End Routine' code from gp_markers_PUPILOMETRY_TASK_adaptation_period
+                    gp.event('PUPILOMETRY_TASK_adaptation_period_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_23.keys in ['', [], None]:  # No response was made
                         key_resp_23.keys = None
@@ -26059,6 +27240,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_PUPILOMETRY_TASK_flash
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'PUPILOMETRY_TASK_flash_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_24
                         if t>flash_time:
                             continueRoutine = False
@@ -26164,6 +27350,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     PUPILOMETRY_TASK_flash.tStop = globalClock.getTime(format='float')
                     PUPILOMETRY_TASK_flash.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('PUPILOMETRY_TASK_flash.stopped', PUPILOMETRY_TASK_flash.tStop)
+                    # Run 'End Routine' code from gp_markers_PUPILOMETRY_TASK_flash
+                    gp.event('PUPILOMETRY_TASK_flash_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # Run 'End Routine' code from code_24
                     win.color = "grey"
                     # check responses
@@ -26188,9 +27377,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         )
                         # once done pausing, restore running status
                         pupilometry_config.status = STARTED
+                    thisExp.nextEntry()
+                    
                 # completed 1.0 repeats of 'pupilometry_config'
                 pupilometry_config.status = FINISHED
                 
+                if thisSession is not None:
+                    # if running in a Session with a Liaison client, send data up to now
+                    thisSession.sendExperimentData()
+                # get names of stimulus parameters
+                if pupilometry_config.trialList in ([], [None], None):
+                    params = []
+                else:
+                    params = pupilometry_config.trialList[0].keys()
+                # save data for this loop
+                pupilometry_config.saveAsExcel(filename + '.xlsx', sheetName='pupilometry_config',
+                    stimOut=params,
+                    dataOut=['n','all_mean','all_std', 'all_raw'])
                 # mark thisMODULE_3_TEST_1 as finished
                 if hasattr(thisMODULE_3_TEST_1, 'status'):
                     thisMODULE_3_TEST_1.status = FINISHED
@@ -26300,6 +27503,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = True
                     # update component parameters for each repeat
                     # Run 'Begin Routine' code from code_9
+                    # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+                    # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+                    # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+                    event.clearEvents(eventType='keyboard')
+                    
                     win.color = "grey"
                     instructions_img_path = None
                     relacion_aspecto = 1
@@ -26327,6 +27535,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             
                     print(f'Lista de instrucciones cargada: {messages_instructions}')
                     print(f'Lista de imágenes cargada: {images_instructions}')
+                    
+                    # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+                    set_ui_text(button_previous_instruction_2, 'nav_previous')
+                    set_ui_text(button_next_instruction_2, 'nav_next')
                     
                     instructions_image.setSize((relacion_aspecto,1.2))
                     button_next_instruction_2.setFillColor(button_original_color)
@@ -26370,6 +27582,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+                        
                         
                         # *logo_begibraintool* updates
                         
@@ -26684,6 +27901,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     INSTRUCTIONS.tStop = globalClock.getTime(format='float')
                     INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+                    # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+                    gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+                    
                     loop_instruction_m3_fearful_affective_images.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
                     if button_next_instruction_2.numClicks:
                        loop_instruction_m3_fearful_affective_images.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -26841,6 +28061,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                         # update/draw components on each frame
+                        # Run 'Each Frame' code from gp_markers_FEARFUL_AND_AFFECTIVE_IMAGES_TASK
+                        # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+                        if frameN == 0:
+                            win.callOnFlip(gp.event, 'FEARFUL_AND_AFFECTIVE_IMAGES_TASK_ONSET', gp_loop_detail(currentLoop))
+                        
                         # Run 'Each Frame' code from code_29
                         if t>autonomic_response_basal_time + autonomic_response_image_time + autonomic_response_recovery_time:
                             continueRoutine = False
@@ -26964,6 +28189,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     FEARFUL_AND_AFFECTIVE_IMAGES_TASK.tStop = globalClock.getTime(format='float')
                     FEARFUL_AND_AFFECTIVE_IMAGES_TASK.tStopRefresh = tThisFlipGlobal
                     thisExp.addData('FEARFUL_AND_AFFECTIVE_IMAGES_TASK.stopped', FEARFUL_AND_AFFECTIVE_IMAGES_TASK.tStop)
+                    # Run 'End Routine' code from gp_markers_FEARFUL_AND_AFFECTIVE_IMAGES_TASK
+                    gp.event('FEARFUL_AND_AFFECTIVE_IMAGES_TASK_OFFSET', gp_loop_detail(currentLoop))
+                    
                     # check responses
                     if key_resp_29.keys in ['', [], None]:  # No response was made
                         key_resp_29.keys = None
@@ -27104,6 +28332,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         continueRoutine = True
         # update component parameters for each repeat
         # Run 'Begin Routine' code from code_9
+        # Vaciar el búfer de teclado de psychopy.event: una tecla pulsada antes de esta rutina
+        # (p. ej. el botón central 'a' que cerró la pantalla anterior, que también recibe el
+        # componente Keyboard por ioHub) se leería en el primer fotograma con event.getKeys().
+        event.clearEvents(eventType='keyboard')
+        
         win.color = "grey"
         instructions_img_path = None
         relacion_aspecto = 1
@@ -27131,6 +28364,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
         print(f'Lista de instrucciones cargada: {messages_instructions}')
         print(f'Lista de imágenes cargada: {images_instructions}')
+        
+        # Botones de navegación en el idioma de la sesión (UI_TEXT, Begin Experiment de code_9)
+        set_ui_text(button_previous_instruction_2, 'nav_previous')
+        set_ui_text(button_next_instruction_2, 'nav_next')
         
         instructions_image.setSize((relacion_aspecto,1.2))
         button_next_instruction_2.setFillColor(button_original_color)
@@ -27174,6 +28411,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             tThisFlipGlobal = win.getFutureFlipTime(clock=None)
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
+            # Run 'Each Frame' code from gp_markers_INSTRUCTIONS
+            # Gazepoint marker (CONFIGURATION_ROUTINE / GAZEPOINT_RECORDING): onset at the first flip
+            if frameN == 0:
+                win.callOnFlip(gp.event, 'INSTRUCTIONS_ONSET', gp_loop_detail(currentLoop))
+            
             
             # *logo_begibraintool* updates
             
@@ -27488,6 +28730,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         INSTRUCTIONS.tStop = globalClock.getTime(format='float')
         INSTRUCTIONS.tStopRefresh = tThisFlipGlobal
         thisExp.addData('INSTRUCTIONS.stopped', INSTRUCTIONS.tStop)
+        # Run 'End Routine' code from gp_markers_INSTRUCTIONS
+        gp.event('INSTRUCTIONS_OFFSET', gp_loop_detail(currentLoop))
+        
         loop_instruction_end_of_experiment.addData('button_next_instruction_2.numClicks', button_next_instruction_2.numClicks)
         if button_next_instruction_2.numClicks:
            loop_instruction_end_of_experiment.addData('button_next_instruction_2.timesOn', button_next_instruction_2.timesOn)
@@ -27536,6 +28781,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     #generate_staircase_test_graph(results_csv_path=staircase_data_filename, test_var_name='saturation')
     #staircase_data_filename = f"./data/{expInfo['participant']}/saturation_staircase_data_{expInfo['participant']}_red.csv"
     #generate_staircase_test_graph(results_csv_path=staircase_data_filename, test_var_name='saturation')
+    
+    # Run 'End Experiment' code from GAZEPOINT_RECORDING
+    gp.stop()   # closes the CSVs (also registered with atexit, e.g. after Esc)
     
     
     # mark experiment as finished

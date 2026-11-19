@@ -30,3 +30,7 @@ Thumbs.db  # Para Windows
 .idea/
 *.swp
 *.swo
+
+# Monitor / window mode remembered by the GUI (setting of each computer)
+src/config_data/last_screen_selection.json
+src/config_data/last_protocol_selection.json

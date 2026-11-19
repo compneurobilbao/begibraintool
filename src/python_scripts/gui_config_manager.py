@@ -1,7 +1,12 @@
 import json
+import os
+import time
 from tkinter import filedialog, messagebox
 
-CONFIG_FILE = "config_data/last_protocol_selection.json"
+# Last protocol used, saved when the GUI closes (advanced option "remember_protocol").
+# Next to the module (src/config_data), not relative to the working directory.
+CONFIG_FILE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir,
+                                            "config_data", "last_protocol_selection.json"))
 
 
 general_config = {
@@ -19,22 +24,6 @@ general_config = {
             "es": "Idioma",
             "en": "Language",
             "eu": "Hizkuntza"
-        }
-    },
-    "difficulty": {
-        "value": None,
-        "default": "medium",
-        "type": "radio_button",
-        "options": ["easy", "medium", "hard", "custom"],
-        "variable_display_name": {
-            "es": "Dificultad",
-            "en": "Difficulty",
-            "eu": "Zailtasuna"
-        },
-        "tooltip": {
-            "es": "Dificultad del experimento",
-            "en": "Experiment difficulty",
-            "eu": "Esperimentuen zailtasuna"
         }
     },
     "start_tutorial": {
@@ -173,14 +162,35 @@ advanced_config = {
         "type": bool,
         "options": [True, False],
         "tooltip": {
-            "es": "Recordar protocolo entre sesiones",
-            "en": "Remember protocol between sessions",
-            "eu": "Gogoratu protokoloa saioen artean"
+            "es": "Marcado: al pulsar Run se guarda el protocolo (tests, opciones e idioma) y la "
+                  "próxima vez que se abra la GUI se carga automáticamente. Desmarcado: la GUI se "
+                  "abre con los valores por defecto. La pantalla se recuerda aparte.",
+            "en": "Ticked: when Run is pressed the protocol (tests, options and language) is saved "
+                  "and loaded automatically the next time the GUI opens. Unticked: the GUI opens "
+                  "with the default values. The screen is remembered separately.",
+            "eu": "Markatuta: Run sakatzean protokoloa gordetzen da eta GUI hurrengoan irekitzean "
+                  "automatikoki kargatzen da. Markatu gabe: balio lehenetsiak."
         },
         "variable_display_name": {
-            "es": "Recordar protocolo",
-            "en": "Remember protocol",
-            "eu": "Protokoloa gogoratu"
+            "es": "Cargar último protocolo al abrir",
+            "en": "Load last protocol at start",
+            "eu": "Azken protokoloa kargatu irekitzean"
+        }
+    },
+    "gazepoint_psychopy_recording": {
+        "value": True,
+        "default": True,
+        "type": bool,
+        "options": [True, False],
+        "tooltip": {
+            "es": "Graba Gazepoint desde PsychoPy (<datos>_gazepoint.csv y <datos>_events.csv) y escribe los marcadores de cada rutina en el campo USER de Gazepoint. Necesita Gazepoint Control abierto. Es una vía adicional: sigue grabando también con Gazepoint Analysis.",
+            "en": "Record Gazepoint from PsychoPy (<data>_gazepoint.csv and <data>_events.csv) and write the marker of every routine into the Gazepoint USER field. Needs Gazepoint Control running. It is an additional path: keep recording with Gazepoint Analysis too.",
+            "eu": "Grabatu Gazepoint PsychoPy-tik (<datuak>_gazepoint.csv eta <datuak>_events.csv). Gazepoint Control irekita behar du. Jarraitu Gazepoint Analysis-ekin ere grabatzen."
+        },
+        "variable_display_name": {
+            "es": "Grabar Gazepoint desde PsychoPy",
+            "en": "Record Gazepoint from PsychoPy",
+            "eu": "Grabatu Gazepoint PsychoPy-tik"
         }
     },
     # "tutorial": {
@@ -1070,7 +1080,7 @@ modules = {
         "name": {
             "es": "PUPILOMETRÍA + RESPUESTA AUTONÓMICA",
             "en": "PUPILOMETRY + AUTONOMIC RESPONSE",
-            "eu": "IKASLEOMETRIA + ERANTZUN AUTONOMOA"
+            "eu": "PUPILOMETRIA + ERANTZUN AUTONOMOA"
         },
         "selected": False,
         "tests": {
@@ -1173,24 +1183,56 @@ def extract_values(config_dict):
             result[key] = cfg
     return result
 
-def save_configuration_to_file():
-    data_to_save = {
-        "general_config": extract_values(general_config),
-        "advanced_config": extract_values(advanced_config),
-        "modules": extract_values(modules)
+def protocol_values(general, advanced, mods):
+    """Protocol as saved in JSON: only the 'value' fields of the three dictionaries."""
+    return {
+        "general_config": extract_values(general),
+        "advanced_config": extract_values(advanced),
+        "modules": extract_values(mods)
     }
+
+def save_last_protocol(general, advanced, mods, path=None):
+    """Write the protocol used in this session to CONFIG_FILE (same format as 'Guardar
+    protocolo'). Written always: its advanced_config.remember_protocol decides at the next
+    start whether it is loaded, so unticking the option also takes effect."""
+    path = path or CONFIG_FILE
+    data = protocol_values(general, advanced, mods)
+    data["saved_at"] = time.strftime("%Y-%m-%d %H:%M")
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        tmp = path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        os.replace(tmp, path)
+    except OSError as e:
+        print(f"Last protocol not saved ({path}): {e}")
+
+def load_last_protocol(path=None):
+    """Last protocol saved with remember_protocol ticked, or None."""
+    path = path or CONFIG_FILE
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        return None
+    if not isinstance(data, dict) or not data.get("advanced_config", {}).get("remember_protocol"):
+        return None
+    return data
+
+def save_configuration_to_file():
+    data_to_save = protocol_values(general_config, advanced_config, modules)
 
     file_path = filedialog.asksaveasfilename(
         defaultextension=".json",
         filetypes=[("JSON files", "*.json")],
-        title="Guardar configuración"
+        title="Guardar protocolo (configuración de la GUI)"
     )
 
     if file_path:
         try:
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(data_to_save, f, indent=4, ensure_ascii=False)
-            messagebox.showinfo("Éxito", "Configuración guardada correctamente.")
+            messagebox.showinfo("Éxito", "Protocolo (configuración) guardado correctamente.")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo guardar el archivo:\n{e}")
 

@@ -157,6 +157,21 @@ If PsychoPy crashes while trying to open the Package manager make sure to run Ps
 
 Open `src/begiBrainDemo.psyexp` in PsychoPy Builder and press **Run**. The configuration GUI opens first, where you choose the modules and tests to run.
 
+The GUI also sets up the session:
+
+- **General configuration**: language (Spanish, English or Basque: instructions and on-screen texts exist in all three), general tutorial (a single button-panel screen) and test tutorials; output screen and window mode; load / save the protocol (a JSON file with the GUI configuration).
+- **Window modes**:
+  - *Borderless full-screen window*, the default, covers the whole monitor at its native resolution and can be captured by Gazepoint or OBS. Its timing is worse: do not use it for saccades, antisaccades or reaction times.
+  - *Full screen* gives the best timing. Screen capture tools, such as Gazepoint's live view, cannot see it.
+  - *Small window* is for testing only.
+  - *Builder window* is the previous 1920×1080 window. Its size is in physical pixels, so on a 4K monitor it covers a quarter of the screen.
+
+  The monitor and the mode are remembered on each computer.
+- **Load last protocol at start** (advanced options): when ticked, the protocol used in the session is loaded the next time the GUI opens. The window title then says so.
+- **Detected peripherals**: button box (BBTK), eye tracker, eye-tracker biometrics (a valid dial value in Gazepoint Control), DVS camera and EEG (not integrated yet). The panel checks them every 5 s.
+
+With Gazepoint Control running, PsychoPy also records the eye tracker. Next to the PsychoPy data it writes `<data>_gazepoint.csv`, with every sample on the PsychoPy clock, and `<data>_events.csv`, with the onset and offset of every routine. The same markers go to the Gazepoint `USER` field. This is an additional path: keep recording with Gazepoint Analysis, which the analysis pipeline reads. It can be turned off in the advanced options.
+
 ## 📩 Contact and Contributions
 
 unai.sainz.bc@gmail.com

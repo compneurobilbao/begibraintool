@@ -13,8 +13,14 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, colorchooser
 from PIL import Image, ImageTk, ImageSequence
 import json
+import os
+import queue
+import threading
+import time
 # from python_scripts 
 import gui_config_manager
+import peripherals          # detected peripherals panel (USB + Gazepoint Control)
+import screen_selection     # output monitor and window mode of the experiment
 import matplotlib.colors as mcolors
 
 ##############################################################
@@ -26,14 +32,14 @@ import matplotlib.colors as mcolors
 DEBUG_LAYOUT = False  # Enable/disable debug layout colors
 
 WINDOW_WIDTH_RATIO = 0.9
-WINDOW_HEIGHT_RATIO = 0.8
+WINDOW_HEIGHT_RATIO = 0.85
 
 NORTH_RATIO = 0.15
-SOUTH_RATIO = 0.05
+SOUTH_RATIO = 0.02
 
-CENTER_TOP_RATIO = 0.25
-CENTER_MIDDLE_RATIO = 0.5
-CENTER_BOTTOM_RATIO = 0.25
+CENTER_TOP_RATIO = 0.26
+CENTER_MIDDLE_RATIO = 0.45
+CENTER_BOTTOM_RATIO = 0.29
 
 #FONT SIZE CONFIG
 FONT_SCALE = 1.3#1.85#1.30 # Default - changed dynamically below
@@ -55,6 +61,17 @@ TITLE_FG = "#261866"
 BASE_COLOR = "#261866"
 
 GIF_CACHE = {}  # Cache por ruta
+
+# Last monitor / window mode chosen in the GUI. A setting of this computer, not of the
+# protocol: it is not saved in the protocol JSON.
+SCREEN_SELECTION_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir,
+                                     "config_data", "last_screen_selection.json")
+PERIPHERALS_REFRESH_MS = 5000   # how often the peripherals panel checks the devices again
+
+# Pixel sizes (logo, tooltips, windows...) are multiplied by DPI / 96. The GUI makes the
+# process DPI aware (screen_selection.make_dpi_aware), so on a monitor with Windows
+# scaling it works in physical pixels; fonts in points already follow the DPI.
+UI_SCALE = 1.0  # set by BegibraintoolGUI
 
 ##############################################################
 
@@ -166,13 +183,46 @@ class TopBanner:
 
 class GeneralConfigPanel:
     """
-    Builds a dynamic General Configuration panel from `general_config`.
-    - Distributes items into 3 columns + right column with Run button.
+    Builds the General Configuration panel from `general_config`.
+    - Left column: every general_config item (language, general and specific tutorial).
+    - Middle column: screen configuration, i.e. output monitor and window mode
+      (python_scripts/screen_selection.py), kept in the `screen_selection_dict` given.
+    - Right column: load / save protocol buttons and the estimated time.
     - Supports 'radio_button', bool, str (with options => Combobox), and 'file_path' types.
     - Localizes labels/tooltips using general_config["language"].
     - Keeps general_config[...] ["value"] in sync with UI.
     """
-    def __init__(self, parent, general_config_dict, tooltip_factory, on_run=None, on_load=None, compute_time_fn=None, on_language_change=None):
+    SCREEN_TEXTS = {
+        "title": {"es": "Configuración de pantalla", "en": "Screen configuration", "eu": "Pantailaren konfigurazioa"},
+        "screen": {"es": "Pantalla de salida", "en": "Output screen", "eu": "Irteerako pantaila"},
+        "mode": {"es": "Modo de ventana", "en": "Window mode", "eu": "Leiho modua"},
+        "screen_tip": {
+            "es": "Monitor donde se abre el experimento, con su resolución nativa (detectado con pyglet, "
+                  "como lo verá PsychoPy). La elección se recuerda en este equipo.",
+            "en": "Monitor where the experiment opens, with its native resolution (detected with pyglet, "
+                  "as PsychoPy will see it). The choice is remembered on this computer.",
+            "eu": "Esperimentua irekitzen den monitorea, bere bereizmen natiboarekin. "
+                  "Aukera ordenagailu honetan gogoratzen da."},
+    }
+    BUTTON_TEXTS = {
+        "load": {"es": "📂 Cargar protocolo", "en": "📂 Load protocol", "eu": "📂 Kargatu protokoloa"},
+        "save": {"es": "💾 Guardar protocolo", "en": "💾 Save protocol", "eu": "💾 Gorde protokoloa"},
+        "load_tip": {
+            "es": "Carga un protocolo guardado: fichero JSON con la configuración de la GUI "
+                  "(idioma, tutoriales, tests seleccionados y opciones).",
+            "en": "Load a saved protocol: JSON file with the GUI configuration "
+                  "(language, tutorials, selected tests and options).",
+            "eu": "Kargatu gordetako protokolo bat: GUIaren konfigurazioa duen JSON fitxategia."},
+        "save_tip": {
+            "es": "Guarda la configuración actual como protocolo (fichero JSON): idioma, tutoriales, "
+                  "tests seleccionados y opciones. La pantalla no va en el protocolo: se recuerda en este equipo.",
+            "en": "Save the current configuration as a protocol (JSON file): language, tutorials, "
+                  "selected tests and options. The screen is not part of the protocol: it is remembered on this computer.",
+            "eu": "Gorde uneko konfigurazioa protokolo gisa (JSON fitxategia)."},
+    }
+
+    def __init__(self, parent, general_config_dict, tooltip_factory, on_run=None, on_load=None, compute_time_fn=None, on_language_change=None,
+                 screens=None, screen_selection_dict=None):
         self.parent = parent
         self.general_config = general_config_dict
         self.create_tooltip = tooltip_factory
@@ -180,10 +230,12 @@ class GeneralConfigPanel:
         self.on_load = on_load or (lambda: print("Load config not connected"))
         self.compute_estimated_time = compute_time_fn or (lambda modules: 0)
         self.on_language_change = on_language_change or (lambda: None)
+        self.screens = screens or screen_selection.detect_screens()
+        self.screen_selection = (screen_selection_dict if screen_selection_dict is not None
+                                 else screen_selection.default_selection(self.screens))
 
         self.BG = "#f7f7f7"
         self.FONT_TITLE = scaled_font(PANEL_TITLE_SIZE, "bold")
-        self.NUM_COLUMNS = 3  # +1 implicit for Run at the right
         self.field_vars = {}  # key -> tk.Variable | (tick_var, path_var)
         self.lang_var = None  # reference for language Combo
 
@@ -246,68 +298,142 @@ class GeneralConfigPanel:
         )
         title_lbl.pack(fill="x")
 
-        # Column container
+        # Column container: fields | screen configuration | buttons
         col_container = tk.Frame(self.frame, background=self.BG)
         col_container.pack(fill="x", padx=10, pady=5)
+        for i, weight in enumerate((2, 5, 2)):
+            col_container.grid_columnconfigure(i, weight=weight, uniform="general_columns")
+        col_container.grid_rowconfigure(0, weight=1)
 
-        # 🔹 Crear columnas PRIMERO
         self.columns = []
-        for i in range(self.NUM_COLUMNS + 1):  # +1 columna para botones
+        for i in range(3):
             col = tk.Frame(col_container, background=self.BG)
-            col.pack(side="left", expand=True, fill="both", padx=5)
+            col.grid(row=0, column=i, sticky="nsew", padx=5)
             self.columns.append(col)
+        fields_col, screen_col, right_col = self.columns
 
-        # 🔹 Poblar campos en las primeras columnas
+        # 🔹 Language, general tutorial and specific tutorial in the same column
         keys = list(self.general_config.keys())
         if "language" in keys:
             keys.remove("language")
             keys.insert(0, "language")
+        for key in keys:
+            self._create_field(fields_col, key, self.general_config[key])
 
-        per_col = (len(keys) + self.NUM_COLUMNS - 1) // self.NUM_COLUMNS
-        for idx, key in enumerate(keys):
-            col_idx = min(idx // per_col, self.NUM_COLUMNS - 1)
-            self._create_field(self.columns[col_idx], key, self.general_config[key])
+        # 🔹 Screen configuration (output monitor + window mode) in the freed column
+        self._build_screen_config(screen_col)
 
-        # 🔹 AHORA usar la última columna (botones + tiempo)
-        right_col = self.columns[-1]
+        # 🔹 Load / save protocol + estimated time
+        self._build_buttons(right_col)
+        self.update_time()
 
-        # Contenedor horizontal para botones + tiempo
-        top_row = tk.Frame(right_col, background=self.BG)
-        top_row.pack(fill="x", pady=(10, 15))
+    def _build_screen_config(self, parent):
+        """Output monitor and window mode, as two drop-down lists (as compact as the
+        language + tutorials column) and a warning line for the modes other than full screen."""
+        lang = self._current_lang()
+        T = self.SCREEN_TEXTS
+        parent.grid_columnconfigure(1, weight=1)
 
-        # Botón Cargar 📂
+        ttk.Label(parent, text=T["title"].get(lang, T["title"]["en"]),
+                  font=scaled_font(TEXT_SIZE, "bold")).grid(row=0, column=0, columnspan=2, sticky="w")
+
+        # output monitor (pyglet index = PsychoPy 'screen' in code; shown from 1 as in Builder)
+        ttk.Label(parent, text=T["screen"].get(lang, T["screen"]["en"]) + ":").grid(
+            row=1, column=0, sticky="w", padx=(0, 10), pady=2)
+        self._screen_labels = [screen_selection.screen_label(s, lang) for s in self.screens]
+        current = self.screen_selection.get("screen", self.screens[-1]["index"])
+        pos = next((i for i, s in enumerate(self.screens) if s["index"] == current), len(self.screens) - 1)
+        self.screen_combo = ttk.Combobox(parent, values=self._screen_labels, state="readonly",
+                                         width=max(len(x) for x in self._screen_labels) + 2)
+        self.screen_combo.current(pos)
+        self.screen_combo.grid(row=1, column=1, sticky="w", pady=2)
+        self.screen_combo.bind("<<ComboboxSelected>>", self._on_screen_change)
+        self.create_tooltip(self.screen_combo, T["screen_tip"].get(lang, T["screen_tip"]["en"]))
+
+        # window mode
+        ttk.Label(parent, text=T["mode"].get(lang, T["mode"]["en"]) + ":").grid(
+            row=2, column=0, sticky="w", padx=(0, 10), pady=2)
+        self._mode_keys = list(screen_selection.WINDOW_MODES)
+        mode_labels = [screen_selection.WINDOW_MODES[k]["label"].get(lang, screen_selection.WINDOW_MODES[k]["label"]["en"])
+                       for k in self._mode_keys]
+        self.mode_combo = ttk.Combobox(parent, values=mode_labels, state="readonly",
+                                       width=max(len(x) for x in mode_labels) + 2)
+        self.mode_combo.current(self._mode_keys.index(screen_selection.window_mode(self.screen_selection)))
+        self.mode_combo.grid(row=2, column=1, sticky="w", pady=2)
+        self.mode_combo.bind("<<ComboboxSelected>>", self._on_mode_change)
+
+        # description (tooltip) and warning of the selected mode
+        self.mode_warning = tk.Label(parent, text="", background=self.BG, fg="#b45309",
+                                     font=scaled_font(TEXT_SIZE - 2, "bold"), justify="left", anchor="w")
+        self.mode_warning.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(2, 0))
+        parent.bind("<Configure>", lambda e: self.mode_warning.config(wraplength=max(150, e.width - 10)))
+        self._update_mode_warning()
+
+    def _selected_mode(self):
+        return self._mode_keys[self.mode_combo.current()]
+
+    def _on_screen_change(self, event=None):
+        self.screen_selection["screen"] = self.screens[self.screen_combo.current()]["index"]
+
+    def _on_mode_change(self, event=None):
+        mode = self._selected_mode()
+        self.screen_selection["window_mode"] = mode
+        self._update_mode_warning()
+        if mode == "borderless":      # warn: it goes through the Windows compositor (timing)
+            lang = self._current_lang()
+            info = screen_selection.WINDOW_MODES[mode]
+            messagebox.showwarning(info["label"].get(lang, info["label"]["en"]),
+                                   info["tooltip"].get(lang, info["tooltip"]["en"]), parent=self.frame)
+
+    def _update_mode_warning(self):
+        lang = self._current_lang()
+        mode = self._selected_mode()
+        warning = screen_selection.MODE_WARNINGS.get(mode, {})
+        self.mode_warning.config(text=warning.get(lang, warning.get("en", "")))
+        info = screen_selection.WINDOW_MODES[mode]["tooltip"]
+        self.create_tooltip(self.mode_combo, info.get(lang, info["en"]))
+
+    def _build_buttons(self, parent):
+        lang = self._current_lang()
+        T = self.BUTTON_TEXTS
+
+        # Botón Cargar protocolo 📂
         load_btn = tk.Button(
-            top_row,
-            text="📂",
-            font=scaled_font(20, "bold"),
+            parent,
+            text=T["load"].get(lang, T["load"]["en"]),
+            font=scaled_font(12, "bold"),
             bg="#2980b9",
             fg="white",
-            width=3,
+            activebackground="#3498db",
+            activeforeground="white",
             command=self.on_load
         )
-        load_btn.pack(side="left", padx=(0, 5))
+        load_btn.pack(fill="x", pady=(4, 2))
+        self.create_tooltip(load_btn, T["load_tip"].get(lang, T["load_tip"]["en"]))
 
-        # Botón Guardar 💾
+        # Botón Guardar protocolo 💾
         save_btn = tk.Button(
-            top_row,
-            text="💾",
-            font=scaled_font(20, "bold"),
+            parent,
+            text=T["save"].get(lang, T["save"]["en"]),
+            font=scaled_font(12, "bold"),
             bg="#27ae60",
             fg="white",
-            width=3,
+            activebackground="#2ecc71",
+            activeforeground="white",
             command=gui_config_manager.save_configuration_to_file,
         )
-        save_btn.pack(side="left", padx=(0, 5))
+        save_btn.pack(fill="x", pady=2)
+        self.create_tooltip(save_btn, T["save_tip"].get(lang, T["save_tip"]["en"]))
 
         # Tiempo estimado grande ⏱️
         self.time_label = tk.Label(
-            top_row,
+            parent,
             text="⏱️ 0 min",
-            font=scaled_font(18, "bold"),
+            font=scaled_font(15, "bold"),
             fg="black",
             background=self.BG
         )
-        self.time_label.pack(side="left", padx=(10, 0))
+        self.time_label.pack(pady=(2, 0))
 
     def _create_field(self, parent, key, cfg):
         ftype = cfg.get("type")
@@ -439,24 +565,8 @@ class GeneralConfigPanel:
         self.on_language_change()
 
     def _refresh_texts(self):
-        """Refresh label texts and tooltips in-place without rebuilding layout."""
-
-        # Iterate blocks by scanning the layout created in _create_field
-        key_idx = 0
-        per_col = (len(self.general_config.keys()) + self.NUM_COLUMNS - 1) // self.NUM_COLUMNS
-        for col_i in range(self.NUM_COLUMNS):  # only the first 3 columns contain fields
-            col = self.columns[col_i]
-            for block in col.winfo_children():
-                # blocks created by _create_field are tk.Frame; map back to key order
-                if key_idx >= len(self.general_config):
-                    break
-                # Compute which key this block belongs to (robust mapping via field_vars order)
-                # Safer: iterate general_config keys in the same order used in _build
-                pass
-        # Simpler: Full rebuild is the most reliable for i18n changes:
-        self.frame.destroy()
+        """Refresh texts after a language change: full rebuild (values and screen selection are kept)."""
         self._build()
-        self.update_time()
 
     def _handle_run(self):
         # Produce a clean dict snapshot with user selections
@@ -623,7 +733,7 @@ class ModuleSelectionPanel:
 
         top = tk.Toplevel(self.parent)
         top.title(self.module_data["name"].get(lang, self.module_key))
-        top.geometry("720x560")
+        top.geometry(f"{int(720 * UI_SCALE)}x{int(560 * UI_SCALE)}")
         top.grab_set()
 
         # style = ttk.Style()
@@ -939,12 +1049,13 @@ class AdvancedOptionsPanel:
     - Organizes items into multiple columns.
     - Supports bool, str with options (combobox), and int/float/free entry.
     """
-    def __init__(self, parent, config_dict, get_current_language, tooltip_factory, num_columns=3):
+    def __init__(self, parent, config_dict, get_current_language, tooltip_factory, num_columns=3, fill_parent=False):
         self.parent = parent
         self.config = config_dict
         self.get_lang = get_current_language  # function returning "es", "en", or "eu"
         self.create_tooltip = tooltip_factory
         self.num_columns = num_columns
+        self.fill_parent = fill_parent        # True: take the whole height of the parent (main window row)
         self.vars = {}  # key -> tk.Variable
 
         self.BG = "#f7f7f7"
@@ -966,7 +1077,10 @@ class AdvancedOptionsPanel:
             child.destroy()
 
         self.frame = tk.Frame(self.parent, background=self.BG, highlightbackground=BASE_COLOR, highlightthickness=1)
-        self.frame.pack(fill="x", padx=10, pady=5)
+        if self.fill_parent:
+            self.frame.pack(fill="both", expand=True, padx=10, pady=5)
+        else:
+            self.frame.pack(fill="x", padx=10, pady=5)
 
         # Banner del panel
         header = tk.Label(
@@ -983,7 +1097,7 @@ class AdvancedOptionsPanel:
 
         # Subcontenedor para columnas
         cols_frame = tk.Frame(self.frame, background=self.BG)
-        cols_frame.pack(fill="x", padx=10, pady=10)
+        cols_frame.pack(fill="x", padx=10, pady=(4, 2))   # tight: the last row must fit on 200 % screens
 
         # Crear columnas horizontales (con pack left)
         self.columns = []
@@ -1110,6 +1224,181 @@ class AdvancedOptionsPanel:
     def refresh_language(self):
         """Refresh labels and tooltips after language change."""
         self.frame.destroy()
+        self._build()
+
+class PeripheralsPanel:
+    """
+    'DETECTED PERIPHERALS' panel (python_scripts/peripherals.py). One row per peripheral
+    (button box, eye tracker, eye tracker biometrics, DVS camera, EEG) with a coloured
+    dot (green connected, amber partial, red not connected), its name and its state.
+    The tooltip of each row says what was found. The devices are checked in a
+    background thread every PERIPHERALS_REFRESH_MS and with the refresh button.
+    """
+    TEXTS = {
+        "checking": {"es": "Comprobando…", "en": "Checking…", "eu": "Egiaztatzen…"},
+        "refresh": {"es": "↻ Actualizar", "en": "↻ Refresh", "eu": "↻ Eguneratu"},
+        "checked": {"es": "Comprobado a las {}", "en": "Checked at {}", "eu": "Egiaztatua: {}"},
+    }
+
+    def __init__(self, parent, get_current_language):
+        self.parent = parent
+        self.get_lang = get_current_language
+        self.BG = "#f7f7f7"
+        self.status = {}          # last peripherals.detect_all() result
+        self.checked_at = None
+        self._queue = queue.Queue()
+        self._busy = False
+        self._alive = True
+        self._next_job = None
+        self._poll_job = None
+        self._tip = None
+
+        self._build()
+        self.refresh()
+        self._poll()
+
+    def _t(self, key):
+        return self.TEXTS[key].get(self.get_lang(), self.TEXTS[key]["en"])
+
+    def _build(self):
+        for child in self.parent.winfo_children():
+            child.destroy()
+        lang = self.get_lang()
+
+        self.frame = tk.Frame(self.parent, background=self.BG, highlightbackground=BASE_COLOR, highlightthickness=1)
+        self.frame.pack(fill="both", expand=True, padx=10, pady=5)
+        header = tk.Frame(self.frame, bg=BASE_COLOR)
+        header.pack(fill="x")
+        # refresh button in the header (its tooltip says when the devices were checked)
+        self.refresh_btn = tk.Button(header, text="↻", font=scaled_font(PANEL_TITLE_SIZE - 2, "bold"),
+                                     bg=BASE_COLOR, fg="white", activebackground="#3b2a8a",
+                                     activeforeground="white", relief="flat", bd=0, cursor="hand2",
+                                     command=self.refresh)
+        self.refresh_btn.pack(side="right", padx=(0, 10))
+        self.refresh_btn.bind("<Enter>", lambda e: self._show_tip(self.refresh_btn, None))
+        self.refresh_btn.bind("<Leave>", lambda e: self._hide_tip())
+        tk.Label(
+            header,
+            text="DETECTED PERIPHERALS",
+            font=scaled_font(PANEL_TITLE_SIZE, "bold"),
+            bg=BASE_COLOR,
+            fg="white",
+            anchor="center",
+            padx=10,
+            pady=6
+        ).pack(side="left", fill="x", expand=True)
+
+        body = tk.Frame(self.frame, background=self.BG)
+        body.pack(fill="both", expand=True, padx=20, pady=(6, 6))
+        body.grid_columnconfigure(1, weight=1)
+        d = int(16 * UI_SCALE)
+        self.rows = {}
+        for i, p in enumerate(peripherals.PERIPHERALS):
+            dot = tk.Canvas(body, width=d, height=d, background=self.BG, highlightthickness=0)
+            oval = dot.create_oval(1, 1, d - 1, d - 1, fill="#c8c8c8", outline="")
+            dot.grid(row=i, column=0, padx=(0, 12), pady=1)
+            name = tk.Label(body, text=p["name"].get(lang, p["name"]["en"]), font=scaled_font(TEXT_SIZE, "bold"),
+                            background=self.BG, fg=BASE_COLOR, anchor="w")
+            name.grid(row=i, column=1, sticky="w")
+            state = tk.Label(body, text=self._t("checking"), font=scaled_font(TEXT_SIZE),
+                             background=self.BG, fg=BASE_COLOR, anchor="e")
+            state.grid(row=i, column=2, sticky="e")
+            for w in (dot, name, state):
+                w.bind("<Enter>", lambda e, k=p["key"], w=w: self._show_tip(w, k))
+                w.bind("<Leave>", lambda e: self._hide_tip())
+            self.rows[p["key"]] = (dot, oval, state)
+        self._apply()
+
+    def _apply(self):
+        """Show self.status (dot colour, state text, time of the check)."""
+        lang = self.get_lang()
+        for key, (dot, oval, state_lbl) in self.rows.items():
+            info = self.status.get(key)
+            if info is None:
+                continue
+            st = info["state"]
+            dot.itemconfig(oval, fill=peripherals.STATE_COLORS[st])
+            state_lbl.config(text=peripherals.STATE_TEXT[st].get(lang, peripherals.STATE_TEXT[st]["en"]))
+        self.refresh_btn.config(text="⋯" if self._busy else "↻")
+
+    def refresh(self):
+        """Check the devices again, in a background thread (the Gazepoint check takes ~1 s)."""
+        if self._busy or not self._alive:
+            return
+        self._busy = True
+        try:
+            self.refresh_btn.config(text="⋯")
+        except tk.TclError:
+            pass
+
+        def work():
+            try:
+                result = peripherals.detect_all()
+            except Exception as e:  # never break the GUI because of a device check
+                print(f"[Peripherals] detection failed: {e}")
+                result = None
+            self._queue.put(result)
+
+        threading.Thread(target=work, name="peripherals-check", daemon=True).start()
+
+    def _poll(self):
+        """Collect the results of the background checks (Tk widgets only from this thread)."""
+        if not self._alive:
+            return
+        try:
+            while True:
+                result = self._queue.get_nowait()
+                self._busy = False
+                if result is not None:
+                    self.status = result
+                    self.checked_at = time.strftime("%H:%M:%S")
+                self._apply()
+                if self._next_job is not None:
+                    self.parent.after_cancel(self._next_job)
+                self._next_job = self.parent.after(PERIPHERALS_REFRESH_MS, self.refresh)
+        except queue.Empty:
+            pass
+        except tk.TclError:
+            return
+        self._poll_job = self.parent.after(200, self._poll)
+
+    def _show_tip(self, widget, key):
+        self._hide_tip()
+        if key is None:       # refresh button
+            text = self._t("refresh")
+            if self.checked_at:
+                text += "\n" + self._t("checked").format(self.checked_at)
+        else:
+            info = self.status.get(key)
+            text = info["detail"].get(self.get_lang(), info["detail"]["en"]) if info else self._t("checking")
+        tip = tk.Toplevel(widget)
+        tip.wm_overrideredirect(True)
+        tip.config(bg="#ffffe0")
+        tk.Label(tip, text=text, bg="#ffffe0", justify="left", wraplength=int(320 * UI_SCALE),
+                 font=scaled_font(TOOLTIP_SIZE, "bold", family="tahoma"), padx=6, pady=5).pack()
+        tip.geometry(f"+{widget.winfo_rootx() + 20}+{widget.winfo_rooty() + 20}")
+        self._tip = tip
+
+    def _hide_tip(self):
+        if self._tip is not None:
+            try:
+                self._tip.destroy()
+            except tk.TclError:
+                pass
+            self._tip = None
+
+    def stop(self):
+        """Stop the periodic checks (called when the GUI closes)."""
+        self._alive = False
+        self._hide_tip()
+        for job in (self._next_job, self._poll_job):
+            if job is not None:
+                try:
+                    self.parent.after_cancel(job)
+                except tk.TclError:
+                    pass
+
+    def refresh_language(self):
         self._build()
 
 class ModuleAdvancedWindow:
@@ -1243,8 +1532,33 @@ class BegibraintoolGUI:
         self.advanced_config = gui_config_manager.advanced_config
         self.modules = gui_config_manager.modules
 
+        # Last protocol used, if it was saved with the advanced option "Load last protocol at
+        # start" ticked (gui_config_manager.CONFIG_FILE): applied before building the panels.
+        self.last_protocol = gui_config_manager.load_last_protocol()
+        if self.last_protocol:
+            self._apply_protocol(self.last_protocol)
+            print("Last protocol loaded:", gui_config_manager.CONFIG_FILE,
+                  "| saved", self.last_protocol.get("saved_at", "?"))
+
+        # Monitors: per-monitor DPI awareness BEFORE measuring them and before creating the
+        # Tk window, so the GUI lists the native resolutions (screen_selection.py).
+        global UI_SCALE
+        screen_selection.make_dpi_aware()
+        self.screens = screen_selection.detect_screens()
+        self.screen_selection = screen_selection.default_selection(
+            self.screens, screen_selection.load_selection(SCREEN_SELECTION_FILE))
+        self.peripherals_status = {}
+        self._finished = False
+
         self.root = tk.Tk()
-        self.root.title("Begibraintool Configuration")
+        title = "Begibraintool Configuration"
+        if self.last_protocol:
+            lang = self.general_config["language"]["value"] or self.general_config["language"]["default"]
+            loaded = {"es": "último protocolo cargado", "en": "last protocol loaded",
+                      "eu": "azken protokoloa kargatuta"}.get(lang, "last protocol loaded")
+            title += f"  -  {loaded} ({self.last_protocol.get('saved_at', '?')})"
+        self.root.title(title)
+        UI_SCALE = max(1.0, self.root.winfo_fpixels("1i") / 96.0)
 
         # Calculate screen size and apply ratios
         screen_w = self.root.winfo_screenwidth()
@@ -1254,7 +1568,7 @@ class BegibraintoolGUI:
 
         # Center window
         x = (screen_w - win_w) // 2
-        y = (screen_h - win_h) // 2
+        y = max(0, (screen_h - win_h) // 2 - int(30 * UI_SCALE))  # minus the title bar: keep the taskbar visible
         self.root.geometry(f"{win_w}x{win_h}+{x}+{y}")
 
         # Recalculate font scale based on screen width
@@ -1289,8 +1603,26 @@ class BegibraintoolGUI:
 
     
     def _on_run_clicked(self, config_values):
+            self._finish()
             self.root.quit()
             self.root.destroy()
+
+    def _finish(self):
+        """Once, when the GUI closes: remember the screen selection and the protocol used, keep
+        the peripherals found."""
+        if self._finished:
+            return
+        self._finished = True
+        # the experiment runs with this protocol (Run, or closing the window); it is loaded at
+        # the next start only if "Load last protocol at start" is ticked
+        gui_config_manager.save_last_protocol(self.general_config, self.advanced_config, self.modules)
+        if hasattr(self, "peripherals_panel"):
+            self.peripherals_status = dict(self.peripherals_panel.status)
+            self.peripherals_panel.stop()
+        self.screen_selection = screen_selection.save_selection(SCREEN_SELECTION_FILE, self.screen_selection,
+                                                                self.screens)
+        print("Screen selection:", self.screen_selection)
+        print("Peripherals:", peripherals.summary(self.peripherals_status))
 
     def _build_layout(self, win_w, win_h):
         # Configure root grid (3x3 like BorderLayout)
@@ -1334,7 +1666,13 @@ class BegibraintoolGUI:
         # Configure size proportions
         # =======================
         # North and South heights
-        self.root.grid_rowconfigure(0, minsize=int(win_h * NORTH_RATIO))  
+        # Logo: scaled with the DPI, but at most 14 % of the window height (on a laptop at
+        # 200 % it would otherwise take a quarter of the window). Never below LOGO_SIZE.
+        logo_scale = max(1.0, min(UI_SCALE, 0.14 * win_h / LOGO_SIZE[1]))
+        self.logo_size = (int(LOGO_SIZE[0] * logo_scale), int(LOGO_SIZE[1] * logo_scale))
+        # the banner is at least as tall as the logo (+20 px of padding)
+        north_h = max(int(win_h * NORTH_RATIO), self.logo_size[1] + 20)
+        self.root.grid_rowconfigure(0, minsize=north_h)  
         self.root.grid_rowconfigure(2, minsize=int(win_h * SOUTH_RATIO))  
 
         # Center frame takes all remaining space, divide it internally
@@ -1342,11 +1680,8 @@ class BegibraintoolGUI:
         self.frame_center.grid_rowconfigure(1, weight=1)
         self.frame_center.grid_rowconfigure(2, weight=1)
 
-        # Set explicit heights inside center frame
-        center_total_height = win_h * (1 - NORTH_RATIO - SOUTH_RATIO)  # height left after north & south
-        self.frame_center.grid_rowconfigure(0, minsize=int(center_total_height * CENTER_TOP_RATIO))
-        self.frame_center.grid_rowconfigure(1, minsize=int(center_total_height * CENTER_MIDDLE_RATIO))
-        self.frame_center.grid_rowconfigure(2, minsize=int(center_total_height * CENTER_BOTTOM_RATIO))
+        # Explicit heights inside center frame: set by _size_center_rows() once the banner
+        # exists, from its real height
         self.frame_center.grid_columnconfigure(0, weight=1)
 
         # =======================
@@ -1415,7 +1750,7 @@ class BegibraintoolGUI:
             title_text="BEGIBRAINTOOL",
             bg=BANNER_BG,
             fg=TITLE_FG,
-            logo_size=LOGO_SIZE,
+            logo_size=self.logo_size,
             on_run=lambda: self._on_run_clicked(self._snapshot_general_config()),
             get_time_estimate=lambda: self.compute_estimated_time(self.modules)
         )
@@ -1427,16 +1762,36 @@ class BegibraintoolGUI:
             on_run=self._on_run_clicked,
             on_load=self.load_configuration_from_file,
             compute_time_fn=self.compute_estimated_time,
-            on_language_change=self.refresh_all_language
+            on_language_change=self.refresh_all_language,
+            screens=self.screens,
+            screen_selection_dict=self.screen_selection
         )
 
-        # Advanced options panel (bottom center)
+        # Bottom row: advanced options (narrower, 2 columns) | detected peripherals
+        self.frame_center_bottom.grid_rowconfigure(0, weight=1)
+        self.frame_center_bottom.grid_columnconfigure(0, weight=3, uniform="bottom_row")
+        self.frame_center_bottom.grid_columnconfigure(1, weight=2, uniform="bottom_row")
+        advanced_frame = tk.Frame(self.frame_center_bottom)
+        self.debug_frame(advanced_frame, "lightcyan")
+        advanced_frame.grid(row=0, column=0, sticky="nsew")
+        peripherals_frame = tk.Frame(self.frame_center_bottom)
+        self.debug_frame(peripherals_frame, "lavender")
+        peripherals_frame.grid(row=0, column=1, sticky="nsew")
+
+        # Advanced options panel (bottom left)
         self.advanced_panel = AdvancedOptionsPanel(
-            parent=self.frame_center_bottom,
+            parent=advanced_frame,
             config_dict=self.advanced_config,
             get_current_language=lambda: self.general_config["language"]["value"] or self.general_config["language"]["default"],
             tooltip_factory=self.create_tooltip,
-            num_columns=3
+            num_columns=2,
+            fill_parent=True
+        )
+
+        # Detected peripherals panel (bottom right)
+        self.peripherals_panel = PeripheralsPanel(
+            parent=peripherals_frame,
+            get_current_language=lambda: self.general_config["language"]["value"] or self.general_config["language"]["default"]
         )
 
         # Create module panels dynamically
@@ -1458,6 +1813,18 @@ class BegibraintoolGUI:
             )
 
             self.module_panels.append(panel)
+
+        self._size_center_rows(win_h)
+
+    def _size_center_rows(self, win_h):
+        """Split the height left by the banner (measured: the title font can make it taller
+        than NORTH_RATIO) and the south row among the three centre rows."""
+        self.root.update_idletasks()
+        north_h = max(int(win_h * NORTH_RATIO), self.frame_north.winfo_reqheight())
+        center_total_height = win_h - north_h - int(win_h * SOUTH_RATIO)  # height left after north & south
+        self.frame_center.grid_rowconfigure(0, minsize=int(center_total_height * CENTER_TOP_RATIO))
+        self.frame_center.grid_rowconfigure(1, minsize=int(center_total_height * CENTER_MIDDLE_RATIO))
+        self.frame_center.grid_rowconfigure(2, minsize=int(center_total_height * CENTER_BOTTOM_RATIO))
 
     def debug_frame(self, frame, color="red"):
         """If DEBUG_LAYOUT is active, add border and background color to the frame."""
@@ -1508,7 +1875,7 @@ class BegibraintoolGUI:
             frame.pack()
 
             lbl = tk.Label(frame, text=text, bg="#ffffe0", justify="left",
-                        anchor="w", wraplength=300,
+                        anchor="w", wraplength=int(300 * UI_SCALE),
                         font=scaled_font(TOOLTIP_SIZE, "bold", family="tahoma"))
             lbl.pack(anchor="w")
 
@@ -1585,11 +1952,17 @@ class BegibraintoolGUI:
 
         _merge(target, source)
 
+    def _apply_protocol(self, data):
+        """Merge a saved protocol (JSON of 'Guardar protocolo') into the three dictionaries."""
+        self.update_config_values(self.general_config,  data.get("general_config", {}))
+        self.update_config_values(self.advanced_config, data.get("advanced_config", {}))
+        self.update_config_values(self.modules,         data.get("modules", {}))
+
     def load_configuration_from_file(self):
         file_path = filedialog.askopenfilename(
             defaultextension=".json",
             filetypes=[("JSON files", "*.json")],
-            title="Cargar configuración"
+            title="Cargar protocolo (configuración de la GUI)"
         )
         if not file_path:
             return
@@ -1599,9 +1972,7 @@ class BegibraintoolGUI:
                 data = json.load(f)
 
             # 1) merge seguro SOBRE self.*, no sobre gui_config_manager
-            self.update_config_values(self.general_config,  data.get("general_config", {}))
-            self.update_config_values(self.advanced_config, data.get("advanced_config", {}))
-            self.update_config_values(self.modules,         data.get("modules", {}))
+            self._apply_protocol(data)
 
             # 2) refrescar UI
             self.general_panel._build()
@@ -1610,7 +1981,7 @@ class BegibraintoolGUI:
             for p in self.module_panels:
                 p._build()
 
-            messagebox.showinfo("Éxito", "Configuración cargada correctamente.")
+            messagebox.showinfo("Éxito", "Protocolo (configuración) cargado correctamente.")
 
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo cargar el archivo:\n{e}")
@@ -1631,6 +2002,7 @@ class BegibraintoolGUI:
         for panel in self.module_panels:
             panel.refresh_language()
         self.advanced_panel.refresh_language()
+        self.peripherals_panel.refresh_language()
 
     # def update_config_values(self, target_dict, source_dict):
     #     for key, value in source_dict.items():
@@ -1650,8 +2022,13 @@ class BegibraintoolGUI:
         return snap
 
     def run(self):
-        """Lanza el mainloop y devuelve los diccionarios de configuracion."""
+        """Lanza el mainloop y devuelve los diccionarios de configuracion.
+
+        The monitor and window mode chosen are in self.screen_selection (remembered in
+        config_data/last_screen_selection.json); the peripherals found when the GUI
+        closed are in self.peripherals_status."""
         self.root.mainloop()
+        self._finish()
         return self.general_config, self.advanced_config, self.modules
 
 ############################################################################################################################################################
